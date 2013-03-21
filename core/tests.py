@@ -1,8 +1,39 @@
 from django.test import TestCase
-from core.parser import get_value, get_date
-from core.models import Entry, Category
+from core.parser import get_value, get_date, get_category, get_description
+from core.models import Category
 from decimal import Decimal
 import datetime
+
+
+class DescriptionParsingTest(TestCase):
+    def test_type(self):
+        s = 'cat 40 "lots of stuff"'
+        self.assertIsInstance(get_description(s), str)
+
+    def test_get_description(self):
+        # Double quotes.
+        s = 'cat "lots of stuff" 40'
+        self.assertEquals(get_description(s), 'lots of stuff')
+
+        # Single quotes.
+        s = "cat 'lots of stuff' 40"
+        self.assertEquals(get_description(s), 'lots of stuff')
+
+        # Special characters.
+        s = "cat 'lots of stuff 34 $$ .;,~' 40"
+        self.assertEquals(get_description(s), 'lots of stuff 34 $$ .;,~')
+
+
+class CategoryParsingTest(TestCase):
+    def test_type(self):
+        self.assertIsInstance(get_category('category 50 10/01'), Category)
+
+    def test_get_category(self):
+        cat = get_category('example 50 10/01')
+        self.assertEquals(cat.name, 'example')
+
+        cat = get_category('50 example 10/01')
+        self.assertEquals(cat.name, 'example')
 
 
 class DateParsingTest(TestCase):
@@ -58,3 +89,9 @@ class ValueParsingTest(TestCase):
 
     def test_get_value_failure(self):
         self.assertEquals(get_value('no value'), None)
+
+
+class CategoryModelTest(TestCase):
+    def test_unicode(self):
+        cat = Category(name='test')
+        self.assertEquals(str(cat), 'test')

@@ -1,6 +1,23 @@
 import re
 from decimal import Decimal
+from core.models import Category
 import datetime
+
+
+def get_description(s):
+    pattern = r'(?<=[\"\'])(.*?)(?=[\"\'])'
+    value = re.search(pattern, s)
+    if value:
+        return value.group(0)
+    return None
+
+
+def get_category(s):
+    pattern = r'[a-zA-Z]+'
+    value = re.search(pattern, s)
+    if(value):
+        return Category(name=value.group(0))
+    return None
 
 
 def get_date(s):
