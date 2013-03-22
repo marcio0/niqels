@@ -6,21 +6,23 @@ import datetime
 
 
 class DescriptionParsingTest(TestCase):
+    # For now, description must be at the end.
+    # It starts with quotes ('), double quotes (") or sharp (#).
     def test_type(self):
-        s = 'cat 40 "lots of stuff"'
+        s = 'cat 40 "lots of stuff'
         self.assertIsInstance(get_description(s), str)
 
     def test_get_description(self):
         # Double quotes.
-        s = 'cat "lots of stuff" 40'
+        s = 'cat 40 "lots of stuff'
         self.assertEquals(get_description(s), 'lots of stuff')
 
         # Single quotes.
-        s = "cat 'lots of stuff' 40"
+        s = "cat 40 'lots of stuff"
         self.assertEquals(get_description(s), 'lots of stuff')
 
         # Special characters.
-        s = "cat 'lots of stuff 34 $$ .;,~' 40"
+        s = "cat 40 'lots of stuff 34 $$ .;,~"
         self.assertEquals(get_description(s), 'lots of stuff 34 $$ .;,~')
 
 

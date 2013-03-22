@@ -5,7 +5,10 @@ import datetime
 
 
 def get_description(s):
-    pattern = r'(?<=[\"\'])(.*?)(?=[\"\'])'
+    pattern = ''.join([
+        r'(?<=[\"\'])', # Starts with ' or ".
+        r'(.*)' # Anything after that.
+    ])
     value = re.search(pattern, s)
     if value:
         return value.group(0)
@@ -41,7 +44,7 @@ def get_date(s):
 
 
 def get_value(s):
-    pattern = r'[+-]?\d+(.\d+)?'
+    pattern = r'[+-]?\d+(\.\d+)?'
     value = re.search(pattern, s)
     if value:
         value = value.group(0)
