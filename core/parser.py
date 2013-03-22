@@ -6,26 +6,32 @@ import datetime
 
 def get_description(s):
     pattern = ''.join([
-        r'(?<=[\"\'])', # Starts with ' or ".
+        r'(?<=["\'])', # Starts with ' or ".
         r'(.*)' # Anything after that.
     ])
     value = re.search(pattern, s)
+
     if value:
         return value.group(0)
     return None
 
 
 def get_category(s):
-    pattern = r'[a-zA-Z]+'
+    pattern = r'[a-zA-Z]+' # A word.
     value = re.search(pattern, s)
+
     if(value):
         return Category(name=value.group(0))
     return None
 
 
 def get_date(s):
-    pattern = r'\d(\d)?/\d(\d)?(/(?P<Y>\d\d\d\d)|/(?P<y>\d\d))?'
+    pattern = ''.join([
+        r'\d(\d)?/\d(\d)?', # Month and day.
+        r'(/(?P<Y>\d\d\d\d)|/(?P<y>\d\d))?' # Year is optional. Might be 4 or 2 chars long.
+    ])
     value = re.search(pattern, s)
+
     if value:
         date_str = value.group(0)
 
@@ -44,11 +50,16 @@ def get_date(s):
 
 
 def get_value(s):
-    pattern = r'[+-]?\d+(\.\d+)?'
+    pattern = ''.join([
+        r'[+-]', # Might be declared as positive or negative.
+        r'?\d+', # Any number.
+        r'(.\d+)?' # Decimal values are optional.
+    ])
     value = re.search(pattern, s)
+
     if value:
         value = value.group(0)
         if value[0] not in '+-':
-            value = '-%s' % value
+            value = '-%s' % value # A negative value is default.
         return Decimal(value)
     return None
