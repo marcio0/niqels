@@ -4,6 +4,21 @@ from core.models import Category
 import datetime
 
 
+def parse_expense(s):
+    category = get_category(s)
+    value = get_value(s)
+    date = get_date(s)
+
+    if not date:
+        date = datetime.date.today()
+
+    return dict(
+        category=category,
+        value=value,
+        date=date
+    )
+    
+
 def get_description(s):
     pattern = ''.join([
         r'(?<=["\'])', # Starts with ' or ".
@@ -21,7 +36,7 @@ def get_category(s):
     value = re.search(pattern, s)
 
     if(value):
-        return Category(name=value.group(0))
+        return value.group(0)
     return None
 
 

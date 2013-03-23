@@ -1,8 +1,20 @@
 from django.test import TestCase
-from core.parser import get_value, get_date, get_category, get_description
+from core.parser import get_value, get_date, get_category, get_description, parse_expense
 from core.models import Category
 from decimal import Decimal
 import datetime
+
+
+class ExpenseParsingTest(TestCase):
+    def test_default_date(self):
+        s = 'Light 50'
+
+        expense = parse_expense(s)
+
+        self.assertIsInstance(expense, dict)
+        self.assertEquals(expense['value'], Decimal('-50'))
+        self.assertEquals(expense['category'], 'Light')
+        self.assertEquals(expense['date'], datetime.date.today())
 
 
 class DescriptionParsingTest(TestCase):
@@ -28,14 +40,14 @@ class DescriptionParsingTest(TestCase):
 
 class CategoryParsingTest(TestCase):
     def test_type(self):
-        self.assertIsInstance(get_category('category 50 10/01'), Category)
+        self.assertIsInstance(get_category('category 50 10/01'), str)
 
     def test_get_category(self):
         cat = get_category('example 50 10/01')
-        self.assertEquals(cat.name, 'example')
+        self.assertEquals(cat, 'example')
 
         cat = get_category('50 example 10/01')
-        self.assertEquals(cat.name, 'example')
+        self.assertEquals(cat, 'example')
 
 
 class DateParsingTest(TestCase):
