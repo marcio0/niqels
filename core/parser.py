@@ -66,9 +66,9 @@ def get_date(s):
 
 def get_value(s):
     pattern = ''.join([
-        r'[+-]', # Might be declared as positive or negative.
-        r'?\d+', # Any number.
-        r'(.\d+)?' # Decimal values are optional.
+        r'[+-]?', # Might be declared as positive or negative.
+        r'\d+', # Any number.
+        r'(\.\d+)?' # Decimal values are optional.
     ])
     value = re.search(pattern, s)
 
