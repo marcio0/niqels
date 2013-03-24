@@ -65,6 +65,7 @@ def get_date(s):
 
 
 def get_value(s):
+    # TODO: Fix conflict with date if it comes first.
     pattern = ''.join([
         r'[+-]?', # Might be declared as positive or negative.
         r'\d+', # Any number.

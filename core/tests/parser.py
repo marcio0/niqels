@@ -8,13 +8,27 @@ import datetime
 class ExpenseParsingTest(TestCase):
     def test_default_date(self):
         s = 'Light 50'
-
         expense = parse_expense(s)
 
-        self.assertIsInstance(expense, dict)
         self.assertEquals(expense['value'], Decimal('-50'))
         self.assertEquals(expense['category'], 'Light')
         self.assertEquals(expense['date'], datetime.date.today())
+
+    def test_value_date_conflict(self):
+        date = datetime.date(2010, 06, 10)
+
+        s = "40 10/06/2010"
+        expense = parse_expense(s)
+
+        self.assertEquals(expense['value'], Decimal('-40'))
+        self.assertEquals(expense['date'], date)
+
+        s = "10/06/2010 40"
+        expense = parse_expense(s)
+
+        self.assertEquals(expense['value'], Decimal('-40'))
+        self.assertEquals(expense['date'], date)
+
 
 
 class DescriptionParsingTest(TestCase):
@@ -48,6 +62,10 @@ class CategoryParsingTest(TestCase):
 
         cat = get_category('50 example 10/01')
         self.assertEquals(cat, 'example')
+
+    def test_capitalization(self):
+        cat = get_category('50 EXAMPle 10/01')
+        self.assertEquals(cat, 'EXAMPle')
 
 
 class DateParsingTest(TestCase):
