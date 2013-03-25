@@ -5,6 +5,31 @@ from decimal import Decimal
 import datetime
 
 class ExpenseParsingTest(object):
+    def test_expense_parsing(self):
+        s = 'category 40 10/10/2010 "description'
+        parser = self.parser(s)
+
+        expense = parser.parse_expense()
+
+        self.assertDictEqual(expense, {
+            'category': 'category',
+            'value': Decimal('-40'),
+            'description': 'description',
+            'date': datetime.date(2010, 10, 10)
+        })
+
+    def test_no_date(self):
+        s = 'category 40 "description'
+        parser = self.parser(s)
+
+        expense = parser.parse_expense()
+
+        self.assertDictEqual(expense, {
+            'category': 'category',
+            'value': Decimal('-40'),
+            'description': 'description',
+            'date': datetime.date.today()
+        })
 
     # Date parsing:
 

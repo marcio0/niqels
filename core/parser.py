@@ -58,7 +58,10 @@ class ExpensePositionalParser(object):
             date_str = r'%s/%d' % (raw_date, datetime.date.today().year)
             date_pattern = r'%d/%m/%Y'
 
-        return datetime.datetime.strptime(date_str, date_pattern).date()
+        try:
+            return datetime.datetime.strptime(date_str, date_pattern).date()
+        except ValueError:
+            return datetime.date.today()
 
 
 class ExpenseRegexParser(object):
