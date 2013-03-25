@@ -11,7 +11,7 @@ class Category(models.Model):
 
 class Entry(models.Model):
     value = models.DecimalField(decimal_places=2, max_digits=7)
-    description = models.TextField()
+    description = models.TextField(null=True)
     date = models.DateField()
     category = models.ForeignKey(Category)
 
