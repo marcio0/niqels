@@ -1,5 +1,5 @@
 from django.test import TestCase
-from core.parser import ExpenseRegexParser
+from core.parser import ExpenseRegexParser, ExpensePositionalParser
 from core.models import Category
 from decimal import Decimal
 import datetime
@@ -72,43 +72,43 @@ class ExpenseParsingTest(object):
         # If year is absent, default is actual year.
         expected = datetime.date(month=01, day=01, year=datetime.date.today().year)
 
-        parser = self.parser('date 01/01')
+        parser = self.parser('date 30 01/01')
         self.assertEquals(parser.get_date(), expected)
 
-        parser = self.parser('date 1/01')
+        parser = self.parser('date 30 1/01')
         self.assertEquals(parser.get_date(), expected)
 
-        parser = self.parser('date 01/1')
+        parser = self.parser('date 30 01/1')
         self.assertEquals(parser.get_date(), expected)
 
     def test_month_day_full_year(self):
         expected = datetime.date(month=01, day=01, year=2001)
 
-        parser = self.parser('date 01/01/2001')
+        parser = self.parser('date 50 01/01/2001')
         self.assertEquals(parser.get_date(), expected)
 
-        parser = self.parser('date 1/01/2001')
+        parser = self.parser('date 50 1/01/2001')
         self.assertEquals(parser.get_date(), expected)
 
-        parser = self.parser('date 01/1/2001')
+        parser = self.parser('date 50 01/1/2001')
         self.assertEquals(parser.get_date(), expected)
 
     def test_month_day_abbr_year(self):
         expected = datetime.date(month=01, day=01, year=2001)
 
-        parser = self.parser('date 01/01/01')
+        parser = self.parser('date 20 01/01/01')
         self.assertEquals(parser.get_date(), expected)
 
-        parser = self.parser('date 1/01/01')
+        parser = self.parser('date 20 1/01/01')
         self.assertEquals(parser.get_date(), expected)
 
-        parser = self.parser('date 01/1/01')
+        parser = self.parser('date 20 01/1/01')
         self.assertEquals(parser.get_date(), expected)
 
     # Value parsing:
 
     def test_value_type(self):
-        parser = self.parser('1')
+        parser = self.parser('test 1')
         self.assertIsInstance(parser.get_value(), Decimal)
 
     def test_get_value(self):
@@ -152,6 +152,10 @@ class ExpenseParsingTest(object):
     def test_get_value_failure(self):
         parser = self.parser('no value')
         self.assertEquals(parser.get_value(), None)
+
+
+class ExpensePositionalParsingTest(ExpenseParsingTest, TestCase):
+    parser = ExpensePositionalParser
 
 
 class ExpenseRegexParsingTest(ExpenseParsingTest, TestCase):

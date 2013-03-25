@@ -1,7 +1,64 @@
 import re
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from core.models import Category
 import datetime
+
+class ExpensePositionalParser(object):
+    def __init__(self, string):
+        self.string = string
+        self.raw_values = string.split(' ')
+
+    def parse_expense(self):
+        expense = dict(
+            category=self.get_category(),
+            value=self.get_value(),
+            description=self.get_description(),
+            date=self.get_date()
+        )
+        return expense
+
+    def get_category(self):
+        return self.raw_values[0]
+
+    def get_description(self):
+        pattern = ''.join([
+            r'(?<=["\'])', # Starts with ' or ".
+            r'(.*)' # Anything after that.
+        ])
+        value = re.search(pattern, self.string)
+
+        if value:
+            return value.group(0)
+        return None
+
+    def get_value(self):
+        value = self.raw_values[1]
+        if value[0] not in '+-':
+            value = '-%s' % value
+        try:
+            return Decimal(value)
+        except InvalidOperation:
+            return None
+
+    def get_date(self):
+        try:
+            raw_date = self.raw_values[2]
+        except IndexError:
+            return datetime.date.today()
+
+        raw_date_split = raw_date.split('/')
+
+        if len(raw_date_split) == 3:
+            date_str = raw_date
+            if len(raw_date_split[2]) == 2:
+                date_pattern = r'%d/%m/%y'
+            elif len(raw_date_split[2]) == 4:
+                date_pattern = r'%d/%m/%Y'
+        else:
+            date_str = r'%s/%d' % (raw_date, datetime.date.today().year)
+            date_pattern = r'%d/%m/%Y'
+
+        return datetime.datetime.strptime(date_str, date_pattern).date()
 
 
 class ExpenseRegexParser(object):
