@@ -72,6 +72,7 @@ class ExpenseRegexParser(object):
         category = self.get_category()
         value = self.get_value()
         date = self.get_date()
+        description = self.get_description()
 
         if not date:
             date = datetime.date.today()
@@ -79,7 +80,8 @@ class ExpenseRegexParser(object):
         return dict(
             category=category,
             value=value,
-            date=date
+            date=date,
+            description=description
         )
 
     def get_description(self):
