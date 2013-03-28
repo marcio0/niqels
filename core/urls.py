@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from core import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
+    url(r'^expenses/$', views.expense_list, name='expense_list'),
     # Examples:
     # url(r'^$', 'expenses.views.home', name='home'),
     # url(r'^expenses/', include('expenses.foo.urls')),
