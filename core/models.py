@@ -3,7 +3,7 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=20)
-    user = models.ForeignKey('auth.User')
+    #user = models.ForeignKey('auth.User')
 
     def __unicode__(self):
         return self.name
@@ -14,4 +14,7 @@ class Entry(models.Model):
     description = models.TextField(null=True)
     date = models.DateField()
     category = models.ForeignKey(Category)
+    #user = models.ForeignKey('auth.User')
 
+    class Meta:
+        ordering = ['-date']
