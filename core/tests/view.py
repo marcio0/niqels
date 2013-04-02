@@ -17,7 +17,7 @@ class ExpenseListTest(TestCase):
         entry.category = category
         entry.save()
 
-    def test_list(self):
+    def test_get_list(self):
         client = Client()
         ret = client.get('/expenses/')
         self.assertEquals(ret.status_code, 200)
@@ -31,3 +31,5 @@ class ExpenseListTest(TestCase):
         entries_all = Entry.objects.all()
         self.assertListEqual(list(entries), list(entries_all))
 
+    def test_post(self):
+        pass

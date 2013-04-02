@@ -1,3 +1,12 @@
-{% for entry in entries %}
-    {{ entry.category }} | {{entry.value}}
-{% endfor %}
+<form action="/expenses/" method="post">{% csrf_token %}
+    {{ entry_form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+<br>
+
+<ul>
+    {% for entry in entries %}
+        <li>{{ entry.category }} | {{entry.value}}</li>
+    {% endfor %}
+</ul>
