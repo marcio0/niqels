@@ -2,17 +2,18 @@
 
 {% block body %}
 
-<form action="/expenses/" method="post">{% csrf_token %}
-    {{ entry_form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
+<div class="container">
+    <div class="hero-unit">
+        {% include "forms/entry.html" %}
+    </div>
 
-<br>
+    <br>
 
-<ul>
-    {% for entry in entries %}
-        <li>{{ entry.category }} | {{entry.value}}</li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for entry in entries %}
+            <li>{{ entry.category }} | {{entry.value}}</li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock body %}
