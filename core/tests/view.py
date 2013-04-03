@@ -19,7 +19,7 @@ class ExpenseListTest(TestCase):
 
     def test_get_list(self):
         client = Client()
-        ret = client.get('/expenses/')
+        ret = client.get('/')
         self.assertEquals(ret.status_code, 200)
 
         form = ret.context.get('entry_form')
@@ -43,9 +43,9 @@ class ExpenseListTest(TestCase):
             'category': 'new'
         }
 
-        ret = client.post('/expenses/', data)
+        ret = client.post('/', data)
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/expenses/')
+        self.assertEquals(ret.get('location'), 'http://testserver/')
 
         exists = Entry.objects.filter(
             value=45,
@@ -70,9 +70,9 @@ class ExpenseListTest(TestCase):
             'category': 'ExpenseListTest'
         }
 
-        ret = client.post('/expenses/', data)
+        ret = client.post('/', data)
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/expenses/')
+        self.assertEquals(ret.get('location'), 'http://testserver/')
 
         exists = Entry.objects.filter(
             value=45,
@@ -94,7 +94,7 @@ class ExpenseListTest(TestCase):
             'description': 'new category'
         }
 
-        ret = client.post('/expenses/', data)
+        ret = client.post('/', data)
         self.assertEquals(ret.status_code, 200)
 
         self.assertNotEquals(ret.content.find('This field is required.'), -1)

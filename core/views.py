@@ -9,7 +9,7 @@ def expense_list(request):
 
         if form.is_valid():
             form.save()
-            return redirect('expense_list')
+            return redirect('index')
     else:
         form = EntryForm()
 
