@@ -1,4 +1,6 @@
-# Django settings for expenses project.
+import os
+
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -11,8 +13,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/vagrant/expenses.db',
+        'ENGINE': '',
+        'NAME': '',
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -67,11 +69,8 @@ STATIC_ROOT = ''
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
-# Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, "static"),
 )
 
 # List of finder classes that know how to find static files in
@@ -154,3 +153,9 @@ LOGGING = {
         },
     }
 }
+
+
+try:
+    from expenses.local_settings import *
+except ImportError:
+    pass
