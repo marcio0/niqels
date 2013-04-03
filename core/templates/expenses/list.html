@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block body %}
+
 <form action="/expenses/" method="post">{% csrf_token %}
     {{ entry_form.as_p }}
     <input type="submit" value="Submit" />
@@ -10,3 +14,5 @@
         <li>{{ entry.category }} | {{entry.value}}</li>
     {% endfor %}
 </ul>
+
+{% endblock body %}
