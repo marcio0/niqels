@@ -12,11 +12,14 @@
         {% block body %}{% endblock body %}
 
         <script src="{% static "js/jquery.js" %}"></script>
+        <script src="{% static "js/bootstrap-tooltip.js" %}"></script>
         <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
         <script>
         $('.datepicker').datepicker({
             format: 'mm/dd/yyyy'
         });
+
+        $('#id_value').tooltip();
         </script>
     </body>
 </html>
