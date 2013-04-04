@@ -1,53 +1,25 @@
-<form class="form-horizontal" action="/" method="post">{% csrf_token %}
+<form class="form-inline" action="/" method="post">{% csrf_token %}
     {{form.errors}}
-    
-    {% if form.value.errors %}
-        <div class='control-group error'>
-    {% else %}
-        <div class='control-group'>
-    {% endif %}
-        <label for="id_value" class="control-label">Value</label>
-        <div class="controls">
-            <input id="id_value" name="value" type="text" value="{{ form.value.value }}" />
-        </div> 
+
+    <div class="input-prepend">
+        <span class="add-on"><i class="icon-tag"></i></span>
+        <input id="id_category" maxlength="200" name="category" type="text" placeholder="Category"/>
     </div>
 
-    {% if form.description.errors %}
-        <div class='control-group error'>
-    {% else %}
-        <div class='control-group'>
-    {% endif %}
-        <label for="id_description" class="control-label">Description</label>
-        <div class="controls">
-            <textarea cols="40" id="id_description" name="description" rows="2"></textarea>
-        </div>
+    <div class="input-prepend">
+        <span class="add-on">$</span>
+        <input class="input-mini" id="id_value" name="value" type="text" placeholder="Value"/>
     </div>
 
-    {% if form.date.errors %}
-        <div class='control-group error'>
-    {% else %}
-        <div class='control-group'>
-    {% endif %}
-        <label for="id_date" class="control-label">Date</label>
-        <div class="controls">
-            <input id="id_date" name="date" type="text" />
-        </div>
+    <div class="input-prepend">
+        <span class="add-on"><i class="icon-calendar"></i></span>
+        <input id="id_date" class="input-small" name="date" type="text" placeholder="Date" />
     </div>
 
-    {% if form.category.errors %}
-        <div class='control-group error'>
-    {% else %}
-        <div class='control-group'>
-    {% endif %}
-        <label for="id_category" class="control-label">Category</label>
-        <div class="controls">
-            <input id="id_category" maxlength="200" name="category" type="text" />
-        </div>
+    <div class="input-prepend">
+        <span class="add-on"><i class="icon-pencil"></i></span>
+        <input id="id_description" maxlength="200" name="description" type="text" placeholder="Description (Optional)"/>
     </div>
 
-    <div class="control-group">
-        <div class="controls">
-            <input type="submit" value="Submit" class="btn"/>
-        </div>
-    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
 </form>

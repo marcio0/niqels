@@ -7,13 +7,18 @@
         {% include "forms/entry.html" with form=entry_form %}
     </div>
 
-    <br>
-
-    <ul>
+    <table class="table">
+        <thead><tr>
+            <th>Category</th>
+            <th>Value</th>
+        </tr></thead>
         {% for entry in entries %}
-            <li>{{ entry.category }} | {{entry.value}}</li>
+            <tr>
+                <td>{{ entry.category }}</td>
+                <td>{{ entry.value }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 </div>
 
 {% endblock body %}
