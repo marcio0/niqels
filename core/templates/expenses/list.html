@@ -7,18 +7,25 @@
         {% include "forms/entry.html" with form=entry_form %}
     </div>
 
+    {% regroup entries by date as daily_entries %}
+
+
     <table class="table">
-        <thead><tr>
-            <th>Category</th>
-            <th>Value</th>
-        </tr></thead>
-        {% for entry in entries %}
-            <tr>
-                <td>{{ entry.category }}</td>
-                <td>{{ entry.value }}</td>
-            </tr>
+        {% for day_group in daily_entries %}
+            <thead><tr class="info">
+                <th colspan="2">{{ day_group.grouper }}</th>
+            </tr></thead>
+            <tbody>
+            {% for entry in day_group.list %}
+                <tr>
+                    <td>{{ entry.category }}</td>
+                    <td>$ {{ entry.value }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
         {% endfor %}
-    </table>
-</div>
+    </table> 
+
+</div> <!-- container -->
 
 {% endblock body %}
