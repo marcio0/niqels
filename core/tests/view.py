@@ -6,7 +6,7 @@ from core.views import expense_list
 from core.forms import EntryForm
 from core.models import Entry, Category
 
-class ExpenseListTest(TestCase):
+class ExpenseViewTest(TestCase):
     def setUp(self):
         category = Category(name='ExpenseListTest')
         category.save()
@@ -22,10 +22,10 @@ class ExpenseListTest(TestCase):
         ret = client.get('/')
         self.assertEquals(ret.status_code, 200)
 
-        form = ret.context.get('entry_form')
+        form = ret.context['entry_form']
         self.assertIsInstance(form, EntryForm)
 
-        entries = ret.context.get('entries')
+        entries = ret.context['entries']
         self.assertEquals(len(entries), 1)
 
         entries_all = Entry.objects.all()
