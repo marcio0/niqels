@@ -7,12 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
         <link href="{% static "css/datepicker.css" %}" rel="stylesheet" media="screen">
+        <script src="{% static "js/jquery.js" %}"></script>
     </head>
     <body>
         {% block body %}{% endblock body %}
 
-        <script src="{% static "js/jquery.js" %}"></script>
         <script src="{% static "js/bootstrap-tooltip.js" %}"></script>
+        <script src="{% static "js/bootstrap-modal.js" %}"></script>
         <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
         <script>
         $('.datepicker').datepicker({
@@ -20,6 +21,11 @@
         });
 
         $('#id_value').tooltip();
+
+        $('.entry-row').click(function(){
+            $('#mymodal').modal('show');
+        });
+
         </script>
     </body>
 </html>
