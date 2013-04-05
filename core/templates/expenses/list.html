@@ -2,32 +2,34 @@
 
 {% block body %}
 
+{% load humanize %}
+
 <div class="container">
     <div class="hero-unit">
         {% include "forms/entry.html" with form=entry_form %}
     </div>
 
-    {% regroup entries by date.month as monthly_entries %}
-
-    {% for month_group in monthly_entries %}
-        {% regroup month_group.list by date.day as daily_entries %}
-        <h3>Mes {{ month_group.grouper }}</h3>
-        <table class="table">
-            {% for day_group in daily_entries %}
-                <thead><tr class="info">
-                    <th colspan="2">Dia {{ day_group.grouper }}</th>
-                </tr></thead>
-                <tbody>
-                {% for entry in day_group.list %}
-                    <tr>
-                        <td>{{ entry.category }}</td>
-                        <td>$ {{ entry.value }}</td>
-                    </tr>
-                {% endfor %}
+    <table class="table">
+    {% for entry in entries %}
+        {% ifchanged entry.date.year entry.date.month %}
+            {% if not forloop.first %}
                 </tbody>
-            {% endfor %}
-        </table> 
+            {% endif %}
+            <thead><tr>
+                <th colspan="3">Ano {{ entry.date.year }} | Mes {{ entry.date.month }}</th>
+            </tr></thead>
+            <tbody>
+        {% endifchanged %}
+            <tr>
+                <td>{{ entry.date|naturalday }}</td>
+                <td>{{ entry.category }}</td>
+                <td>$ {{ entry.value }}</td>
+            </tr>
+        {% if forloop.last %}
+            </tbody>
+        {% endif %}
     {% endfor %}
+    </table> 
 
 </div> <!-- container -->
 
