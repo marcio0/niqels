@@ -15,8 +15,9 @@
         <script src="{% static "js/bootstrap-tooltip.js" %}"></script>
         <script src="{% static "js/bootstrap-modal.js" %}"></script>
         <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+        <script src="{% static "js/jqBootstrapValidation.js" %}"></script>
         <script type="text/javascript">
-        $(document).ready(function(){
+        $(function(){
             $('.datepicker').datepicker({
                 format: 'mm/dd/yyyy'
             });
@@ -26,6 +27,8 @@
             $('.entry-row').click(function(){
                 $('#mymodal').modal('show');
             });
+
+            //$(".entry-form input,select,textarea").not("[type=submit]").jqBootstrapValidation();
         });
         </script>
     </body>
