@@ -16,7 +16,7 @@
                 </tbody>
             {% endif %}
             <thead><tr>
-                <th colspan="3">Ano {{ entry.date.year }} | Mes {{ entry.date.month }}</th>
+                <th colspan="4">Ano {{ entry.date.year }} | Mes {{ entry.date.month }}</th>
             </tr></thead>
             <tbody>
         {% endifchanged %}
@@ -30,6 +30,7 @@
                 <td>{{ entry.date|naturalday }}</td>
                 <td>{{ entry.category }}</td>
                 <td>$ {{ entry.value }}</td>
+                <td>{{ entry.description|truncatechars:50}}</td>
             </tr>
         {% if forloop.last %}
             </tbody>

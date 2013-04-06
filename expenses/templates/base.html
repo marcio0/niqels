@@ -15,17 +15,18 @@
         <script src="{% static "js/bootstrap-tooltip.js" %}"></script>
         <script src="{% static "js/bootstrap-modal.js" %}"></script>
         <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
-        <script>
-        $('.datepicker').datepicker({
-            format: 'mm/dd/yyyy'
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('.datepicker').datepicker({
+                format: 'mm/dd/yyyy'
+            });
+
+            $('#id_value').tooltip();
+
+            $('.entry-row').click(function(){
+                $('#mymodal').modal('show');
+            });
         });
-
-        $('#id_value').tooltip();
-
-        $('.entry-row').click(function(){
-            $('#mymodal').modal('show');
-        });
-
         </script>
     </body>
 </html>
