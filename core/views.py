@@ -22,7 +22,7 @@ def expense_list(request):
     else:
         form = EntryForm()
 
-    entries = Entry.objects.all()
+    entries = Entry.objects.filter(user=user)
 
     context = {
         'entries': entries,
