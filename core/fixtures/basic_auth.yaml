@@ -1,0 +1,5 @@
+-   pk: 1
+    model: access.User
+    fields:
+        email: user@expenses.com
+        password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=

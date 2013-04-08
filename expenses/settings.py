@@ -13,6 +13,8 @@ MANAGERS = ADMINS
 
 AUTH_USER_MODEL = 'access.User'
 
+LOGIN_URL = 'login'
+
 DATABASES = {
     'default': {
         'ENGINE': '',
@@ -122,7 +124,8 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.admin',
     'core',
-    'access'
+    'access',
+    'django_coverage'
 )
 
 # A sample logging configuration. The only tangible logging

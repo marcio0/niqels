@@ -7,6 +7,8 @@ from core.forms import EntryForm
 from core.models import Entry, Category
 
 class ExpenseViewTest(TestCase):
+    fixtures = ['basic_auth']
+
     def setUp(self):
         category = Category(name='ExpenseListTest')
         category.save()
@@ -19,6 +21,8 @@ class ExpenseViewTest(TestCase):
 
     def test_get_list(self):
         client = Client()
+        client.login(email='user@expenses.com', password='pass')
+
         ret = client.get('/')
         self.assertEquals(ret.status_code, 200)
 
@@ -33,6 +37,7 @@ class ExpenseViewTest(TestCase):
 
     def test_post_with_new_category(self):
         client = Client()
+        client.login(email='user@expenses.com', password='pass')
 
         previous_categories = Category.objects.count()
 
@@ -60,6 +65,7 @@ class ExpenseViewTest(TestCase):
 
     def test_post_with_existing_category(self):
         client = Client()
+        client.login(email='user@expenses.com', password='pass')
 
         previous_categories = Category.objects.count()
 
@@ -87,6 +93,7 @@ class ExpenseViewTest(TestCase):
 
     def test_invalid_form(self):
         client = Client()
+        client.login(email='user@expenses.com', password='pass')
 
         data = {
             'value': 45,
