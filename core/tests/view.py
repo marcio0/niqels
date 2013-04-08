@@ -5,18 +5,24 @@ from decimal import Decimal
 from core.views import expense_list
 from core.forms import EntryForm
 from core.models import Entry, Category
+from access.models import User
 
 class ExpenseViewTest(TestCase):
     fixtures = ['basic_auth']
 
     def setUp(self):
-        category = Category(name='ExpenseListTest')
+        user = User.objects.get(email='user@expenses.com')
+        category = Category(
+            name='ExpenseListTest',
+            user=user
+        )
         category.save()
 
         entry = Entry()
         entry.date = datetime.date.today()
         entry.value = Decimal()
         entry.category = category
+        entry.user = user
         entry.save()
 
     def test_get_list(self):
