@@ -1,0 +1,17 @@
+{% extends "access/login.html" %}
+
+
+{% block body %}
+    
+<div class="container">
+
+<form class="form-signin" method="POST" action="{% url "register" %}">{% csrf_token %}
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <input type="text" name="email" class="input-block-level" placeholder="Email address">
+    <input type="password" name="password1" class="input-block-level" placeholder="Password">
+    <input type="password" name="password2" class="input-block-level" placeholder="Password">
+    <button class="btn btn-large btn-primary" type="submit">Create account</button>
+</form>
+
+</div>
+{% endblock body %}
