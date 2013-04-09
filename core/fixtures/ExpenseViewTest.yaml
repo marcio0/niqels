@@ -1,0 +1,79 @@
+########
+# USER #
+########
+
+-   model: access.user
+    pk: 1
+    fields:
+        email: user1@expenses.com
+        password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
+
+-   model: access.user
+    pk: 2
+    fields:
+        email: user2@expenses.com
+        password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
+
+
+############
+# CATEGORY #
+############
+
+-   model: core.category
+    pk: 1
+    fields:
+        user: 1
+        name: cat1
+
+-   model: core.category
+    pk: 2
+    fields:
+        user: 2
+        name: cat2
+
+
+#########
+# ENTRY #
+#########
+
+# two entries for user 1
+-   model: core.entry
+    pk: 1
+    fields:
+        user: 1
+        category: 1
+        value: 10
+        date: !!timestamp 2010-03-03
+
+-   model: core.entry
+    pk: 2
+    fields:
+        user: 1
+        category: 1
+        value: 10
+        date: !!timestamp 2010-03-03
+
+# three entries for user 2
+-   model: core.entry
+    pk: 3
+    fields:
+        user: 2
+        category: 2
+        value: 20
+        date: !!timestamp 2010-03-03
+
+-   model: core.entry
+    pk: 4
+    fields:
+        user: 2
+        category: 2
+        value: 20
+        date: !!timestamp 2010-03-03
+
+-   model: core.entry
+    pk: 5
+    fields:
+        user: 2
+        category: 2
+        value: 20
+        date: !!timestamp 2010-03-03
