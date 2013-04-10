@@ -6,18 +6,27 @@
 <div class="container">
 
 <form class="form-signin" method="POST" action="{% url "register" %}">{% csrf_token %}
-
-    {{ register_form.non_field_errors }}
-    <div class="alert">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>Warning!</strong> Best check yo self, you're not looking too good.
-    </div>
-
     <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="text" name="email" class="input-block-level" placeholder="Email address">
-    <input type="password" name="password1" class="input-block-level" placeholder="Password">
-    <input type="password" name="password2" class="input-block-level" placeholder="Password">
-    <button class="btn btn-large btn-primary" type="submit">Create account</button>
+
+    {% for field in register_form %}
+        <div class="control-group {% if field.errors %}error{% endif %}">
+            <div class="controls">
+                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="input-block-level" placeholder="{{ field.label }}">
+            </div>
+
+            {% if field.errors %}
+            <ul>
+            {% for error in field.errors %}
+                <li><span class="help-block error">{{ error }}</span></li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Create account</button>
+    </div>
 </form>
 
 </div>
