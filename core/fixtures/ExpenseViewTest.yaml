@@ -7,12 +7,14 @@
     fields:
         email: user1@expenses.com
         password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
+        date_joined: !!timestamp 2010-02-02 00:00:00 -3
 
 -   model: access.user
     pk: 2
     fields:
         email: user2@expenses.com
         password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
+        date_joined: !!timestamp 2010-02-02 00:00:00 -3
 
 
 ############

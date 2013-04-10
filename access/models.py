@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
@@ -12,6 +13,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
 
     objects = UserManager()
 
