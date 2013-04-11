@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from core.models import Entry, Category
-from core.forms import EntryForm
+from expenses.models import Entry, Category
+from expenses.forms import EntryForm
 
 
 @login_required()

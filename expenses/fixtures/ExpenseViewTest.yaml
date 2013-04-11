@@ -21,13 +21,13 @@
 # CATEGORY #
 ############
 
--   model: core.category
+-   model: expenses.category
     pk: 1
     fields:
         user: 1
         name: cat1
 
--   model: core.category
+-   model: expenses.category
     pk: 2
     fields:
         user: 2
@@ -39,7 +39,7 @@
 #########
 
 # two entries for user 1
--   model: core.entry
+-   model: expenses.entry
     pk: 1
     fields:
         user: 1
@@ -47,7 +47,7 @@
         value: 10
         date: !!timestamp 2010-03-03
 
--   model: core.entry
+-   model: expenses.entry
     pk: 2
     fields:
         user: 1
@@ -56,7 +56,7 @@
         date: !!timestamp 2010-03-03
 
 # three entries for user 2
--   model: core.entry
+-   model: expenses.entry
     pk: 3
     fields:
         user: 2
@@ -64,7 +64,7 @@
         value: 20
         date: !!timestamp 2010-03-03
 
--   model: core.entry
+-   model: expenses.entry
     pk: 4
     fields:
         user: 2
@@ -72,7 +72,7 @@
         value: 20
         date: !!timestamp 2010-03-03
 
--   model: core.entry
+-   model: expenses.entry
     pk: 5
     fields:
         user: 2

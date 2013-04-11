@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 
-from core.models import Entry, Category
+from expenses.models import Entry, Category
 
 class EntryForm(forms.ModelForm):
     category = forms.CharField(max_length=200)

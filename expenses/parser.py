@@ -1,6 +1,6 @@
 import re
 from decimal import Decimal, InvalidOperation
-from core.models import Category
+from expenses.models import Category
 import datetime
 
 class ExpensePositionalParser(object):

@@ -1,8 +1,8 @@
 from django import forms
 
 from django.test import TestCase
-from core.models import Category
-from core.forms import EntryForm
+from expenses.models import Category
+from expenses.forms import EntryForm
 from access.models import User
 
 

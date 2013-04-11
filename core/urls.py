@@ -1,6 +1,11 @@
 from django.conf.urls import patterns, include, url
-from core import views
+from django.contrib import admin
+
+admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', views.expense_list, name='index'),
+    url(r'^', include('expenses.urls')),
+    url(r'^', include('access.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
 )

@@ -1,8 +1,11 @@
-from django.test import TestCase
-from core.parser import ExpenseRegexParser, ExpensePositionalParser
-from core.models import Category
 from decimal import Decimal
 import datetime
+
+from django.test import TestCase
+
+from expenses.parser import ExpenseRegexParser, ExpensePositionalParser
+from expenses.models import Category
+
 
 class ExpenseParsingTest(object):
     def test_expense_parsing(self):
