@@ -38,7 +38,7 @@
     
 <div class="container">
 
-    <form class="form-signin" method="POST" action="{% url "login" %}">{% csrf_token %}
+    <form class="form-signin" name="login-form" method="POST" action="{% url "login" %}">{% csrf_token %}
 
         {% if messages %}
             {% for message in messages %}

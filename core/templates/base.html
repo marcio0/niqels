@@ -30,8 +30,8 @@
                                 {{ user.email }} (<a href="{% url "logout" %}" class="navbar-link">Logout</a>)
                             </p>
                         {% else %}
-                            <form class="navbar-form pull-right">
-                                <input class="span2" type="email" placeholder="Email">
+                            <form name="fast-login" class="navbar-form pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
+                                <input type="text" class="span2" name="email" placeholder="Email">
                                 <input class="span2" type="password" placeholder="Password">
                                 <button type="submit" class="btn">Sign in</button>
                             </form>
