@@ -44,7 +44,7 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
-SITE_NAME = 'Expenses'
+SITE_NAME = 'MoneyVision'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
