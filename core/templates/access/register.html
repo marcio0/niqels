@@ -6,7 +6,7 @@
 <div class="container">
 
 <form class="form-signin" method="POST" action="{% url "register" %}">{% csrf_token %}
-    <h2 class="form-signin-heading">Create a new user</h2>
+    <h2 class="form-signin-heading">Sign up</h2>
     
     {% for error in form.non_field_errors %}
         <div class="alert alert-error">
@@ -40,6 +40,7 @@
     {% endfor %}
 
     <button class="btn btn-primary" type="submit">Create account</button>
+    <p>Already a user? <a href="{% url "login" %}">Sign in</a></p>
 </form>
 
 </div>
