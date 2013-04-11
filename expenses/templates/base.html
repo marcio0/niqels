@@ -1,9 +1,11 @@
 {% load staticfiles %}
 
+{% spaceless %}
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Expenses</title>
+        <title>{{ SITE_NAME }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
         <link href="{% static "css/datepicker.css" %}" rel="stylesheet" media="screen">
@@ -19,20 +21,9 @@
         <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
         <script src="{% static "js/bootstrap-alert.js" %}"></script>
         <script src="{% static "js/jqBootstrapValidation.js" %}"></script>
-        <script type="text/javascript">
-        $(function(){
-            $('.datepicker').datepicker({
-                format: 'mm/dd/yyyy'
-            });
 
-            $('#id_value').tooltip();
-
-            $('.entry-row').click(function(){
-                $('#mymodal').modal('show');
-            });
-
-            //$(".entry-form input,select,textarea").not("[type=submit]").jqBootstrapValidation();
-        });
-        </script>
+        {% block bodyend %}{% endblock bodyend %}
     </body>
 </html>
+
+{% endspaceless %}
