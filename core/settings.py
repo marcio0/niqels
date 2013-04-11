@@ -116,13 +116,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    'core.context_processors.globals',
+    'expenses.context_processors.globals',
 )
 
-ROOT_URLCONF = 'expenses.urls'
+ROOT_URLCONF = 'core.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'expenses.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, "templates"),
@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.messages',
-    'core',
+    'expenses',
     'access',
     'django_coverage'
 )
@@ -174,6 +174,6 @@ LOGGING = {
 
 
 try:
-    from expenses.local_settings import *
+    from core.local_settings import *
 except ImportError:
     pass
