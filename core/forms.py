@@ -14,9 +14,10 @@ class EntryForm(forms.ModelForm):
                 forms.CharField.default_error_messages['required'])
 
         category, _ = Category.objects.get_or_create(
-            name=category_name)
+            name=category_name, user=self.user)
 
         return category
 
     class Meta:
         model = Entry
+        exclude = ('user',)

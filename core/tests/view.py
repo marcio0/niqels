@@ -5,20 +5,15 @@ from decimal import Decimal
 from core.views import expense_list
 from core.forms import EntryForm
 from core.models import Entry, Category
+from access.models import User
 
 class ExpenseViewTest(TestCase):
-    def setUp(self):
-        category = Category(name='ExpenseListTest')
-        category.save()
-
-        entry = Entry()
-        entry.date = datetime.date.today()
-        entry.value = Decimal()
-        entry.category = category
-        entry.save()
+    fixtures = ['ExpenseViewTest']
 
     def test_get_list(self):
         client = Client()
+        client.login(email='user1@expenses.com', password='pass')
+
         ret = client.get('/')
         self.assertEquals(ret.status_code, 200)
 
@@ -26,15 +21,16 @@ class ExpenseViewTest(TestCase):
         self.assertIsInstance(form, EntryForm)
 
         entries = ret.context['entries']
-        self.assertEquals(len(entries), 1)
+        self.assertEquals(len(entries), 2)
 
-        entries_all = Entry.objects.all()
+        entries_all = Entry.objects.filter(user__email='user1@expenses.com')
         self.assertListEqual(list(entries), list(entries_all))
 
     def test_post_with_new_category(self):
         client = Client()
+        client.login(email='user1@expenses.com', password='pass')
 
-        previous_categories = Category.objects.count()
+        previous_categories = Category.objects.filter(user__email='user1@expenses.com').count()
 
         data = {
             'value': 45,
@@ -50,24 +46,26 @@ class ExpenseViewTest(TestCase):
         exists = Entry.objects.filter(
             value=45,
             date=datetime.date(2010, 03, 03),
-            description='new category'
+            description='new category',
+            user__email='user1@expenses.com'
         ).exists()
         self.assertTrue(exists)
 
-        actual_categories = Category.objects.count()
+        actual_categories = Category.objects.filter(user__email='user1@expenses.com').count()
 
         self.assertEquals(actual_categories, previous_categories+1)
 
     def test_post_with_existing_category(self):
         client = Client()
+        client.login(email='user1@expenses.com', password='pass')
 
-        previous_categories = Category.objects.count()
+        previous_categories = Category.objects.filter(user__email='user1@expenses.com').count()
 
         data = {
             'value': 45,
             'date': '03/03/2010',
             'description': 'new category',
-            'category': 'ExpenseListTest'
+            'category': 'cat1'
         }
 
         ret = client.post('/', data)
@@ -77,16 +75,18 @@ class ExpenseViewTest(TestCase):
         exists = Entry.objects.filter(
             value=45,
             date=datetime.date(2010, 03, 03),
-            description='new category'
+            description='new category',
+            user__email='user1@expenses.com'
         ).exists()
         self.assertTrue(exists)
 
-        actual_categories = Category.objects.count()
+        actual_categories = Category.objects.filter(user__email='user1@expenses.com').count()
 
         self.assertEquals(actual_categories, previous_categories)
 
     def test_invalid_form(self):
         client = Client()
+        client.login(email='user1@expenses.com', password='pass')
 
         data = {
             'value': 45,

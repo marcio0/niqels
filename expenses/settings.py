@@ -11,6 +11,11 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+AUTH_USER_MODEL = 'access.User'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+
 DATABASES = {
     'default': {
         'ENGINE': '',
@@ -38,6 +43,8 @@ TIME_ZONE = 'America/Sao_Paulo'
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
+
+SITE_NAME = 'Expenses'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -101,6 +108,17 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    'core.context_processors.globals',
+)
+
 ROOT_URLCONF = 'expenses.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -118,8 +136,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    #'django.contrib.admin',
-    'core'
+    'django.contrib.admin',
+    'django.contrib.messages',
+    'core',
+    'access',
+    'django_coverage'
 )
 
 # A sample logging configuration. The only tangible logging
