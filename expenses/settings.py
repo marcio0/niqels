@@ -44,6 +44,8 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
+SITE_NAME = 'Expenses'
+
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
@@ -124,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.admin',
+    'django.contrib.messages',
     'core',
     'access',
     'django_coverage'

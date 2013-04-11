@@ -40,34 +40,44 @@
     
 <div class="container">
 
-<form class="form-signin" method="POST" action="{% url "login" %}">{% csrf_token %}
-    <h2 class="form-signin-heading">Please sign in</h2>
-    
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{error}}
-        </div>
-    {% endfor %}
+    <form class="form-signin" method="POST" action="{% url "login" %}">{% csrf_token %}
 
-    {% for field in form %}
-        <div class="control-group {% if field.errors %}error{% endif %}">
-            <div class="controls">
-                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="input-block-level" placeholder="{{ field.label }}">
-            </div>
-
-            {% if field.errors %}
-            <ul>
-            {% for error in field.errors %}
-                <li><span class="help-block error">{{ error }}</span></li>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
             {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
-    {% endfor %}
+        {% endif %}
 
-    <button class="btn btn-primary" type="submit">Create account</button>
-</form>
+        <h2 class="form-signin-heading">Please sign in</h2>
 
-</div>
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{error}}
+            </div>
+        {% endfor %}
+
+        {% for field in form %}
+            <div class="control-group {% if field.errors %}error{% endif %}">
+                <div class="controls">
+                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="input-block-level" placeholder="{{ field.label }}">
+                </div>
+
+                {% if field.errors %}
+                <ul>
+                {% for error in field.errors %}
+                    <li><span class="help-block error">{{ error }}</span></li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button class="btn btn-primary" type="submit">Create account</button>
+    </form>
+
+</div> <!-- container -->
 {% endblock body %}
