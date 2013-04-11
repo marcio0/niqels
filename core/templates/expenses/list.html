@@ -3,6 +3,7 @@
 {% block body %}
 
 {% load humanize %}
+{% load expenses_tags %}
 
 <div class="container">
     <div class="hero-unit">
@@ -28,7 +29,7 @@
                 data-id="{{ entry.id }}">
 
                 <td>{{ entry.date|naturalday }}</td>
-                <td>{{ entry.category }}</td>
+                <td>{{ entry.category|as_category }}</td>
                 <td>$ {{ entry.value }}</td>
                 <td>{{ entry.description|truncatechars:50}}</td>
             </tr>
