@@ -11,9 +11,37 @@
         <link href="{% static "css/datepicker.css" %}" rel="stylesheet" media="screen">
         <script src="{% static "js/jquery.js" %}"></script>
 
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+            }
+        </style>
+
         {% block extrahead %}{% endblock extrahead %}
     </head>
     <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container container-fluid">
+                    <a class="brand" href="#">{{ SITE_NAME }}</a>
+                    <div class="nav-collapse collapse">
+                        {% if user.is_authenticated %}
+                            <p class="navbar-text pull-right">
+                                {{ user.email }} (<a href="{% url "logout" %}" class="navbar-link">Logout</a>)
+                            </p>
+                        {% else %}
+                            <form class="navbar-form pull-right">
+                                <input class="span2" type="email" placeholder="Email">
+                                <input class="span2" type="password" placeholder="Password">
+                                <button type="submit" class="btn">Sign in</button>
+                            </form>
+                        {% endif %}
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+
+
         {% block body %}{% endblock body %}
 
         <script src="{% static "js/bootstrap-tooltip.js" %}"></script>
