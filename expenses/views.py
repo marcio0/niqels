@@ -2,15 +2,16 @@ from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 
 from expenses.models import Entry, Category
 from expenses.forms import EntryForm
+from access.views import AutenticationRequiredMixin
 
 
-class EntryListView(TemplateView):
+class EntryListView(TemplateView, AutenticationRequiredMixin):
     template_name = 'expenses/list.html'   
 
     def get_context_data(self, **kwargs):
@@ -20,12 +21,8 @@ class EntryListView(TemplateView):
 
         return context
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(EntryListView, self).dispatch(*args, **kwargs)
 
-
-class NewEntryView(FormView):
+class NewEntryView(FormView, AutenticationRequiredMixin):
     form_class = EntryForm
     template_name = 'expenses/list.html'
 
@@ -56,7 +53,3 @@ class NewEntryView(FormView):
 
     def get_success_url(self):
         return reverse('entry_list')
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(NewEntryView, self).dispatch(*args, **kwargs)

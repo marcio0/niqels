@@ -5,6 +5,13 @@ from django.conf import settings
 
 from access.forms import UserCreationForm
 
+
+class AutenticationRequiredMixin(View):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AutenticationRequiredMixin, self).dispatch(*args, **kwargs)
+
+
 def register(request):
     if request.user.is_authenticated():
         return redirect('index')
