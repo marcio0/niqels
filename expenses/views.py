@@ -1,51 +1,62 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 
 from expenses.models import Entry, Category
 from expenses.forms import EntryForm
 
 
-@login_required()
-def expense_list(request):
-    user = request.user
+class EntryListView(TemplateView):
+    template_name = 'expenses/list.html'   
 
-    form = EntryForm()
+    def get_context_data(self, **kwargs):
+        context = super(EntryListView, self).get_context_data(**kwargs)
+        context['entries'] = Entry.objects.filter(user=self.request.user)
+        context['entry_form'] = EntryForm()
 
-    entries = Entry.objects.filter(user=user)
+        return context
 
-    context = {
-        'entries': entries,
-        'entry_form': form
-    }
-
-    return render(request, 'expenses/list.html', context)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(EntryListView, self).dispatch(*args, **kwargs)
 
 
-@login_required()
-def new_entry(request):
-    user = request.user
+class NewEntryView(FormView):
+    form_class = EntryForm
+    template_name = 'expenses/list.html'
 
-    if request.method == 'POST':
-        form = EntryForm(request.POST)
-        form.user = user
+    def form_valid(self, form):
+        entry = form.save(commit=False)
+        entry.user = self.request.user
+        entry.save()
 
-        if form.is_valid():
-            entry = form.save(commit=False)
-            entry.user = user
-            entry.save()
+        return super(NewEntryView, self).form_valid(form)
 
-            return HttpResponseRedirect(reverse('entry_list'))
+    def get_context_data(self, **kwargs):
+        '''
+           Only called if not form.is_valid()
+        '''
+        context = super(NewEntryView, self).get_context_data(**kwargs)
+        context['entries'] = Entry.objects.filter(user=self.request.user)
+        context['entry_form'] = self.form_class()
 
-        else:
-            entries = Entry.objects.filter(user=user)
+        return context
 
-            context = {
-                'entries': entries,
-                'entry_form': form
-            }
-
-            return render(request, 'expenses/list.html', context)
-    else:
+    def get(self, request, *args, **kwargs):
         return redirect('index')
+
+    def get_form(self, form_class):
+        form = super(NewEntryView, self).get_form(form_class)
+        form.user = self.request.user
+        return form
+
+    def get_success_url(self):
+        return reverse('entry_list')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(NewEntryView, self).dispatch(*args, **kwargs)

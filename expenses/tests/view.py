@@ -3,7 +3,6 @@ from decimal import Decimal
 
 from django.test import TestCase, Client
 
-from expenses.views import expense_list
 from expenses.forms import EntryForm
 from expenses.models import Entry, Category
 from access.models import User
