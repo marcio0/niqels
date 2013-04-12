@@ -8,24 +8,9 @@ from expenses.forms import EntryForm
 from expenses.models import Entry, Category
 from access.models import User
 
-class ExpenseViewTest(TestCase):
-    fixtures = ['ExpenseViewTest']
 
-    def test_get_list(self):
-        client = Client()
-        client.login(email='user1@expenses.com', password='pass')
-
-        ret = client.get('/')
-        self.assertEquals(ret.status_code, 200)
-
-        form = ret.context['entry_form']
-        self.assertIsInstance(form, EntryForm)
-
-        entries = ret.context['entries']
-        self.assertEquals(len(entries), 2)
-
-        entries_all = Entry.objects.filter(user__email='user1@expenses.com')
-        self.assertListEqual(list(entries), list(entries_all))
+class EntryNewTest(TestCase):
+    fixtures = ['EntryNewTest']
 
     def test_post_with_new_category(self):
         client = Client()
@@ -40,9 +25,9 @@ class ExpenseViewTest(TestCase):
             'category': 'new'
         }
 
-        ret = client.post('/', data)
+        ret = client.post('/entries/new/', data)
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/')
+        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
 
         exists = Entry.objects.filter(
             value=45,
@@ -69,9 +54,9 @@ class ExpenseViewTest(TestCase):
             'category': 'cat1'
         }
 
-        ret = client.post('/', data)
+        ret = client.post('/entries/new/', data)
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/')
+        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
 
         exists = Entry.objects.filter(
             value=45,
@@ -95,7 +80,27 @@ class ExpenseViewTest(TestCase):
             'description': 'new category'
         }
 
-        ret = client.post('/', data)
+        ret = client.post('/entries/new/', data)
         self.assertEquals(ret.status_code, 200)
 
         self.assertNotEquals(ret.content.find('This field is required.'), -1)
+    
+
+class EntryListTest(TestCase):
+    fixtures = ['ExpenseViewTest']
+
+    def test_get_list(self):
+        client = Client()
+        client.login(email='user1@expenses.com', password='pass')
+
+        ret = client.get('/')
+        self.assertEquals(ret.status_code, 200)
+
+        form = ret.context['entry_form']
+        self.assertIsInstance(form, EntryForm)
+
+        entries = ret.context['entries']
+        self.assertEquals(len(entries), 2)
+
+        entries_all = Entry.objects.filter(user__email='user1@expenses.com')
+        self.assertListEqual(list(entries), list(entries_all))
