@@ -1,3 +1,4 @@
+from decimal import Decimal
 import mock
 
 import django.forms
@@ -6,6 +7,20 @@ from django.test import TestCase
 from expenses.models import Category
 from expenses import forms
 from access.models import User
+
+
+class NegativeDecimalFieldTest(TestCase):
+    def test_with_neg_symbol(self):
+        field = forms.NegativeDecimalField()
+        self.assertEquals(field.to_python('-10'), Decimal('-10'))
+
+    def test_with_pos_symbol(self):
+        field = forms.NegativeDecimalField()
+        self.assertEquals(field.to_python('+10'), Decimal('+10'))
+
+    def test_without_symbol(self):
+        field = forms.NegativeDecimalField()
+        self.assertEquals(field.to_python('10'), Decimal('-10'))
 
 
 class CategoryModelTest(TestCase):

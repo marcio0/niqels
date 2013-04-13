@@ -29,7 +29,7 @@ class EntryNewTest(TestCase):
         self.assertEquals(ret.get('location'), 'http://testserver/entries/')
 
         exists = Entry.objects.filter(
-            value=45,
+            value=-45,
             date=datetime.date(2010, 03, 03),
             description='new category',
             user__email='user1@expenses.com'
@@ -58,7 +58,7 @@ class EntryNewTest(TestCase):
         self.assertEquals(ret.get('location'), 'http://testserver/entries/')
 
         exists = Entry.objects.filter(
-            value=45,
+            value=-45,
             date=datetime.date(2010, 03, 03),
             description='new category',
             user__email='user1@expenses.com'
