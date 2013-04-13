@@ -17,6 +17,12 @@ class Entry(models.Model):
     category = models.ForeignKey(Category)
     user = models.ForeignKey('access.User')
 
+    '''
+    Marks the time of the day this entry was saved.
+    Used to order the entries inside a day by last_edition.
+    '''
+    last_edited_time = models.TimeField(auto_now=True)
+
     def __unicode__(self):
         return '%d of %s on %s' % (
             self.value,
@@ -25,4 +31,4 @@ class Entry(models.Model):
         )
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-date', '-last_edited_time']
