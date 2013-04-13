@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 
-{% block body %}
-
 {% load staticfiles %}
 {% load humanize %}
-
 {% load expenses_tags %}
+
+
+{% block extrahead %}
+<style type="text/css">
+    .entry-row td {
+        font-size: 18px;
+    }
+</style>
+{% endblock extrahead %}
+
+
+{% block body %}
 
 <div class="container">
     <div class="hero-unit">
@@ -30,10 +39,10 @@
                 data-description="{{ entry.description }}"
                 data-id="{{ entry.id }}">
 
-                <td>{{ entry.category|as_category }}</td>
-                <td>{{ entry.date|naturalday }}</td>
-                <td>$ {{ entry.value }}</td>
-                <td>{{ entry.description|truncatechars:50}}</td>
+                <td class="span1">{{ entry.date|naturalday }}</td>
+                <td class="span2">{{ entry.category|as_category }}</td>
+                <td class="span4">{{ entry.description|truncatechars:50}}</td>
+                <td><strong>$ {{ entry.value }}</strong></td>
             </tr>
         {% if forloop.last %}
             </tbody>
