@@ -17,5 +17,12 @@ class Entry(models.Model):
     category = models.ForeignKey(Category)
     user = models.ForeignKey('access.User')
 
+    def __unicode__(self):
+        return '%d of %s on %s' % (
+            self.value,
+            self.category,
+            self.date
+        )
+
     class Meta:
         ordering = ['-date']

@@ -5,6 +5,10 @@ def random_color():
     return choice(CATEGORY_COLORS)
 
 
+'''
+Html color to randomnly assign to categories.
+Commented values are too bright to show.
+'''
 CATEGORY_COLORS =['#F0F8FF',
     '#FAEBD7',
     '#00FFFF',
@@ -49,7 +53,7 @@ CATEGORY_COLORS =['#F0F8FF',
     '#696969',
     '#1E90FF',
     '#B22222',
-    '#FFFAF0',
+    #'#FFFAF0',
     '#228B22',
     '#FF00FF',
     '#DCDCDC',

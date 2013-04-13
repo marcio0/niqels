@@ -39,7 +39,7 @@ class NewEntryView(FormView, AutenticationRequiredMixin):
         '''
         context = super(NewEntryView, self).get_context_data(**kwargs)
         context['entries'] = Entry.objects.filter(user=self.request.user)
-        context['entry_form'] = self.form_class()
+        context['entry_form'] = context.pop('form', self.form_class())
 
         return context
 

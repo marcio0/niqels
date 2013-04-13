@@ -1,5 +1,5 @@
 <form class="form-inline" name="entry-form" action="{% url "new_entry" %}" method="post">{% csrf_token %}
-    {{form.errors}}
+    {{entry_form.errors}}
 
     <input id="id_id" name="id" type="hidden" />
 
@@ -12,6 +12,7 @@
             type="text"
             placeholder="Category"
             autocomplete="off"
+            value="{{ entry_form.category.value|default_if_none:"" }}"
             autofocus/>
     </div>
 
@@ -24,6 +25,7 @@
             type="text"
             placeholder="Value"
             autocomplete="off"
+            value="{{ entry_form.value.value|default_if_none:"" }}"
 
             data-title="For incoming, use a + before the value."
             data-placement="bottom"
@@ -39,7 +41,11 @@
             type="text"
             autocomplete="off"
             placeholder="Date"
+            {% if entry_form.date.value %}
+            value="{{ entry_form.date.value }}"
+            {% else %}
             value="{% now "SHORT_DATE_FORMAT" %}"
+            {% endif %}
             />
     </div>
 
@@ -51,7 +57,8 @@
             name="description"
             type="text"
             autocomplete="off"
-            placeholder="Description (Optional)"/>
+            placeholder="Description (Optional)"
+            value="{{ entry_form.description.value|default_if_none:"" }}"/>
     </div>
 
     <input type="submit" value="Submit" class="btn btn-primary"/>
