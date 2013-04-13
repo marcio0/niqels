@@ -46,6 +46,7 @@
         category: 1
         value: 10
         date: !!timestamp 2010-03-03
+        last_edited_time: "00:00:00"
 
 -   model: expenses.entry
     pk: 2
@@ -54,6 +55,7 @@
         category: 1
         value: 10
         date: !!timestamp 2010-03-03
+        last_edited_time: "00:00:00"
 
 # three entries for user 2
 -   model: expenses.entry
@@ -63,6 +65,7 @@
         category: 2
         value: 20
         date: !!timestamp 2010-03-03
+        last_edited_time: "00:00:00"
 
 -   model: expenses.entry
     pk: 4
@@ -71,6 +74,7 @@
         category: 2
         value: 20
         date: !!timestamp 2010-03-03
+        last_edited_time: "00:00:00"
 
 -   model: expenses.entry
     pk: 5
@@ -79,3 +83,4 @@
         category: 2
         value: 20
         date: !!timestamp 2010-03-03
+        last_edited_time: "00:00:00"
