@@ -1,8 +1,10 @@
-from django import forms
+import mock
+
+import django.forms
 
 from django.test import TestCase
 from expenses.models import Category
-from expenses.forms import EntryForm
+from expenses import forms
 from access.models import User
 
 
@@ -19,12 +21,12 @@ class EntryFormTest(TestCase):
             'value': '40',
             'description': 'desc'
         }
-        form = EntryForm(data)
+        form = forms.EntryForm(data)
 
         # is_valid also sets cleaned_data
         self.assertFalse(form.is_valid())
 
-        self.assertRaises(forms.ValidationError, form.clean_category)
+        self.assertRaises(django.forms.ValidationError, form.clean_category)
 
     def test_category_handling_missing_user(self):
         data = {
@@ -33,12 +35,13 @@ class EntryFormTest(TestCase):
             'description': 'desc',
             'category': 'test'
         }
-        form = EntryForm(data)
+        form = forms.EntryForm(data)
 
         # is_valid also sets cleaned_data
         self.assertRaises(AttributeError, form.is_valid)
 
-    def test_category_handling_ok(self):
+    @mock.patch('expenses.forms.random_color')
+    def test_category_handling_with_new_category(self, random_color):
         user = User.objects.create_user('user@expenses.com', 'pass')
         data = {
             'date': '03/03/2010',
@@ -46,8 +49,33 @@ class EntryFormTest(TestCase):
             'description': 'desc',
             'category': 'test'
         }
-        form = EntryForm(data)
+        form = forms.EntryForm(data)
         form.user = user
 
         # is_valid also sets cleaned_data
-        form.is_valid()
+        self.assertTrue(form.is_valid())
+
+        self.assertTrue(random_color.called)
+
+    @mock.patch('expenses.forms.random_color')
+    def test_category_handling_with_existing_category(self, random_color):
+        user = User.objects.create_user('user@expenses.com', 'pass')
+        Category(
+            name='cat',
+            user=user,
+            color="#111"
+        ).save()
+
+        data = {
+            'date': '03/03/2010',
+            'value': '40',
+            'description': 'desc',
+            'category': 'cat'
+        }
+        form = forms.EntryForm(data)
+        form.user = user
+
+        # is_valid also sets cleaned_data
+        self.assertTrue(form.is_valid())
+
+        self.assertFalse(random_color.called)

@@ -9,4 +9,4 @@ register = template.Library()
 def as_category(value):
     # TODO: check for auto escaping:
     # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
-    return mark_safe('<span class="label">%s</span>' % value)
+    return mark_safe('<span class="label" style="background-color: %s;">%s</span>' % (value.color, value.name))

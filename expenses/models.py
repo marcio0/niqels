@@ -4,6 +4,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=20)
     user = models.ForeignKey('access.User')
+    color = models.CharField(max_length=7, default="#999999")
 
     def __unicode__(self):
         return self.name
