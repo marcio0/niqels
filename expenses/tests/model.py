@@ -15,6 +15,21 @@ class CategoryModelTest(TestCase):
 
 
 class EntryFormTest(TestCase):
+    def test_category_lower(self):
+        user = User.objects.create_user('user@expenses.com', 'pass')
+
+        data = {
+            'date': '03/03/2010',
+            'value': '40',
+            'category': 'STUFF'
+        }
+        form = forms.EntryForm(data)
+        form.cleaned_data = data
+        form.user = user
+
+        self.assertEquals(form.clean_category().name, 'stuff')
+
+
     def test_category_handling_missing(self):
         data = {
             'date': '03/03/2010',
