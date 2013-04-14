@@ -1,20 +1,38 @@
 @import "bootstrap/bootstrap.less";
 @import "bootstrap/responsive.less";
 
-// Globals
-
-// Bootstrap overrides
-
-
 // Global styles
-
 body {
     padding-top: 60px;
+    background-color: #f5f5f5;
 }
 
 .squared-well {
     .well();
     .border-radius(0);
+    background-color: #FFF;
+}
+
+
+// Login and register pages
+.form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    .border-radius(5px);
+    .box-shadow(5px);
+}
+
+.form-signin {
+    input[type="text"], input[type="password"],
+    {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+    }
 }
 
 // Entry list styles

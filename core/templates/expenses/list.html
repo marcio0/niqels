@@ -83,13 +83,4 @@
 
 {% block bodyend %}
     <script type="text/javascript" src="{% static "js/entry-list.js" %}"></script>
-    <script type="text/javascript">
-        $(function(){
-            $('.entry-row td.action-bar i.delete-entry').click(function(){
-                var id = $(this).parent().parent().data('id');
-                var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}</form>");
-                form.submit();
-            });
-        });
-    </script>
 {% endblock bodyend %}
