@@ -69,6 +69,35 @@ class EntryNewTest(TestCase):
 
         self.assertEquals(actual_categories, previous_categories)
 
+    def test_category_name_strip(self):
+        client = Client()
+        client.login(email='user1@expenses.com', password='pass')
+
+        previous_categories = Category.objects.filter(user__email='user1@expenses.com').count()
+
+        data = {
+            'value': 45,
+            'date': '03/03/2010',
+            'description': 'new category',
+            'category': 'cat1 '
+        }
+
+        ret = client.post('/entries/new/', data)
+        self.assertEquals(ret.status_code, 302)
+        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
+
+        exists = Entry.objects.filter(
+            value=-45,
+            date=datetime.date(2010, 03, 03),
+            description='new category',
+            user__email='user1@expenses.com'
+        ).exists()
+        self.assertTrue(exists)
+
+        actual_categories = Category.objects.filter(user__email='user1@expenses.com').count()
+
+        self.assertEquals(actual_categories, previous_categories)
+
     def test_invalid_form(self):
         client = Client()
         client.login(email='user1@expenses.com', password='pass')
