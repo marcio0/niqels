@@ -11,6 +11,28 @@ from access.models import User
 class EntryNewTest(TestCase):
     fixtures = ['EntryNewTest']
 
+    def test_not_logged_in(self):
+        client = Client()
+
+        data = {
+            'value': 45,
+            'date': '03/03/2010',
+            'description': 'new category',
+            'category': 'new'
+        }
+        ret = client.get('/entries/new/')
+
+        self.assertEquals(ret.status_code, 302)
+        self.assertEquals(ret.get('location'), 'http://testserver/login/?next=/entries/new/')
+
+    def test_get_does_nothing(self):
+        client = Client()
+        client.login(email='user1@expenses.com', password='pass')
+
+        ret = client.get('/entries/new/')
+        self.assertEquals(ret.status_code, 302)
+        self.assertEquals(ret.get('location'), 'http://testserver/')
+
     def test_post_with_new_category(self):
         client = Client()
         client.login(email='user1@expenses.com', password='pass')

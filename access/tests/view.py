@@ -5,6 +5,24 @@ from access.models import User
 from access import forms
 
 
+class LoginViewTest(TestCase):
+    def test_already_authenticated_user(self):
+        # TODO: make this work
+        user = User.objects.create_user(
+            email='register@expenses.com',
+            password='test'
+        )
+
+        client = Client()
+        client.login(
+            email=user.email,
+            password='test'
+        )
+
+        ret = client.get('/login/')
+        self.assertEquals(ret.status_code, 302)
+        self.assertEquals(ret.get('location'), 'http://testserver/')
+
 class RegisterViewTest(TestCase):
     def test_already_authenticated_user(self):
         user = User.objects.create_user(
