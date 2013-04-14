@@ -14,7 +14,7 @@ def globals(request):
     }
 
     if request.user.is_authenticated:
-        context['user_categories'] = [c.name.capitalize() for c in Category.objects.filter(user=request.user)]
+        context['user_categories'] = [c.name.capitalize() for c in Category.objects.filter(user_id=request.user.pk)]
 
     return context
 
