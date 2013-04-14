@@ -1,0 +1,49 @@
+<form class="form-signin" name="login-form" method="POST" action="{% url "login" %}">{% csrf_token %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h2 class="form-signin-heading">Please sign in</h2>
+
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{error}}
+        </div>
+    {% endfor %}
+
+    {% for field in form %}
+        <div class="control-group {% if field.errors %}error{% endif %}">
+            <div class="controls">
+                <input
+                    type="{{ field.field.widget.input_type }}"
+                    name="{{ field.name }}"
+                    class="input-block-level"
+                    placeholder="{{ field.label }}"
+                    {% if field.name not in empty_value_fields %}
+                        value={{ field.value|default_if_none:"" }}
+                    {% endif %}
+                    >
+
+            </div>
+
+            {% if field.errors %}
+            <ul>
+            {% for error in field.errors %}
+                <li><span class="help-block error">{{ error }}</span></li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <button class="btn btn-primary" type="submit">Login</button>
+
+    <p>Not a user yet? <a href="{% url "register" %}">Sign up here!</a></p>
+</form>

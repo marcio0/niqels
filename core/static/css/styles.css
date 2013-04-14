@@ -209,7 +209,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
 }
 a {
   color: #0088cc;
@@ -2336,7 +2336,7 @@ table {
   border-top: 2px solid #dddddd;
 }
 .table .table {
-  background-color: #ffffff;
+  background-color: #f5f5f5;
 }
 .table-condensed th,
 .table-condensed td {
@@ -4751,7 +4751,7 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs > .active > a:hover,
 .nav-tabs > .active > a:focus {
   color: #555555;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -6604,7 +6604,7 @@ a.badge:focus {
   font-weight: 200;
   line-height: 30px;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: #ffffff;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -8475,7 +8475,6 @@ a.badge:focus {
 }
 body {
   padding-top: 60px;
-  background-color: #f5f5f5;
 }
 .squared-well {
   min-height: 20px;

@@ -11,6 +11,16 @@ from django.contrib import messages
 from expenses.models import Entry, Category
 from expenses.forms import EntryForm
 from access.views import AutenticationRequiredMixin
+from access.forms import UserCreationForm
+
+
+class PresentationView(TemplateView):
+    template_name = "presentation.html"
+
+    def get_context_data(self):
+        context = super(PresentationView, self).get_context_data()
+        context['register_form'] = UserCreationForm()
+        return context
 
 
 class DeleteEntryView(DeletionMixin, AutenticationRequiredMixin):

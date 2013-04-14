@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+    
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <div class="hero-unit">
+                <h1>Heyoooo world!</h1>
+            </div>
+        </div>
+        <div class="span4">
+            {% include "access/forms/register.html" %}
+        </div>
+    </div>
+</div> <!-- container -->
+{% endblock body %}
