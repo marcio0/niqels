@@ -48,7 +48,7 @@
 
                         <td class="span1">{{ entry.date|naturalday }}</td>
                         <td class="span2">{{ entry.category|as_category }}</td>
-                        <td class="span4">{{ entry.description|truncatechars:50}}</td>
+                        <td class="span4">{{ entry.description|truncatechars:50}} | {{entry.category.color}}</td>
                         <td><strong>{{ entry.value|as_value }}</strong></td>
                     </tr>
                 {% if forloop.last %}
