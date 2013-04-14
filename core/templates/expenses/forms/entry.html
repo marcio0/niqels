@@ -13,6 +13,7 @@
             placeholder="Category"
             autocomplete="off"
             value="{{ entry_form.category.value|default_if_none:"" }}"
+
             autofocus/>
     </div>
 
@@ -63,3 +64,9 @@
 
     <input type="submit" value="Submit" class="btn btn-primary"/>
 </form>
+
+<script type="text/javascript">
+    $(function(){
+        $('input#id_category').typeahead({source: user_categories});
+    });
+</script>

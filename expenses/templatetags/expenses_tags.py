@@ -1,5 +1,8 @@
+import json
+
 from django import template
 from django.utils.safestring import mark_safe
+from django.utils.encoding import force_text
 
 
 register = template.Library()
@@ -26,3 +29,8 @@ def as_value(value):
     # TODO: check for auto escaping:
     # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
     return mark_safe(label_html_tag % (color, value))
+
+
+@register.filter(is_safe=True)
+def to_json(value):
+    return mark_safe(json.dumps(value, ensure_ascii=False))
