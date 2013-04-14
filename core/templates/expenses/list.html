@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="span9">
-            <div class="well">
+            <div class="entry-form-container">
                 {% include "expenses/forms/entry.html" %}
             </div>
 
@@ -44,7 +44,10 @@
                         <td class="span2">{{ entry.category|as_category }}</td>
                         <td class="span4">{{ entry.description|truncatechars:50}} | {{entry.category.color}}</td>
                         <td><strong>{{ entry.value|as_value }}</strong></td>
-                        <td class="span2"><i class="icon-wrench icon-large pull-right"></i><i class="icon-trash icon-large pull-right remove-entry"></i></td>
+                        <td class="span2 action-bar">
+                            <i class="icon-wrench icon-large"></i>
+                            <i class="icon-trash icon-large delete-entry"></i>
+                        </td>
                     </tr>
                 {% if forloop.last %}
                     </tbody>
@@ -54,7 +57,7 @@
         </div>
 
         <div class="span3 offset9" data-spy="affix">
-            <div class="well">
+            <div class="side-panel">
             Seu balanço mensal: pobrão
             </div>
         </div>
@@ -82,7 +85,7 @@
     <script type="text/javascript" src="{% static "js/entry-list.js" %}"></script>
     <script type="text/javascript">
         $(function(){
-            $('.entry-row td i.remove-entry').click(function(){
+            $('.entry-row td.action-bar i.delete-entry').click(function(){
                 var id = $(this).parent().parent().data('id');
                 var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}</form>");
                 form.submit();
