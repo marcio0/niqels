@@ -8,8 +8,52 @@ from expenses.models import Entry, Category
 from access.models import User
 
 
-class EntryNewTest(TestCase):
-    fixtures = ['EntryNewTest']
+class DeleteEntryViewTest(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(
+            email='delete@expenses.com',
+            password='delete')
+
+        cat = Category(name='delete', user=user)
+        cat.save()
+
+        self.entry = Entry(
+            value=Decimal(1),
+            date=datetime.date.today(),
+            category=cat,
+            user=user)
+        self.entry.save()
+
+        self.entry2 = Entry(
+            value=Decimal(1),
+            date=datetime.date.today(),
+            category=cat,
+            user=user)
+        self.entry2.save()
+
+    def test_not_logged_in(self):
+        client = Client()
+
+        ret = client.post('/entries/%d/delete/' % self.entry.id)
+
+        self.assertEquals(ret.status_code, 302)
+        self.assertEquals(ret.get('location'), 'http://testserver/login/?next=/entries/%d/delete/' % self.entry.id)
+
+    def test_deletion(self):
+        client = Client()
+        client.login(email='delete@expenses.com', password='delete')
+
+        ret = client.post('/entries/%d/delete/' % self.entry.id)
+
+        self.assertEquals(ret.status_code, 302)
+        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
+
+        self.assertTrue(
+            Entry.objects.filter(pk=self.entry2.id).exists())
+
+
+class CreateEntryTest(TestCase):
+    fixtures = ['CreateEntryTest']
 
     def test_not_logged_in(self):
         client = Client()
@@ -136,8 +180,8 @@ class EntryNewTest(TestCase):
         self.assertNotEquals(ret.content.find('This field is required.'), -1)
     
 
-class EntryListTest(TestCase):
-    fixtures = ['ExpenseViewTest']
+class ListEntrytTest(TestCase):
+    fixtures = ['ListEntryTest']
 
     def test_get_list(self):
         client = Client()

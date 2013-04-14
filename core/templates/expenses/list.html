@@ -94,7 +94,7 @@
         $(function(){
             $('.entry-row td i.remove-entry').click(function(){
                 var id = $(this).parent().parent().data('id');
-                var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}<input type='hidden' name='id' value=" + id + "></form>");
+                var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}</form>");
                 form.submit();
             });
         });

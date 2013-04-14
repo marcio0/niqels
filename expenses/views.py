@@ -3,7 +3,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django.views.generic.edit import FormView, DeletionMixin
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -16,7 +16,7 @@ from access.views import AutenticationRequiredMixin
 class DeleteEntryView(DeletionMixin, AutenticationRequiredMixin):
     def get_object(self):
         return get_object_or_404(Entry,
-            pk=int(self.request.POST['id']),
+            pk=self.kwargs['id'],
             user_id=self.request.user.id)
 
     def get_success_url(self):
@@ -28,18 +28,18 @@ class DeleteEntryView(DeletionMixin, AutenticationRequiredMixin):
         return ret
 
 
-class EntryListView(TemplateView, AutenticationRequiredMixin):
+class ListEntryView(TemplateView, AutenticationRequiredMixin):
     template_name = 'expenses/list.html'   
 
     def get_context_data(self, **kwargs):
-        context = super(EntryListView, self).get_context_data(**kwargs)
+        context = super(ListEntryView, self).get_context_data(**kwargs)
         context['entries'] = Entry.objects.filter(user=self.request.user)
         context['entry_form'] = EntryForm()
 
         return context
 
 
-class NewEntryView(FormView, AutenticationRequiredMixin):
+class CreateEntryView(FormView, AutenticationRequiredMixin):
     form_class = EntryForm
     template_name = 'expenses/list.html'
 
@@ -48,13 +48,13 @@ class NewEntryView(FormView, AutenticationRequiredMixin):
         entry.user = self.request.user
         entry.save()
 
-        return super(NewEntryView, self).form_valid(form)
+        return super(CreateEntryView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         '''
            Only called if not form.is_valid()
         '''
-        context = super(NewEntryView, self).get_context_data(**kwargs)
+        context = super(CreateEntryView, self).get_context_data(**kwargs)
         context['entries'] = Entry.objects.filter(user=self.request.user)
         context['entry_form'] = context.pop('form', self.form_class())
 
@@ -64,7 +64,7 @@ class NewEntryView(FormView, AutenticationRequiredMixin):
         return redirect('index')
 
     def get_form(self, form_class):
-        form = super(NewEntryView, self).get_form(form_class)
+        form = super(CreateEntryView, self).get_form(form_class)
         form.user = self.request.user
         return form
 
