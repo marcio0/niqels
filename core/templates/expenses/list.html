@@ -54,7 +54,7 @@
                         <td class="span2">{{ entry.category|as_category }}</td>
                         <td class="span4">{{ entry.description|truncatechars:50}} | {{entry.category.color}}</td>
                         <td><strong>{{ entry.value|as_value }}</strong></td>
-                        <td class="span2"><i class="icon-wrench icon-large pull-right"></i><i class="icon-trash icon-large pull-right"></i></td>
+                        <td class="span2"><i class="icon-wrench icon-large pull-right"></i><i class="icon-trash icon-large pull-right remove-entry"></i></td>
                     </tr>
                 {% if forloop.last %}
                     </tbody>
@@ -90,4 +90,13 @@
 
 {% block bodyend %}
     <script type="text/javascript" src="{% static "js/entry-list.js" %}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.entry-row td i.remove-entry').click(function(){
+                var id = $(this).parent().parent().data('id');
+                var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}<input type='hidden' name='id' value=" + id + "></form>");
+                form.submit();
+            });
+        });
+    </script>
 {% endblock bodyend %}

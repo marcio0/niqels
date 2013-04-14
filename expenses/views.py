@@ -1,14 +1,31 @@
-from django.shortcuts import redirect
+from django.utils.translation import ugettext, ugettext_lazy as _
+from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, DeletionMixin
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 from expenses.models import Entry, Category
 from expenses.forms import EntryForm
 from access.views import AutenticationRequiredMixin
+
+
+class DeleteEntryView(DeletionMixin, AutenticationRequiredMixin):
+    def get_object(self):
+        return get_object_or_404(Entry,
+            pk=int(self.request.POST['id']),
+            user_id=self.request.user.id)
+
+    def get_success_url(self):
+        return reverse('entry_list')
+
+    def delete(self, request, *args, **kwargs):
+        ret = super(DeleteEntryView, self).delete(request, *args, **kwargs)
+        messages.success(request, _('Entry removed.'))
+        return ret
 
 
 class EntryListView(TemplateView, AutenticationRequiredMixin):
