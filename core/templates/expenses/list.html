@@ -22,40 +22,50 @@
 {% block body %}
 
 <div class="container">
-    <div class="hero-unit">
-        {% include "expenses/forms/entry.html" %}
-    </div>
+    <div class="row">
+        <div class="span9">
+            <div class="well">
+                {% include "expenses/forms/entry.html" %}
+            </div>
 
-    <table class="table">
-    {% for entry in entries %}
-        {% ifchanged entry.date.year entry.date.month %}
-            {% if not forloop.first %}
-                </tbody>
-            {% endif %}
-            <thead><tr>
-                <th colspan="4">Ano {{ entry.date.year }} | Mes {{ entry.date.month }}</th>
-            </tr></thead>
-            <tbody>
-        {% endifchanged %}
-            <tr class="entry-row"
-                data-date="{{ entry.date|date:"SHORT_DATE_FORMAT" }}"
-                data-category="{{ entry.category }}"
-                data-value="{{ entry.value }}"
-                data-description="{{ entry.description }}"
-                data-id="{{ entry.id }}">
+            <table class="table">
+            {% for entry in entries %}
+                {% ifchanged entry.date.year entry.date.month %}
+                    {% if not forloop.first %}
+                        </tbody>
+                    {% endif %}
+                    <thead><tr>
+                        <th colspan="4">Ano {{ entry.date.year }} | Mes {{ entry.date.month }}</th>
+                    </tr></thead>
+                    <tbody>
+                {% endifchanged %}
+                    <tr class="entry-row"
+                        data-date="{{ entry.date|date:"SHORT_DATE_FORMAT" }}"
+                        data-category="{{ entry.category }}"
+                        data-value="{{ entry.value }}"
+                        data-description="{{ entry.description }}"
+                        data-id="{{ entry.id }}">
 
-                <td class="span1">{{ entry.date|naturalday }}</td>
-                <td class="span2">{{ entry.category|as_category }}</td>
-                <td class="span4">{{ entry.description|truncatechars:50}}</td>
-                <td><strong>{{ entry.value|as_value }}</strong></td>
-            </tr>
-        {% if forloop.last %}
-            </tbody>
-        {% endif %}
-    {% endfor %}
-    </table> 
+                        <td class="span1">{{ entry.date|naturalday }}</td>
+                        <td class="span2">{{ entry.category|as_category }}</td>
+                        <td class="span4">{{ entry.description|truncatechars:50}}</td>
+                        <td><strong>{{ entry.value|as_value }}</strong></td>
+                    </tr>
+                {% if forloop.last %}
+                    </tbody>
+                {% endif %}
+            {% endfor %}
+            </table> 
+        </div>
 
-</div> <!-- container -->
+        <div class="span3 offset9" data-spy="affix">
+            <div class="well">
+            Seu balanço mensal: pobrão
+            </div>
+        </div>
+
+    </div> <!-- container -->
+</div> <!-- row -->
 
 <div class="modal hide fade" id="mymodal">
     <div class="modal-header">
