@@ -15,6 +15,10 @@
         font-size: 15px;
         font-weight: normal;
     }
+    .entry-row td i {
+        padding-right: 2px;
+        padding-left: 2px;
+    }
 </style>
 {% endblock extrahead %}
 
@@ -50,6 +54,7 @@
                         <td class="span2">{{ entry.category|as_category }}</td>
                         <td class="span4">{{ entry.description|truncatechars:50}} | {{entry.category.color}}</td>
                         <td><strong>{{ entry.value|as_value }}</strong></td>
+                        <td class="span2"><i class="icon-wrench icon-large pull-right"></i><i class="icon-trash icon-large pull-right"></i></td>
                     </tr>
                 {% if forloop.last %}
                     </tbody>
