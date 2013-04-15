@@ -57,6 +57,9 @@
                     form.submit();
                 });
             });
+            $(function(){
+                $('input#id_category').typeahead({source: user_categories});
+            });
         </script>
 
         {% block bodyend %}{% endblock bodyend %}
