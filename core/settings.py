@@ -14,7 +14,7 @@ MANAGERS = ADMINS
 AUTH_USER_MODEL = 'access.User'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/entries/'
 
 DATABASES = {
     'default': {

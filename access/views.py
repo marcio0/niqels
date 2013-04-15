@@ -17,7 +17,7 @@ class AutenticationRequiredMixin(View):
 
 def register(request):
     if request.user.is_authenticated():
-        return redirect('index')
+        return redirect('entry_list')
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

@@ -38,7 +38,7 @@ class RegisterViewTest(TestCase):
 
         ret = client.get('/register/')
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/')
+        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
 
     def test_get(self):
         client = Client()

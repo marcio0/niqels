@@ -187,7 +187,7 @@ class ListEntrytTest(TestCase):
         client = Client()
         client.login(email='user1@expenses.com', password='pass')
 
-        ret = client.get('/')
+        ret = client.get('/entries/')
         self.assertEquals(ret.status_code, 200)
 
         form = ret.context['entry_form']
