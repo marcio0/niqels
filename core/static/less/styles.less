@@ -4,6 +4,8 @@
 // Global overrides
 @bodyBackground: #f5f5f5;
 @heroUnitBackground: #fff;
+@wellBackground: #fff;
+
 
 // Global styles
 body {
@@ -13,22 +15,15 @@ body {
 .squared-well {
     .well();
     .border-radius(0);
-    background-color: #FFF;
 }
 
 
 // Login and register pages
-.form-signin {
-    //max-width: 300px;
-    padding: 19px 29px 29px;
-    //margin: 0 auto 20px;
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
+[class^="form-sign"] {
+    .squared-well();
     .border-radius(5px);
     .box-shadow(5px);
-}
 
-.form-signin {
     input[type="text"], input[type="password"],
     {
         font-size: 16px;
