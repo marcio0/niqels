@@ -36,6 +36,7 @@ class UserCreationForm(forms.ModelForm):
         'password_mismatch': _("The two password fields didn't match."),
     }
     email = forms.EmailField()
+    name = forms.CharField(label=_("Name"), required=True, max_length=60)
     password1 = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Password confirmation"),
@@ -44,7 +45,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("email",)
+        fields = ('name', 'email')
 
     def clean_email(self):
         email = self.cleaned_data["email"]
