@@ -1,8 +1,20 @@
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db import models
 from django import forms
+from password_reset import forms as pr_forms
 
 from access.models import User
+
+
+class PasswordRecoveryForm(pr_forms.PasswordRecoveryForm):
+    def get_user_by_email(self, email):
+        pr_forms.validate_email(email)
+        key = 'email__%sexact' % ('' if self.case_sensitive else 'i')
+        try:
+            user = User.objects.get(**{key: email})
+        except User.DoesNotExist:
+            raise forms.ValidationError(_("Sorry, this user doesn't exist."))
+        return user
 
     
 class UserCreationForm(forms.ModelForm):

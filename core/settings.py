@@ -140,7 +140,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'expenses',
     'access',
-    'django_coverage'
+    'django_coverage',
+    'password_reset',
 )
 
 # A sample logging configuration. The only tangible logging
