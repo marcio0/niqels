@@ -1,0 +1,7 @@
+django 1.5
+django-password-reset
+
+ipython
+mock
+less
+django-coverage
