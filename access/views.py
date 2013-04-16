@@ -2,18 +2,46 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from password_reset import views as pr_views
 
-from access.forms import UserCreationForm, PasswordRecoveryForm
+from access.forms import UserCreationForm, PasswordRecoveryForm, PasswordResetForm
+from access.models import User
 
 
 class AutenticationRequiredMixin(View):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(AutenticationRequiredMixin, self).dispatch(*args, **kwargs)
+
+
+class Reset(pr_views.Reset):
+    form_class = PasswordResetForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+
+        try:
+            pk = pr_views.signing.loads(kwargs['token'], max_age=self.token_expires,
+                               salt=self.salt)
+        except pr_views.signing.BadSignature as e:
+            return self.invalid()
+
+        self.user = get_object_or_404(User, pk=pk)
+        return super(pr_views.Reset, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(pr_views.Reset, self).get_context_data(**kwargs)
+        if 'invalid' not in ctx:
+            ctx.update({
+                'email': self.user.email,
+                'token': self.kwargs['token'],
+            })
+        return ctx
 
 
 class Recover(pr_views.Recover):

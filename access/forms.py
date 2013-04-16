@@ -6,6 +6,14 @@ from password_reset import forms as pr_forms
 from access.models import User
 
 
+class PasswordResetForm(pr_forms.PasswordResetForm):
+    def save(self):
+        self.user.set_password(self.cleaned_data['password1'])
+        User.objects.filter(pk=self.user.pk).update(
+            password=self.user.password,
+        )
+
+
 class PasswordRecoveryForm(pr_forms.PasswordRecoveryForm):
     def get_user_by_email(self, email):
         pr_forms.validate_email(email)
