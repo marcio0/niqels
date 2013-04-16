@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -31,20 +32,21 @@ class Reset(pr_views.Reset):
         except pr_views.signing.BadSignature as e:
             return self.invalid()
 
-        self.user = get_object_or_404(User, pk=pk)
+        self.user = get_object_or_404(get_user_model(), pk=pk)
         return super(pr_views.Reset, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super(pr_views.Reset, self).get_context_data(**kwargs)
         if 'invalid' not in ctx:
             ctx.update({
-                'email': self.user.email,
+                'email': self.user.get_username(),
                 'token': self.kwargs['token'],
             })
         return ctx
 
 
 class Recover(pr_views.Recover):
+    # do a better job on this one!
     form_class = PasswordRecoveryForm
     search_fields = ['email']
 

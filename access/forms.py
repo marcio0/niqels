@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db import models
 from django import forms
@@ -9,7 +10,7 @@ from access.models import User
 class PasswordResetForm(pr_forms.PasswordResetForm):
     def save(self):
         self.user.set_password(self.cleaned_data['password1'])
-        User.objects.filter(pk=self.user.pk).update(
+        get_user_model().objects.filter(pk=self.user.pk).update(
             password=self.user.password,
         )
 
@@ -19,7 +20,7 @@ class PasswordRecoveryForm(pr_forms.PasswordRecoveryForm):
         pr_forms.validate_email(email)
         key = 'email__%sexact' % ('' if self.case_sensitive else 'i')
         try:
-            user = User.objects.get(**{key: email})
+            user = get_user_model().objects.get(**{key: email})
         except User.DoesNotExist:
             raise forms.ValidationError(_("Sorry, this user doesn't exist."))
         return user
