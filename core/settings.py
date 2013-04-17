@@ -116,7 +116,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    'expenses.context_processors.globals',
+    'expenses.context_processors.global_context',
 )
 
 ROOT_URLCONF = 'core.urls'
