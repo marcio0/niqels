@@ -8,9 +8,10 @@ class UserTest(TestCase):
     def test_properties(self):
         user = User()
         user.email = "user@expenses.com"
+        user.name = "dude"
 
-        self.assertEquals(user.get_full_name(), user.email)
-        self.assertEquals(user.get_short_name(), user.email)
+        self.assertEquals(user.get_full_name(), "dude")
+        self.assertEquals(user.get_short_name(), "dude")
         self.assertEquals(unicode(user), user.email)
 
     def test_admin_staff_status(self):

@@ -14,6 +14,7 @@ class UserCreationFormTest(TestCase):
             password='pass')
         
         data = {
+            'name': 'foo',
             'email': 'existing@expenses.com',
             'password1': u'asd',
             'password2': u'asd'
@@ -26,6 +27,7 @@ class UserCreationFormTest(TestCase):
 
     def test_clean_email_new(self):
         data = {
+            'name': 'foo',
             'email': 'existing@expenses.com',
             'password1': 'asd',
             'password2': 'asd'
@@ -39,6 +41,7 @@ class UserCreationFormTest(TestCase):
 
     def test_clean_password2_match(self):
         data = {
+            'name': 'foo',
             'email': 'existing@expenses.com',
             'password1': u'asd',
             'password2': u'asd'
@@ -66,6 +69,7 @@ class UserCreationFormTest(TestCase):
     @mock.patch.object(User, 'set_password')
     def test_save(self, set_password):
         data = {
+            'name': 'foo',
             'email': 'existing@expenses.com',
             'password1': u'asd',
             'password2': u'asd'
@@ -83,6 +87,7 @@ class UserCreationFormTest(TestCase):
     @mock.patch.object(User, 'set_password')
     def test_save_commit_false(self, set_password):
         data = {
+            'name': 'foo',
             'email': 'existing@expenses.com',
             'password1': u'asd',
             'password2': u'asd'

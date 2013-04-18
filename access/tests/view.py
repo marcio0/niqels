@@ -51,6 +51,7 @@ class RegisterViewTest(TestCase):
 
     def test_post(self):
         data = {
+            'name': 'foo',
             'email': 'new@expenses.com',
             'password1': 'asd',
             'password2': 'asd'
