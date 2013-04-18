@@ -8,10 +8,6 @@
 @heroUnitBackground: #fff;
 @wellBackground: #fff;
 
-body {
-    padding-top: 60px;
-}
-
 .hero-unit {
     border: 1px solid darken(@heroUnitBackground, 7%);
     .border-radius(0);
@@ -54,6 +50,7 @@ input {
     &.input-block-level {
         display: table;
         width: 100%;
+        margin-bottom: 17px;
 
         .add-on {
             display: table-cell;
@@ -64,14 +61,22 @@ input {
             height: 30px;
             display: table-cell;
             width: 100%;
-            border-left: 0;
         }
+    }
+
+    input {
+        border-left: 0;
     }
 }
 
 .center-form {
     width: 300px;
     margin: 0 auto;
+}
+
+.navbar {
+    margin-bottom: 20px;
+    .box-shadow(0) !important;
 }
 
 /*
@@ -130,6 +135,14 @@ form {
     &[id="register-form"] {
         input[type="submit"] {
             .btn-danger();
+        }
+    }
+
+    &[id="login-inline"] {
+        input {
+            &[type="text"], &[type="password"] {
+                margin-right: 10px;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-<form name="fast-login" class="navbar-form form-inline pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
+<form id="login-inline" class="navbar-form form-inline pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
     <div class="input-prepend">
         <span class="add-on"><i class="icon-envelope"></i></span>
         <input type="text" class="input-medium" name="username" placeholder="Email">

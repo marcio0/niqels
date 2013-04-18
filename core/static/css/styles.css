@@ -8476,9 +8476,6 @@ a.badge:focus {
 /*
  * OVERRIDES
  */
-body {
-  padding-top: 60px;
-}
 .hero-unit {
   border: 1px solid #ededed;
   -webkit-border-radius: 0;
@@ -8669,6 +8666,7 @@ input[type="submit"] .badge {
 .input-prepend.input-block-level {
   display: table;
   width: 100%;
+  margin-bottom: 17px;
 }
 .input-prepend.input-block-level .add-on {
   display: table-cell;
@@ -8678,7 +8676,19 @@ input[type="submit"] .badge {
   height: 30px;
   display: table-cell;
   width: 100%;
+}
+.input-prepend input {
   border-left: 0;
+}
+.center-form {
+  width: 300px;
+  margin: 0 auto;
+}
+.navbar {
+  margin-bottom: 20px;
+  -webkit-box-shadow: 0 !important;
+  -moz-box-shadow: 0 !important;
+  box-shadow: 0 !important;
 }
 /*
  * /GLOBAL STYLES
@@ -8742,10 +8752,6 @@ form[name="entry-form"] blockquote {
 /*
  * /ENTRY LIST STYLES
  */
-.center-form {
-  width: 300px;
-  margin: 0 auto;
-}
 /*
  * PRESENTATION PAGE
  */
@@ -8830,6 +8836,10 @@ form[id="register-form"] input[type="submit"].active {
 form[id="register-form"] input[type="submit"] .caret {
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;
+}
+form[id="login-inline"] input[type="text"],
+form[id="login-inline"] input[type="password"] {
+  margin-right: 10px;
 }
 /*
  * /PRESENTATION PAGE
