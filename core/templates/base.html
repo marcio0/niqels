@@ -31,11 +31,7 @@
                         {% endif %}
                         </p>
                     {% else %}
-                        <form name="fast-login" class="navbar-form form-inline pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
-                            <input type="text" class="input-medium" name="username" placeholder="Email">
-                            <input type="password" class="input-medium" name="password" placeholder="Password">
-                            <button type="submit" class="btn">Sign in</button>
-                        </form>
+                        {% include "access/forms/login_inline.html" %}
                     {% endif %}
                 </div>
             </div>

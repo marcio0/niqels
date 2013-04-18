@@ -2,10 +2,8 @@
 
 {% block body %}
     
-<div class="container">
+<div class="container center-form">
     {% include "access/forms/login.html" %}
-    (<a href="{% url "password_reset_recover" %}">Reset password</a>)
-
-
 </div> <!-- container -->
+
 {% endblock body %}

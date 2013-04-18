@@ -8,11 +8,17 @@
 
 <div class="container">
     <div class="row">
-        <div class="span9">
-            <div class="entry-form-container-inline">
-                {% include "expenses/forms/entry.html" %}
-            </div>
 
+        <div class="span3" data-spy="affix">
+
+            {% include "expenses/forms/entry.html" %}
+
+            <div class="side-panel">
+                Seu balanço mensal: pobrão
+            </div>
+        </div>
+
+        <div class="span9 offset3">
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -54,13 +60,6 @@
             {% endfor %}
             </table> 
         </div>
-
-        <div class="span3 offset9" data-spy="affix">
-            <div class="side-panel">
-            Seu balanço mensal: pobrão
-            </div>
-        </div>
-
     </div> <!-- container -->
 </div> <!-- row -->
 

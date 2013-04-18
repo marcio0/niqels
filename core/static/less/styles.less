@@ -1,20 +1,15 @@
 @import "bootstrap/bootstrap.less";
 @import "bootstrap/responsive.less";
 
-// Global overrides
+/*
+ * OVERRIDES
+ */
 @bodyBackground: #f5f5f5;
 @heroUnitBackground: #fff;
 @wellBackground: #fff;
 
-
-// Global styles
 body {
     padding-top: 60px;
-}
-
-.squared-well {
-    .well();
-    .border-radius(0);
 }
 
 .hero-unit {
@@ -22,22 +17,72 @@ body {
     .border-radius(0);
 }
 
+/*
+ * /OVERRIDES
+ */
 
-// Login and register pages
-[class^="form-sign"] {
-    .squared-well();
-    .box-shadow(5px);
 
-    input[type="text"], input[type="password"],
-    {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 9px;
+
+/*
+ * GLOBAL STYLES
+ */
+
+.squared-well {
+    .well();
+    .border-radius(0);
+}
+
+input {
+    &[type="text"], &[type="password"] {
+        .border-radius(0);
+    }
+
+    &[type="submit"] {
+        .btn();
+        .border-radius(0);
     }
 }
 
-// Entry list styles
+.input-prepend {
+    .add-on {
+        .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+        background-color: #fff;
+        border-right: 0;
+        .border-radius(0) !important;
+    }
+
+    &.input-block-level {
+        display: table;
+        width: 100%;
+
+        .add-on {
+            display: table-cell;
+        }
+        
+        > input {
+            box-sizing: border-box;
+            height: 30px;
+            display: table-cell;
+            width: 100%;
+            border-left: 0;
+        }
+    }
+}
+
+.center-form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+/*
+ * /GLOBAL STYLES
+ */
+
+
+
+/*
+ * ENTRY LIST STYLES
+ */
 .entry-row {
     td {
         font-size: 18px;
@@ -56,49 +101,38 @@ body {
         }
     }
 }
-
-.entry-form-container-inline {
-    .squared-well();
-
-    form[name="entry-form"] {
-        margin-bottom: 0px;
-        width: 100%;
-
-        input {
-            &[type="text"] {
-                .border-radius(0);
-
-                border-left: 0;
-                border-right: 0;
-               .box-shadow(inset 0 1px 0 rgba(0,0,0,.075));
-            }
-
-            &[type="submit"] {
-                .border-radius(0 14px 14px 0);
-                border-left: 0;
-            }
-
-            &:focus {
-                .box-shadow(~"inset 0 1px 0 rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)");
-            }
-        }
-
-        .input-prepend {
-            .add-on {
-                .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
-                .border-radius(0);
-                background-color: #fff;
-                border-right: 0;
-
-                &.add-on-round {
-                    .border-radius(14px 0 0 14px);
-                }
-            }
-        }
-    }
-}
-
+ 
 .side-panel {
     .squared-well();
 }
 
+form[name="entry-form"] {
+    .squared-well();
+}
+/*
+ * /ENTRY LIST STYLES
+ */
+
+
+
+/*
+ * PRESENTATION PAGE
+ */
+form {
+    &[id="register-form"], &[id="signup-form"] { 
+        .squared-well();
+
+        input[type="submit"] {
+            .btn-block();
+        }
+    }
+
+    &[id="register-form"] {
+        input[type="submit"] {
+            .btn-danger();
+        }
+    }
+}
+/*
+ * /PRESENTATION PAGE
+ */
