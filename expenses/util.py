@@ -2,4 +2,6 @@ from random import choice, randrange
 
 
 def random_color():
-    return '#' + hex(randrange(0x000000, 0xFFFFFF / 3)).split('x')[1].ljust(6, '0')
+    def random_segment():
+        return hex(randrange(0x11, 0xff * 0.8)).split('x')[1].ljust(2, '0')
+    return '#%s%s%s' % (random_segment(), random_segment(), random_segment())
