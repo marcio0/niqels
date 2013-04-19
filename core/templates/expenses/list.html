@@ -35,7 +35,7 @@
                         </tbody>
                     {% endif %}
                     <thead><tr>
-                        <th colspan="4">Ano {{ entry.date.year }} | Mes {{ entry.date.month }}</th>
+                        <th colspan="4">{{ entry.date|date:"F Y"}}</th>
                     </tr></thead>
                     <tbody>
                 {% endifchanged %}
@@ -46,9 +46,9 @@
                         data-description="{{ entry.description }}"
                         data-id="{{ entry.id }}">
 
-                        <td class="span1">{{ entry.date|naturalday }}</td>
+                        <td class="span1">{{ entry.date|naturalday:"d" }}</td>
                         <td class="span2">{{ entry.category|as_category }}</td>
-                        <td class="span4">{{ entry.description|truncatechars:50}} | {{entry.category.color}}</td>
+                        <td class="span4">{{ entry.description|truncatechars:50}}</td>
                         <td><strong>{{ entry.value|as_value }}</strong></td>
                         <td class="span2 action-bar">
                             <i class="icon-trash icon-large delete-entry"></i>

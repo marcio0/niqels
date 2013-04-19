@@ -28,7 +28,7 @@ def as_value(value):
 
     # TODO: check for auto escaping:
     # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
-    return mark_safe(label_html_tag % (color, value))
+    return mark_safe(label_html_tag % (color, abs(value)))
 
 
 @register.filter(is_safe=True)
