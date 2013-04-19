@@ -8503,6 +8503,9 @@ a.badge:focus {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+  -webkit-box-shadow: 0 !important;
+  -moz-box-shadow: 0 !important;
+  box-shadow: 0 !important;
 }
 .squared-well blockquote {
   border-color: #ddd;
@@ -8724,6 +8727,9 @@ input[type="submit"] .badge {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+  -webkit-box-shadow: 0 !important;
+  -moz-box-shadow: 0 !important;
+  box-shadow: 0 !important;
 }
 .side-panel blockquote {
   border-color: #ddd;
@@ -8744,6 +8750,9 @@ form[name="entry-form"] {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+  -webkit-box-shadow: 0 !important;
+  -moz-box-shadow: 0 !important;
+  box-shadow: 0 !important;
 }
 form[name="entry-form"] blockquote {
   border-color: #ddd;
@@ -8771,6 +8780,9 @@ form[id="signup-form"] {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+  -webkit-box-shadow: 0 !important;
+  -moz-box-shadow: 0 !important;
+  box-shadow: 0 !important;
 }
 form[id="register-form"] blockquote,
 form[id="signup-form"] blockquote {
