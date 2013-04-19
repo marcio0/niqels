@@ -79,6 +79,14 @@ input {
     margin-bottom: 20px;
 }
 
+
+span.category-label {
+    .label();
+    padding: 4px 6px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
 /*
  * /GLOBAL STYLES
  */
@@ -90,19 +98,13 @@ input {
  */
 .entry-row {
     td {
-        font-size: 18px;
+        font-size: 15px;
 
+        // the delete icon
         &.action-bar i {
             padding-right: 2px;
             padding-left: 2px;
-            //.icon-large();
             .pull-right();
-        }
-
-        span.label {
-            padding: 4px 6px;
-            font-size: 15px;
-            font-weight: normal;
         }
     }
 }
@@ -113,6 +115,11 @@ input {
 
 form[name="entry-form"] {
     .squared-well();
+
+    input[type="submit"] {
+        .btn();
+        .btn-block();
+    }
 }
 /*
  * /ENTRY LIST STYLES

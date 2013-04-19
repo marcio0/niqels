@@ -12,13 +12,9 @@
         <div class="span3" data-spy="affix">
 
             {% include "expenses/forms/entry.html" %}
-
-            <div class="side-panel">
-                Seu balanço mensal: pobrão
-            </div>
         </div>
 
-        <div class="span9 offset3">
+        <div class="span6 offset3">
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -28,37 +24,47 @@
                 {% endfor %}
             {% endif %}
 
-            <table class="table">
-            {% for entry in entries %}
-                {% ifchanged entry.date.year entry.date.month %}
-                    {% if not forloop.first %}
+            <div class="squared-well">
+                <table class="table">
+                {% for entry in entries %}
+                    {% ifchanged entry.date.year entry.date.month %}
+                        {% if not forloop.first %}
+                            </tbody>
+                        {% endif %}
+                        <thead><tr>
+                            <th colspan="4">{{ entry.date|date:"F Y"}}</th>
+                        </tr></thead>
+                        <tbody>
+                    {% endifchanged %}
+                        <tr class="entry-row"
+                            data-date="{{ entry.date|date:"SHORT_DATE_FORMAT" }}"
+                            data-category="{{ entry.category }}"
+                            data-value="{{ entry.value }}"
+                            data-description="{{ entry.description }}"
+                            data-id="{{ entry.id }}">
+
+                            {% comment %}
+                            <td class="span1" text-align="center">{{ entry.date|naturalday:"d" }}</td>
+                            {% endcomment %}
+                            <td class="span1" text-align="center">{{ entry.date|date:"d" }}</td>
+                            <td class="span2">{{ entry.category|as_category }}</td>
+                            <td >{{ entry.description|truncatechars:30}}</td>
+                            <td class="span2"><strong>{{ entry.value|as_value }}</strong></td>
+                            <td class="span1 action-bar">
+                                <i class="icon-trash delete-entry"></i>
+                            </td>
+                        </tr>
+                    {% if forloop.last %}
                         </tbody>
                     {% endif %}
-                    <thead><tr>
-                        <th colspan="4">{{ entry.date|date:"F Y"}}</th>
-                    </tr></thead>
-                    <tbody>
-                {% endifchanged %}
-                    <tr class="entry-row"
-                        data-date="{{ entry.date|date:"SHORT_DATE_FORMAT" }}"
-                        data-category="{{ entry.category }}"
-                        data-value="{{ entry.value }}"
-                        data-description="{{ entry.description }}"
-                        data-id="{{ entry.id }}">
-
-                        <td class="span1">{{ entry.date|naturalday:"d" }}</td>
-                        <td class="span2">{{ entry.category|as_category }}</td>
-                        <td class="span4">{{ entry.description|truncatechars:50}}</td>
-                        <td><strong>{{ entry.value|as_value }}</strong></td>
-                        <td class="span2 action-bar">
-                            <i class="icon-trash icon-large delete-entry"></i>
-                        </td>
-                    </tr>
-                {% if forloop.last %}
-                    </tbody>
-                {% endif %}
-            {% endfor %}
-            </table> 
+                {% endfor %}
+                </table> 
+            </div>
+        </div>
+        <div class="span3 offset9" data-spy="affix">
+            <div class="side-panel">
+                Seu balanço mensal: pobrão
+            </div>
         </div>
     </div> <!-- container -->
 </div> <!-- row -->

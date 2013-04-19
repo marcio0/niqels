@@ -8503,9 +8503,9 @@ a.badge:focus {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0 !important;
-  -moz-box-shadow: 0 !important;
-  box-shadow: 0 !important;
+  -webkit-box-shadow: 0;
+  -moz-box-shadow: 0;
+  box-shadow: 0;
 }
 .squared-well blockquote {
   border-color: #ddd;
@@ -8689,9 +8689,57 @@ input[type="submit"] .badge {
 }
 .navbar {
   margin-bottom: 20px;
-  -webkit-box-shadow: 0 !important;
-  -moz-box-shadow: 0 !important;
-  box-shadow: 0 !important;
+}
+span.category-label {
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #999999;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 4px 6px;
+  font-size: 14px;
+  font-weight: normal;
+}
+span.category-label:empty {
+  display: none;
+}
+span.category-label-important {
+  background-color: #b94a48;
+}
+span.category-label-important[href] {
+  background-color: #953b39;
+}
+span.category-label-warning {
+  background-color: #f89406;
+}
+span.category-label-warning[href] {
+  background-color: #c67605;
+}
+span.category-label-success {
+  background-color: #468847;
+}
+span.category-label-success[href] {
+  background-color: #356635;
+}
+span.category-label-info {
+  background-color: #3a87ad;
+}
+span.category-label-info[href] {
+  background-color: #2d6987;
+}
+span.category-label-inverse {
+  background-color: #333333;
+}
+span.category-label-inverse[href] {
+  background-color: #1a1a1a;
 }
 /*
  * /GLOBAL STYLES
@@ -8700,17 +8748,12 @@ input[type="submit"] .badge {
  * ENTRY LIST STYLES
  */
 .entry-row td {
-  font-size: 18px;
+  font-size: 15px;
 }
 .entry-row td.action-bar i {
   padding-right: 2px;
   padding-left: 2px;
   float: right;
-}
-.entry-row td span.label {
-  padding: 4px 6px;
-  font-size: 15px;
-  font-weight: normal;
 }
 .side-panel {
   min-height: 20px;
@@ -8727,9 +8770,9 @@ input[type="submit"] .badge {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0 !important;
-  -moz-box-shadow: 0 !important;
-  box-shadow: 0 !important;
+  -webkit-box-shadow: 0;
+  -moz-box-shadow: 0;
+  box-shadow: 0;
 }
 .side-panel blockquote {
   border-color: #ddd;
@@ -8750,13 +8793,156 @@ form[name="entry-form"] {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0 !important;
-  -moz-box-shadow: 0 !important;
-  box-shadow: 0 !important;
+  -webkit-box-shadow: 0;
+  -moz-box-shadow: 0;
+  box-shadow: 0;
 }
 form[name="entry-form"] blockquote {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
+}
+form[name="entry-form"] input[type="submit"] {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+form[name="entry-form"] input[type="submit"] [class^="icon-"],
+form[name="entry-form"] input[type="submit"] [class*=" icon-"] {
+  display: inline;
+  /* keeps button heights with and without icons the same */
+
+}
+form[name="entry-form"] input[type="submit"] [class^="icon-"].icon-large,
+form[name="entry-form"] input[type="submit"] [class*=" icon-"].icon-large {
+  line-height: .9em;
+}
+form[name="entry-form"] input[type="submit"] [class^="icon-"].icon-spin,
+form[name="entry-form"] input[type="submit"] [class*=" icon-"].icon-spin {
+  display: inline-block;
+}
+form[name="entry-form"] input[type="submit"] [class^="icon-"].pull-left.icon-2x,
+form[name="entry-form"] input[type="submit"] [class*=" icon-"].pull-left.icon-2x,
+form[name="entry-form"] input[type="submit"] [class^="icon-"].pull-right.icon-2x,
+form[name="entry-form"] input[type="submit"] [class*=" icon-"].pull-right.icon-2x {
+  margin-top: .18em;
+}
+form[name="entry-form"] input[type="submit"] [class^="icon-"].icon-spin.icon-large,
+form[name="entry-form"] input[type="submit"] [class*=" icon-"].icon-spin.icon-large {
+  line-height: .8em;
+}
+form[name="entry-form"] input[type="submit"]:hover,
+form[name="entry-form"] input[type="submit"]:focus,
+form[name="entry-form"] input[type="submit"]:active,
+form[name="entry-form"] input[type="submit"].active,
+form[name="entry-form"] input[type="submit"].disabled,
+form[name="entry-form"] input[type="submit"][disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+form[name="entry-form"] input[type="submit"]:active,
+form[name="entry-form"] input[type="submit"].active {
+  background-color: #cccccc \9;
+}
+form[name="entry-form"] input[type="submit"]:hover,
+form[name="entry-form"] input[type="submit"]:focus,
+form[name="entry-form"] input[type="submit"]:active,
+form[name="entry-form"] input[type="submit"].active,
+form[name="entry-form"] input[type="submit"].disabled,
+form[name="entry-form"] input[type="submit"][disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+form[name="entry-form"] input[type="submit"]:active,
+form[name="entry-form"] input[type="submit"].active {
+  background-color: #cccccc \9;
+}
+form[name="entry-form"] input[type="submit"]:first-child {
+  *margin-left: 0;
+}
+form[name="entry-form"] input[type="submit"]:first-child {
+  *margin-left: 0;
+}
+form[name="entry-form"] input[type="submit"]:hover,
+form[name="entry-form"] input[type="submit"]:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+form[name="entry-form"] input[type="submit"]:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+form[name="entry-form"] input[type="submit"].active,
+form[name="entry-form"] input[type="submit"]:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+}
+form[name="entry-form"] input[type="submit"].disabled,
+form[name="entry-form"] input[type="submit"][disabled] {
+  cursor: default;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+form[name="entry-form"] input[type="submit"] .label,
+form[name="entry-form"] input[type="submit"] .badge {
+  position: relative;
+  top: -1px;
 }
 /*
  * /ENTRY LIST STYLES
@@ -8780,9 +8966,9 @@ form[id="signup-form"] {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0 !important;
-  -moz-box-shadow: 0 !important;
-  box-shadow: 0 !important;
+  -webkit-box-shadow: 0;
+  -moz-box-shadow: 0;
+  box-shadow: 0;
 }
 form[id="register-form"] blockquote,
 form[id="signup-form"] blockquote {
