@@ -17,16 +17,16 @@ class ExpensesTemplateTagsTest(TestCase):
 
         tag = as_category(cat)
         self.assertEquals(tag,
-            '<span class="label" style="background-color: #000000;">Category</span>')
+            '<span class="category-label" style="background-color: #000000;">Category</span>')
 
     def test_as_value_negative(self):
         tag = as_value(-1)
 
-        self.assertEquals(tag, '<span class="text-error">$ 1</span>')
+        self.assertEquals(tag, '<span class="text-error">$1</span>')
 
     def test_as_value_positive(self):
-        self.assertEquals(as_value(1), '<span class="text-success">$ 1</span>')
-        self.assertEquals(as_value(0), '<span class="text-success">$ 0</span>')
+        self.assertEquals(as_value(1), '<span class="text-success">$1</span>')
+        self.assertEquals(as_value(0), '<span class="text-success">$0</span>')
 
     def test_to_json(self):
         value = [1, 2, 3]
