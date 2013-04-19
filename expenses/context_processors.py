@@ -2,7 +2,7 @@ from django.conf import settings
 from expenses.models import Category
 
 # Defines some global values to be available on the templates.
-def globals(request):
+def global_context(request):
     context = {
         # Name of site, because it wasn't decided yet.
         'SITE_NAME': settings.SITE_NAME,

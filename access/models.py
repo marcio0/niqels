@@ -11,6 +11,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         db_index=True,
     )
+    name = models.CharField(_('name'), max_length=60, null=True, blank=True)
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
@@ -20,12 +22,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
     def get_full_name(self):
-        # The user is identified by their email address
-        return self.email
+        return self.name
 
     def get_short_name(self):
-        # The user is identified by their email address
-        return self.email
+        return self.name
 
     def __unicode__(self):
         return self.email

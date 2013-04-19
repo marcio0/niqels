@@ -19,26 +19,20 @@
         {% block extrahead %}{% endblock extrahead %}
     </head>
     <body>
-        <div class="navbar navbar-fixed-top">
+        <div class="navbar navbar-static-top">
             <div class="navbar-inner">
                 <div class="container container-fluid">
                     <a class="brand" href="{% url "index" %}">{{ SITE_NAME }}</a>
-                    <div class="nav-collapse collapse">
-                        {% if user.is_authenticated %}
-                            <p class="navbar-text pull-right">
-                                {{ user.email }} (<a href="{% url "logout" %}" class="navbar-link">Logout</a>)
-                            {% if user.is_admin %}
-                               (<a href="{% url "admin:index" %}" class="navbar-link">Painel de admininstração</a>)
-                            {% endif %}
-                            </p>
-                        {% else %}
-                            <form name="fast-login" class="navbar-form pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
-                                <input type="text" class="span2" name="username" placeholder="Email">
-                                <input class="span2" type="password" name="password" placeholder="Password">
-                                <button type="submit" class="btn">Sign in</button>
-                            </form>
+                    {% if user.is_authenticated %}
+                        <p class="navbar-text pull-right">
+                            Olá, {{ user.name }} ({{ user.email }}) (<a href="{% url "logout" %}" class="navbar-link">Logout</a>)
+                        {% if user.is_admin %}
+                           (<a href="{% url "admin:index" %}" class="navbar-link">Painel de admininstração</a>)
                         {% endif %}
-                    </div><!--/.nav-collapse -->
+                        </p>
+                    {% else %}
+                        {% include "access/forms/login_inline.html" %}
+                    {% endif %}
                 </div>
             </div>
         </div>

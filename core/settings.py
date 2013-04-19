@@ -116,7 +116,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    'expenses.context_processors.globals',
+    'expenses.context_processors.global_context',
 )
 
 ROOT_URLCONF = 'core.urls'
@@ -140,7 +140,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'expenses',
     'access',
-    'django_coverage'
+    'django_coverage',
+    'password_reset',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -2,8 +2,8 @@ from decimal import Decimal
 import mock
 
 import django.forms
-
 from django.test import TestCase
+
 from expenses.models import Category
 from expenses import forms
 from access.models import User

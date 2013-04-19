@@ -1,8 +1,29 @@
+from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db import models
 from django import forms
+from password_reset import forms as pr_forms
 
 from access.models import User
+
+
+class PasswordResetForm(pr_forms.PasswordResetForm):
+    def save(self):
+        self.user.set_password(self.cleaned_data['password1'])
+        get_user_model().objects.filter(pk=self.user.pk).update(
+            password=self.user.password,
+        )
+
+
+class PasswordRecoveryForm(pr_forms.PasswordRecoveryForm):
+    def get_user_by_email(self, email):
+        pr_forms.validate_email(email)
+        key = 'email__%sexact' % ('' if self.case_sensitive else 'i')
+        try:
+            user = get_user_model().objects.get(**{key: email})
+        except User.DoesNotExist:
+            raise forms.ValidationError(_("Sorry, this user doesn't exist."))
+        return user
 
     
 class UserCreationForm(forms.ModelForm):
@@ -15,6 +36,7 @@ class UserCreationForm(forms.ModelForm):
         'password_mismatch': _("The two password fields didn't match."),
     }
     email = forms.EmailField()
+    name = forms.CharField(label=_("Name"), required=True, max_length=60)
     password1 = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Password confirmation"),
@@ -23,7 +45,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("email",)
+        fields = ('name', 'email')
 
     def clean_email(self):
         email = self.cleaned_data["email"]
