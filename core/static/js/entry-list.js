@@ -1,11 +1,12 @@
 $(function(){
-    $('.datepicker').datepicker({
+    var $dateField = $('#id_date');
+        
+
+    $dateField.datepicker({
         format: 'mm/dd/yyyy'
     });
 
-    $('#id_value').tooltip();
-
-    $('.entry-row').click(function(){
-        //$('#mymodal').modal('show');
+    $dateField.focusout(function() {
+        $(this).data('datepicker').hide();
     });
 });

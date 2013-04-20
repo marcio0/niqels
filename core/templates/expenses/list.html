@@ -43,13 +43,11 @@
                             data-description="{{ entry.description }}"
                             data-id="{{ entry.id }}">
 
-                            {% comment %}
-                            <td class="span1" text-align="center">{{ entry.date|naturalday:"d" }}</td>
-                            {% endcomment %}
                             <td class="span1" text-align="center">{{ entry.date|date:"d" }}</td>
                             <td class="span2">{{ entry.category|as_category }}</td>
                             <td >{{ entry.description|truncatechars:30}}</td>
                             <td class="span2"><strong>{{ entry.value|as_value }}</strong></td>
+
                             <td class="span1 action-bar">
                                 <i class="icon-trash delete-entry"></i>
                             </td>
