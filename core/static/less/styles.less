@@ -73,6 +73,7 @@ input {
 .center-form {
     width: 300px;
     margin: 0 auto;
+    .squared-well();
 }
 
 .navbar {
@@ -130,10 +131,13 @@ form[name="entry-form"] {
 /*
  * PRESENTATION PAGE
  */
-form {
-    &[id="register-form"], &[id="signup-form"] { 
-        .squared-well();
 
+[id="signup-area"] {
+    .squared-well();
+}
+
+form {
+    &[id="register-form"], &[id="signin-form"] { 
         input[type="submit"] {
             .btn-block();
         }

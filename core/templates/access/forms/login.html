@@ -1,4 +1,4 @@
-<form id="signup-form" method="POST" action="{% url "login" %}">{% csrf_token %}
+<form id="signin-form" method="POST" action="{% url "login" %}">{% csrf_token %}
 
     {% if messages %}
         {% for message in messages %}
