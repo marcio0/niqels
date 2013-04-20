@@ -8,6 +8,11 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', {'login_url': '/'}, name='logout'),
     url(r'^register/$', views.register, name='register'),
 
+    url(r'^change_password/$', 'django.contrib.auth.views.password_change', {
+        'template_name': 'access/change_password.html',
+        'post_change_redirect': '/entries/'
+    }, name="change_password"),
+
     # django-password-reset overrides
     url(r'^recover/$', views.Recover.as_view(), name='password_reset_recover'),
     url(r'^reset/done/$', pr_views.reset_done, name='password_reset_done'),
