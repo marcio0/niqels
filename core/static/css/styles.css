@@ -8476,6 +8476,9 @@ a.badge:focus {
 /*
  * OVERRIDES
  */
+body {
+  background-image: url(/static/img/textured_paper.png);
+}
 .hero-unit {
   border: 1px solid #ededed;
   -webkit-border-radius: 0;
