@@ -1,7 +1,8 @@
 django 1.5
 django-password-reset
+yaml
 
 ipython
 mock
-less
+lesscss
 django-coverage
