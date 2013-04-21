@@ -24,7 +24,7 @@ class EntryManager(models.Manager):
             end = start_date - relativedelta(months=i)
             start = end.replace(day=1)
 
-            result[(end.year, end.month)] = Entry.objects.filter(date__range=(start, end))
+            result[(end.year, end.month)] = self.get_query_set().filter(date__range=(start, end))
 
         return result
 
