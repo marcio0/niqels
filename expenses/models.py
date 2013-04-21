@@ -1,4 +1,22 @@
+import datetime
+from dateutil.relativedelta import relativedelta
+
 from django.db import models
+
+
+def up_to_day(start_date=None, qty_months=1, *args, **kwargs):
+    if not start_date:
+        start_date = datetime.date.today()
+
+    result = {}
+
+    for i in range(0, qty_months):
+        end = start_date - relativedelta(months=i)
+        start = end.replace(day=1)
+
+        result[(end.year, end.month)] = Entry.objects.filter(date__range=(start, end))
+
+    return result
 
 
 class Category(models.Model):

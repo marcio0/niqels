@@ -1,12 +1,55 @@
 from decimal import Decimal
 import mock
+import datetime
 
 import django.forms
 from django.test import TestCase
 
-from expenses.models import Category
+import expenses.models
+from expenses.models import Category, up_to_day
 from expenses import forms
 from access.models import User
+
+
+class EntryUpToDayTest(TestCase):
+    fixtures = ['Month.yaml']
+
+    def test_one_month(self):
+        start = datetime.date(2010, 03, 10)
+
+        result = up_to_day(start_date=start)
+
+        self.assertEquals(len(result), 1)
+        self.assertTrue((2010, 03) in result)
+        self.assertEquals(result[(2010, 03)].count(), 2)
+
+
+    def test_three_months(self):
+        start = datetime.date(2010, 03, 10)
+
+        result = up_to_day(start_date=start, qty_months=3)
+
+        self.assertEquals(len(result), 3)
+
+        self.assertTrue((2010, 03) in result)
+        self.assertTrue((2010, 02) in result)
+        self.assertTrue((2010, 01) in result)
+
+        self.assertEquals(result[(2010, 03)].count(), 2)
+        self.assertEquals(result[(2010, 02)].count(), 3)
+        self.assertEquals(result[(2010, 01)].count(), 4)
+
+    def test_default_date(self):
+        dt_m = mock.Mock()
+        dt_m.date.today.return_value = datetime.date(2010, 01, 03)
+
+        expenses.models.datetime = dt_m
+
+        result = up_to_day()
+
+        self.assertEquals(len(result), 1)
+        self.assertTrue((2010, 01) in result)
+        self.assertEquals(result[(2010, 01)].count(), 3)
 
 
 class NegativeDecimalFieldTest(TestCase):
