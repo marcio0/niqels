@@ -6,18 +6,18 @@ import django.forms
 from django.test import TestCase
 
 import expenses.models
-from expenses.models import Category, up_to_day
+from expenses.models import Category, Entry
 from expenses import forms
 from access.models import User
 
 
 class EntryUpToDayTest(TestCase):
-    fixtures = ['Month.yaml']
+    fixtures = ['EntryUpToDayTest.yaml']
 
     def test_one_month(self):
         start = datetime.date(2010, 03, 10)
 
-        result = up_to_day(start_date=start)
+        result = Entry.objects.up_to_day(start_date=start)
 
         self.assertEquals(len(result), 1)
         self.assertTrue((2010, 03) in result)
@@ -27,7 +27,7 @@ class EntryUpToDayTest(TestCase):
     def test_three_months(self):
         start = datetime.date(2010, 03, 10)
 
-        result = up_to_day(start_date=start, qty_months=3)
+        result = Entry.objects.up_to_day(start_date=start, qty_months=3)
 
         self.assertEquals(len(result), 3)
 
@@ -45,7 +45,7 @@ class EntryUpToDayTest(TestCase):
 
         expenses.models.datetime = dt_m
 
-        result = up_to_day()
+        result = Entry.objects.up_to_day()
 
         self.assertEquals(len(result), 1)
         self.assertTrue((2010, 01) in result)

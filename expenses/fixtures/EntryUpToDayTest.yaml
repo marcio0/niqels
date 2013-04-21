@@ -139,7 +139,7 @@
         user: 1
         category: 1
         date: !!timestamp 2010-03-01 00:00:00 -3
-        value: 100
+        value: 110
         last_edited_time: "00:00:00"
 
 -   model: expenses.entry
