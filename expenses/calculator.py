@@ -21,22 +21,12 @@ class AverageCalculator(object):
 
         for month_qs in qss:
             value = month_qs.aggregate(Sum('value'))['value__sum']
-            if not value:
-                value = 0
             data.append(value)
 
         base = data.pop(0)
 
         average = sum(data) / len(data)
-
-        try:
-            deviation = (average / base) - 1
-        except ZeroDivisionError:
-            if base > average:
-                deviation = Decimal(1)
-            elif base < average:
-                deviation = Decimal(-1)
-            else:
-                deviation = 0
+        diff = base - average
+        deviation = diff / average
 
         return dict(base=base, average=average, deviation=deviation)

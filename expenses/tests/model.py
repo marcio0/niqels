@@ -14,72 +14,108 @@ from expenses.calculator import AverageCalculator
 
 
 class AverageTest(TestCase):
-    fixtures = ['AverageTest.yaml']
-    
-    def test_simple(self):
-        user = User.objects.get(pk=1)
+    @mock.patch.object(expenses.models.Entry, 'objects')
+    def test_positive_avg__positive_actual(self, mgr):
+        user = mock.Mock()
+        date = mock.Mock()
 
-        date = datetime.date(2010, 03, 10)
+        mar = mock.Mock()
+        mar.aggregate.return_value = {'value__sum': Decimal(30)}
+        feb = mock.Mock()
+        feb.aggregate.return_value = {'value__sum': Decimal(20)}
+        jan = mock.Mock()
+        jan.aggregate.return_value = {'value__sum': Decimal(15)}
 
-        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
-
-        result = calc.calculate()
-
-        self.assertEquals(result, {
-            'base': Decimal('-210'),
-            'average': Decimal('-250'),
-            'deviation': Decimal('0.190476190476190476190476190')
-        })
-
-    def test_full(self):
-        user = User.objects.get(pk=1)
-
-        date = datetime.date(2010, 03, 10)
+        mgr.up_to_day.return_value = (mar, feb, jan)
 
         calc = AverageCalculator(user=user, qty_months=3, start_date=date)
-
         result = calc.calculate()
 
-        self.assertEquals(result, {
-            'base': Decimal('-210'),
-            'average': Decimal('30'),
-            'deviation': Decimal('-1.142857142857142857142857143')
+        mgr.up_to_day.assert_called_with(user=user, qty_months=3, start_date=date)
+
+        self.assertDictEqual(result, {
+            'base': Decimal('30'),
+            'average': Decimal('17.5'),
+            'deviation': Decimal('0.7142857142857142857142857143')
         })
 
-    def test_no_data(self):
-        #TODO test all situations when zerodivision is raised
-        # No data on actual month, but data on previous ones.
-        user = User.objects.get(pk=1)
-        date = datetime.date(2010, 04, 10)
-        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
+        self.assertEquals(result['average'] * result['deviation'] + result['average'], result['base'])
+
+    @mock.patch.object(expenses.models.Entry, 'objects')
+    def test_negative_avg__negative_actual(self, mgr):
+        user = mock.Mock()
+        date = mock.Mock()
+
+        mar = mock.Mock()
+        mar.aggregate.return_value = {'value__sum': Decimal(-30)}
+        feb = mock.Mock()
+        feb.aggregate.return_value = {'value__sum': Decimal(-20)}
+        jan = mock.Mock()
+        jan.aggregate.return_value = {'value__sum': Decimal(-15)}
+
+        mgr.up_to_day.return_value = (mar, feb, jan)
+
+        calc = AverageCalculator(user=user, qty_months=3, start_date=date)
         result = calc.calculate()
-        self.assertEquals(result, {
-            'base': Decimal('0'),
-            'average': Decimal('-210'),
-            'deviation': Decimal('1')
+
+        mgr.up_to_day.assert_called_with(user=user, qty_months=3, start_date=date)
+
+        self.assertDictEqual(result, {
+            'base': Decimal('-30'),
+            'average': Decimal('-17.5'),
+            'deviation': Decimal('-0.7142857142857142857142857143')
         })
 
-        # There are entries on the actual month,
-        # but nothing on the on the previous.
-        user = User.objects.get(pk=1)
-        date = datetime.date(2010, 01, 10)
-        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
+        self.assertEquals(result['average'] * result['deviation'] + result['average'], result['base'])
+
+    @mock.patch.object(expenses.models.Entry, 'objects')
+    def est_negative_avg__positive_actual(self, mgr):
+        user = mock.Mock()
+        date = mock.Mock()
+
+        mar = mock.Mock()
+        mar.aggregate.return_value = {'value__sum': Decimal(30)}
+        feb = mock.Mock()
+        feb.aggregate.return_value = {'value__sum': Decimal(-20)}
+        jan = mock.Mock()
+        jan.aggregate.return_value = {'value__sum': Decimal(-15)}
+
+        mgr.up_to_day.return_value = (mar, feb, jan)
+
+        calc = AverageCalculator(user=user, qty_months=3, start_date=date)
         result = calc.calculate()
-        self.assertEquals(result, {
-            'base': Decimal('310'),
-            'average': Decimal('0'),
-            'deviation': Decimal('1')
+
+        mgr.up_to_day.assert_called_with(user=user, qty_months=3, start_date=date)
+
+        self.assertDictEqual(result, {
+            'base': Decimal('30'),
+            'average': Decimal('-17.5'),
+            'deviation': Decimal('2.714285714285714285714285714')
         })
 
-        # No entries at all.
-        user = User.objects.get(pk=1)
-        date = datetime.date(2009, 01, 10)
-        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
+    @mock.patch.object(expenses.models.Entry, 'objects')
+    def est_positive_avg__negative_actual(self, mgr):
+        user = mock.Mock()
+        date = mock.Mock()
+
+        mar = mock.Mock()
+        mar.aggregate.return_value = {'value__sum': Decimal(-30)}
+        feb = mock.Mock()
+        feb.aggregate.return_value = {'value__sum': Decimal(20)}
+        jan = mock.Mock()
+        jan.aggregate.return_value = {'value__sum': Decimal(15)}
+
+        mgr.up_to_day.return_value = (mar, feb, jan)
+
+        calc = AverageCalculator(user=user, qty_months=3, start_date=date)
         result = calc.calculate()
-        self.assertEquals(result, {
-            'base': Decimal('0'),
-            'average': Decimal('0'),
-            'deviation': Decimal('0')
+
+        mgr.up_to_day.assert_called_with(user=user, qty_months=3, start_date=date)
+
+        self.assertDictEqual(result, {
+            'base': Decimal('-30'),
+            'average': Decimal('17.5'),
+            'deviation': Decimal('-2.714285714285714285714285714')
         })
 
 
