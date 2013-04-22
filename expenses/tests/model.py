@@ -20,8 +20,7 @@ class EntryUpToDayTest(TestCase):
         result = Entry.objects.up_to_day(start_date=start)
 
         self.assertEquals(len(result), 1)
-        self.assertTrue((2010, 03) in result)
-        self.assertEquals(result[(2010, 03)].count(), 2)
+        self.assertEquals(result[0].count(), 2)
 
 
     def test_three_months(self):
@@ -31,13 +30,9 @@ class EntryUpToDayTest(TestCase):
 
         self.assertEquals(len(result), 3)
 
-        self.assertTrue((2010, 03) in result)
-        self.assertTrue((2010, 02) in result)
-        self.assertTrue((2010, 01) in result)
-
-        self.assertEquals(result[(2010, 03)].count(), 2)
-        self.assertEquals(result[(2010, 02)].count(), 3)
-        self.assertEquals(result[(2010, 01)].count(), 4)
+        self.assertEquals(result[0].count(), 2)
+        self.assertEquals(result[1].count(), 3)
+        self.assertEquals(result[2].count(), 4)
 
     def test_default_date(self):
         dt_m = mock.Mock()
@@ -48,8 +43,7 @@ class EntryUpToDayTest(TestCase):
         result = Entry.objects.up_to_day()
 
         self.assertEquals(len(result), 1)
-        self.assertTrue((2010, 01) in result)
-        self.assertEquals(result[(2010, 01)].count(), 3)
+        self.assertEquals(result[0].count(), 3)
 
 
 class NegativeDecimalFieldTest(TestCase):

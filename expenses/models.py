@@ -14,17 +14,17 @@ class Category(models.Model):
 
 
 class EntryManager(models.Manager):
-    def up_to_day(self, start_date=None, qty_months=1):
+    def up_to_day(self, start_date=None, qty_months=1, **kwargs):
         if not start_date:
             start_date = datetime.date.today()
 
-        result = {}
+        result = ()
 
         for i in range(0, qty_months):
             end = start_date - relativedelta(months=i)
             start = end.replace(day=1)
 
-            result[(end.year, end.month)] = self.get_query_set().filter(date__range=(start, end))
+            result = result + (self.get_query_set().filter(date__range=(start, end), **kwargs),)
 
         return result
 
