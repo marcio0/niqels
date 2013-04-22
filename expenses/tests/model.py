@@ -10,6 +10,26 @@ from expenses.models import Category, Entry
 from expenses import forms
 from access.models import User
 
+from expenses.calculator import AverageCalculator
+
+
+class AverageTest(TestCase):
+    fixtures = ['AverageTest.yaml']
+    
+    def test_simple(self):
+        user = User.objects.get(pk=1)
+
+        date = datetime.date(2010, 03, 10)
+
+        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
+
+        result = calc.calculate()
+
+        self.assertEquals(result, {
+            'base': Decimal('210'),
+            'average': Decimal('300')
+        })
+
 
 class EntryUpToDayTest(TestCase):
     fixtures = ['EntryUpToDayTest.yaml']
