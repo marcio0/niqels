@@ -26,8 +26,60 @@ class AverageTest(TestCase):
         result = calc.calculate()
 
         self.assertEquals(result, {
-            'base': Decimal('210'),
-            'average': Decimal('300')
+            'base': Decimal('-210'),
+            'average': Decimal('-250'),
+            'deviation': Decimal('0.190476190476190476190476190')
+        })
+
+    def test_full(self):
+        user = User.objects.get(pk=1)
+
+        date = datetime.date(2010, 03, 10)
+
+        calc = AverageCalculator(user=user, qty_months=3, start_date=date)
+
+        result = calc.calculate()
+
+        self.assertEquals(result, {
+            'base': Decimal('-210'),
+            'average': Decimal('30'),
+            'deviation': Decimal('-1.142857142857142857142857143')
+        })
+
+    def test_no_data(self):
+        #TODO test all situations when zerodivision is raised
+        # No data on actual month, but data on previous ones.
+        user = User.objects.get(pk=1)
+        date = datetime.date(2010, 04, 10)
+        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
+        result = calc.calculate()
+        self.assertEquals(result, {
+            'base': Decimal('0'),
+            'average': Decimal('-210'),
+            'deviation': Decimal('1')
+        })
+
+        # There are entries on the actual month,
+        # but nothing on the on the previous.
+        user = User.objects.get(pk=1)
+        date = datetime.date(2010, 01, 10)
+        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
+        result = calc.calculate()
+        self.assertEquals(result, {
+            'base': Decimal('310'),
+            'average': Decimal('0'),
+            'deviation': Decimal('1')
+        })
+
+        # No entries at all.
+        user = User.objects.get(pk=1)
+        date = datetime.date(2009, 01, 10)
+        calc = AverageCalculator(user=user, qty_months=2, start_date=date)
+        result = calc.calculate()
+        self.assertEquals(result, {
+            'base': Decimal('0'),
+            'average': Decimal('0'),
+            'deviation': Decimal('0')
         })
 
 
