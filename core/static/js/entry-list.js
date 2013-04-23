@@ -5,8 +5,10 @@ $(function(){
         format: 'mm/dd/yyyy'
     });
 
-    $dateField.focusout(function() {
-        $(this).data('datepicker').hide();
+    $dateField.keydown(function(event) {
+        if (event.keyCode == 9) {
+            $(this).data('datepicker').hide();
+        }
     });
 
     var $valueField = $('#id_value');

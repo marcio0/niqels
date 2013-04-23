@@ -42,6 +42,26 @@
         </div>
     </div>
 
+    <div class="control-group {% if entry_form.description.errors %}error{% endif %}">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on"><i class="icon-pencil"></i></span>
+                <input
+                    id="id_description"
+                    maxlength="200"
+                    name="description"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Description (Optional)"
+                    value="{{ entry_form.description.value|default_if_none:"" }}"/>
+            </div>
+
+            {% for error in entry_form.description.errors %}
+                <span class="help-block error">{{ error }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
     <div class="control-group {% if entry_form.date.errors %}error{% endif %}">
         <div class="controls">
             <div class="input-prepend input-block-level">
@@ -61,26 +81,6 @@
             </div>
 
             {% for error in entry_form.date.errors %}
-                <span class="help-block error">{{ error }}</span>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="control-group {% if entry_form.description.errors %}error{% endif %}">
-        <div class="controls">
-            <div class="input-prepend input-block-level">
-                <span class="add-on"><i class="icon-pencil"></i></span>
-                <input
-                    id="id_description"
-                    maxlength="200"
-                    name="description"
-                    type="text"
-                    autocomplete="off"
-                    placeholder="Description (Optional)"
-                    value="{{ entry_form.description.value|default_if_none:"" }}"/>
-            </div>
-
-            {% for error in entry_form.description.errors %}
                 <span class="help-block error">{{ error }}</span>
             {% endfor %}
         </div>
