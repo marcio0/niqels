@@ -72,7 +72,7 @@ class GlobalsContextProcessorTest(TestCase):
         context = global_context(request)
 
         self.assertEquals(context, {
-            'SITE_NAME': 'MoneyVision',
+            'SITE_NAME': 'SpentWise',
             'user_categories': ['One', 'Two'],
             'empty_value_fields': ['password', 'password1', 'password2']
         })
