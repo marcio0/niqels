@@ -27,6 +27,6 @@ class AverageCalculator(object):
 
         average = sum(data) / len(data)
         diff = base - average
-        deviation = diff / average
+        deviation = diff / abs(average)
 
         return dict(base=base, average=average, deviation=deviation)
