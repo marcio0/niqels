@@ -1,11 +1,13 @@
+{% load i18n %}
+
 <form id="login-inline" class="navbar-form form-inline pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
     <div class="input-prepend">
         <span class="add-on"><i class="icon-envelope"></i></span>
-        <input type="text" class="input-medium" name="username" placeholder="Email">
+        <input type="text" class="input-medium" name="username" placeholder="{% trans "Email" %}">
     </div>
     <div class="input-prepend">
         <span class="add-on"><i class="icon-asterisk"></i></span>
-    <input type="password" class="input-medium" name="password" placeholder="Password">
+    <input type="password" class="input-medium" name="password" placeholder="{% trans "Password" %}">
     </div>
-    <input type="submit" value="Login">
+    <input type="submit" value="{% trans "Login" %}">
 </form>

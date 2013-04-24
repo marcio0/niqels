@@ -1,5 +1,7 @@
+{% load i18n %}
+
 <form id="register-form" method="POST" action="{% url "register" %}">{% csrf_token %}
-    <h2>Sign up</h2>
+    <h2>{% trans "Sign up" %}</h2>
     
     <div class="control-group {% if register_form.name.errors %}error{% endif %}">
         <div class="controls">
@@ -8,7 +10,7 @@
                 <input
                     type="text"
                     name="name"
-                    placeholder="Name"
+                    placeholder="{% trans "Name" %}"
                     value="{{ register_form.name.value|default_if_none:"" }}"
                 >
             </div>
@@ -27,7 +29,7 @@
                 <input
                     type="text"
                     name="email"
-                    placeholder="Email"
+                    placeholder="{% trans "Email" %}"
                     value="{{ register_form.email.value|default_if_none:"" }}"
                 >
             </div>
@@ -45,7 +47,7 @@
                 <input
                     type="password"
                     name="password1"
-                    placeholder="Password"
+                    placeholder="{% trans "Password" %}"
                 >
             </div>
 
@@ -62,7 +64,7 @@
                 <input
                     type="password"
                     name="password2"
-                    placeholder="Confirm password"
+                    placeholder="{% trans "Confirm password" %}"
                 >
             </div>
 
@@ -72,9 +74,9 @@
         </div>
     </div>
 
-    <input type="submit" value="Sign up">
+    <input type="submit" value="{% trans "Sign up" %}">
 
     <hr>
 
-    <p>Already a user? <a href="{% url "login" %}">Sign in</a></p>
+    <p>{% trans "Already a user?" %} <a href="{% url "login" %}">{% trans "Sign in" %}</a></p>
 </form>

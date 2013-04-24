@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <form class="form" name="entry-form" action="{% url "new_entry" %}" method="post">{% csrf_token %}
 
     <div class="control-group {% if entry_form.category.errors %}error{% endif %}">
@@ -9,7 +11,7 @@
                     maxlength="200"
                     name="category"
                     type="text"
-                    placeholder="Category"
+                    placeholder="{% trans "Category" %}"
                     autocomplete="off"
                     value="{{ entry_form.category.value|default_if_none:"" }}"
 
@@ -30,7 +32,7 @@
                     id="id_value"
                     name="value"
                     type="text"
-                    placeholder="Value"
+                    placeholder="{% trans "Value" %}"
                     autocomplete="off"
                     value="{{ entry_form.value.value|default_if_none:"" }}"
                     />
@@ -52,7 +54,7 @@
                     name="description"
                     type="text"
                     autocomplete="off"
-                    placeholder="Description (Optional)"
+                    placeholder="{% trans "Description (Optional)" %}"
                     value="{{ entry_form.description.value|default_if_none:"" }}"/>
             </div>
 
@@ -71,7 +73,7 @@
                     name="date"
                     type="text"
                     autocomplete="off"
-                    placeholder="Date"
+                    placeholder="{% trans "Date" %}"
                     {% if entry_form.date.value %}
                     value="{{ entry_form.date.value }}"
                     {% else %}
@@ -86,5 +88,5 @@
         </div>
     </div>
 
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="{% trans "Submit" %}"/>
 </form>
