@@ -15,9 +15,13 @@ $(function(){
 
     $valueField.keyup(function(event) {
         var me = $(this),
+            addon = me.siblings('span.add-on'),
             color = "";
 
-        if (me.val().charAt(0) === '-') {
+        if (me.val() === '') {
+            color = "#555555";
+        }
+        else if (me.val().charAt(0) === '-') {
             color = '#b94a48';
         }
         else if (parseInt(me.val().charAt(0))) {
@@ -30,5 +34,13 @@ $(function(){
             return;
         }
         me.css('color', color);
+        addon.css('color', color);
     });
+
+    var clearControlGroup = function(){
+        var me = $(this);
+        me.removeClass('error');
+        $('span.help-block', me).hide();
+    };
+    $('div.control-group.error').keydown(clearControlGroup);
 });
