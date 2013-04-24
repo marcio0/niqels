@@ -175,6 +175,7 @@ LOGGING = {
 
 
 try:
-    from core.local_settings import *
+    if DEBUG:
+        from core.local_settings.dev import *
 except ImportError:
     pass
