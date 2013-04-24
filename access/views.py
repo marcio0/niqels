@@ -61,7 +61,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request,
-                _('Account created! Now login to start using %s.') % settings.SITE_NAME)
+                _('Account created! Now login to start using %(site_name)s.') % {'site_name': settings.SITE_NAME})
 
             return redirect('login')
     else:
