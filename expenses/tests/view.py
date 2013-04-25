@@ -1,7 +1,10 @@
+#encoding: utf-8
+
 import datetime
 from decimal import Decimal
 
 from django.test import TestCase, Client
+from django.utils.translation import gettext as _
 
 from expenses.forms import EntryForm
 from expenses.models import Entry, Category
@@ -177,7 +180,8 @@ class CreateEntryTest(TestCase):
         ret = client.post('/entries/new/', data)
         self.assertEquals(ret.status_code, 200)
 
-        self.assertNotEquals(ret.content.find('This field is required.'), -1)
+        print ret.content
+        self.assertNotEquals(ret.content.find(_('This field is required.')), -1)
     
 
 class ListEntrytTest(TestCase):
