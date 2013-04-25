@@ -35,7 +35,7 @@ class NegativeDecimalField(forms.DecimalField):
 
 class EntryForm(forms.ModelForm):
     category = forms.CharField(max_length=200)
-    value = NegativeDecimalField()
+    value = NegativeDecimalField(localize=True)
 
     def clean_category(self):
         category_name = self.cleaned_data.get('category')

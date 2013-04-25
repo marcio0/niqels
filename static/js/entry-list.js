@@ -2,7 +2,8 @@ $(function(){
     var $dateField = $('#id_date');
 
     $dateField.datepicker({
-        format: 'mm/dd/yyyy'
+        language: 'pt-BR',
+        format: 'dd/mm/yyyy'
     });
 
     $dateField.keydown(function(event) {
