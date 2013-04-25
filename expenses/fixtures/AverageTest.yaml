@@ -1,0 +1,170 @@
+########
+# USER #
+########
+
+-   model: access.user
+    pk: 1
+    fields:
+        email: user1@expenses.com
+        password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
+        date_joined: "2010-02-02 00:00:00-03:00"
+
+
+############
+# CATEGORY #
+############
+
+-   model: expenses.category
+    pk: 1
+    fields:
+        user: 1
+        name: Groceries
+
+-   model: expenses.category
+    pk: 2
+    fields:
+        user: 1
+        name: Income
+
+
+#########
+# ENTRY #
+#########
+
+# January
+-   model: expenses.entry
+    pk: 1
+    fields:
+        user: 1
+        category: 2
+        date: !!timestamp 2010-01-01 00:00:00 -3
+        value: -100
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 2
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-01-02 00:00:00 -3
+        value: -110
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 3
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-01-03 00:00:00 -3
+        value: -80
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 4
+    fields:
+        user: 1
+        category: 2
+        date: !!timestamp 2010-01-04 00:00:00 -3
+        value: 600
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 5
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-01-11 00:00:00 -3
+        value: -100
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 6
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-01-15 00:00:00 -3
+        value: -100
+        last_edited_time: "00:00:00"
+
+# February
+-   model: expenses.entry
+    pk: 7
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-02-01 00:00:00 -3
+        value: -50
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 8
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-02-02 00:00:00 -3
+        value: 100
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 9
+    fields:
+        user: 1
+        category: 2
+        date: !!timestamp 2010-02-03 00:00:00 -3
+        value: -300
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 10
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-02-11 00:00:00 -3
+        value: -130
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 11
+    fields:
+        user: 1
+        category: 2
+        date: !!timestamp 2010-02-15 00:00:00 -3
+        value: 1000
+        last_edited_time: "00:00:00"
+
+# March
+-   model: expenses.entry
+    pk: 12
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-03-01 00:00:00 -3
+        value: +110
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 13
+    fields:
+        user: 1
+        category: 2
+        date: !!timestamp 2010-03-02 00:00:00 -3
+        value: -320
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 14
+    fields:
+        user: 1
+        category: 1
+        date: !!timestamp 2010-03-11 00:00:00 -3
+        value: -100
+        last_edited_time: "00:00:00"
+
+-   model: expenses.entry
+    pk: 15
+    fields:
+        user: 1
+        category: 2
+        date: !!timestamp 2010-03-15 00:00:00 -3
+        value: 100
+        last_edited_time: "00:00:00"
