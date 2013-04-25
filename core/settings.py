@@ -1,6 +1,7 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+PROJECT_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -57,6 +58,10 @@ SITE_NAME = 'SpentWise'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(PROJECT_DIR, 'locale'),
+)
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
