@@ -4,11 +4,7 @@ from expenses.models import Category
 # Defines some global values to be available on the templates.
 def global_context(request):
     # Fixing the date format so bootstrap-datepicker understands.
-    js_frm = settings.SHORT_DATE_FORMAT \
-        .replace('m', 'mm') \
-        .replace('d', 'dd') \
-        .replace('y', 'yy') \
-        .replace('Y', 'yyyy')
+    js_frm = request.locale.date_formats['medium'].pattern
 
     context = {
         # Name of site, because it wasn't decided yet.
