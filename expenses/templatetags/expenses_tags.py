@@ -17,9 +17,8 @@ def as_category(value):
 
 
 @register.filter(is_safe=True)
-def as_value(value):
-    # TODO: usar a moeda do locale
-    label_html_tag = '<span class="text-%s">$%d</span>'
+def as_value(value, currency_symbol):
+    label_html_tag = '<span class="text-%s">%s%d</span>'
     
     if value < 0:
         color = 'error'
@@ -28,7 +27,7 @@ def as_value(value):
 
     # TODO: check for auto escaping:
     # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
-    return mark_safe(label_html_tag % (color, abs(value)))
+    return mark_safe(label_html_tag % (color, currency_symbol, abs(value)))
 
 
 @register.filter(is_safe=True)

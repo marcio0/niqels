@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'access',
     'django_coverage',
     'password_reset',
+    'babeldjango',
 )
 
 # A sample logging configuration. The only tangible logging
