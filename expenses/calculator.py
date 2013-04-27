@@ -25,8 +25,16 @@ class AverageCalculator(object):
 
         base = data.pop(0)
 
-        average = sum(data) / len(data)
-        diff = base - average
-        deviation = diff / abs(average)
+        if base is None:
+            base = Decimal(0)
+
+        try:
+            average = sum(data) / len(data)
+        except ZeroDivisionError:
+            average = Decimal(0)
+            deviation = Decimal(0)
+        else:
+            diff = base - average
+            deviation = diff / abs(average)
 
         return dict(base=base, average=average, deviation=deviation)
