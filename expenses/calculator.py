@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 from django.db.models import Sum
 
@@ -21,20 +21,20 @@ class AverageCalculator(object):
 
         for month_qs in qss:
             value = month_qs.aggregate(Sum('value'))['value__sum']
+
+            if value is None:
+                value = Decimal(0)
+
             data.append(value)
 
         base = data.pop(0)
 
-        if base is None:
-            base = Decimal(0)
-
         try:
             average = sum(data) / len(data)
-        except ZeroDivisionError:
-            average = Decimal(0)
-            deviation = Decimal(0)
-        else:
             diff = base - average
             deviation = diff / abs(average)
+        except (ZeroDivisionError, InvalidOperation):
+            average = Decimal(0)
+            deviation = Decimal(0)
 
         return dict(base=base, average=average, deviation=deviation)

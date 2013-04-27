@@ -15,6 +15,38 @@ from expenses.calculator import AverageCalculator
 
 class AverageTest(TestCase):
     @mock.patch.object(expenses.models.Entry, 'objects')
+    def test_no_data_at_all(self, mgr):
+        '''
+            |
+           0|_________________
+            |Jan   Feb   Mar
+            |
+            No data.
+        '''
+        user = mock.Mock()
+        date = mock.Mock()
+
+        mar = mock.Mock()
+        mar.aggregate.return_value = {'value__sum': None}
+        feb = mock.Mock()
+        feb.aggregate.return_value = {'value__sum': None}
+        jan = mock.Mock()
+        jan.aggregate.return_value = {'value__sum': None}
+
+        mgr.up_to_day.return_value = (mar, feb, jan)
+
+        calc = AverageCalculator(user=user, qty_months=3, start_date=date)
+        result = calc.calculate()
+
+        mgr.up_to_day.assert_called_with(user=user, qty_months=3, start_date=date)
+
+        self.assertDictEqual(result, {
+            'base': Decimal('0'),
+            'average': Decimal('0'),
+            'deviation': Decimal('0')
+        })
+
+    @mock.patch.object(expenses.models.Entry, 'objects')
     def test_no_data_for_average(self, mgr):
         '''
             |             30 (base)
@@ -35,8 +67,6 @@ class AverageTest(TestCase):
         jan.aggregate.return_value = {'value__sum': None}
 
         mgr.up_to_day.return_value = (mar, feb, jan)
-
-        mgr.up_to_day.return_value = (mar,)
 
         calc = AverageCalculator(user=user, qty_months=3, start_date=date)
         result = calc.calculate()
