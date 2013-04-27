@@ -180,7 +180,6 @@ class CreateEntryTest(TestCase):
         ret = client.post('/entries/new/', data)
         self.assertEquals(ret.status_code, 200)
 
-        print ret.content
         self.assertNotEquals(ret.content.find(_('This field is required.')), -1)
     
 

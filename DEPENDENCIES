@@ -2,6 +2,7 @@ django 1.5
 django-password-reset
 python-dateutil
 yaml
+BabelDjango
 
 ipython
 mock
