@@ -17,7 +17,7 @@ def as_category(value):
 
 
 @register.filter(is_safe=True)
-def as_value(value, currency_symbol):
+def as_value(value, currency_symbol='$'):
     label_html_tag = '<span class="text-%s">%s%d</span>'
     
     if value < 0:

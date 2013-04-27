@@ -1,5 +1,6 @@
 import json
 import mock
+from babel import Locale
 
 from django.test import TestCase
 
@@ -68,11 +69,14 @@ class GlobalsContextProcessorTest(TestCase):
     def test_global_context(self):
         request = mock.Mock()
         request.user = self.user
+        request.locale = Locale.parse('en_US')
 
         context = global_context(request)
 
         self.assertEquals(context, {
             'SITE_NAME': 'SpentWise',
+            'js_date_format': u'MMM d, yyyy',
+            'currency_symbol': u'$',
             'user_categories': ['One', 'Two'],
             'empty_value_fields': ['password', 'password1', 'password2']
         })
