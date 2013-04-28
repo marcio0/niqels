@@ -1,0 +1,9 @@
+BabelDjango==0.2.2
+Django==1.5
+PyYAML==3.10
+South==0.7.6
+dj-database-url==0.2.1
+django-password-reset==0.4
+gunicorn==0.17.4
+pyaml==13.01.0
+python-dateutil==2.1
