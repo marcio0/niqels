@@ -176,7 +176,6 @@ DATABASES = {
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 try:
-    if DEBUG:
-        from core.local_settings.dev import *
+    from core.local_settings import *
 except ImportError:
     pass
