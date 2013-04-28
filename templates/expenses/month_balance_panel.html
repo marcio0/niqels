@@ -3,5 +3,5 @@
 
 <div class="side-panel">
     <h4>{% trans "Monthly balance:" %}</h4>
-    <p>{{ average_balance.base|as_value:currency_symbol }}&nbsp;{{ average_balance|as_deviation }}</p>
+    <p>{{ average_balance.base|as_value:currency_symbol }}&nbsp;{{ average_balance.deviation|as_deviation }}</p>
 </div>

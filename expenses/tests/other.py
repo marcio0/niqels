@@ -1,12 +1,13 @@
 import json
 import mock
 from babel import Locale
+from decimal import Decimal
 
 from django.test import TestCase
 
 from access.models import User
 from expenses.models import Category
-from expenses.templatetags.expenses_tags import as_category, as_value, to_json
+from expenses.templatetags.expenses_tags import as_category, as_value, to_json, as_deviation
 from expenses.context_processors import global_context
 
 
@@ -35,6 +36,22 @@ class ExpensesTemplateTagsTest(TestCase):
         expected = '[1, 2, 3]'
 
         self.assertEquals(to_json(value), expected)
+
+
+class AsDeviationTagTest(TestCase):
+    def test_positive(self):
+        deviation = Decimal('1.5')
+
+        expected = '<span class="text-success">(150.00% <i class="icon-caret-up"></i>)</span>'
+
+        self.assertEquals(as_deviation(deviation), expected)
+
+    def test_negative(self):
+        deviation = Decimal('0.5')
+
+        expected = '<span class="text-error">(50.00% <i class="icon-caret-down"></i>)</span>'
+
+        self.assertEquals(as_deviation(deviation), expected)
 
 
 class GlobalsContextProcessorTest(TestCase):
