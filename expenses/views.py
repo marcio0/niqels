@@ -1,3 +1,5 @@
+import datetime
+
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
@@ -12,6 +14,7 @@ from expenses.models import Entry, Category
 from expenses.forms import EntryForm
 from access.views import AutenticationRequiredMixin
 from access.forms import UserCreationForm
+from expenses.calculator import AverageCalculator
 
 
 class PresentationView(TemplateView):
@@ -51,6 +54,13 @@ class ListEntryView(TemplateView, AutenticationRequiredMixin):
         context = super(ListEntryView, self).get_context_data(**kwargs)
         context['entries'] = Entry.objects.filter(user=self.request.user)
         context['entry_form'] = EntryForm()
+
+        calculator = AverageCalculator(
+            user=self.request.user,
+            start_date=datetime.date.today(),
+            qty_months=3)
+
+        context['average_balance'] = calculator.calculate()
 
         return context
 

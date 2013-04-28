@@ -45,7 +45,7 @@
 
                             <td class="span1" text-align="center">{{ entry.date|date:"d" }}</td>
                             <td class="span2">{{ entry.category|as_category }}</td>
-                            <td >{{ entry.description|truncatechars:30}}</td>
+                            <td> {{ entry.description|truncatechars:30}}</td>
                             <td class="span2"><strong>{{ entry.value|as_value:currency_symbol }}</strong></td>
 
                             <td class="span1 action-bar">
@@ -60,9 +60,7 @@
             </div>
         </div>
         <div class="span3 offset9" data-spy="affix">
-            <div class="side-panel">
-                Seu balanço mensal: pobrão
-            </div>
+            {% include "expenses/month_balance_panel.html" %}
         </div>
     </div> <!-- container -->
 </div> <!-- row -->

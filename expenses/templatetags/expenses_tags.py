@@ -18,7 +18,7 @@ def as_category(value):
 
 @register.filter(is_safe=True)
 def as_value(value, currency_symbol='$'):
-    label_html_tag = '<span class="text-%s">%s%d</span>'
+    label_html_tag = '<span class="text-%s">%s%.2f</span>'
     
     if value < 0:
         color = 'error'
@@ -28,6 +28,25 @@ def as_value(value, currency_symbol='$'):
     # TODO: check for auto escaping:
     # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
     return mark_safe(label_html_tag % (color, currency_symbol, abs(value)))
+
+
+@register.filter(is_safe=True)
+def as_deviation(data):
+    label_html_tag = '<span class="text-%(color)s">(%(value).2f%% <i class=%(icon)s></i>)</span>'
+
+    deviation = data.get('deviation') / 100
+    average = data.get('average')
+
+    if deviation < 1:
+        color = 'error'
+        icon = 'icon-caret-down'
+    else:
+        color = 'success'
+        icon = 'icon-caret-up'
+
+    # TODO: check for auto escaping:
+    # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
+    return mark_safe(label_html_tag % {'color': color, 'icon': icon, 'value': deviation})
 
 
 @register.filter(is_safe=True)
