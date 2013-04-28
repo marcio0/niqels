@@ -61,7 +61,7 @@ class RegisterViewTest(TestCase):
         ret = client.post('/register/', data)
 
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/login/')
+        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
 
         self.assertTrue(
             User.objects.filter(

@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login, authenticate
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -60,10 +60,16 @@ def register(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request,
-                _('Account created! Now login to start using %(site_name)s.') % {'site_name': settings.SITE_NAME})
+            email = request.POST['email']
+            password = request.POST['password1']
 
-            return redirect('login')
+            user = authenticate(email=email, password=password)
+            login(request, user)
+
+            messages.success(request,
+                _('Welcome to %(site_name)s, %(user_name)s!') % {'site_name': settings.SITE_NAME, 'user_name': user.name})
+
+            return redirect('entry_list')
     else:
         form = UserCreationForm()
 
