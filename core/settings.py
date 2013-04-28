@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 
 SITE_ID = 1
 
-SITE_NAME = 'SpentWise'
+SITE_NAME = 'SpentWise (beta)'
 
 TIME_ZONE = 'America/Sao_Paulo'
 LANGUAGE_CODE = 'pt-br'
