@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -62,7 +62,7 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+STATIC_URL = 'http://static-expenses.appspot.com/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
