@@ -84,6 +84,13 @@ class CreateEntryView(FormView, AutenticationRequiredMixin):
         context['entries'] = Entry.objects.filter(user=self.request.user)
         context['entry_form'] = context.pop('form', self.form_class())
 
+        calculator = AverageCalculator(
+            user=self.request.user,
+            start_date=datetime.date.today(),
+            qty_months=3)
+
+        context['average_balance'] = calculator.calculate()
+
         return context
 
     def get(self, request, *args, **kwargs):
