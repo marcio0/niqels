@@ -3,6 +3,7 @@ django-password-reset
 python-dateutil
 yaml
 BabelDjango
+south
 
 ipython
 mock
