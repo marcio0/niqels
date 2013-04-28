@@ -2,11 +2,11 @@ import os
 
 BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Marcio', 'marc.cr@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -134,11 +134,6 @@ INSTALLED_APPS = (
     'south',
 )
 
-if DEBUG:
-    INSTALLED_APPS = INSTALLED_APPS +(
-        'django_coverage',
-    )
-
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -176,7 +171,6 @@ import dj_database_url
 DATABASES = {
     'default': dj_database_url.config()
 }
-print DATABASES
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

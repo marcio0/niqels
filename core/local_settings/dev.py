@@ -1,3 +1,5 @@
+from core.settings import *
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -10,4 +12,10 @@ DATABASES = {
     }
 }
 
-DEBUG = True
+# URL prefix for static files.
+# Example: "http://example.com/static/", "http://static.example.com/"
+STATIC_URL = '/static/'
+
+INSTALLED_APPS += (
+    'django_coverage',
+)
