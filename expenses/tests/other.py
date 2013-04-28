@@ -23,11 +23,11 @@ class ExpensesTemplateTagsTest(TestCase):
     def test_as_value_negative(self):
         tag = as_value(-1)
 
-        self.assertEquals(tag, '<span class="text-error">$1</span>')
+        self.assertEquals(tag, '<span class="text-error">$1.00</span>')
 
     def test_as_value_positive(self):
-        self.assertEquals(as_value(1), '<span class="text-success">$1</span>')
-        self.assertEquals(as_value(0), '<span class="text-success">$0</span>')
+        self.assertEquals(as_value(1), '<span class="text-success">$1.00</span>')
+        self.assertEquals(as_value(0), '<span class="text-success">$0.00</span>')
 
     def test_to_json(self):
         value = [1, 2, 3]
@@ -74,7 +74,7 @@ class GlobalsContextProcessorTest(TestCase):
         context = global_context(request)
 
         self.assertEquals(context, {
-            'SITE_NAME': 'SpentWise',
+            'SITE_NAME': 'SpentWise (beta)',
             'js_date_format': u'MMM d, yyyy',
             'currency_symbol': u'$',
             'user_categories': ['One', 'Two'],
