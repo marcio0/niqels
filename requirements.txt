@@ -7,3 +7,4 @@ django-password-reset==0.4
 gunicorn==0.17.4
 pyaml==13.01.0
 python-dateutil==2.1
+ipython==0.13.1
