@@ -127,11 +127,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'expenses',
     'access',
-    'django_coverage',
     'password_reset',
     'babeldjango',
     'south',
 )
+
+if DEBUG:
+    INSTALLED_APPS = INSTALLED_APPS +(
+        'django_coverage',
+    )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
