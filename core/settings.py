@@ -19,6 +19,7 @@ LOGIN_REDIRECT_URL = '/entries/'
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
+    'localhost',
     '.herokuapp.com',
 ]
 
@@ -168,8 +169,20 @@ SKIP_SOUTH_TESTS = True
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 
+#DATABASES = {
+#    'default': dj_database_url.config()
+#}
+
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/home/vagrant/expenses.db',
+        # The following settings are not used with sqlite3:
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',                      # Set to empty string for default.
+    }
 }
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
