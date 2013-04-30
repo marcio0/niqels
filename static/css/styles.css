@@ -9156,7 +9156,7 @@ a.badge:focus {
  * OVERRIDES
  */
 body {
-  background-image: url(/static/img/textured_paper.png);
+  background-image: url(../img/textured_paper.png);
 }
 .hero-unit {
   border: 1px solid #ededed;
