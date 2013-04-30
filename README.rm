@@ -1,0 +1,11 @@
+
+Retrieving static files project from Google App Engine:
+
+appcfg.py download_app -A <your_app_id> -V <your_app_version> <output-dir>
+
+Deploying static files:
+
+cd assets
+rm *
+cp <project>/static/* . -r
+appcfg.py update
