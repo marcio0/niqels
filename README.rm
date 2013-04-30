@@ -1,4 +1,3 @@
-
 Retrieving static files project from Google App Engine:
 
 appcfg.py download_app -A <your_app_id> -V <your_app_version> <output-dir>
@@ -9,3 +8,15 @@ cd assets
 rm *
 cp <project>/static/* . -r
 appcfg.py update
+
+
+DEPLOY PROCESS
+Update translations;
+Compile less;
+Update static files on Google App Engine;
+Create migrations && commit;
+Update changelog && commit;
+Tag w/ version number;
+Push master to heroku;
+Push tag to heroku;
+Push master && tag to origin.
