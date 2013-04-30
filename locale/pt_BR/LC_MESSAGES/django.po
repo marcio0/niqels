@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Marcio Cruz <marc.cr@gmail.com>, 2013.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 00:52-0300\n"
+"POT-Creation-Date: 2013-04-29 22:39-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: access/admin.py:14 access/forms.py:40
-#: core/templates/access/forms/login.html:48
-#: core/templates/access/forms/login_inline.html:10
-#: core/templates/access/forms/register.html:50
+#: access/admin.py:14 access/forms.py:40 templates/access/forms/login.html:48
+#: templates/access/forms/login_inline.html:10
+#: templates/access/forms/register.html:50
 msgid "Password"
 msgstr "Senha"
 
@@ -45,7 +44,7 @@ msgstr "Este email já está cadastrado"
 msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
-#: access/forms.py:39 core/templates/access/forms/register.html:13
+#: access/forms.py:39 templates/access/forms/register.html:13
 msgid "Name"
 msgstr "Nome"
 
@@ -70,74 +69,90 @@ msgstr "data de cadastro"
 msgid "Account created! Now login to start using %(site_name)s."
 msgstr "Conta criada! Faça o login para começar a usar %(site_name)s."
 
-#: core/templates/access/change_password.html:10
+#: core/settings.py:36
+msgid "English"
+msgstr "Inglês"
+
+#: core/settings.py:37
+msgid "Portuguese"
+msgstr "Português"
+
+#: expenses/views.py:46
+msgid "Entry removed."
+msgstr "Entrada removida."
+
+#: expenses/tests/view.py:183
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+#: templates/access/change_password.html:10
 msgid "Reset password"
 msgstr "Alterar senha"
 
-#: core/templates/access/forms/login.html:14
+#: templates/access/forms/login.html:14
 msgid "Please sign in"
 msgstr "Faça login"
 
-#: core/templates/access/forms/login.html:30
-#: core/templates/access/forms/login_inline.html:6
-#: core/templates/access/forms/register.html:32
+#: templates/access/forms/login.html:30
+#: templates/access/forms/login_inline.html:6
+#: templates/access/forms/register.html:32
 msgid "Email"
 msgstr "Email"
 
-#: core/templates/access/forms/login.html:58
-#: core/templates/access/forms/login_inline.html:12
+#: templates/access/forms/login.html:58
+#: templates/access/forms/login_inline.html:12
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
-#: core/templates/access/forms/login.html:62
+#: templates/access/forms/login.html:62
 msgid "Forgot your password?"
 msgstr "Esqueci minha senha"
 
-#: core/templates/access/forms/login.html:63
+#: templates/access/forms/login.html:63
 msgid "Not a user yet?"
 msgstr "Não é usuário ainda?"
 
-#: core/templates/access/forms/login.html:63
+#: templates/access/forms/login.html:63
 msgid "Sign up here!"
 msgstr "Registre-se aqui!"
 
-#: core/templates/access/forms/register.html:4
-#: core/templates/access/forms/register.html:77
+#: templates/access/forms/register.html:4
+#: templates/access/forms/register.html:77
 msgid "Sign up"
 msgstr "Registre-se"
 
-#: core/templates/access/forms/register.html:67
+#: templates/access/forms/register.html:67
 msgid "Confirm password"
 msgstr "Confirmar senha"
 
-#: core/templates/access/forms/register.html:81
+#: templates/access/forms/register.html:81
 msgid "Already a user?"
 msgstr "Já é usuário?"
 
-#: core/templates/access/forms/register.html:81
+#: templates/access/forms/register.html:81
 msgid "Sign in"
 msgstr "Login"
 
-#: core/templates/expenses/forms/entry.html:14
+#: templates/expenses/month_balance_panel.html:5
+msgid "Monthly balance:"
+msgstr "Balanço mensal:"
+
+#: templates/expenses/forms/entry.html:14
 msgid "Category"
 msgstr "Categoria"
 
-#: core/templates/expenses/forms/entry.html:35
+#: templates/expenses/forms/entry.html:35
 msgid "Value"
 msgstr "Valor"
 
-#: core/templates/expenses/forms/entry.html:57
+#: templates/expenses/forms/entry.html:57
 msgid "Description (Optional)"
 msgstr "Descrição (Opcional)"
 
-#: core/templates/expenses/forms/entry.html:76
+#: templates/expenses/forms/entry.html:76
 msgid "Date"
 msgstr "Data"
 
-#: core/templates/expenses/forms/entry.html:91
+#: templates/expenses/forms/entry.html:91
 msgid "Submit"
 msgstr "Enviar"
-
-#: expenses/views.py:43
-msgid "Entry removed."
-msgstr "Entrada removida"
