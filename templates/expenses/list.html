@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load humanize %}
 {% load expenses_tags %}
+{% load i18n %}
 
 {% block body %}
 
@@ -55,6 +56,8 @@
                     {% if forloop.last %}
                         </tbody>
                     {% endif %}
+                {% empty %}
+                    <p>{% trans "Use the form to the right to create your first entry." %}</p>
                 {% endfor %}
                 </table> 
             </div>
