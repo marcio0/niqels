@@ -14,6 +14,11 @@ $(function(){
 
     var $valueField = $('#id_value');
 
+    $valueField.tooltip({
+        placement: 'right',
+        title: gettext('Use a "+" sign to indicate positive values.')
+    });
+
     $valueField.keyup(function(event) {
         var me = $(this),
             addon = me.siblings('span.add-on'),
