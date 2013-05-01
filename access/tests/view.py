@@ -53,8 +53,8 @@ class RegisterViewTest(TestCase):
         data = {
             'name': 'foo',
             'email': 'new@expenses.com',
-            'password1': 'asd',
-            'password2': 'asd'
+            'password1': 'asdasd',
+            'password2': 'asdasd'
         }
         client = Client()
 

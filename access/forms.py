@@ -7,12 +7,29 @@ from password_reset import forms as pr_forms
 from access.models import User
 
 
+def validate_password(pwd):
+    return 6 <= len(pwd) <= 30
+
+
 class PasswordResetForm(pr_forms.PasswordResetForm):
+    error_messages = {
+        'invalid_password': _("Password must have between 6 and 30 characters.")
+    }
+
     def save(self):
         self.user.set_password(self.cleaned_data['password1'])
         get_user_model().objects.filter(pk=self.user.pk).update(
             password=self.user.password,
         )
+
+    def clean_password1(self):
+        password1 = self.cleaned_data.get("password1")
+
+        if password1 and not validate_password(password1):
+            raise forms.ValidationError(
+                self.error_messages['invalid_password'])
+
+        return password1
 
 
 class PasswordRecoveryForm(pr_forms.PasswordRecoveryForm):
@@ -34,6 +51,7 @@ class UserCreationForm(forms.ModelForm):
     error_messages = {
         'duplicate_email': _("A user with that email already exists."),
         'password_mismatch': _("The two password fields didn't match."),
+        'invalid_password': _("Password must have between 6 and 30 characters.")
     }
     email = forms.EmailField()
     name = forms.CharField(label=_("Name"), required=True, max_length=60)
@@ -55,12 +73,23 @@ class UserCreationForm(forms.ModelForm):
             return email 
         raise forms.ValidationError(self.error_messages['duplicate_email'])
 
+    def clean_password1(self):
+        password1 = self.cleaned_data.get("password1")
+
+        if password1 and not validate_password(password1):
+            raise forms.ValidationError(
+                self.error_messages['invalid_password'])
+
+        return password1
+
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
+
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError(
                 self.error_messages['password_mismatch'])
+            
         return password2
 
     def save(self, commit=True):
