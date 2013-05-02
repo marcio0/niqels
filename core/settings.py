@@ -45,6 +45,13 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
+LOCALE_CURRENCIES = {
+    'pt_BR': 'BRL',
+    'pt-br': 'BRL',
+    'en_US': 'USD',
+    'en-us': 'USD',
+}
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = ''

@@ -1,17 +1,13 @@
 from django.conf import settings
 from expenses.models import Category
 
-locale_currencies = {
-    'pt_BR': 'BRL',
-    'en_US': 'USD'
-}
 
 # Defines some global values to be available on the templates.
 def global_context(request):
     # Fixing the date format so bootstrap-datepicker understands.
     js_frm = request.locale.date_formats['medium'].pattern
 
-    locale_currency = locale_currencies.get(str(request.locale), 'USD')
+    locale_currency = settings.LOCALE_CURRENCIES.get(str(request.locale), 'USD')
 
     context = {
         # Name of site, because it wasn't decided yet.
