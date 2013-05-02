@@ -27,7 +27,7 @@ def as_value(value, currency_symbol='$'):
 
     # TODO: check for auto escaping:
     # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
-    return mark_safe(label_html_tag % (color, currency_symbol, abs(value)))
+    return mark_safe(label_html_tag % (color, currency_symbol, value))
 
 
 @register.filter(is_safe=True)

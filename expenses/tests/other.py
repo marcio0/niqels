@@ -24,7 +24,7 @@ class ExpensesTemplateTagsTest(TestCase):
     def test_as_value_negative(self):
         tag = as_value(-1)
 
-        self.assertEquals(tag, '<span class="text-error">$1.00</span>')
+        self.assertEquals(tag, '<span class="text-error">$-1.00</span>')
 
     def test_as_value_positive(self):
         self.assertEquals(as_value(1), '<span class="text-success">$1.00</span>')
