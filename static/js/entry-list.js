@@ -1,9 +1,16 @@
 $(function(){
-    var $dateField = $('#id_date');
+    var $dateField = $('#id_date'),
+        $categoryField = $('#id_category'),
+        $valueField = $('#id_value');
 
     $dateField.datepicker({
         language: 'pt-BR',
         format: 'dd/mm/yyyy'
+    });
+
+    $categoryField.tooltip({
+        placement: 'right',
+        title: gettext('Example: "Groceries", "Lunch"')
     });
 
     $dateField.keydown(function(event) {
@@ -11,8 +18,6 @@ $(function(){
             $(this).data('datepicker').hide();
         }
     });
-
-    var $valueField = $('#id_value');
 
     $valueField.tooltip({
         placement: 'right',
