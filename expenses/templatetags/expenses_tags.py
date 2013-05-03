@@ -38,19 +38,25 @@ def as_value(value, currency_symbol='$'):
 
 @register.filter(is_safe=True)
 def as_deviation(deviation):
-    label_html_tag = '<span class="text-%(color)s">(%(value)s <i class="%(icon)s icon-large"></i>)</span>'
+    label_html_tag = '<span class="text-%(color)s">(%(plus)s%(value)s<i class="%(icon)s icon-large"></i>)</span>'
     fmt_value = percentfmt(deviation, format='#,##0.00%')
 
-    if deviation < 1:
+    if deviation == 0:
+        color = ''
+        icon = ''
+        plus = ''
+    elif deviation < 0:
+        plus = ''
         color = 'error'
         icon = 'icon-caret-down'
     else:
+        plus = '+'
         color = 'success'
         icon = 'icon-caret-up'
 
     # TODO: check for auto escaping:
     # https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#filters-and-auto-escaping
-    return mark_safe(label_html_tag % {'color': color, 'icon': icon, 'value': fmt_value})
+    return mark_safe(label_html_tag % {'color': color, 'icon': icon, 'value': fmt_value, 'plus': plus})
 
 
 @register.filter(is_safe=True)

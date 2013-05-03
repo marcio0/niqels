@@ -40,16 +40,16 @@ class ExpensesTemplateTagsTest(TestCase):
 
 class AsDeviationTagTest(TestCase):
     def test_positive(self):
-        deviation = Decimal('1.5')
+        deviation = Decimal('.5')
 
-        expected = '<span class="text-success">(150,00% <i class="icon-caret-up icon-large"></i>)</span>'
+        expected = '<span class="text-success">(+50,00%<i class="icon-caret-up icon-large"></i>)</span>'
 
         self.assertEquals(as_deviation(deviation), expected)
 
     def test_negative(self):
-        deviation = Decimal('0.5')
+        deviation = Decimal('-0.5')
 
-        expected = '<span class="text-error">(50,00% <i class="icon-caret-down icon-large"></i>)</span>'
+        expected = '<span class="text-error">(-50,00%<i class="icon-caret-down icon-large"></i>)</span>'
 
         self.assertEquals(as_deviation(deviation), expected)
 
