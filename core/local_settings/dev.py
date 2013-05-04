@@ -21,3 +21,5 @@ STATIC_URL = '/static/'
 INSTALLED_APPS += (
     'django_coverage',
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
