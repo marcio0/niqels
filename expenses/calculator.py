@@ -30,7 +30,6 @@ class AverageCalculator(object):
             '''
             value = month_qs.aggregate(Sum('value'))['value__sum']
 
-            print 'value', value
             if value is None and found_first:
                 value = Decimal(0)
             elif value is None and not found_first:
@@ -41,10 +40,8 @@ class AverageCalculator(object):
 
         try:
             base = data.pop(-1)
-            print 'base', base
         except IndexError:
             base = Decimal(0)
-        print data
 
         try:
             average = sum(data) / len(data)
