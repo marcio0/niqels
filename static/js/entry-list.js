@@ -5,7 +5,10 @@ $(function(){
 
     $dateField.datepicker({
         language: 'pt-BR',
-        format: 'dd/mm/yyyy'
+        format: 'dd/mm/yyyy',
+        keyboardNavigation: false,
+        autoclose: true,
+        todayHighlight: true
     });
 
     $categoryField.tooltip({

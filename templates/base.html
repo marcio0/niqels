@@ -55,7 +55,10 @@
                 });
             });
             $(function(){
-                $('input#id_category').typeahead({source: user_categories});
+                $('input#id_category').typeahead({
+                    source: user_categories,
+                    items: 3
+                });
             });
         </script>
 
