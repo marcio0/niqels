@@ -18,16 +18,33 @@ class AverageCalculator(object):
             user=self.user)
 
         data = []
-
-        for month_qs in qss:
+        found_first = False
+        for month_qs in reversed(qss):
+            '''
+                None values before the first not None value means months without data.
+                None values after the first not None value count as zero.
+                Example:
+                    [None, None, 4, 5, None 6]
+                The result data should be:
+                    [4, 5, 0, 6]
+            '''
             value = month_qs.aggregate(Sum('value'))['value__sum']
 
-            if value is None:
+            print 'value', value
+            if value is None and found_first:
                 value = Decimal(0)
+            elif value is None and not found_first:
+                continue
 
+            found_first = True
             data.append(value)
 
-        base = data.pop(0)
+        try:
+            base = data.pop(-1)
+            print 'base', base
+        except IndexError:
+            base = Decimal(0)
+        print data
 
         try:
             average = sum(data) / len(data)

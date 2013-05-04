@@ -391,3 +391,79 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
+    @mock.patch.object(expenses.models.Entry, 'objects')
+    def test_too_few_data_for_average(self, mgr):
+        '''
+            |Jan   Feb   Mar 
+           0|_________________
+            |            -10 (base) 
+            |         
+            |
+            |----- -20-- -20 (average)
+            |
+            There is data for only one month.
+        '''
+        user = mock.Mock()
+        date = mock.Mock()
+
+        mar = mock.Mock()
+        mar.aggregate.return_value = {'value__sum': Decimal(-10)}
+        feb = mock.Mock()
+        feb.aggregate.return_value = {'value__sum': Decimal(-20)}
+        jan = mock.Mock()
+        jan.aggregate.return_value = {'value__sum': None}
+
+        mgr.up_to_day.return_value = (mar, feb, jan)
+
+        calc = AverageCalculator(user=user, qty_months=3, start_date=date)
+        result = calc.calculate()
+
+        mgr.up_to_day.assert_called_with(user=user, qty_months=3, start_date=date)
+
+        self.assertDictEqual(result, {
+            'base': Decimal('-10'),
+            'average': Decimal('-20'),
+            'deviation': Decimal('0.5')
+        })
+
+        self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
+
+    @mock.patch.object(expenses.models.Entry, 'objects')
+    def test_empty_month_on_the_middle(self, mgr):
+        '''
+            |Jan   Feb   Mar 
+           0|_________________
+            |            -10 (base) 
+            |         
+            |----------- -15 (average)
+            |
+            |-30
+            |
+            No data for February.
+            Since there ara data before Feb, it should count as zero.
+        '''
+        user = mock.Mock()
+        date = mock.Mock()
+
+        mar = mock.Mock()
+        mar.aggregate.return_value = {'value__sum': Decimal(-10)}
+        feb = mock.Mock()
+        feb.aggregate.return_value = {'value__sum': None}
+        jan = mock.Mock()
+        jan.aggregate.return_value = {'value__sum': Decimal(-30)}
+
+        mgr.up_to_day.return_value = (mar, feb, jan)
+
+        calc = AverageCalculator(user=user, qty_months=3, start_date=date)
+        result = calc.calculate()
+
+        mgr.up_to_day.assert_called_with(user=user, qty_months=3, start_date=date)
+
+        self.assertDictEqual(result, {
+            'base': Decimal('-10'),
+            'average': Decimal('-15'),
+            'deviation': Decimal('0.3333333333333333333333333333')
+        })
+
+        self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
+
