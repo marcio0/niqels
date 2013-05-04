@@ -1,8 +1,36 @@
+import mock
+
 from django.test import TestCase, Client
 
 from access import views
 from access.models import User
 from access import forms
+
+
+class UserNotifyPasswordChangeTest(TestCase):
+    @mock.patch('access.views.messages')
+    def test_calls_message(self, msg):
+        def my_view(*args, **kwargs):
+            r = mock.Mock()
+            r.status_code = 302
+            return r
+
+        view = views.notify(my_view)
+
+        view(mock.Mock())
+        self.assertTrue(msg.success.called)
+
+    @mock.patch('access.views.messages')
+    def test_dont_call(self, msg):
+        def my_view(*args, **kwargs):
+            r = mock.Mock()
+            r.status_code = 200
+            return r
+
+        view = views.notify(my_view)
+
+        view(mock.Mock())
+        self.assertFalse(msg.success.called)
 
 
 class LoginViewTest(TestCase):

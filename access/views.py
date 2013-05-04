@@ -12,6 +12,17 @@ from access.forms import UserCreationForm, PasswordRecoveryForm, PasswordResetFo
 from access.models import User
 
 
+def notify(func):
+    def wrapper(request, *args, **kwargs):
+        ret = func(request, *args, **kwargs)
+
+        if ret.status_code ==  302:
+            messages.success(request, _('Your password was successfuly changed.'))
+
+        return ret
+    return wrapper
+
+
 class AutenticationRequiredMixin(View):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
