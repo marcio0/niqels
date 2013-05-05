@@ -1,7 +1,15 @@
 $(function(){
     var $dateField = $('#id_date'),
         $categoryField = $('#id_category'),
-        $valueField = $('#id_value');
+        $valueField = $('#id_value'),
+        $balanceHelp = $('#balance-help');
+
+    $balanceHelp.popover({
+        placement: 'left',
+        trigger: 'hover',
+        title: gettext('Month balance'),
+        content: gettext('Shows the sum of all your transactions up to the current day, and the comparison with the previous months.')
+    });
 
     $dateField.datepicker({
         language: 'pt-BR',
