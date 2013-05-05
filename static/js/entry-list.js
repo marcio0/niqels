@@ -11,6 +11,17 @@ $(function(){
         todayHighlight: true
     });
 
+    $('.entry-row td.action-bar i.delete-entry').click(function(){
+        var id = $(this).parent().parent().data('id');
+        var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}</form>");
+        form.submit();
+    });
+
+    $categoryField.typeahead({
+        source: user_categories,
+        items: 3
+    });
+
     $categoryField.tooltip({
         placement: 'right',
         title: gettext('Example: "Groceries", "Lunch"')
