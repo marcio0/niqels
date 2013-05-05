@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login, authenticate
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -10,6 +10,17 @@ from password_reset import views as pr_views
 
 from access.forms import UserCreationForm, PasswordRecoveryForm, PasswordResetForm
 from access.models import User
+
+
+def notify(func):
+    def wrapper(request, *args, **kwargs):
+        ret = func(request, *args, **kwargs)
+
+        if ret.status_code ==  302:
+            messages.success(request, _('Your password was successfuly changed.'))
+
+        return ret
+    return wrapper
 
 
 class AutenticationRequiredMixin(View):
@@ -60,10 +71,16 @@ def register(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request,
-                _('Account created! Now login to start using %(site_name)s.') % {'site_name': settings.SITE_NAME})
+            email = request.POST['email']
+            password = request.POST['password1']
 
-            return redirect('login')
+            user = authenticate(email=email, password=password)
+            login(request, user)
+
+            messages.success(request,
+                _('Welcome to %(site_name)s, %(user_name)s!') % {'site_name': settings.SITE_NAME, 'user_name': user.name})
+
+            return redirect('entry_list')
     else:
         form = UserCreationForm()
 

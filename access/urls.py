@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.views import password_change
 
 from access import views
 from password_reset import views as pr_views
@@ -8,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', {'login_url': '/'}, name='logout'),
     url(r'^register/$', views.register, name='register'),
 
-    url(r'^change_password/$', 'django.contrib.auth.views.password_change', {
+    url(r'^change_password/$', views.notify(password_change), {
         'template_name': 'access/change_password.html',
         'post_change_redirect': '/entries/'
     }, name="change_password"),

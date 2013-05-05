@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load humanize %}
 {% load expenses_tags %}
+{% load i18n %}
 
 {% block body %}
 
@@ -46,7 +47,7 @@
                             <td class="span1" text-align="center">{{ entry.date|date:"d" }}</td>
                             <td class="span2">{{ entry.category|as_category }}</td>
                             <td> {{ entry.description|truncatechars:30}}</td>
-                            <td class="span2"><strong>{{ entry.value|as_value:currency_symbol }}</strong></td>
+                            <td class="span2">{{ entry.value|as_value:currency_symbol }}</td>
 
                             <td class="span1 action-bar">
                                 <i class="icon-trash delete-entry"></i>
@@ -55,6 +56,8 @@
                     {% if forloop.last %}
                         </tbody>
                     {% endif %}
+                {% empty %}
+                    <p>{% trans "Use the form to the right to create your first entry." %}</p>
                 {% endfor %}
                 </table> 
             </div>

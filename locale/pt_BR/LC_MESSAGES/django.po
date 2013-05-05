@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Marcio Cruz <marc.cr@gmail.com>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-29 22:39-0300\n"
+"POT-Creation-Date: 2013-05-05 17:40-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: access/admin.py:14 access/forms.py:40 templates/access/forms/login.html:48
+#: access/admin.py:14 access/forms.py:58 templates/access/forms/login.html:48
 #: templates/access/forms/login_inline.html:10
 #: templates/access/forms/register.html:50
 msgid "Password"
 msgstr "Senha"
 
-#: access/admin.py:15 access/forms.py:42
+#: access/admin.py:15 access/forms.py:60
 msgid "Password confirmation"
 msgstr "Confirmar senha"
 
@@ -32,23 +32,27 @@ msgstr "Confirmar senha"
 msgid "Passwords don't match"
 msgstr "As senhas não conferem"
 
-#: access/forms.py:25
+#: access/forms.py:16 access/forms.py:54
+msgid "Password must have between 6 and 30 characters."
+msgstr "A senha deve conter entre 6 e 30 caracteres."
+
+#: access/forms.py:42
 msgid "Sorry, this user doesn't exist."
 msgstr "Desculpe, este usuário não existe"
 
-#: access/forms.py:35
+#: access/forms.py:52
 msgid "A user with that email already exists."
 msgstr "Este email já está cadastrado"
 
-#: access/forms.py:36
+#: access/forms.py:53
 msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
-#: access/forms.py:39 templates/access/forms/register.html:13
+#: access/forms.py:57 templates/access/forms/register.html:13
 msgid "Name"
 msgstr "Nome"
 
-#: access/forms.py:44
+#: access/forms.py:62
 msgid "Enter the same password as above, for verification."
 msgstr "Repita a senha"
 
@@ -64,10 +68,14 @@ msgstr "nome"
 msgid "date joined"
 msgstr "data de cadastro"
 
-#: access/views.py:64
+#: access/views.py:20
+msgid "Your password was successfuly changed."
+msgstr "Sua senha foi alterada."
+
+#: access/views.py:81
 #, python-format
-msgid "Account created! Now login to start using %(site_name)s."
-msgstr "Conta criada! Faça o login para começar a usar %(site_name)s."
+msgid "Welcome to %(site_name)s, %(user_name)s!"
+msgstr "Bem vindo ao %(site_name)s, %(user_name)s!"
 
 #: core/settings.py:36
 msgid "English"
@@ -79,7 +87,7 @@ msgstr "Português"
 
 #: expenses/views.py:46
 msgid "Entry removed."
-msgstr "Entrada removida."
+msgstr "Entrada removida"
 
 #: expenses/tests/view.py:183
 msgid "This field is required."
@@ -133,7 +141,11 @@ msgstr "Já é usuário?"
 msgid "Sign in"
 msgstr "Login"
 
-#: templates/expenses/month_balance_panel.html:5
+#: templates/expenses/list.html:60
+msgid "Use the form to the right to create your first entry."
+msgstr "Use o formulário a direita para criar sua primeira transação."
+
+#: templates/expenses/month_balance_panel.html:6
 msgid "Monthly balance:"
 msgstr "Balanço mensal:"
 
@@ -156,3 +168,6 @@ msgstr "Data"
 #: templates/expenses/forms/entry.html:91
 msgid "Submit"
 msgstr "Enviar"
+
+#~ msgid "Account created! Now login to start using %(site_name)s."
+#~ msgstr "Conta criada! Faça o login para começar a usar %(site_name)s."

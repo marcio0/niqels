@@ -1,9 +1,38 @@
 $(function(){
-    var $dateField = $('#id_date');
+    var $dateField = $('#id_date'),
+        $categoryField = $('#id_category'),
+        $valueField = $('#id_value'),
+        $balanceHelp = $('#balance-help');
+
+    $balanceHelp.popover({
+        placement: 'left',
+        trigger: 'hover',
+        title: gettext('Month balance'),
+        content: gettext('Shows the sum of all your transactions up to the current day, and the comparison with the previous months.')
+    });
 
     $dateField.datepicker({
         language: 'pt-BR',
-        format: 'dd/mm/yyyy'
+        format: 'dd/mm/yyyy',
+        keyboardNavigation: false,
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    $('.entry-row td.action-bar i.delete-entry').click(function(){
+        var id = $(this).parent().parent().data('id');
+        var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}</form>");
+        form.submit();
+    });
+
+    $categoryField.typeahead({
+        source: user_categories,
+        items: 3
+    });
+
+    $categoryField.tooltip({
+        placement: 'right',
+        title: gettext('Example: "Groceries", "Lunch"')
     });
 
     $dateField.keydown(function(event) {
@@ -12,7 +41,10 @@ $(function(){
         }
     });
 
-    var $valueField = $('#id_value');
+    $valueField.tooltip({
+        placement: 'right',
+        title: gettext('Use a "+" sign to indicate positive values.')
+    });
 
     $valueField.keyup(function(event) {
         var me = $(this),

@@ -7,6 +7,7 @@
  */
 @bodyBackground: #f5f5f5;
 @heroUnitBackground: #fff;
+@heroUnitBorder: #ccc;
 @wellBackground: #fff;
 
 body {
@@ -14,7 +15,7 @@ body {
 }
 
 .hero-unit {
-    border: 1px solid darken(@heroUnitBackground, 7%);
+    border: 1px solid @heroUnitBorder;
     .border-radius(0);
 }
 
@@ -28,10 +29,12 @@ body {
  * GLOBAL STYLES
  */
 
+@panelBorder: #ccc;
+
 .squared-well {
     .well();
     .border-radius(0);
-    .box-shadow(0);
+    border: 1px solid @panelBorder;
 }
 
 input {

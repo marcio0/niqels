@@ -1,8 +1,36 @@
+import mock
+
 from django.test import TestCase, Client
 
 from access import views
 from access.models import User
 from access import forms
+
+
+class UserNotifyPasswordChangeTest(TestCase):
+    @mock.patch('access.views.messages')
+    def test_calls_message(self, msg):
+        def my_view(*args, **kwargs):
+            r = mock.Mock()
+            r.status_code = 302
+            return r
+
+        view = views.notify(my_view)
+
+        view(mock.Mock())
+        self.assertTrue(msg.success.called)
+
+    @mock.patch('access.views.messages')
+    def test_dont_call(self, msg):
+        def my_view(*args, **kwargs):
+            r = mock.Mock()
+            r.status_code = 200
+            return r
+
+        view = views.notify(my_view)
+
+        view(mock.Mock())
+        self.assertFalse(msg.success.called)
 
 
 class LoginViewTest(TestCase):
@@ -53,15 +81,15 @@ class RegisterViewTest(TestCase):
         data = {
             'name': 'foo',
             'email': 'new@expenses.com',
-            'password1': 'asd',
-            'password2': 'asd'
+            'password1': 'asdasd',
+            'password2': 'asdasd'
         }
         client = Client()
 
         ret = client.post('/register/', data)
 
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/login/')
+        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
 
         self.assertTrue(
             User.objects.filter(

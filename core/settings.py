@@ -25,7 +25,7 @@ ALLOWED_HOSTS = [
 
 SITE_ID = 1
 
-SITE_NAME = 'SpentWise (beta)'
+SITE_NAME = 'SpentWise beta'
 
 TIME_ZONE = 'America/Sao_Paulo'
 LANGUAGE_CODE = 'pt-br'
@@ -45,6 +45,13 @@ USE_TZ = True
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
+
+LOCALE_CURRENCIES = {
+    'pt_BR': 'BRL',
+    'pt-br': 'BRL',
+    'en_US': 'USD',
+    'en-us': 'USD',
+}
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
