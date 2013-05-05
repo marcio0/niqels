@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-01 20:50-0300\n"
+"POT-Creation-Date: 2013-05-05 17:40-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/js/entry-list.js:19
+#: static/js/entry-list.js:10
+msgid "Month balance"
+msgstr "Balanço mensal"
+
+#: static/js/entry-list.js:11
+msgid ""
+"Shows the sum of all your transactions up to the current day, and the "
+"comparison with the previous months."
+msgstr "Exibe a soma de todas as suas transações até o dia atual, e a comparação com os meses anteriores."
+
+#: static/js/entry-list.js:35
+msgid "Example: \"Groceries\", \"Lunch\""
+msgstr "Exemplo: \"Mercado\", \"Almoço\""
+
+#: static/js/entry-list.js:46
 msgid "Use a \"+\" sign to indicate positive values."
 msgstr "Utilize o sinal \"+\" para indicar valores positivos."
-
-#~ msgid "asd"
-#~ msgstr "qwe"

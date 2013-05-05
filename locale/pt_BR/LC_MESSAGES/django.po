@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 00:52-0300\n"
+"POT-Creation-Date: 2013-05-05 17:40-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: access/admin.py:14 access/forms.py:40
-#: core/templates/access/forms/login.html:48
-#: core/templates/access/forms/login_inline.html:10
-#: core/templates/access/forms/register.html:50
+#: access/admin.py:14 access/forms.py:58 templates/access/forms/login.html:48
+#: templates/access/forms/login_inline.html:10
+#: templates/access/forms/register.html:50
 msgid "Password"
 msgstr "Senha"
 
-#: access/admin.py:15 access/forms.py:42
+#: access/admin.py:15 access/forms.py:60
 msgid "Password confirmation"
 msgstr "Confirmar senha"
 
@@ -33,23 +32,27 @@ msgstr "Confirmar senha"
 msgid "Passwords don't match"
 msgstr "As senhas não conferem"
 
-#: access/forms.py:25
+#: access/forms.py:16 access/forms.py:54
+msgid "Password must have between 6 and 30 characters."
+msgstr "A senha deve conter entre 6 e 30 caracteres."
+
+#: access/forms.py:42
 msgid "Sorry, this user doesn't exist."
 msgstr "Desculpe, este usuário não existe"
 
-#: access/forms.py:35
+#: access/forms.py:52
 msgid "A user with that email already exists."
 msgstr "Este email já está cadastrado"
 
-#: access/forms.py:36
+#: access/forms.py:53
 msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
-#: access/forms.py:39 core/templates/access/forms/register.html:13
+#: access/forms.py:57 templates/access/forms/register.html:13
 msgid "Name"
 msgstr "Nome"
 
-#: access/forms.py:44
+#: access/forms.py:62
 msgid "Enter the same password as above, for verification."
 msgstr "Repita a senha"
 
@@ -65,79 +68,106 @@ msgstr "nome"
 msgid "date joined"
 msgstr "data de cadastro"
 
-#: access/views.py:64
-#, python-format
-msgid "Account created! Now login to start using %(site_name)s."
-msgstr "Conta criada! Faça o login para começar a usar %(site_name)s."
+#: access/views.py:20
+msgid "Your password was successfuly changed."
+msgstr "Sua senha foi alterada."
 
-#: core/templates/access/change_password.html:10
+#: access/views.py:81
+#, python-format
+msgid "Welcome to %(site_name)s, %(user_name)s!"
+msgstr "Bem vindo ao %(site_name)s, %(user_name)s!"
+
+#: core/settings.py:36
+msgid "English"
+msgstr "Inglês"
+
+#: core/settings.py:37
+msgid "Portuguese"
+msgstr "Português"
+
+#: expenses/views.py:46
+msgid "Entry removed."
+msgstr "Entrada removida"
+
+#: expenses/tests/view.py:183
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+#: templates/access/change_password.html:10
 msgid "Reset password"
 msgstr "Alterar senha"
 
-#: core/templates/access/forms/login.html:14
+#: templates/access/forms/login.html:14
 msgid "Please sign in"
 msgstr "Faça login"
 
-#: core/templates/access/forms/login.html:30
-#: core/templates/access/forms/login_inline.html:6
-#: core/templates/access/forms/register.html:32
+#: templates/access/forms/login.html:30
+#: templates/access/forms/login_inline.html:6
+#: templates/access/forms/register.html:32
 msgid "Email"
 msgstr "Email"
 
-#: core/templates/access/forms/login.html:58
-#: core/templates/access/forms/login_inline.html:12
+#: templates/access/forms/login.html:58
+#: templates/access/forms/login_inline.html:12
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
-#: core/templates/access/forms/login.html:62
+#: templates/access/forms/login.html:62
 msgid "Forgot your password?"
 msgstr "Esqueci minha senha"
 
-#: core/templates/access/forms/login.html:63
+#: templates/access/forms/login.html:63
 msgid "Not a user yet?"
 msgstr "Não é usuário ainda?"
 
-#: core/templates/access/forms/login.html:63
+#: templates/access/forms/login.html:63
 msgid "Sign up here!"
 msgstr "Registre-se aqui!"
 
-#: core/templates/access/forms/register.html:4
-#: core/templates/access/forms/register.html:77
+#: templates/access/forms/register.html:4
+#: templates/access/forms/register.html:77
 msgid "Sign up"
 msgstr "Registre-se"
 
-#: core/templates/access/forms/register.html:67
+#: templates/access/forms/register.html:67
 msgid "Confirm password"
 msgstr "Confirmar senha"
 
-#: core/templates/access/forms/register.html:81
+#: templates/access/forms/register.html:81
 msgid "Already a user?"
 msgstr "Já é usuário?"
 
-#: core/templates/access/forms/register.html:81
+#: templates/access/forms/register.html:81
 msgid "Sign in"
 msgstr "Login"
 
-#: core/templates/expenses/forms/entry.html:14
+#: templates/expenses/list.html:60
+msgid "Use the form to the right to create your first entry."
+msgstr "Use o formulário a direita para criar sua primeira transação."
+
+#: templates/expenses/month_balance_panel.html:6
+msgid "Monthly balance:"
+msgstr "Balanço mensal:"
+
+#: templates/expenses/forms/entry.html:14
 msgid "Category"
 msgstr "Categoria"
 
-#: core/templates/expenses/forms/entry.html:35
+#: templates/expenses/forms/entry.html:35
 msgid "Value"
 msgstr "Valor"
 
-#: core/templates/expenses/forms/entry.html:57
+#: templates/expenses/forms/entry.html:57
 msgid "Description (Optional)"
 msgstr "Descrição (Opcional)"
 
-#: core/templates/expenses/forms/entry.html:76
+#: templates/expenses/forms/entry.html:76
 msgid "Date"
 msgstr "Data"
 
-#: core/templates/expenses/forms/entry.html:91
+#: templates/expenses/forms/entry.html:91
 msgid "Submit"
 msgstr "Enviar"
 
-#: expenses/views.py:43
-msgid "Entry removed."
-msgstr "Entrada removida"
+#~ msgid "Account created! Now login to start using %(site_name)s."
+#~ msgstr "Conta criada! Faça o login para começar a usar %(site_name)s."
