@@ -4,6 +4,11 @@ $(function(){
         $valueField = $('#id_value'),
         $balanceHelp = $('#balance-help');
 
+    $categoryField.typeahead({
+        source: user_categories,
+        items: 3
+    });
+
     $balanceHelp.popover({
         placement: 'left',
         trigger: 'hover',
