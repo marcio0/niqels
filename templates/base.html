@@ -46,6 +46,22 @@
         <script src="{% static "js/locales/bootstrap-datepicker.pt-BR.js" %}" type="text/javascript"></script>
         <script src="{% url "django.views.i18n.javascript_catalog" %}" type="text/javascript"></script>
 
+        <script type="text/javascript">
+            $(function(){
+                $('.entry-row td.action-bar i.delete-entry').click(function(){
+                    var id = $(this).parent().parent().data('id');
+                    var form = $("<form action='/entries/" + id + "/delete/' method='POST'>{% csrf_token %}</form>");
+                    form.submit();
+                });
+            });
+            $(function(){
+                $('input#id_category').typeahead({
+                    source: user_categories,
+                    items: 3
+                });
+            });
+        </script>
+
         {% block bodyend %}{% endblock bodyend %}
     </body>
 </html>
