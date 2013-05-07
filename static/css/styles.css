@@ -9191,6 +9191,10 @@ body {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
 }
+.affix {
+  top: 20px;
+  width: 230px;
+}
 input[type="text"],
 input[type="password"] {
   -webkit-border-radius: 0;

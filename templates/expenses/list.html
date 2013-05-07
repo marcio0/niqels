@@ -10,12 +10,11 @@
 <div class="container">
     <div class="row">
 
-        <div class="span3" data-spy="affix">
-
+        <div class="span3">
             {% include "expenses/forms/entry.html" %}
         </div>
 
-        <div class="span6 offset3">
+        <div class="span6">
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -62,7 +61,7 @@
                 </table> 
             </div>
         </div>
-        <div class="span3 offset9" data-spy="affix">
+        <div class="span3">
             {% include "expenses/month_balance_panel.html" %}
         </div>
     </div> <!-- container -->
