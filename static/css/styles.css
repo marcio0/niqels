@@ -9454,9 +9454,13 @@ span.category-label-inverse[href] {
   font-size: 15px;
 }
 .entry-row td.action-bar i {
+  display: none;
   padding-right: 2px;
   padding-left: 2px;
   float: right;
+}
+.entry-row.tr-hover .action-bar i {
+  display: block;
 }
 .side-panel {
   min-height: 20px;

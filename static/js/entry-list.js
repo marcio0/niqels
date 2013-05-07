@@ -70,4 +70,13 @@ $(function(){
         $('span.help-block', me).hide();
     };
     $('div.control-group.error').keydown(clearControlGroup);
+
+    $('.entry-row').hover(
+        function () {
+            $(this).addClass('tr-hover');
+        },
+        function () {
+            $(this).removeClass('tr-hover');
+        }
+    );
 });

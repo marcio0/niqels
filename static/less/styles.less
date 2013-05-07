@@ -116,9 +116,16 @@ span.category-label {
 
         // the delete icon
         &.action-bar i {
+            .hide();
             padding-right: 2px;
             padding-left: 2px;
             .pull-right();
+        }
+    }
+
+    &.tr-hover {
+        .action-bar i {
+            .show();
         }
     }
 }
