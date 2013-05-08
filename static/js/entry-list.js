@@ -36,6 +36,7 @@ $(function(){
         }
     });
 
+    $valueField.maskMoney({allowNegative: true, thousands:'.', decimal:','});
     $valueField.tooltip({
         placement: 'right',
         title: gettext('Use a "+" sign to indicate positive values.')
