@@ -1,19 +1,79 @@
 {% extends "base.html" %}
 
-{% block body %}
-    
-<div class="container">
-    <div class="row">
-        <div class="span9">
-            <div class="hero-unit">
-                <h1>Heyoooo world!</h1>
-            </div>
-        </div>
-        <div class="span3">
-            <div id="signup-area">
-            {% include "access/forms/register.html" %}
+{% load i18n %}
+{% load webdesign %} 
+
+{% block extrahead %}
+<style type="text/css">
+body {
+    padding-top: 100px;
+}
+</style>
+{% endblock extrahead %}
+
+{% block navbar %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container container-fluid">
+                <a class="brand" href="{% url "index" %}">{{ SITE_NAME }}</a>
+                {% include "access/forms/login_inline.html" %}
             </div>
         </div>
     </div>
-</div> <!-- container -->
+{% endblock navbar %}
+
+{% block body %}
+    <section>
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <div class="hero-unit presentation-block">
+                    <h2>{% trans "Organize your money the easy way!" %}</h2>
+                    <p>{% lorem %}</p>
+                </div>
+            </div>
+            <div class="span4">
+                <div id="signup-area">
+                {% include "access/forms/register.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <hr>
+
+    <section>
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <img src="http://placehold.it/400"/>
+            </div>
+            <div class="span8">
+                <div class="hero-unit presentation-block">
+                    <h2>{% trans "It's simple to use!" %}</h2>
+                    <p>{% lorem %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <hr/>
+
+    <section>
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <div class="hero-unit presentation-block">
+                    <h2>{% trans "It's simple to use!" %}</h2>
+                    <p>{% lorem %}</p>
+                </div>
+            </div>
+            <div class="span4">
+                <img src="http://placehold.it/400"/>
+            </div>
+        </div>
+    </div>
+    </section>
 {% endblock body %}

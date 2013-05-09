@@ -11,12 +11,18 @@
 @wellBackground: #fff;
 
 body {
-    background-image: url(../img/textured_paper.png);
+    background-image: url(../img/ricepaper2.png);
 }
 
 .hero-unit {
     border: 1px solid @heroUnitBorder;
     .border-radius(0);
+}
+
+.navbar-fixed-top .navbar-inner {
+    .container {
+        padding: 20px 0px;
+    }
 }
 
 /*
@@ -154,6 +160,26 @@ form[name="entry-form"] {
 
 [id="signup-area"] {
     .squared-well();
+
+    form {
+        width: 80%;
+        margin: auto;
+    }
+}
+
+section.main {
+    background-image: url(../img/textured_paper.png);
+}
+section.highlight1 {
+    background-image: url(../img/paper_2.png);
+}
+section.highlight2 {
+    background-image: url(../img/ricepaper2.png);
+}
+
+.hero-unit.presentation-block {
+    #translucent > .border(@alpha: 0);
+    #translucent > .background(@alpha: 0) !important;
 }
 
 form {
