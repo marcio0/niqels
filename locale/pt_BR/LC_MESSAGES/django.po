@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 17:47-0300\n"
+"POT-Creation-Date: 2013-05-09 21:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: access/admin.py:14 access/forms.py:58 templates/access/forms/login.html:48
-#: templates/access/forms/login_inline.html:10
-#: templates/access/forms/register.html:50
+#: access/admin.py:14 access/forms.py:58
 msgid "Password"
 msgstr "Senha"
 
@@ -48,7 +46,7 @@ msgstr "Este email já está cadastrado"
 msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
-#: access/forms.py:57 templates/access/forms/register.html:13
+#: access/forms.py:57
 msgid "Name"
 msgstr "Nome"
 
@@ -93,78 +91,62 @@ msgstr "Entrada removida"
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
-#: templates/access/change_password.html:10
-msgid "Reset password"
-msgstr "Alterar senha"
+#~ msgid "Organize your money the easy way!"
+#~ msgstr "Organize seus gastos de forma fácil!"
 
-#: templates/access/forms/login.html:14
-msgid "Please sign in"
-msgstr "Faça login"
+#~ msgid "It's simple to use!"
+#~ msgstr "É fácil de usar!"
 
-#: templates/access/forms/login.html:30
-#: templates/access/forms/login_inline.html:6
-#: templates/access/forms/register.html:32
-msgid "Email"
-msgstr "Email"
+#~ msgid "Reset password"
+#~ msgstr "Alterar senha"
 
-#: templates/access/forms/login.html:58
-#: templates/access/forms/login_inline.html:12
-msgid "Login"
-msgstr "Login"
+#~ msgid "Please sign in"
+#~ msgstr "Faça login"
 
-#: templates/access/forms/login.html:62
-msgid "Forgot your password?"
-msgstr "Esqueci minha senha"
+#~ msgid "Email"
+#~ msgstr "Email"
 
-#: templates/access/forms/login.html:63
-msgid "Not a user yet?"
-msgstr "Não é usuário ainda?"
+#~ msgid "Login"
+#~ msgstr "Login"
 
-#: templates/access/forms/login.html:63
-msgid "Sign up here!"
-msgstr "Registre-se aqui!"
+#~ msgid "Forgot your password?"
+#~ msgstr "Esqueci minha senha"
 
-#: templates/access/forms/register.html:4
-#: templates/access/forms/register.html:77
-msgid "Sign up"
-msgstr "Registre-se"
+#~ msgid "Not a user yet?"
+#~ msgstr "Não é usuário ainda?"
 
-#: templates/access/forms/register.html:67
-msgid "Confirm password"
-msgstr "Confirmar senha"
+#~ msgid "Sign up here!"
+#~ msgstr "Registre-se aqui!"
 
-#: templates/access/forms/register.html:81
-msgid "Already a user?"
-msgstr "Já é usuário?"
+#~ msgid "Sign up"
+#~ msgstr "Registre-se"
 
-#: templates/access/forms/register.html:81
-msgid "Sign in"
-msgstr "Login"
+#~ msgid "Confirm password"
+#~ msgstr "Confirmar senha"
 
-#: templates/expenses/list.html:60
-msgid "Use the form to the right to create your first entry."
-msgstr "Use o formulário a direita para criar sua primeira transação."
+#~ msgid "Already a user?"
+#~ msgstr "Já é usuário?"
 
-#: templates/expenses/month_balance_panel.html:6
-msgid "Monthly balance:"
-msgstr "Balanço mensal:"
+#~ msgid "Sign in"
+#~ msgstr "Login"
 
-#: templates/expenses/forms/entry.html:14
-msgid "Category"
-msgstr "Categoria"
+#~ msgid "Use the form to the right to create your first entry."
+#~ msgstr "Use o formulário a direita para criar sua primeira transação."
 
-#: templates/expenses/forms/entry.html:35
-msgid "Value"
-msgstr "Valor"
+#~ msgid "Monthly balance:"
+#~ msgstr "Balanço mensal:"
 
-#: templates/expenses/forms/entry.html:57
-msgid "Description (Optional)"
-msgstr "Descrição (Opcional)"
+#~ msgid "Category"
+#~ msgstr "Categoria"
 
-#: templates/expenses/forms/entry.html:76
-msgid "Date"
-msgstr "Data"
+#~ msgid "Value"
+#~ msgstr "Valor"
 
-#: templates/expenses/forms/entry.html:91
-msgid "Submit"
-msgstr "Enviar"
+#~ msgid "Description (Optional)"
+#~ msgstr "Descrição (Opcional)"
+
+#~ msgid "Date"
+#~ msgstr "Data"
+
+#~ msgid "Submit"
+#~ msgstr "Enviar"
