@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form class="form" name="entry-form" action="{% url "new_entry" %}" method="post">{% csrf_token %}
+<form class="form affix-top" data-spy="affix" data-offset-top="40" name="entry-form" action="{% url "new_entry" %}" method="post">{% csrf_token %}
 
     <div class="control-group {% if entry_form.category.errors %}error{% endif %}">
         <div class="controls">

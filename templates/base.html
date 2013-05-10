@@ -20,6 +20,7 @@
         {% block extrahead %}{% endblock extrahead %}
     </head>
     <body>
+        {% block navbar %}
         <div class="navbar navbar-static-top">
             <div class="navbar-inner">
                 <div class="container container-fluid">
@@ -37,10 +38,13 @@
                 </div>
             </div>
         </div>
+        {% endblock navbar %}
 
         {% block body %}{% endblock body %}
 
         <script src="{% static "js/jquery.js" %}"></script>
+        <script src="{% static "js/jquery.mask.min.js" %}"></script>
+        <script src="{% static "js/jquery.maskMoney.js" %}"></script>
         <script src="{% static "js/bootstrap.js" %}"></script>
         <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
         <script src="{% static "js/locales/bootstrap-datepicker.pt-BR.js" %}" type="text/javascript"></script>

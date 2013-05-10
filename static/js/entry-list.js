@@ -23,6 +23,7 @@ $(function(){
         autoclose: true,
         todayHighlight: true
     });
+    $dateField.mask('11/11/1111');
 
     $categoryField.tooltip({
         placement: 'right',
@@ -35,10 +36,12 @@ $(function(){
         }
     });
 
+    $valueField.maskMoney({allowNegative: true, thousands:'.', decimal:','});
     $valueField.tooltip({
         placement: 'right',
         title: gettext('Use a "+" sign to indicate positive values.')
     });
+    //$valueField.mask('P000.000,00', {reverse: true, translation: {P: '\+'}});
 
     $valueField.keyup(function(event) {
         var me = $(this),
@@ -70,4 +73,13 @@ $(function(){
         $('span.help-block', me).hide();
     };
     $('div.control-group.error').keydown(clearControlGroup);
+
+    $('.entry-row').hover(
+        function () {
+            $(this).addClass('tr-hover');
+        },
+        function () {
+            $(this).removeClass('tr-hover');
+        }
+    );
 });

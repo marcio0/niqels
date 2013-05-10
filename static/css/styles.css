@@ -9156,13 +9156,16 @@ a.badge:focus {
  * OVERRIDES
  */
 body {
-  background-image: url(../img/textured_paper.png);
+  background-image: url(../img/ricepaper2.png);
 }
 .hero-unit {
   border: 1px solid #cccccc;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+}
+.navbar-fixed-top .navbar-inner .container {
+  padding: 20px 0px;
 }
 /*
  * /OVERRIDES
@@ -9190,6 +9193,10 @@ body {
 .squared-well blockquote {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
+}
+.affix {
+  top: 20px;
+  width: 230px;
 }
 input[type="text"],
 input[type="password"] {
@@ -9450,9 +9457,13 @@ span.category-label-inverse[href] {
   font-size: 15px;
 }
 .entry-row td.action-bar i {
+  display: none;
   padding-right: 2px;
   padding-left: 2px;
   float: right;
+}
+.entry-row.tr-hover .action-bar i {
+  display: block;
 }
 .side-panel {
   min-height: 20px;
@@ -9665,6 +9676,26 @@ form[name="entry-form"] input[type="submit"] .badge {
 [id="signup-area"] blockquote {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
+}
+[id="signup-area"] form {
+  width: 80%;
+  margin: auto;
+}
+section.main {
+  background-image: url(../img/textured_paper.png);
+}
+section.highlight1 {
+  background-image: url(../img/paper_2.png);
+}
+section.highlight2 {
+  background-image: url(../img/ricepaper2.png);
+}
+.hero-unit.presentation-block {
+  border-color: rgba(255, 255, 255, 0);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: rgba(255, 255, 255, 0) !important;
 }
 form[id="register-form"] input[type="submit"],
 form[id="signin-form"] input[type="submit"] {
