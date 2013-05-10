@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'password_reset',
     'babeldjango',
     'south',
+    'tastypie',
 
     'django.contrib.webdesign',
 )
@@ -185,6 +186,9 @@ DATABASES = {
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+TASTYPIE_DEFAULT_FORMATS = ['json']
 
 try:
     from core.local_settings import *
