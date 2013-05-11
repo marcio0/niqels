@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'expenses',
     'access',
+    'api',
     'password_reset',
     'babeldjango',
     'south',

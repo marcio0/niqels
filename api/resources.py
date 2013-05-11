@@ -10,26 +10,32 @@ from api.authorization import UserObjectsOnlyAuthorization
 class CategoryResource(ModelResource):
     class Meta:
         queryset = Category.objects.all()
-        resource_name = 'category'
         authentication = authentication.SessionAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'post', 'put']
 
 
 class EntryResource(ModelResource):
-    category = fields.ForeignKey(CategoryResource, 'category')
+    category = fields.ForeignKey(CategoryResource, 'category', full=True)
+
+    def dehydrate_category(self, bundle):
+        return bundle.obj.category.name
 
     class Meta:
         queryset = Entry.objects.all()
-        resource_name = 'entry'
         excludes = ['last_edited_time']
         authentication = authentication.SessionAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        list_allowed_methods = ['get', 'post']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
 
 
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
-        resource_name = 'user'
         fields = ['email', 'name']
         authentication = authentication.SessionAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']

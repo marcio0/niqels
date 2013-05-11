@@ -1,0 +1,17 @@
+-   model: expenses.Category
+    fields:
+        name: Groceries
+        user: 1
+    pk: 1
+
+-   model: expenses.Category
+    fields:
+        name: Lunch
+        user: 1
+    pk: 2
+
+-   model: expenses.Category
+    fields:
+        name: Lunch
+        user: 2
+    pk: 3
