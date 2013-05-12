@@ -25,8 +25,7 @@ class CategoryResourceTest(ResourceTestCase):
         # frequently (enough).
         self.post_data = {
             'color': '#fefefe',
-            'name': 'new',
-            #'user': '/api/v1/user/{0}/'.format(self.user.pk),
+            'name': 'new'
         }
 
     def get_credentials(self):
@@ -75,8 +74,7 @@ class CategoryResourceTest(ResourceTestCase):
             u'id': self.category.pk,
             u'name': self.category.name,
             u'color': self.category.color,
-            u'resource_uri': u'/api/v1/category/%d/' % self.category.id,
-            u'user': u'/api/v1/user/1/'
+            u'resource_uri': u'/api/v1/category/%d/' % self.category.id
         })
 
     # List tests: POST
@@ -128,7 +126,7 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertValidJSONResponse(resp)
 
         # We use ``assertKeys`` here to just verify the keys, not all the data.
-        self.assertKeys(self.deserialize(resp), ['name', 'color', 'id', 'resource_uri', 'user'])
+        self.assertKeys(self.deserialize(resp), ['name', 'color', 'id', 'resource_uri'])
         self.assertEqual(self.deserialize(resp)['name'], 'Groceries')
 
     # Detail tests: POST

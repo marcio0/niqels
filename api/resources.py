@@ -19,7 +19,8 @@ class UserResource(ModelResource):
 
 
 class CategoryResource(ModelResource):
-    user = fields.ToOneField(UserResource, 'user')
+    def obj_create(self, bundle, **kwargs):
+        return super(CategoryResource, self).obj_create(bundle, user=bundle.request.user)
 
     class Meta:
         queryset = Category.objects.all()
