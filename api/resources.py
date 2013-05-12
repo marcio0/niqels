@@ -1,6 +1,7 @@
 from tastypie.resources import ModelResource
 from tastypie import fields
-from tastypie import authentication
+from tastypie import http
+from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
 
 from expenses.models import Entry, Category
 from access.models import User
@@ -10,10 +11,13 @@ from api.authorization import UserObjectsOnlyAuthorization
 class CategoryResource(ModelResource):
     class Meta:
         queryset = Category.objects.all()
-        authentication = authentication.SessionAuthentication()
+        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         list_allowed_methods = ['get']
-        detail_allowed_methods = ['get', 'post', 'put']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+
+    def delete_detail(self, *args, **kwargs):
+        return http.HttpNotImplemented()
 
 
 class EntryResource(ModelResource):
@@ -25,7 +29,7 @@ class EntryResource(ModelResource):
     class Meta:
         queryset = Entry.objects.all()
         excludes = ['last_edited_time']
-        authentication = authentication.SessionAuthentication()
+        authentication = SessionAuthentication()
         authorization = UserObjectsOnlyAuthorization()
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'post', 'put', 'delete']
@@ -35,7 +39,7 @@ class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         fields = ['email', 'name']
-        authentication = authentication.SessionAuthentication()
+        authentication = SessionAuthentication()
         authorization = UserObjectsOnlyAuthorization()
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get']

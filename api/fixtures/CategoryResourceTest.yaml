@@ -2,6 +2,7 @@
     fields:
         name: Groceries
         user: 1
+        color: "#ababab"
     pk: 1
 
 -   model: expenses.Category
