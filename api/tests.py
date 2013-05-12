@@ -17,6 +17,18 @@ class CategoryResourceTest(ResourceTestCase):
 
         self.category = Category.objects.get(name="Groceries")
 
+        # We also build a detail URI, since we will be using it all over.
+        # DRY, baby. DRY.
+        self.detail_url = '/api/v1/category/{0}/'.format(self.category.pk)
+
+        # The data we'll send on POST requests. Again, because we'll use it
+        # frequently (enough).
+        self.post_data = {
+            'user': 1,
+            'color': '#fefefe',
+            'name': 'new'
+        }
+
     def get_credentials(self):
         '''
         Get the credentials for basic http authentication.
@@ -86,9 +98,23 @@ class CategoryResourceTest(ResourceTestCase):
         })
 
     # Detail tests.
-    def test_delete_list_unauthorzied(self):
+    def test_delete_detail_not_implemented(self):
         '''
         Cannot DELETE a category for now.
         Resource accepts the DELETE but returns a NotImplemented.
         '''
         self.assertHttpNotImplemented(self.api_client.delete('/api/v1/category/1/', format='json', authentication=self.get_credentials()))
+
+    def test_only_own_objects(self):
+        '''
+        Can only retrieve own objects.
+        '''
+        self.assertHttpNotFound(self.api_client.get('/api/v1/category/3/', format='json', authentication=self.get_credentials()))
+
+    def test_get_detail(self):
+        resp = self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        # We use ``assertKeys`` here to just verify the keys, not all the data.
+        self.assertKeys(self.deserialize(resp), ['name', 'color', 'id', 'resource_uri'])
+        self.assertEqual(self.deserialize(resp)['name'], 'Groceries')
