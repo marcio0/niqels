@@ -40,7 +40,6 @@ class UserObjectsOnlyAuthorization(Authorization):
                 allowed.append(obj)
 
         return allowed
-        
 
     def delete_detail(self, object_list, bundle):
         return bundle.obj.user == bundle.request.user

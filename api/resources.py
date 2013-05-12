@@ -8,13 +8,25 @@ from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
 
 
+class UserResource(ModelResource):
+    class Meta:
+        queryset = User.objects.all()
+        fields = ['email', 'name']
+        authentication = SessionAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
+
+
 class CategoryResource(ModelResource):
+    user = fields.ToOneField(UserResource, 'user')
+
     class Meta:
         queryset = Category.objects.all()
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        list_allowed_methods = ['get', 'post']
+        detail_allowed_methods = ['get', 'put', 'delete']
 
     def delete_detail(self, *args, **kwargs):
         return http.HttpNotImplemented()
@@ -33,13 +45,3 @@ class EntryResource(ModelResource):
         authorization = UserObjectsOnlyAuthorization()
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'post', 'put', 'delete']
-
-
-class UserResource(ModelResource):
-    class Meta:
-        queryset = User.objects.all()
-        fields = ['email', 'name']
-        authentication = SessionAuthentication()
-        authorization = UserObjectsOnlyAuthorization()
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']

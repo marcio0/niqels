@@ -24,9 +24,9 @@ class CategoryResourceTest(ResourceTestCase):
         # The data we'll send on POST requests. Again, because we'll use it
         # frequently (enough).
         self.post_data = {
-            'user': 1,
             'color': '#fefefe',
-            'name': 'new'
+            'name': 'new',
+            #'user': '/api/v1/user/{0}/'.format(self.user.pk),
         }
 
     def get_credentials(self):
@@ -45,38 +45,19 @@ class CategoryResourceTest(ResourceTestCase):
 
     def test_session_auth_ok(self):
         '''
-        Testing auth with session authentication.
+        Testing auth with django's session authentication.
         User is alread logged in, sho theres no need for auth data on requisition.
         '''
         self.assertTrue(self.api_client.client.login(email=self.email, password=self.password))
         resp = self.api_client.get('/api/v1/category/', format='json')
         self.assertValidJSONResponse(resp)
 
-
-    # List tests.
+    # List tests: GET.
     def test_get_list_unauthorzied(self):
         '''
         Must be authenticated to GET a list.
         '''
         self.assertHttpUnauthorized(self.api_client.get('/api/v1/category/', format='json'))
-
-    def test_post_list_unauthorzied(self):
-        '''
-        Cannot POST to a list.
-        '''
-        self.assertHttpMethodNotAllowed(self.api_client.post('/api/v1/category/', format='json', authentication=self.get_credentials()))
-
-    def test_put_list_unauthorzied(self):
-        '''
-        Cannot PUT to a list.
-        '''
-        self.assertHttpMethodNotAllowed(self.api_client.put('/api/v1/category/', format='json', authentication=self.get_credentials()))
-
-    def test_delete_list_unauthorzied(self):
-        '''
-        Cannot DELETE to a list.
-        '''
-        self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/category/', format='json', authentication=self.get_credentials()))
 
     def test_get_list_json(self):
         '''
@@ -94,27 +75,73 @@ class CategoryResourceTest(ResourceTestCase):
             u'id': self.category.pk,
             u'name': self.category.name,
             u'color': self.category.color,
-            u'resource_uri': u'/api/v1/category/%d/' % self.category.id
+            u'resource_uri': u'/api/v1/category/%d/' % self.category.id,
+            u'user': u'/api/v1/user/1/'
         })
 
-    # Detail tests.
-    def test_delete_detail_not_implemented(self):
+    # List tests: POST
+    def test_post_list_unauthorized(self):
         '''
-        Cannot DELETE a category for now.
-        Resource accepts the DELETE but returns a NotImplemented.
+        Must be authenticated to POST a category.
         '''
-        self.assertHttpNotImplemented(self.api_client.delete('/api/v1/category/1/', format='json', authentication=self.get_credentials()))
+        self.assertHttpUnauthorized(self.api_client.post('/api/v1/category/', format='json'))
 
+    def test_post_list(self):
+        # Check how many are there first.
+        self.assertEqual(Category.objects.count(), 3)
+
+        self.assertHttpCreated(self.api_client.post('/api/v1/category/', format='json', data=self.post_data, authentication=self.get_credentials()))
+
+        # Verify a new one has been added.
+        self.assertEqual(Category.objects.count(), 4) 
+
+    # List tests: PUT
+    def test_put_list_unauthorzied(self):
+        '''
+        Cannot PUT to a list.
+        '''
+        self.assertHttpMethodNotAllowed(self.api_client.put('/api/v1/category/', format='json', authentication=self.get_credentials()))
+
+    # List tests: DELETE
+    def test_delete_list_unauthorzied(self):
+        '''
+        Cannot DELETE to a list.
+        '''
+        self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/category/', format='json', authentication=self.get_credentials()))
+
+
+    # Detail tests: GET.
     def test_only_own_objects(self):
         '''
         Can only retrieve own objects.
         '''
         self.assertHttpNotFound(self.api_client.get('/api/v1/category/3/', format='json', authentication=self.get_credentials()))
 
+    def test_get_detail_unauthorized(self):
+        '''
+        Must be authenticated to GET a category.
+        '''
+        self.assertHttpUnauthorized(self.api_client.get(self.detail_url, format='json'))
+
     def test_get_detail(self):
         resp = self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
         # We use ``assertKeys`` here to just verify the keys, not all the data.
-        self.assertKeys(self.deserialize(resp), ['name', 'color', 'id', 'resource_uri'])
+        self.assertKeys(self.deserialize(resp), ['name', 'color', 'id', 'resource_uri', 'user'])
         self.assertEqual(self.deserialize(resp)['name'], 'Groceries')
+
+    # Detail tests: POST
+    def test_post_detail_not_allowed(self):
+        '''
+        Cannot POST to detail.
+        '''
+        self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json', authentication=self.get_credentials()))
+
+    # Detail tests: DELETE
+    def test_delete_detail_not_implemented(self):
+        '''
+        Cannot DELETE a category for now.
+        Resource accepts the DELETE but returns a NotImplemented.
+        '''
+        self.assertHttpNotImplemented(self.api_client.delete('/api/v1/category/1/', format='json', authentication=self.get_credentials()))
