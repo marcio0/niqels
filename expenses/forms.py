@@ -33,6 +33,12 @@ class NegativeDecimalField(forms.DecimalField):
         return value
 
 
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        exclude = ('user',)
+
+
 class EntryForm(forms.ModelForm):
     category = forms.CharField(max_length=200)
     value = NegativeDecimalField(localize=True)

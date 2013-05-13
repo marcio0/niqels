@@ -85,6 +85,9 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertHttpUnauthorized(self.api_client.post('/api/v1/category/', format='json'))
 
     def test_post_list(self):
+        '''
+        A valid post to list endpoint.
+        '''
         # Check how many are there first.
         self.assertEqual(Category.objects.count(), 3)
 
@@ -92,6 +95,21 @@ class CategoryResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Category.objects.count(), 4) 
+
+    def test_post_list_missing_name(self):
+        '''
+        Invalid post; a name is required. Must return bad request.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Category.objects.count(), 3)
+
+        data = self.post_data.copy()
+        del data['name']
+
+        self.assertHttpBadRequest(self.api_client.post('/api/v1/category/', format='json', data=data, authentication=self.get_credentials()))
+
+        # Verify a new one has been added.
+        self.assertEqual(Category.objects.count(), 3) 
 
     # List tests: PUT
     def test_put_list_unauthorzied(self):
@@ -122,6 +140,9 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertHttpUnauthorized(self.api_client.get(self.detail_url, format='json'))
 
     def test_get_detail(self):
+        '''
+        Retrieving a category.
+        '''
         resp = self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
@@ -143,3 +164,47 @@ class CategoryResourceTest(ResourceTestCase):
         Resource accepts the DELETE but returns a NotImplemented.
         '''
         self.assertHttpNotImplemented(self.api_client.delete('/api/v1/category/1/', format='json', authentication=self.get_credentials()))
+
+    # Detail tests: PUT
+    def test_put_detail_unauthenticated(self):
+        '''
+        Must be authenticated.
+        '''
+        self.assertHttpUnauthorized(self.api_client.put(self.detail_url, format='json', data={}))
+
+    def test_put_detail(self):
+        '''
+        Sending a successful PUT to a detail endpoint.
+        '''
+        # Grab the current data & modify it slightly.
+        original_data = self.deserialize(self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials()))
+        new_data = original_data.copy()
+        new_data['name'] = 'new name'
+        new_data['color'] = '#000'
+
+        self.assertHttpAccepted(self.api_client.put(self.detail_url, format='json', data=new_data, authentication=self.get_credentials()))
+
+        # Make sure the count hasn't changed & we did an update.
+        # Check for updated data.
+        updated = Category.objects.get(pk=self.category.id)
+        self.assertEqual(updated.name, 'new name')
+        self.assertEqual(updated.color, '#000')
+
+    def test_put_detail_missing_name(self):
+        '''
+        Name is required, must return bad request.
+        '''
+        # Grab the current data & modify it slightly.
+        original_data = self.deserialize(self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials()))
+        new_data = original_data.copy()
+        del new_data['name']
+
+        resp = self.api_client.put(self.detail_url, format='json', data=new_data, authentication=self.get_credentials())
+        print resp.content
+        self.assertHttpBadRequest(resp)
+
+        # Make sure the count hasn't changed & we did an update.
+        # Check for updated data.
+        updated = Category.objects.get(pk=self.category.id)
+        self.assertEqual(updated.name, 'new')
+        self.assertEqual(updated.color, '#fefefe')
