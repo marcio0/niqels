@@ -17,7 +17,6 @@ class UserResource(ModelResource):
         authentication = SessionAuthentication()
         authorization = UserObjectsOnlyAuthorization()
         list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
 
 
 class CategoryResource(ModelResource):
