@@ -58,7 +58,7 @@ class CategoryResourceTest(ResourceTestCase):
         '''
         self.assertHttpUnauthorized(self.api_client.get('/api/v1/category/', format='json'))
 
-    def test_get_list_json(self):
+    def test_get_list(self):
         '''
         GET to a list.
         Must only return objects related to the user.
@@ -111,8 +111,7 @@ class CategoryResourceTest(ResourceTestCase):
         # Verify a new one has been added.
         self.assertEqual(Category.objects.count(), 3) 
 
-    # List tests: PUT
-    def test_put_list_unauthorzied(self):
+    def test_put_list_not_allowed(self):
         '''
         Cannot PUT to a list.
         '''
