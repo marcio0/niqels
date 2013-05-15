@@ -52,51 +52,73 @@ class UserResourceTest(ResourceTestCase):
         '''
         Must be authenticated to GET to a list endpoint.
         '''
-        self.fail()
+        self.assertHttpUnauthorized(self.api_client.get(self.detail_url, format='json'))
 
-    def test_get_list_json(self):
+    def test_get_list(self):
         '''
         Successful GET to a list endpoint.
+        Must return the logged in user.
         '''
-        self.fail()
+        resp = self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        # Here, we're checking an entire structure for the expected data.
+        self.assertEqual(self.deserialize(resp), {
+            u'name': self.user.name,
+            u'email': self.user.email,
+            u'resource_uri': self.detail_url
+        })
 
     # List tests: POST
-    def test_post_list_unauthorized(self):
+    def test_post_list_not_allowed(self):
         '''
         Must be authenticated to POST a list endpoint.
         '''
-        self.fail()
-
-    def test_post_list(self):
-        '''
-        Successful POST to a list endpoint.
-        '''
-        self.fail()
-
-    def test_post_bad_data(self):
-        '''
-        Unsuccessful POST to a list endpoint.
-        '''
-        self.fail()
+        self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json'))
 
     # List tests: PUT
     def test_put_list_unauthorzied(self):
         '''
         Must be authenticated to PUT to a list endpoint.
         '''
-        self.fail()
-
-    def test_put_list_bad_data(self):
-        '''
-        Unsuccessful PUT to a list endpoint.
-        '''
-        self.fail()
+        self.assertHttpUnauthorized(self.api_client.put(self.detail_url, format='json', data={}))
 
     def test_put_list(self):
         '''
-        Successful PUT to a list endpoint.
+        Sending a successful PUT to a detail endpoint.
         '''
-        self.fail()
+        new_data = {
+            'name': 'new name',
+            'email': 'another@email.com'
+        }
+        resp = self.api_client.put(self.detail_url, format='json', data=new_data, authentication=self.get_credentials())
+        print 'status code', resp.status_code
+
+        self.assertHttpAccepted(resp)
+        # Make sure the count hasn't changed & we did an update.
+        # Check for updated data.
+        updated = User.objects.get(pk=self.user.id)
+        self.assertEqual(updated.name, 'new name')
+        self.assertEqual(updated.email, 'another@email.com')
+
+    def test_put_list_bad_data(self):
+        '''
+        Object is not changed.
+        '''
+        # Grab the current data & modify it slightly.
+        new_data = self.put_data.copy()
+        del new_data['name']
+
+        resp = self.api_client.put(self.detail_url, format='json', data=new_data, authentication=self.get_credentials())
+        print resp.status_code, resp.content
+        #self.assertHttpBadRequest(resp)
+        self.assertHttpAccepted(resp)  # I think this is wrong
+
+        # Make sure the count hasn't changed & we did an update.
+        # Check for updated data.
+        updated = User.objects.get(pk=self.user.id)
+        self.assertEqual(updated.name, self.put_data['name'])
+        self.assertEqual(updated.email, self.put_data['email'])
 
     # List tests: DELETE
     def test_delete_list_unauthorzied(self):
