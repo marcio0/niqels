@@ -54,10 +54,11 @@ class UserResourceTest(ResourceTestCase):
         '''
         self.assertHttpUnauthorized(self.api_client.get(self.detail_url, format='json'))
 
-    def test_get_list(self):
+    def test_get_detail(self):
         '''
-        Successful GET to a list endpoint.
+        Successful GET to a detail endpoint.
         Must return the logged in user.
+        The user resource links the list uri to the detail endpoint.
         '''
         resp = self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
@@ -72,128 +73,33 @@ class UserResourceTest(ResourceTestCase):
     # List tests: POST
     def test_post_list_not_allowed(self):
         '''
-        Must be authenticated to POST a list endpoint.
+        User Resource does not accept POST.
         '''
         self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json'))
 
     # List tests: PUT
-    def test_put_list_unauthorzied(self):
+    def test_put_list_not_allowed(self):
         '''
-        Must be authenticated to PUT to a list endpoint.
+        User Resource does not accept PUT.
         '''
-        self.assertHttpUnauthorized(self.api_client.put(self.detail_url, format='json', data={}))
-
-    def test_put_list(self):
-        '''
-        Sending a successful PUT to a detail endpoint.
-        '''
-        new_data = {
-            'name': 'new name',
-            'email': 'another@email.com'
-        }
-        resp = self.api_client.put(self.detail_url, format='json', data=new_data, authentication=self.get_credentials())
-        print 'status code', resp.status_code
-
-        self.assertHttpAccepted(resp)
-        # Make sure the count hasn't changed & we did an update.
-        # Check for updated data.
-        updated = User.objects.get(pk=self.user.id)
-        self.assertEqual(updated.name, 'new name')
-        self.assertEqual(updated.email, 'another@email.com')
-
-    def test_put_list_bad_data(self):
-        '''
-        Object is not changed.
-        '''
-        # Grab the current data & modify it slightly.
-        new_data = self.put_data.copy()
-        del new_data['name']
-
-        resp = self.api_client.put(self.detail_url, format='json', data=new_data, authentication=self.get_credentials())
-        print resp.status_code, resp.content
-        #self.assertHttpBadRequest(resp)
-        self.assertHttpAccepted(resp)  # I think this is wrong
-
-        # Make sure the count hasn't changed & we did an update.
-        # Check for updated data.
-        updated = User.objects.get(pk=self.user.id)
-        self.assertEqual(updated.name, self.put_data['name'])
-        self.assertEqual(updated.email, self.put_data['email'])
+        self.assertHttpMethodNotAllowed(self.api_client.put(self.detail_url, format='json'))
 
     # List tests: DELETE
-    def test_delete_list_unauthorzied(self):
+    def test_delete_not_allowed(self):
         '''
-        Must be authenticated to DELETE to a list endpoint.
+        User Resource does not accept PUT.
         '''
-        self.fail()
-
-    def test_delete_list(self):
-        '''
-        Successful DELETE to a list endpoint.
-        '''
-        self.fail()
-
+        self.assertHttpMethodNotAllowed(self.api_client.delete(self.detail_url, format='json'))
 
     # Detail tests: GET.
     def test_get_detail_unauthorzied(self):
         '''
         Must be authenticated to GET to a detail endpoint.
         '''
-        self.fail()
+        self.assertHttpMethodNotAllowed(self.api_client.delete(self.detail_url, format='json'))
 
-    def test_get_detail(self):
+    def test_get_detail_with_id(self):
         '''
-        Successful GET to a detail endpoint.
+        There is no endpoint on User resource with default detaul URIs.
         '''
-        self.fail()
-
-    # Detail tests: POST
-    def test_post_detail_unauthorized(self):
-        '''
-        Must be authenticated to POST a detail endpoint.
-        '''
-        self.fail()
-
-    def test_post_detail(self):
-        '''
-        Successful POST to a detail endpoint.
-        '''
-        self.fail()
-
-    def test_post_bad_data(self):
-        '''
-        Unsuccessful POST to a detail endpoint.
-        '''
-        self.fail()
-
-    # Detail tests: PUT
-    def test_put_detail_unauthorzied(self):
-        '''
-        Must be authenticated to PUT to a detail  endpoint.
-        '''
-        self.fail()
-
-    def test_put_detail_bad_data(self):
-        '''
-        Unsuccessful PUT to a detail endpoint.
-        '''
-        self.fail()
-
-    def test_put_detail(self):
-        '''
-        Successful PUT to a detail  endpoint.
-        '''
-        self.fail()
-
-    # Detail  tests: DELETE
-    def test_delete_detail_unauthorzied(self):
-        '''
-        Must be authenticated to DELETE to a detail  endpoint.
-        '''
-        self.fail()
-
-    def test_delete_detail(self):
-        '''
-        Successful DELETE to a detail endpoint.
-        '''
-        self.fail()
+        self.assertHttpNotFound(self.api_client.delete(self.detail_url + '1/', format='json'))

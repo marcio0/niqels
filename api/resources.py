@@ -21,9 +21,8 @@ class UserResource(ModelResource):
         fields = ['email', 'name']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = Authorization()
-        validation = FormValidation(form_class=UserCreationForm)
         list_allowed_methods = []
-        detail_allowed_methods = ['get', 'put']
+        detail_allowed_methods = ['get']
 
     def base_urls(self):
         '''
