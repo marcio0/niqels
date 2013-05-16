@@ -37,7 +37,7 @@
     fields:
         user: 1
         category: 2
-        date: !!timestamp 2010-01-01 00:00:00 -3
+        date: '2010-01-01 00:00:00-03:00'
         value: -100
         last_edited_time: "00:00:00"
 
@@ -46,7 +46,7 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-02 00:00:00 -3
+        date: '2010-01-02 00:00:00-03:00'
         value: -110
         last_edited_time: "00:00:00"
 
@@ -55,7 +55,7 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-03 00:00:00 -3
+        date: '2010-01-03 00:00:00-03:00'
         value: -80
         last_edited_time: "00:00:00"
 
