@@ -4,7 +4,7 @@ from tastypie.api import Api
 from api import resources
 
 v1_api = Api(api_name='v1')
-v1_api.register(resources.EntryResource())
+v1_api.register(resources.TransactionResource())
 v1_api.register(resources.CategoryResource())
 v1_api.register(resources.UserResource())
 

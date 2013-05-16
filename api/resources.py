@@ -63,16 +63,18 @@ class CategoryResource(ModelResource):
         return http.HttpNotImplemented()
 
 
-class EntryResource(ModelResource):
+class TransactionResource(ModelResource):
     category = fields.ForeignKey(CategoryResource, 'category', full=True)
-
-    def dehydrate_category(self, bundle):
-        return bundle.obj.category.name
 
     class Meta:
         queryset = Entry.objects.all()
         excludes = ['last_edited_time']
-        authentication = SessionAuthentication()
+        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'post', 'put', 'delete']
+
+    #
+    #def dehydrate_category(self, bundle):
+    #    return bundle.obj.category.name
+
