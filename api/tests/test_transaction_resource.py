@@ -18,6 +18,12 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.transaction = Entry.objects.get(pk=1)
 
+        self.post_data = {
+            'date': '03/03/2010',
+            'value': '40',
+            'category': 'STUFF'
+        }
+
     def get_credentials(self):
         '''
         Get the credentials for basic http authentication.
@@ -78,13 +84,25 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         Must be authenticated to POST a list endpoint.
         '''
-        self.fail()
+        self.assertHttpUnauthorized(self.api_client.post('/api/v1/transaction/', format='json'))
 
     def test_post_list(self):
         '''
         Successful POST to a list endpoint.
         '''
-        self.fail()
+        # Check how many are there first.
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=self.post_data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        # Verify a new one has been added.
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+
+        saved = self.api_client.get(resp['location'], format='json', data=self.post_data, authentication=self.get_credentials())
+        saved = self.deserialize(saved)
+
+        self.assertEquals(saved['value'], '-40')
 
     def test_post_bad_data(self):
         '''

@@ -10,11 +10,16 @@
         name: stuff
         user: 1
 
+-   model: expenses.Category
+    pk: 3
+    fields:
+        name: other
+        user: 2
 
 -   model: expenses.Entry
     pk: 1
     fields:
-        value: 0
+        value: 5
         category: 1
         user: 1
         date: '2010-01-03'
@@ -26,5 +31,14 @@
         value: 0
         category: 1
         user: 1
+        date: '2010-01-03'
+        last_edited_time: "00:00:00"
+
+-   model: expenses.Entry
+    pk: 3
+    fields:
+        value: 0
+        category: 3
+        user: 2
         date: '2010-01-03'
         last_edited_time: "00:00:00"
