@@ -13,6 +13,7 @@ from expenses.forms import CategoryForm, EntryForm
 from access.forms import UserCreationForm
 from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
+from api.validation import EntryApiForm
 from expenses import random_color
 
 
@@ -71,22 +72,28 @@ class CategoryResource(ModelResource):
 class TransactionResource(ModelResource):
     category = fields.ForeignKey(CategoryResource, 'category', full=True)
 
-    def obj_create(self, bundle, **kwargs):
-        return super(TransactionResource, self).obj_create(bundle, user=bundle.request.user)
-
     class Meta:
         queryset = Entry.objects.all()
         excludes = ['last_edited_time']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
+        validation = FormValidation(form_class=EntryApiForm)
         list_allowed_methods = ['get', 'post']
-        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        detail_allowed_methods = ['get', 'put', 'delete']
+
+
+    def obj_create(self, bundle, **kwargs):
+        return super(TransactionResource, self).obj_create(bundle, user=bundle.request.user)
+
+    def put_detail(self, *args, **kwargs):
+        return http.HttpNotImplemented()
 
     def hydrate_category(self, bundle):
         # TODO: unnittest this
-        category_name = bundle.data.get('category')
+        category_name = bundle.data.get('category', None)
 
         if not category_name:
+            bundle.data['category'] = category_name
             return bundle
 
         category_name = category_name.lower().strip()
