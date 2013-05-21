@@ -12,6 +12,8 @@ class UserResourceTest(ResourceTestCase):
         self.email = 'user@example.com'
         self.password = 'password'
         self.user = User.objects.create_user(self.email, self.password)
+        self.user.name = 'uname'
+        self.user.save()
 
         # We also build a detail URI, since we will be using it all over.
         # DRY, baby. DRY.
@@ -66,8 +68,7 @@ class UserResourceTest(ResourceTestCase):
         # Here, we're checking an entire structure for the expected data.
         self.assertEqual(self.deserialize(resp), {
             u'name': self.user.name,
-            u'email': self.user.email,
-            u'resource_uri': self.detail_url
+            u'email': self.user.email
         })
 
     # List tests: POST

@@ -25,6 +25,7 @@ class UserResource(ModelResource):
         authorization = Authorization()
         list_allowed_methods = []
         detail_allowed_methods = ['get']
+        include_resource_uri = False
 
     def base_urls(self):
         # TODO: unnittest this
@@ -32,7 +33,7 @@ class UserResource(ModelResource):
         The list endpoint behaves as the list endpoint.
         '''
         return [
-            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_list"),
             url(r"^(?P<resource_name>%s)/schema%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('get_schema'), name="api_get_schema")
         ]
 
