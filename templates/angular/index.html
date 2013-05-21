@@ -2,20 +2,15 @@
 
 {% load staticfiles %}
 
-<html ng-app>
+<html ng-app="expenses">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource.min.js"></script>
-    <script src="{% static "js/project.js" %}"></script>
+    <script src="{% static "js/app.js" %}"></script>
+    <script src="{% static "js/controllers.js" %}"></script>
   </head>
-{% verbatim %}
-  <body ng-controller="CategoryCt">
-    <h2>Categories</h2>
-    <ul>
-        <li ng-repeat="category in categories">
-            <a href="#/api/v1/category/{{category.id}}">{{category.name}}</a>
-        </li>
-    </ul>
+  <body>
+    <div ng-view>
+    </div>
   </body>
-{% endverbatim %}
 </html>
