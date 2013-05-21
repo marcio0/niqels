@@ -1,4 +1,4 @@
-angular.module('expenses', []).
+angular.module('expenses', ['categoryService']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
       when('/categories', {templateUrl: 'category-list.html', controller: CategoryListCtrl}).
