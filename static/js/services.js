@@ -4,10 +4,13 @@ angular.module('categoryService', ['ngResource']).
             query: {
                 method: 'GET', 
                 params: {category_id: ''},
-                isArray: true,
-                transformResponse: function (data, headers) {
+                __transformResponse: function (data, headers) {
                     return angular.fromJson(data).objects;
                 }
+            },
+            get: {
+                method: 'GET', 
+                params: {category_id: ''}
             }
         });
     });
