@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load humanize %}
+{% load expenses_tags %}
+{% load i18n %}
+
+{% block extrahead %}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular-resource.min.js"></script>
+<script src="{% static "js/app.js" %}"></script>
+<script src="{% static "js/controllers.js" %}"></script>
+<script src="{% static "js/services.js" %}"></script>
+{% endblock extrahead %}
+
+{% block body %}
+
+<div class="container" ng-app="webapp">
+    <div class="row" ng-view>
+    </div> <!-- container -->
+</div> <!-- row -->
+
+{% endblock body %}
+
+{% block bodyend %}
+    <script type="text/javascript" src="{% static "js/entry-list.js" %}"></script>
+{% endblock bodyend %}

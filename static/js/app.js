@@ -1,7 +1,7 @@
-angular.module('expenses', ['categoryService']).
+angular.module('webapp', ['transactionService']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-      when('/categories', {templateUrl: 'category-list.html', controller: CategoryListCtrl}).
-      when('/category/:category_id', {templateUrl: 'category-detail.html', controller: CategoryDetailCtrl}).
-      otherwise({redirectTo: '/categories'});
+      when('/transactions', {templateUrl: '/app/transaction-list/', controller: TransactionListCtrl}).
+      when('/transactions/:id', {templateUrl: '/app/transaction-detail/', controller: TransactionDetailCtrl}).
+      otherwise({redirectTo: '/transactions'});
 }]);
