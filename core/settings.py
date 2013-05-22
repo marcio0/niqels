@@ -191,6 +191,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
 
+TASTYPIE_ALLOW_MISSING_SLASH = True
+
 try:
     from core.local_settings import *
 except ImportError:

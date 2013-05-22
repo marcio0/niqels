@@ -4,7 +4,7 @@
 {% load i18n %}
 
 <div class="span3">
-    {% include "expenses/forms/entry.html" %}
+    {% include "webapp/forms/entry.html" %}
 </div>
 
 <div class="span6">
@@ -22,18 +22,17 @@
         <div ng-repeat="transactionByDate in allTransactions() | filter:filterTransactions">
             <table class="table">
                 <thead><tr>
-                    <td>{{ transactionByDate.date }}<td>
+                    <td colspan="3">{{ transactionByDate.date | date:fullDate }}</td>
                 </tr></thead>
                 <tbody>
                     <tr class="entry-row" ng-repeat="transaction in transactions.objects | filter: {date: transactionByDate.date}">
-                        <td class="span1" text-align="center">{{ transaction.date }}</td>
                         <td class="span2">{{ transaction.category.name }}</td>
                         <td> {{ transaction.description }}</td>
-                        <td class="span2">{{ transaction.value }}</td>
+                        <td class="span1">{{ transaction.value }}</td>
 
-                        <td class="span1 action-bar">
+                        <!-- <td class="span1 action-bar">
                             <i class="icon-trash delete-entry"></i>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table> 

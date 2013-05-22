@@ -1,0 +1,93 @@
+{% load i18n %}
+
+<div ng-controller="TransactionFormCtrl">
+<form
+    class="form affix-top"
+    name="entry-form"
+    method="post"
+
+    data-spy="affix"
+    data-offset-top="40"
+    >
+
+    {% csrf_token %}
+
+    {% verbatim %}
+    <div class="control-group" ng-class="{error: entry-form.category.$invalid}">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on"><i class="icon-tag"></i></span>
+                <input
+                    id="id_category"
+                    maxlength="200"
+                    name="category"
+                    type="text"
+                    autocomplete="off"
+                    value="{{ transaction.category }}"
+
+                    autofocus
+                    required/>
+            </div>
+
+            <span class="help-block" ng-show="entry-form.category.$error.required">Required</span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on">$</span>
+                <input
+                    id="id_value"
+                    name="value"
+                    type="text"
+                    autocomplete="off"
+                    value="{{ transaction.value }}"
+
+                    required/>
+            </div>
+
+                <!-- <span class="help-block error"></span> -->
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on"><i class="icon-pencil"></i></span>
+                <input
+                    id="id_description"
+                    maxlength="200"
+                    name="description"
+                    type="text"
+                    autocomplete="off"
+                    value="{{ transaction.description }}"
+
+                    required/>
+            </div>
+
+                <!-- <span class="help-block error"></span> -->
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+                <input
+                    id="id_date"
+                    name="date"
+                    type="text"
+                    autocomplete="off"
+                    value="{{ transaction.date }}"
+                    />
+            </div>
+
+                <!-- <span class="help-block error"></span> -->
+        </div>
+    </div>
+    {% endverbatim %}
+
+    <button ng-click="submit()">{% trans "Submit" %}</button>
+</form>
+</div>

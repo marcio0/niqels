@@ -1,4 +1,4 @@
-angular.module('webapp', ['transactionService']).
+var app = angular.module('webapp', ['transactionService']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
       when('/transactions', {templateUrl: '/app/transaction-list/', controller: TransactionListCtrl}).

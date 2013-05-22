@@ -1,3 +1,14 @@
+function TransactionFormCtrl ($scope, $element, $http, Transaction) {
+    $scope.transaction = {};
+
+    $http.defaults.headers.post['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]', $element).val();
+
+    $scope.submit = function () {
+        var transaction = $scope.transaction;
+        Transaction.save(transaction);
+    }
+}
+
 function TransactionListCtrl($scope, Transaction) {
     $scope.transactions = Transaction.query();
 
@@ -10,7 +21,6 @@ function TransactionListCtrl($scope, Transaction) {
 
     $scope.filterTransactions = function(transaction) {
         var isNew = indexed.indexOf(transaction.date) == -1;
-        console.log(isNew);
         if (isNew) {
             indexed.push(transaction.date);
         }
