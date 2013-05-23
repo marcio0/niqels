@@ -67,7 +67,7 @@ class UserResourceTest(ResourceTestCase):
         self.assertEqual(self.deserialize(resp), {
             u'name': self.user.name,
             u'email': self.user.email,
-            u'resource_uri': self.detail_url
+            u'resource_uri': '/api/v1/user'
         })
 
     # List tests: POST

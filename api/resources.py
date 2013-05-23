@@ -106,7 +106,7 @@ class TransactionResource(ModelResource):
         except Category.DoesNotExist:
             category = Category(
                 name=category_name,
-                user=self.bundle.user,
+                user=bundle.request.user,
                 color=random_color()
             )
             category.save()

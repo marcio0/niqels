@@ -19,7 +19,7 @@ class CategoryResourceTest(ResourceTestCase):
 
         # We also build a detail URI, since we will be using it all over.
         # DRY, baby. DRY.
-        self.detail_url = '/api/v1/category/{0}/'.format(self.category.pk)
+        self.detail_url = '/api/v1/category/{0}'.format(self.category.pk)
 
         # The data we'll send on POST requests. Again, because we'll use it
         # frequently (enough).
@@ -74,7 +74,7 @@ class CategoryResourceTest(ResourceTestCase):
             u'id': self.category.pk,
             u'name': self.category.name,
             u'color': self.category.color,
-            u'resource_uri': u'/api/v1/category/%d/' % self.category.id
+            u'resource_uri': u'/api/v1/category/%d' % self.category.id
         })
 
     # List tests: POST
@@ -132,7 +132,7 @@ class CategoryResourceTest(ResourceTestCase):
         '''
         Can only retrieve own objects.
         '''
-        self.assertHttpNotFound(self.api_client.get('/api/v1/category/3/', format='json', authentication=self.get_credentials()))
+        self.assertHttpNotFound(self.api_client.get('/api/v1/category/3', format='json', authentication=self.get_credentials()))
 
     def test_get_detail_unauthorized(self):
         '''

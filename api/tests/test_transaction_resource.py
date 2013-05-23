@@ -24,7 +24,7 @@ class TransactionResourceTest(ResourceTestCase):
             'category': 'STUFF'
         }
 
-        self.detail_url = '/api/v1/transaction/{0}/'.format(self.transaction.id)
+        self.detail_url = '/api/v1/transaction/{0}'.format(self.transaction.id)
 
     def get_credentials(self):
         '''
@@ -72,11 +72,11 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': unicode(self.transaction.date),
             u'description': u'',
             u'value': unicode(self.transaction.value),
-            u'resource_uri': u'/api/v1/transaction/%d/' % self.transaction.id,
+            u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
             u'category': {
                 u'name': self.transaction.category.name,
                 u'id': self.transaction.category.id,
-                u'resource_uri': u'/api/v1/category/%d/' % self.transaction.category.id,
+                u'resource_uri': u'/api/v1/category/%d' % self.transaction.category.id,
                 u'color': self.transaction.category.color
             }
         })
@@ -88,17 +88,36 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         self.assertHttpUnauthorized(self.api_client.post('/api/v1/transaction/', format='json'))
 
-    def test_post_list(self):
+    def test_post_list_existing_category(self):
         '''
         Successful POST to a list endpoint.
         '''
         # Check how many are there first.
         self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=self.post_data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+
+    def test_post_list_new_category(self):
+        '''
+        Successful POST to a list endpoint.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['category'] = 'new'
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 3)
 
     def test_post_bad_data_missing_value(self):
         '''
@@ -187,11 +206,11 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': unicode(self.transaction.date),
             u'description': u'',
             u'value': unicode(self.transaction.value),
-            u'resource_uri': u'/api/v1/transaction/%d/' % self.transaction.id,
+            u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
             u'category': {
                 u'name': self.transaction.category.name,
                 u'id': self.transaction.category.id,
-                u'resource_uri': u'/api/v1/category/%d/' % self.transaction.category.id,
+                u'resource_uri': u'/api/v1/category/%d' % self.transaction.category.id,
                 u'color': self.transaction.category.color
             }
         })
@@ -200,7 +219,7 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         Can only retrieve own transactions.
         '''
-        detail_url = '/api/v1/transaction/3/'
+        detail_url = '/api/v1/transaction/3'
         resp = self.api_client.get(detail_url, format='json', authentication=self.get_credentials())
         self.assertHttpNotFound(resp)
 
