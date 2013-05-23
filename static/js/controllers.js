@@ -1,12 +1,13 @@
 function TransactionFormCtrl ($scope, $element, $http, Transaction) {
     $scope.transaction = {};
+    $scope.invalid_category = $scope.invalid_value = $scope.invalid_date = false;
 
     $http.defaults.headers.post['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]', $element).val();
 
     $scope.submit = function () {
         var transaction = $scope.transaction;
         Transaction.save(transaction);
-    }
+    };
 }
 
 function TransactionListCtrl($scope, Transaction) {
