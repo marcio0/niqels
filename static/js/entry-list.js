@@ -41,7 +41,6 @@ $(function(){
         placement: 'right',
         title: gettext('Use a "+" sign to indicate positive values.')
     });
-    //$valueField.mask('P000.000,00', {reverse: true, translation: {P: '\+'}});
 
     $valueField.keyup(function(event) {
         var me = $(this),

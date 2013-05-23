@@ -9486,7 +9486,7 @@ span.category-label-inverse[href] {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
 }
-form[name="entry-form"] {
+form[name="entryform"] {
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
@@ -9503,11 +9503,11 @@ form[name="entry-form"] {
   border-radius: 0;
   border: 1px solid #cccccc;
 }
-form[name="entry-form"] blockquote {
+form[name="entryform"] blockquote {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
 }
-form[name="entry-form"] input[type="submit"] {
+form[name="entryform"] input[type="submit"] {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
@@ -9554,66 +9554,66 @@ form[name="entry-form"] input[type="submit"] {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-form[name="entry-form"] input[type="submit"] [class^="icon-"],
-form[name="entry-form"] input[type="submit"] [class*=" icon-"] {
+form[name="entryform"] input[type="submit"] [class^="icon-"],
+form[name="entryform"] input[type="submit"] [class*=" icon-"] {
   display: inline;
   /* keeps button heights with and without icons the same */
 
 }
-form[name="entry-form"] input[type="submit"] [class^="icon-"].icon-large,
-form[name="entry-form"] input[type="submit"] [class*=" icon-"].icon-large {
+form[name="entryform"] input[type="submit"] [class^="icon-"].icon-large,
+form[name="entryform"] input[type="submit"] [class*=" icon-"].icon-large {
   line-height: .9em;
 }
-form[name="entry-form"] input[type="submit"] [class^="icon-"].icon-spin,
-form[name="entry-form"] input[type="submit"] [class*=" icon-"].icon-spin {
+form[name="entryform"] input[type="submit"] [class^="icon-"].icon-spin,
+form[name="entryform"] input[type="submit"] [class*=" icon-"].icon-spin {
   display: inline-block;
 }
-form[name="entry-form"] input[type="submit"] [class^="icon-"].pull-left.icon-2x,
-form[name="entry-form"] input[type="submit"] [class*=" icon-"].pull-left.icon-2x,
-form[name="entry-form"] input[type="submit"] [class^="icon-"].pull-right.icon-2x,
-form[name="entry-form"] input[type="submit"] [class*=" icon-"].pull-right.icon-2x {
+form[name="entryform"] input[type="submit"] [class^="icon-"].pull-left.icon-2x,
+form[name="entryform"] input[type="submit"] [class*=" icon-"].pull-left.icon-2x,
+form[name="entryform"] input[type="submit"] [class^="icon-"].pull-right.icon-2x,
+form[name="entryform"] input[type="submit"] [class*=" icon-"].pull-right.icon-2x {
   margin-top: .18em;
 }
-form[name="entry-form"] input[type="submit"] [class^="icon-"].icon-spin.icon-large,
-form[name="entry-form"] input[type="submit"] [class*=" icon-"].icon-spin.icon-large {
+form[name="entryform"] input[type="submit"] [class^="icon-"].icon-spin.icon-large,
+form[name="entryform"] input[type="submit"] [class*=" icon-"].icon-spin.icon-large {
   line-height: .8em;
 }
-form[name="entry-form"] input[type="submit"]:hover,
-form[name="entry-form"] input[type="submit"]:focus,
-form[name="entry-form"] input[type="submit"]:active,
-form[name="entry-form"] input[type="submit"].active,
-form[name="entry-form"] input[type="submit"].disabled,
-form[name="entry-form"] input[type="submit"][disabled] {
+form[name="entryform"] input[type="submit"]:hover,
+form[name="entryform"] input[type="submit"]:focus,
+form[name="entryform"] input[type="submit"]:active,
+form[name="entryform"] input[type="submit"].active,
+form[name="entryform"] input[type="submit"].disabled,
+form[name="entryform"] input[type="submit"][disabled] {
   color: #333333;
   background-color: #e6e6e6;
   *background-color: #d9d9d9;
 }
-form[name="entry-form"] input[type="submit"]:active,
-form[name="entry-form"] input[type="submit"].active {
+form[name="entryform"] input[type="submit"]:active,
+form[name="entryform"] input[type="submit"].active {
   background-color: #cccccc \9;
 }
-form[name="entry-form"] input[type="submit"]:hover,
-form[name="entry-form"] input[type="submit"]:focus,
-form[name="entry-form"] input[type="submit"]:active,
-form[name="entry-form"] input[type="submit"].active,
-form[name="entry-form"] input[type="submit"].disabled,
-form[name="entry-form"] input[type="submit"][disabled] {
+form[name="entryform"] input[type="submit"]:hover,
+form[name="entryform"] input[type="submit"]:focus,
+form[name="entryform"] input[type="submit"]:active,
+form[name="entryform"] input[type="submit"].active,
+form[name="entryform"] input[type="submit"].disabled,
+form[name="entryform"] input[type="submit"][disabled] {
   color: #333333;
   background-color: #e6e6e6;
   *background-color: #d9d9d9;
 }
-form[name="entry-form"] input[type="submit"]:active,
-form[name="entry-form"] input[type="submit"].active {
+form[name="entryform"] input[type="submit"]:active,
+form[name="entryform"] input[type="submit"].active {
   background-color: #cccccc \9;
 }
-form[name="entry-form"] input[type="submit"]:first-child {
+form[name="entryform"] input[type="submit"]:first-child {
   *margin-left: 0;
 }
-form[name="entry-form"] input[type="submit"]:first-child {
+form[name="entryform"] input[type="submit"]:first-child {
   *margin-left: 0;
 }
-form[name="entry-form"] input[type="submit"]:hover,
-form[name="entry-form"] input[type="submit"]:focus {
+form[name="entryform"] input[type="submit"]:hover,
+form[name="entryform"] input[type="submit"]:focus {
   color: #333333;
   text-decoration: none;
   background-position: 0 -15px;
@@ -9622,21 +9622,21 @@ form[name="entry-form"] input[type="submit"]:focus {
   -o-transition: background-position 0.1s linear;
   transition: background-position 0.1s linear;
 }
-form[name="entry-form"] input[type="submit"]:focus {
+form[name="entryform"] input[type="submit"]:focus {
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-form[name="entry-form"] input[type="submit"].active,
-form[name="entry-form"] input[type="submit"]:active {
+form[name="entryform"] input[type="submit"].active,
+form[name="entryform"] input[type="submit"]:active {
   background-image: none;
   outline: 0;
   -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
   -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
   box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
 }
-form[name="entry-form"] input[type="submit"].disabled,
-form[name="entry-form"] input[type="submit"][disabled] {
+form[name="entryform"] input[type="submit"].disabled,
+form[name="entryform"] input[type="submit"][disabled] {
   cursor: default;
   background-image: none;
   opacity: 0.65;
@@ -9645,8 +9645,8 @@ form[name="entry-form"] input[type="submit"][disabled] {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-form[name="entry-form"] input[type="submit"] .label,
-form[name="entry-form"] input[type="submit"] .badge {
+form[name="entryform"] input[type="submit"] .label,
+form[name="entryform"] input[type="submit"] .badge {
   position: relative;
   top: -1px;
 }

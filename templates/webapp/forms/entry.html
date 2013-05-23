@@ -3,7 +3,7 @@
 <div ng-controller="TransactionFormCtrl">
 <form
     class="form affix-top"
-    name="entry-form"
+    name="entryform"
     method="post"
 
     data-spy="affix"
@@ -13,7 +13,7 @@
 
     {% csrf_token %}
 
-    <div class="control-group" ng-class="{error: entry-form.category.$invalid}">
+    <div class="control-group" ng-class="{error: errors.category}">
         <div class="controls">
             <div class="input-prepend input-block-level">
                 <span class="add-on"><i class="icon-tag"></i></span>
@@ -22,19 +22,20 @@
                     maxlength="200"
                     name="category"
                     type="text"
-                    autocomplete="off"
+
                     ng-model="transaction.category"
 
                     autofocus
+                    autocomplete="off"
                     required
                     />
             </div>
 
-            <span class="help-block" ng-show="entry-form.category.$error.required">Required</span>
+            <span class="help-block" ng-show="errors.category">Required</span>
         </div>
     </div>
 
-    <div class="control-group" ng-class="{error: entry-form.value.$invalid}">
+    <div class="control-group" ng-class="{error: errors.value}">
         <div class="controls">
             <div class="input-prepend input-block-level">
                 <span class="add-on">$</span>
@@ -42,13 +43,15 @@
                     id="id_value"
                     name="value"
                     type="text"
-                    autocomplete="off"
+
                     ng-model="transaction.value"
 
-                    required/>
+                    autocomplete="off"
+                    required
+                    />
             </div>
 
-            <span class="help-block" ng-show="entry-form.value.$error.required">Required</span>
+            <span class="help-block" ng-show="errors.value">Required</span>
         </div>
     </div>
 
@@ -61,14 +64,16 @@
                     maxlength="200"
                     name="description"
                     type="text"
-                    autocomplete="off"
+
                     ng-model="transaction.description"
+
+                    autocomplete="off"
                     />
             </div>
         </div>
     </div>
 
-    <div class="control-group" ng-class="{error: entry-form.date.$invalid}">
+    <div class="control-group" ng-class="{error: errors.date}">
         <div class="controls">
             <div class="input-prepend input-block-level">
                 <span class="add-on"><i class="icon-calendar"></i></span>
@@ -76,13 +81,13 @@
                     id="id_date"
                     name="date"
                     type="text"
-                    autocomplete="off"
+
                     ng-model="transaction.date"
+
                     required
+                    autocomplete="off"
                     />
             </div>
-
-            <span class="help-block" ng-show="entry-form.date.$error.required">Required</span>
         </div>
     </div>
 
