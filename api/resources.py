@@ -1,3 +1,4 @@
+from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation, CleanedDataFormValidation
 from tastypie import fields
@@ -64,6 +65,9 @@ class CategoryResource(ModelResource):
         validation = FormValidation(form_class=CategoryForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'put', 'delete']
+        filtering = {
+            'name': ALL
+        }
 
     def delete_detail(self, *args, **kwargs):
         return http.HttpNotImplemented()
