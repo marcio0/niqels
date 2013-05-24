@@ -17,6 +17,8 @@
             short_date_format = "{{ js_date_format }}";
         </script>
 
+        <script src="{% static "js/jquery.js" %}"></script>
+
         {% block extrahead %}{% endblock extrahead %}
     </head>
     <body>
@@ -42,7 +44,6 @@
 
         {% block body %}{% endblock body %}
 
-        <script src="{% static "js/jquery.js" %}"></script>
         <script src="{% static "js/jquery.mask.min.js" %}"></script>
         <script src="{% static "js/jquery.maskMoney.js" %}"></script>
         <script src="{% static "js/bootstrap.js" %}"></script>
