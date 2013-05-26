@@ -1,4 +1,4 @@
-function TransactionFormCtrl ($scope, $element, $http, $location, Transaction, Category) {
+function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category) {
     $scope.transaction = {};
     $scope.errors = {};
 
@@ -18,36 +18,52 @@ function TransactionFormCtrl ($scope, $element, $http, $location, Transaction, C
             $scope.errors = {};
 
             Transaction.save(transaction_data).$then(function (value) {
-                // getting the category info
-                var cat = Category.cacheLookup(transaction_data.category),
-                    transaction = value.resource;
-                transaction.category = cat;
-
-                // $scope.transactions.objects.push(transaction);
-
-                return transaction;
+                $rootScope.$broadcast('transactionCreated', value.data);
             });
         }
     };
 }
 
-function TransactionListCtrl($scope, Transaction) {
-    $scope.transactions = Transaction.get();
+function TransactionListCtrl($scope, $rootScope, Transaction) {
+    $scope.days = [];
 
-    indexed = [];
+    Transaction.get().$then(function (result) {
+        var transactions = result.data.objects;
 
-    $scope.allTransactions = function () {
-        indexed = [];
-        return $scope.transactions.objects;
-    };
+        // grouping the entries by day
+        var days = {};
+        for (var i in transactions) {
+            var transaction = transactions[i];
 
-    $scope.filterTransactions = function(transaction) {
-        var isNew = indexed.indexOf(transaction.date) == -1;
-        if (isNew) {
-            indexed.push(transaction.date);
+            if (!(transaction.date in days)) {
+                days[transaction.date] = [];
+            }
+
+            days[transaction.date].push(transaction);
         }
-        return isNew;
-    };
+        
+        // trasforming the data into a list to be used in ang orderBy filter
+        for (var day in days) {
+            $scope.days.push({
+                day: day,
+                transactions: days[day]
+            });
+        }
+    });
+    
+    $rootScope.$on('transactionCreated', function (event, data) {
+        for (var i in $scope.days) {
+            var day = $scope.days[i];
+            if (day.day == data.date) {
+                day.transactions.unshift(data);
+                return;
+            }
+        }
+        $scope.days.push({
+            day: data.date,
+            transactions: [data]
+        });
+    });
 }
 
 function TransactionDetailCtrl($scope, $routeParams, Transaction) {

@@ -20,9 +20,8 @@ angular.module('categoryService', ['ngResource']).
                 isArray: false
             }
         });
-
-        // caching all categories
-        Category.get().$then(function (value) {
+        
+        var loadCache = function (value) {
             var objs = value.data.objects;
 
             for (var i in objs) {
@@ -30,7 +29,10 @@ angular.module('categoryService', ['ngResource']).
                 cache.put(obj.name, obj);
             }
             return value;
-        });
+        };
+
+        // caching all categories
+        Category.get().$then(loadCache);
 
         Category.cacheLookup = function (catName) {
             var category = cache.get(catName);

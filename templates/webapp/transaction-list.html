@@ -19,13 +19,13 @@
 
     {% verbatim %}
     <div class="squared-well">
-        <div ng-repeat="transactionByDate in allTransactions() | filter:filterTransactions">
+        <div ng-repeat="day in days | orderBy: 'day' : true">
             <table class="table">
                 <thead><tr>
-                    <td colspan="3">{{ transactionByDate.date | date:fullDate }}</td>
+                    <td colspan="3">{{ day.day | date:fullDate }}</td>
                 </tr></thead>
                 <tbody>
-                    <tr class="entry-row" ng-repeat="transaction in transactions.objects | filter: {date: transactionByDate.date}">
+                    <tr class="entry-row" ng-repeat="transaction in day.transactions">
                         <td class="span2">{{ transaction.category.name }}</td>
                         <td> {{ transaction.description }}</td>
                         <td class="span1">{{ transaction.value }}</td>
