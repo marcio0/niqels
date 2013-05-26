@@ -53,7 +53,6 @@
 				}
 
 				function keypressEvent(e) {
-                    debugger;
 					e = e || window.event;
 					var k = e.which || e.charCode || e.keyCode,
                         s = '';

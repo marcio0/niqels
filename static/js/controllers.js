@@ -20,6 +20,9 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             Transaction.save(transaction_data).$then(function (value) {
                 $rootScope.$broadcast('transactionCreated', value.data);
             });
+
+            // clears the form
+            $scope.transaction_data = {};
         }
     };
 }
