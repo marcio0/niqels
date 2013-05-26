@@ -1,6 +1,7 @@
-angular.module('webapp').
-    directive('exDatefield', function () {
+angular.module('webapp')
+    .directive('exDatefield', function () {
         return function (scope, element, attrs) {
+            'use strict';
             element.datepicker({
                 language: 'pt-BR',
                 format: 'dd/mm/yyyy',
@@ -8,13 +9,22 @@ angular.module('webapp').
                 autoclose: true,
                 todayHighlight: true
             });
+
             element.mask('11/11/1111');
+
+            element.keydown(function(event) {
+                if (event.keyCode == 9) {
+                    $(this).data('datepicker').hide();
+                }
+            });
         };
     })
 
     .directive('exValuefield', function () {
         return function (scope, element, attrs) {
+            /*
             element.maskMoney({allowNegative: true, thousands:'.', decimal:','});
+            */
             element.tooltip({
                 placement: 'right',
                 title: gettext('Use a "+" sign to indicate positive values.')

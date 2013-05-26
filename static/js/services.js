@@ -20,7 +20,7 @@ angular.module('categoryService', ['ngResource']).
                 isArray: false
             }
         });
-        
+
         var loadCache = function (value) {
             var objs = value.data.objects;
 

@@ -26,9 +26,11 @@
                 </tr></thead>
                 <tbody>
                     <tr class="entry-row" ng-repeat="transaction in day.transactions">
-                        <td class="span2">{{ transaction.category.name }}</td>
+                        <td class="span2">
+                            <span class="category-label" ng-bind="transaction.category.name" style="background-color: {{transaction.category.color}};"></span>
+                        </td>
                         <td> {{ transaction.description }}</td>
-                        <td class="span1">{{ transaction.value }}</td>
+                        <td class="span1">{{ transaction.value | currency}}</td>
 
                         <!-- <td class="span1 action-bar">
                             <i class="icon-trash delete-entry"></i>
