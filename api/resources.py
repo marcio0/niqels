@@ -78,6 +78,7 @@ class TransactionResource(ModelResource):
 
     class Meta:
         queryset = Entry.objects.all()
+        always_return_data = True
         excludes = ['last_edited_time']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
