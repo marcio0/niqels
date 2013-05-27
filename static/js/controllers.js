@@ -8,9 +8,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
         var transaction_data = $scope.transaction,
             form = this.entryform;
 
-        console.log(form.date);
-        console.log(form.value);
-
         if (form.$invalid) {
             $scope.errors.category = form.category.$error.required;
             $scope.errors.value = form.value.$error.required;
