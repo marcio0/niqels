@@ -17,6 +17,8 @@ from api.authorization import UserObjectsOnlyAuthorization
 from api.validation import EntryApiForm
 from expenses import random_color
 
+from babel.numbers import parse_decimal
+
 
 class UserResource(ModelResource):
     class Meta:
@@ -92,6 +94,14 @@ class TransactionResource(ModelResource):
 
     def put_detail(self, *args, **kwargs):
         return http.HttpNotImplemented()
+
+    def hydrate_value(self, bundle):
+        value = bundle.data.get('value', None)
+
+        if value:
+            bundle.data['value'] = parse_decimal(value, locale='en_US')
+
+        return bundle
 
     def hydrate_category(self, bundle):
         # TODO: unnittest this

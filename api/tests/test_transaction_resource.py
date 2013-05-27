@@ -109,7 +109,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'color': u'#999999'
             },
             u'description': u'',
-            u'value': u'40',
+            u'value': u'40.0',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4'
@@ -142,7 +142,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'name': u'new'
             },
             u'description': u'',
-            u'value': u'40',
+            u'value': u'40.0',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4'
@@ -150,6 +150,24 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 3)
+
+    def test_post_value_another_format(self):
+        '''
+        Must try to fix the number format.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['value'] = '4.840,00'
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        # Verify a new one has been added.
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
     def test_post_bad_data_missing_value(self):
         '''
