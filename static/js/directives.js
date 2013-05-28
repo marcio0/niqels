@@ -1,4 +1,41 @@
 angular.module('webapp')
+    .directive('exCategoryfield', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs, controller) {
+                'use strict';
+
+                element.typeahead({
+                    source: user_categories,
+                    items: 3
+                });
+
+                element.tooltip({
+                    placement: 'right',
+                    title: gettext('Example: "Groceries", "Lunch"')
+                });
+            }
+        };
+    })
+
+    .directive('exActionbar', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs, controller) {
+                'use strict';
+                
+                element.parent().hover(
+                    function () {
+                        $(this).addClass('tr-hover');
+                    },
+                    function () {
+                        $(this).removeClass('tr-hover');
+                    }
+                );
+            }
+        };
+    })
+
     .directive('exDatefield', function () {
         return {
             require: '?ngModel',

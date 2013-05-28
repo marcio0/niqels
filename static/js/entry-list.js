@@ -4,6 +4,7 @@ $(function(){
         $valueField = $('#id_value'),
         $balanceHelp = $('#balance-help');
 
+    //ok
     $categoryField.typeahead({
         source: user_categories,
         items: 3
@@ -16,6 +17,7 @@ $(function(){
         content: gettext('Shows the sum of all your transactions up to the current day, and the comparison with the previous months.')
     });
 
+    //ok
     $dateField.datepicker({
         language: 'pt-BR',
         format: 'dd/mm/yyyy',
@@ -30,18 +32,21 @@ $(function(){
         title: gettext('Example: "Groceries", "Lunch"')
     });
 
+    //ok
     $dateField.keydown(function(event) {
         if (event.keyCode == 9) {
             $(this).data('datepicker').hide();
         }
     });
 
+    //ok
     $valueField.maskMoney({allowNegative: true, thousands:'.', decimal:','});
     $valueField.tooltip({
         placement: 'right',
         title: gettext('Use a "+" sign to indicate positive values.')
     });
 
+    //ok
     $valueField.keyup(function(event) {
         var me = $(this),
             addon = me.siblings('span.add-on'),
@@ -73,6 +78,7 @@ $(function(){
     };
     $('div.control-group.error').keydown(clearControlGroup);
 
+    //ok
     $('.entry-row').hover(
         function () {
             $(this).addClass('tr-hover');
