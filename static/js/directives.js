@@ -27,11 +27,14 @@ angular.module('webapp')
                         $(this).data('datepicker').hide();
                     }
                 });
+                element.data('datepicker').setDate(new Date());
+                controller.$setViewValue(element.val());
             }
         };
     })
 
     .directive('exValuefield', function () {
+        'use strict';
         return {
             require: '?ngModel',
             restrict: 'A',
