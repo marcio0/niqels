@@ -66,6 +66,12 @@ angular.module('webapp')
                 });
                 element.data('datepicker').setDate(new Date());
                 controller.$setViewValue(element.val());
+
+                controller.resetDate = function () {
+                    element.data('datepicker').setDate(new Date());
+                    controller.$setViewValue(element.val());
+                };
+
             }
         };
     })

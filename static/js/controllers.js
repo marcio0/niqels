@@ -1,3 +1,15 @@
+'use strict';
+
+function TransactionActionBarCtrl ($scope, Transaction) {
+    $scope.removeTransaction = function () {
+        //finish this
+        Transaction.delete($scope.transaction.id).$then(function () {
+            console.log('foi?');
+            //remove the line
+        });
+    };
+}
+
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category) {
     $scope.transaction = {};
     $scope.errors = {};
@@ -19,10 +31,12 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
             Transaction.save(transaction_data).$then(function (value) {
                 $rootScope.$broadcast('transactionCreated', value.data);
-            });
 
-            // clears the form
-            $scope.transaction_data = {};
+                // clears the form
+                $scope.transaction = {};
+                form.$setPristine();
+                form.date.resetDate();
+            });
         }
     };
 }

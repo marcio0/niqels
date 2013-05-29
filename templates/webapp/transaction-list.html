@@ -17,23 +17,28 @@
         {% endfor %}
     {% endif %}
 
-    {% verbatim %}
     <div class="squared-well">
         <div ng-repeat="day in days | orderBy: 'day' : true">
             <table class="table">
                 <thead><tr>
-                    <td colspan="3">{{ day.day | date:fullDate }}</td>
+                    <td colspan="3" ng-bind="day.day | date:fullDate"></td>
                 </tr></thead>
                 <tbody>
-                    <tr class="entry-row" ng-repeat="transaction in day.transactions">
-                        <td class="span2">
-                            <span class="category-label" ng-bind="transaction.category.name" style="background-color: {{transaction.category.color}};"></span>
-                        </td>
-                        <td> {{ transaction.description }}</td>
-                        <td class="span1">{{ transaction.value | currency}}</td>
+                    <tr
+                        class="entry-row"
+                        ng-repeat="transaction in day.transactions"
+                        >
 
-                        <td class="span1 action-bar" ex-actionbar>
-                            <i class="icon-trash delete-entry"></i>
+                        <td class="span2">
+                            {% verbatim %}
+                            <span class="category-label" ng-bind="transaction.category.name" style="background-color: {{transaction.category.color}};"></span>
+                            {% endverbatim %}
+                        </td>
+                        <td ng-bind="transaction.description"></td>
+                        <td class="span1" ng-bind="transaction.value | currency"></td>
+
+                        <td class="span1 action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+                            <i class="icon-trash delete-entry" ng-click="removeTransaction()"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -41,7 +46,6 @@
         </div>
         <p>{% trans "Use the form to the right to create your first entry." %}</p>
     </div>
-    {% endverbatim %}
 </div>
 <div class="span3">
     {% comment %}
