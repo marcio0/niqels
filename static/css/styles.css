@@ -9411,7 +9411,6 @@ span.category-label {
   -moz-border-radius: 3px;
   border-radius: 3px;
   padding: 4px 6px;
-  font-size: 14px;
   font-weight: normal;
 }
 span.category-label:empty {
@@ -9453,9 +9452,6 @@ span.category-label-inverse[href] {
 /*
  * ENTRY LIST STYLES
  */
-.entry-row td {
-  font-size: 15px;
-}
 .entry-row td.action-bar i {
   display: none;
   padding-right: 2px;

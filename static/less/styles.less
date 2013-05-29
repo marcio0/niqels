@@ -5,10 +5,11 @@
 /*
  * OVERRIDES
  */
-@bodyBackground: #f5f5f5;
-@heroUnitBackground: #fff;
-@heroUnitBorder: #ccc;
-@wellBackground: #fff;
+@bodyBackground:        #f5f5f5;
+@heroUnitBackground:    #fff;
+@heroUnitBorder:        #ccc;
+@wellBackground:        #fff;
+@baseFontSize:          14px;
 
 body {
     background-image: url(../img/ricepaper2.png);
@@ -103,7 +104,6 @@ input {
 span.category-label {
     .label();
     padding: 4px 6px;
-    font-size: 14px;
     font-weight: normal;
 }
 
@@ -118,8 +118,6 @@ span.category-label {
  */
 .entry-row {
     td {
-        font-size: 15px;
-
         // the delete icon
         &.action-bar i {
             .hide();
