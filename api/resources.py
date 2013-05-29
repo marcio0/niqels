@@ -30,7 +30,6 @@ class UserResource(ModelResource):
         detail_allowed_methods = ['get']
 
     def base_urls(self):
-        # TODO: unnittest this
         '''
         The list endpoint behaves as the list endpoint.
         '''
@@ -40,14 +39,12 @@ class UserResource(ModelResource):
         ]
 
     def obj_get(self, bundle, **kwargs):
-        # TODO: unnittest this
         '''
         Always returns the logged in user.
         '''
         return bundle.request.user
 
     def get_resource_uri(self, bundle_or_obj=None, url_name='api_dispatch_detail'):
-        # TODO: unnittest this
         bundle_or_obj = None
         try:
             return self._build_reverse_url(url_name, kwargs=self.resource_uri_kwargs(bundle_or_obj))

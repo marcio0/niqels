@@ -1,7 +1,19 @@
 from tastypie.test import ResourceTestCase
 
+from django.test import TestCase
+
 from access.models import User
 from expenses.models import Category
+from api.resources import UserResource
+
+import mock
+
+
+class UserResourceUnitTest(TestCase):
+    def test_obj_get(self):
+        bundle = mock.Mock()
+        resource = UserResource()
+        self.assertEquals(resource.obj_get(bundle), bundle.request.user)
 
 
 class UserResourceTest(ResourceTestCase):
