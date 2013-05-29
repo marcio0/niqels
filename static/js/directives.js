@@ -100,10 +100,9 @@ angular.module('webapp')
                         addon = me.siblings('span.add-on'),
                         color = "";
 
-                    if (me.val() === '') {
-                        color = "#555555";
-                    }
-                    else if (me.val().charAt(0) === '-') {
+                    updateModel();
+
+                    if (me.val().charAt(0) === '-') {
                         color = '#b94a48';
                     }
                     else if (parseInt(me.val().charAt(0))) {
@@ -118,8 +117,6 @@ angular.module('webapp')
                     me.css('color', color);
                     addon.css('color', color);
                 });
-
-                element.on('blur', updateModel);
             }
         };
     });
