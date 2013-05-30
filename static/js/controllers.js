@@ -82,7 +82,3 @@ function TransactionListCtrl($scope, $rootScope, Transaction) {
         });
     });
 }
-
-function TransactionDetailCtrl($scope, $routeParams, Transaction) {
-    $scope.transactions = Transaction.get({id: $routeParams.id});
-}

@@ -52,3 +52,19 @@ angular.module('categoryService', ['ngResource']).
 
         return Category;
     });
+
+angular.module('interceptor', []).
+    factory('sessionInterceptor', function($q, $window) {
+        return function(promise) {
+            return promise.then(null, function(response) {
+                if (response.status === 401) {
+                    $window.location.href = '/login';
+                }
+                return $q.reject(response);
+            });
+        };
+    }); 
+
+app.config(function ($httpProvider) {
+    $httpProvider.responseInterceptors.push('sessionInterceptor');
+});

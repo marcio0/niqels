@@ -1,7 +1,12 @@
-var app = angular.module('webapp', ['transactionService', 'categoryService']).
-  config(['$routeProvider', function($routeProvider) {
-  $routeProvider.
-      when('/transactions', {templateUrl: '/app/transaction-list/', controller: TransactionListCtrl}).
-      when('/transactions/:id', {templateUrl: '/app/transaction-detail/', controller: TransactionDetailCtrl}).
-      otherwise({redirectTo: '/transactions'});
-}]);
+var app = angular.module('webapp', ['transactionService', 'categoryService', 'interceptor']).
+
+    config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+        $routeProvider.
+            when('/transactions', {
+                templateUrl: '/app/transaction-list/',
+                controller: TransactionListCtrl
+            }).
+            otherwise({
+                redirectTo: '/transactions'
+            });
+    }]);
