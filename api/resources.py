@@ -96,7 +96,7 @@ class TransactionResource(ModelResource):
         value = bundle.data.get('value', None)
 
         if value:
-            bundle.data['value'] = parse_decimal(value, locale='en_US')
+            bundle.data['value'] = parse_decimal(value, locale=bundle.request.locale)
 
         return bundle
 
