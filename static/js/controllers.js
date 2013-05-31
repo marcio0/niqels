@@ -3,7 +3,7 @@
 function TransactionActionBarCtrl ($scope, Transaction) {
     $scope.removeTransaction = function () {
         //finish this
-        Transaction.delete($scope.transaction.id).$then(function () {
+        Transaction.delete({id: $scope.transaction.id}).$then(function () {
             console.log('foi?');
             //remove the line
         });
