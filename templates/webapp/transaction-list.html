@@ -7,7 +7,7 @@
     {% include "webapp/forms/entry.html" %}
 </div>
 
-<div class="span6">
+<div class="span6" ng-controller="TransactionListCtrl">
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
