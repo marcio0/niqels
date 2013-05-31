@@ -108,7 +108,7 @@ class TransactionResource(ModelResource):
             bundle.data['category'] = category_name
             return bundle
 
-        category_name = category_name.lower().strip()
+        category_name = category_name.strip()
 
         try:
             category = Category.objects.get(

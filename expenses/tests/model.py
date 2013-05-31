@@ -67,7 +67,7 @@ class CategoryModelTest(TestCase):
 
 
 class EntryFormTest(TestCase):
-    def test_category_lower(self):
+    def test_category_no_lower(self):
         user = User.objects.create_user('user@expenses.com', 'pass')
 
         data = {
@@ -79,7 +79,7 @@ class EntryFormTest(TestCase):
         form.cleaned_data = data
         form.user = user
 
-        self.assertEquals(form.clean_category().name, 'stuff')
+        self.assertEquals(form.clean_category().name, 'STUFF')
 
 
     def test_category_handling_missing(self):

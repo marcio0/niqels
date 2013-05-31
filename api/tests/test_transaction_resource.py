@@ -105,7 +105,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'category': {
                 u'resource_uri': u'/api/v1/category/2',
                 u'id': 2,
-                u'name': u'stuff',
+                u'name': u'STUFF',
                 u'color': u'#999999'
             },
             u'description': u'',

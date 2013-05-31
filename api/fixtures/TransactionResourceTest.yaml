@@ -7,7 +7,7 @@
 -   model: expenses.Category
     pk: 2
     fields:
-        name: stuff
+        name: STUFF
         user: 1
 
 -   model: expenses.Category

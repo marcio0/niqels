@@ -50,7 +50,7 @@ class EntryForm(forms.ModelForm):
             raise forms.ValidationError(
                 forms.CharField.default_error_messages['required'])
 
-        category_name = category_name.lower().strip()
+        category_name = category_name.strip()
 
         try:
             category = Category.objects.get(
