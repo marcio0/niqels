@@ -7,6 +7,7 @@ v1_api = Api(api_name='v1')
 v1_api.register(resources.TransactionResource())
 v1_api.register(resources.CategoryResource())
 v1_api.register(resources.UserResource())
+v1_api.register(resources.MonthlyBalanceResource())
 
 urlpatterns = patterns('',
     (r'^', include(v1_api.urls)),

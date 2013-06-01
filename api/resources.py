@@ -1,5 +1,5 @@
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, Resource
 from tastypie.validation import FormValidation, CleanedDataFormValidation
 from tastypie import fields
 from tastypie import http
@@ -20,6 +20,24 @@ from expenses import random_color
 from babel.numbers import parse_decimal
 
 
+class MonthlyBalanceResource(Resource):
+    class Meta:
+        include_resource_uri = False
+        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
+        list_allowed_methods = ['get']
+        detail_allowed_methods = []
+        resource_name = 'data/balance'
+
+    def get_obj(self, bundle, **kwargs):
+        return {'name': 'ok'}
+
+    def base_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_list"),
+            url(r"^(?P<resource_name>%s)/schema%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('get_schema'), name="api_get_schema")
+        ]
+
+
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
@@ -31,10 +49,10 @@ class UserResource(ModelResource):
 
     def base_urls(self):
         '''
-        The list endpoint behaves as the list endpoint.
+        The list endpoint behaves as the detail endpoint.
         '''
         return [
-            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_list"),
             url(r"^(?P<resource_name>%s)/schema%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('get_schema'), name="api_get_schema")
         ]
 
