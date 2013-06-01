@@ -66,5 +66,6 @@ angular.module('interceptor', []).
     }); 
 
 app.config(function ($httpProvider) {
+    $httpProvider.defaults.headers.common['X-CSRFToken'] = $('body > input[name=csrfmiddlewaretoken]').val();
     $httpProvider.responseInterceptors.push('sessionInterceptor');
 });

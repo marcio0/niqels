@@ -4,8 +4,12 @@ function TransactionActionBarCtrl ($scope, Transaction) {
     $scope.removeTransaction = function () {
         //finish this
         Transaction.delete({id: $scope.transaction.id}).$then(function () {
-            console.log('foi?');
-            //remove the line
+            for (var i in $scope.days) {
+                var day = $scope.days[i];
+                if (day.day === $scope.transaction.date) {
+                    day.transactions.splice(day.transactions.indexOf($scope.transaction), 1);
+                }
+            }
         });
     };
 }
@@ -13,8 +17,6 @@ function TransactionActionBarCtrl ($scope, Transaction) {
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category) {
     $scope.transaction = {};
     $scope.errors = {};
-
-    $http.defaults.headers.post['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]', $element).val();
 
     $scope.submit = function () {
         var transaction_data = $scope.transaction,
