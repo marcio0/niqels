@@ -1,4 +1,36 @@
+'use strict';
+
 angular.module('webapp')
+
+    .directive('exConfirm', function ($compile) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs, controller) {
+                var title = attrs.exConfirmTitle || gettext('Confirm'),
+                    okBtn = attrs.exConfirmOkBtn || gettext('Ok'),
+                    cancelBtn = attrs.exConfirmCancelBtn || gettext('Cancel'),
+                    message = attrs.exConfirmMessage || "";
+
+                var dialog = '<div class="content">' +
+                                '<span>' + message + '</span>' +
+                                '<button class="btn small danger">{{okBtn}}</button><button class="btn small">'+cancelBtn+'</button>' +
+                            '</div>';
+
+                var config = {
+                    title: title,
+                    content: dialog,
+                    html: true,
+                    trigger: 'manual'
+                };
+
+                element.popover(config);
+
+                element.on('click', function () {
+                });
+            }
+        };
+    })
+
     .directive('exCategoryfield', function () {
         return {
             restrict: 'A',
@@ -22,7 +54,6 @@ angular.module('webapp')
         return {
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
-                'use strict';
                 
                 element.parent().hover(
                     function () {
