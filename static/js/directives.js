@@ -31,6 +31,18 @@ angular.module('webapp')
         };
     })
 
+    .directive('exCategory', function () {
+        return {
+            restrict: 'A',
+            scope: {
+                category: '=exCategory'
+            },
+            replace: true,
+            template: '<span class="category-label" ng-bind="category.name" style="aaa;">{{category.color}}</span>'
+
+        };
+    })
+
     .directive('exCategoryfield', function () {
         return {
             restrict: 'A',
