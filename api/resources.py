@@ -19,23 +19,30 @@ from expenses import random_color
 
 from babel.numbers import parse_decimal
 
+class ReturnData(object):
+    pass
 
 class MonthlyBalanceResource(Resource):
     class Meta:
+        object_class = ReturnData
         include_resource_uri = False
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         list_allowed_methods = ['get']
-        detail_allowed_methods = []
         resource_name = 'data/balance'
+        fields = ['name']
 
-    def get_obj(self, bundle, **kwargs):
-        return {'name': 'ok'}
+    def obj_get(self, bundle, **kwargs):
+        bundle = ReturnData()
+        bundle.name = 'ok'
+        return bundle
 
-    def base_urls(self):
-        return [
-            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_list"),
-            url(r"^(?P<resource_name>%s)/schema%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('get_schema'), name="api_get_schema")
-        ]
+    def full_dehydrate(self, bundle, for_list=False):
+        bundle = super(MonthlyBalanceResource, self).full_dehydrate(bundle, for_list)
+        bundle.data['name'] = bundle.obj.name
+        return bundle
+
+    def dispatch_list(self, request, **kwargs):
+        return self.dispatch_detail(request, **kwargs)
 
 
 class UserResource(ModelResource):
@@ -47,14 +54,8 @@ class UserResource(ModelResource):
         list_allowed_methods = []
         detail_allowed_methods = ['get']
 
-    def base_urls(self):
-        '''
-        The list endpoint behaves as the detail endpoint.
-        '''
-        return [
-            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_list"),
-            url(r"^(?P<resource_name>%s)/schema%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('get_schema'), name="api_get_schema")
-        ]
+    def dispatch_list(self, request, **kwargs):
+        return self.dispatch_detail(request, **kwargs)
 
     def obj_get(self, bundle, **kwargs):
         '''
@@ -62,7 +63,7 @@ class UserResource(ModelResource):
         '''
         return bundle.request.user
 
-    def get_resource_uri(self, bundle_or_obj=None, url_name='api_dispatch_detail'):
+    def get_resource_uri(self, bundle_or_obj=None, url_name='api_dispatch_list'):
         bundle_or_obj = None
         try:
             return self._build_reverse_url(url_name, kwargs=self.resource_uri_kwargs(bundle_or_obj))

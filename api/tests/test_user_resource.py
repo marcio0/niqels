@@ -114,4 +114,4 @@ class UserResourceTest(ResourceTestCase):
         '''
         There is no endpoint on User resource with default detaul URIs.
         '''
-        self.assertHttpNotFound(self.api_client.delete(self.detail_url + '1/', format='json'))
+        self.assertHttpMethodNotAllowed(self.api_client.delete(self.detail_url + '1/', format='json'))
