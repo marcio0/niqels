@@ -38,7 +38,7 @@ angular.module('webapp')
                 category: '=exCategory'
             },
             replace: true,
-            template: '<span class="category-label" ng-bind="category.name" style="aaa;">{{category.color}}</span>'
+            template: '<span class="category-label" ng-bind="category.name" ng-style="{backgroundColor: category.color}"></span>'
 
         };
     })

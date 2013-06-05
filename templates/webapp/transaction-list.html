@@ -30,10 +30,9 @@
                         >
 
                         <td class="span2">
-                            {% verbatim %}
-                            <span class="category-label" ng-bind="transaction.category.name" style="background-color: {{transaction.category.color}};"></span>
-                            {% endverbatim %}
+                            <span ex-category="transaction.category"></span>
                         </td>
+
                         <td ng-bind="transaction.description"></td>
                         <td class="span1" ng-bind="transaction.value | currency"></td>
 
