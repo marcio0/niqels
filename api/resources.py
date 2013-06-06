@@ -1,3 +1,5 @@
+import datetime
+
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.resources import ModelResource, Resource
 from tastypie.validation import FormValidation, CleanedDataFormValidation
@@ -16,29 +18,33 @@ from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
 from api.validation import EntryApiForm
 from expenses import random_color
+from expenses.calculator import AverageCalculator
 
 from babel.numbers import parse_decimal
 
 class ReturnData(object):
     pass
 
-class MonthlyBalanceResource(Resource):
+class BalanceResource(Resource):
     class Meta:
         object_class = ReturnData
         include_resource_uri = False
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
         resource_name = 'data/balance'
-        fields = ['name']
 
     def obj_get(self, bundle, **kwargs):
-        bundle = ReturnData()
-        bundle.name = 'ok'
-        return bundle
+        obj = ReturnData()
+        obj.average_balance = AverageCalculator(
+            user=bundle.request.user,
+            start_date=datetime.date.today(),
+            qty_months=3).calculate()
+        return obj
 
     def full_dehydrate(self, bundle, for_list=False):
-        bundle = super(MonthlyBalanceResource, self).full_dehydrate(bundle, for_list)
-        bundle.data['name'] = bundle.obj.name
+        bundle = super(BalanceResource, self).full_dehydrate(bundle, for_list)
+        bundle.data['balance'] = bundle.obj.average_balance
         return bundle
 
     def dispatch_list(self, request, **kwargs):
