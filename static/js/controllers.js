@@ -1,9 +1,17 @@
 'use strict';
 
-function BalancePanelCtrl ($scope, $http) {
-    $http.get('/api/v1/data/balance/').then(function (result) {
-        $scope.balance_data = result.data;
+function BalancePanelCtrl ($scope, $http, $rootScope) {
+    $scope.updateBalance = function () {
+        $http.get('/api/v1/data/balance/').then(function (result) {
+            $scope.balance_data = result.data;
+        });
+    };
+
+    $rootScope.$on('transactionCreated', function (event, data) {
+        $scope.updateBalance();
     });
+
+    $scope.updateBalance();
 }
 
 function TransactionActionBarCtrl ($scope, Transaction) {
