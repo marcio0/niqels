@@ -1,5 +1,11 @@
 'use strict';
 
+function BalancePanelCtrl ($scope, $http) {
+    $http.get('/api/v1/data/balance/').then(function (result) {
+        $scope.balance_data = result.data;
+    });
+}
+
 function TransactionActionBarCtrl ($scope, Transaction) {
     $scope.removeTransaction = function () {
         //finish this

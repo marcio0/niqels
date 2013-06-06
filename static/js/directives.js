@@ -2,6 +2,33 @@
 
 angular.module('webapp')
 
+    .directive('exDeviation', function ($filter) {
+        return {
+            replace: true,
+            template: '<span class="text-{{color}}" >{{value}}<i class="{{icon}} icon-large"></i></span>',
+            scope: {
+                rawValue: '@exDeviationValue'
+            },
+            link: function (scope, element, attrs) {
+                scope.$watch('rawValue', function (newValue, oldValue) {
+                    scope.value = $filter('number')(scope.rawValue, 2);
+
+                    if (newValue == 0) {
+                        scope.color = "";
+                    }
+                    else if (newValue > 0) {
+                        scope.color = 'success';
+                        scope.icon = 'icon-caret-up'
+                    }
+                    else if (newValue < 0) {
+                        scope.color = 'error';
+                        scope.icon = 'icon-caret-down'
+                    }
+                });
+            }
+        };
+    })
+
     .directive('exConfirm', function ($compile) {
         return {
             restrict: 'A',
@@ -39,7 +66,6 @@ angular.module('webapp')
             },
             replace: true,
             template: '<span class="category-label" ng-bind="category.name" ng-style="{backgroundColor: category.color}"></span>'
-
         };
     })
 
