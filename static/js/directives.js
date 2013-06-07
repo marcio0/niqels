@@ -135,7 +135,6 @@ angular.module('webapp')
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
-                'use strict';
 
                 var updateModel = function(ev) {
                     return scope.$apply(function() {

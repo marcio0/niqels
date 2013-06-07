@@ -34,7 +34,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     $scope.sending = false;
 
     $scope.submit = function () {
-        $scope.sending = true;
         var transaction_data = $scope.transaction,
             form = this.entryform;
 
@@ -44,6 +43,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             $scope.errors.date = form.date.$error.required;
         }
         else {
+            $scope.sending = true;
             // clears invalid state
             $scope.errors = {};
 
