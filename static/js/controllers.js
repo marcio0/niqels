@@ -31,8 +31,10 @@ function TransactionActionBarCtrl ($scope, Transaction) {
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category) {
     $scope.transaction = {};
     $scope.errors = {};
+    $scope.sending = false;
 
     $scope.submit = function () {
+        $scope.sending = true;
         var transaction_data = $scope.transaction,
             form = this.entryform;
 
@@ -45,14 +47,18 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             // clears invalid state
             $scope.errors = {};
 
-            Transaction.save(transaction_data).$then(function (value) {
-                $rootScope.$broadcast('transactionCreated', value.data);
+            Transaction.save(transaction_data)
+                .$then(function (value) {
+                    $rootScope.$broadcast('transactionCreated', value.data);
 
-                // clears the form
-                $scope.transaction = {};
-                form.$setPristine();
-                form.date.resetDate();
-            });
+                    // clears the form
+                    $scope.transaction = {};
+                    form.$setPristine();
+                    form.date.resetDate();
+                })
+                .always(function () {
+                    $scope.sending = false;
+                });
         }
     };
 }
