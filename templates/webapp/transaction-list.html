@@ -34,7 +34,10 @@
                         </td>
 
                         <td ng-bind="transaction.description"></td>
-                        <td class="span1" ng-bind="transaction.value | currency"></td>
+
+                        <td class="span1">
+                            <span ex-currency ex-currency-value="transaction.value"></span>
+                        </td>
 
                         <td class="span1 action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
                             <i

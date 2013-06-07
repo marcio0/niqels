@@ -10,10 +10,14 @@
 
     <i id="balance-help" class="icon-question-sign close"></i>
 
-    <h4>{% trans "Balance:" %}</h4>
+    <h4>{% trans "Balance" %}</h4>
     {% verbatim %}
     <p>
-        <span ng-bind="balance_data.balance.base"></span> 
+        <span
+            ex-currency
+            ex-currency-value="balance_data.balance.base">
+            </span>
+
         (<span
             ex-deviation
             ex-deviation-value="{{balance_data.balance.deviation}}"

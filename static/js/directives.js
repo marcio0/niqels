@@ -2,16 +2,41 @@
 
 angular.module('webapp')
 
+    .directive('exCurrency', function ($filter) {
+        return {
+            replace: true,
+            template: '<span class="text-{{color}}" ng-bind="value"></span>',
+            scope: {
+                rawValue: '=exCurrencyValue'
+            },
+            link: function (scope, element, attrs) {
+                scope.$watch('rawValue', function (newValue, oldValue) {
+                    scope.value = $filter('currency')(scope.rawValue);
+
+                    if (scope.rawValue < 0) {
+                        scope.color = 'error';
+                    }
+                    else if (scope.rawValue > 0) {
+                        scope.color = 'success';
+                    }
+                    else {
+                        scope.color = '';
+                    }
+                });
+            }
+        };
+    })
+
     .directive('exDeviation', function ($filter) {
         return {
             replace: true,
-            template: '<span class="text-{{color}}" >{{value}}<i class="{{icon}} icon-large"></i></span>',
+            template: '<span class="text-{{color}}" >{{value}}% <i class="{{icon}} icon-large"></i></span>',
             scope: {
                 rawValue: '@exDeviationValue'
             },
             link: function (scope, element, attrs) {
                 scope.$watch('rawValue', function (newValue, oldValue) {
-                    scope.value = $filter('number')(scope.rawValue, 2);
+                    scope.value = $filter('number')(scope.rawValue, 2) * 100;
 
                     if (newValue == 0) {
                         scope.color = "";
