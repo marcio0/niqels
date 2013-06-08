@@ -1,7 +1,7 @@
-from django.conf.urls import patterns
+from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
-    (r'^$', TemplateView.as_view(template_name="webapp/index.html")),
-    (r'^transaction-list/$', TemplateView.as_view(template_name="webapp/transaction-list.html")),
+    url(r'^$', TemplateView.as_view(template_name="webapp/index.html"), name="index"),
+    url(r'^partials/transaction-list/$', TemplateView.as_view(template_name="webapp/transaction-list.html")),
 )
