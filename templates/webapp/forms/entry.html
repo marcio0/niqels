@@ -76,19 +76,7 @@
 
     <div class="control-group" ng-class="{error: errors.date}">
         <div class="controls">
-            <div class="input-prepend input-block-level">
-                <span class="add-on"><i class="icon-calendar"></i></span>
-                <input
-                    id="id_date"
-                    name="date"
-                    type="text"
-
-                    ng-model="transaction.date"
-                    ex-datefield
-
-                    required
-                    autocomplete="off"
-                    />
+            <div ex-datepicker="transaction.date">
             </div>
             <span class="help-block" ng-show="errors.date">Required</span>
         </div>

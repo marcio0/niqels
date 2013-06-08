@@ -130,54 +130,44 @@ angular.module('webapp')
         };
     })
 
-    .directive('exDatefield', function () {
+    .directive('exDatepicker', function ($filter) {
         return {
-            require: '?ngModel',
             restrict: 'A',
-            link: function (scope, element, attrs, controller) {
-
-                var updateModel = function(ev) {
-                    return scope.$apply(function() {
-                        return controller.$setViewValue(element.val());
+            scope: {
+                date: '=exDatepicker'
+            },
+            link: function (scope, element, attrs) {
+                var updateModel = function (ev) {
+                    scope.$apply(function () {
+                        scope.date = $filter('date')(ev.date, 'dd/MM/yyyy')
                     });
                 };
 
                 element.datepicker({
-                    language: 'pt-BR',
-                    format: 'dd/mm/yyyy',
+                    format: "dd/mm/yyyy",
                     keyboardNavigation: false,
-                    autoclose: true,
                     todayHighlight: true
                 }).on('changeDate', updateModel);
 
-                element.mask('11/11/1111');
-
-                element.keydown(function(event) {
-                    if (event.keyCode == 9) {
-                        $(this).data('datepicker').hide();
+                scope.$watch('date', function (newValue, oldValue) {
+                    if (newValue == undefined) {
+                        var today = $filter('date')(new Date(), 'dd/MM/yyyy');
+                        element.data('datepicker').update(today);
+                        scope.date = today;
                     }
                 });
-                element.data('datepicker').setDate(new Date());
-                controller.$setViewValue(element.val());
-
-                controller.resetDate = function () {
-                    element.data('datepicker').setDate(new Date());
-                    controller.$setViewValue(element.val());
-                };
-
             }
         };
     })
 
     .directive('exValuefield', function () {
-        'use strict';
         return {
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
 
                 var updateModel = function(ev) {
-                    return scope.$apply(function() {
+                    return scope.$apply(function () {
                         return controller.$setViewValue(element.val());
                     });
                 };

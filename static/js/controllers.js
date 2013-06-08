@@ -40,7 +40,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
         if (form.$invalid) {
             $scope.errors.category = form.category.$error.required;
             $scope.errors.value = form.value.$error.required;
-            $scope.errors.date = form.date.$error.required;
         }
         else {
             $scope.sending = true;
@@ -54,7 +53,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                     // clears the form
                     $scope.transaction = {};
                     form.$setPristine();
-                    form.date.resetDate();
                 })
                 .always(function () {
                     $scope.sending = false;
