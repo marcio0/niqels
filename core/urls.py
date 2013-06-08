@@ -17,7 +17,6 @@ urlpatterns = patterns('',
     url(r'^', include('access.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^app/', include('webapp.urls')),
-    url(r'^ang/', include('angular.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )
