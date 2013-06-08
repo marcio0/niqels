@@ -172,7 +172,7 @@ angular.module('webapp')
                     });
                 };
 
-                element.maskMoney({allowNegative: true, thousands:'.', decimal:','});
+                element.maskMoney({allowNegative: true, thousands:'.', decimal:',', negativeDefault: true});
                 element.tooltip({
                     placement: 'right',
                     title: gettext('Use a "+" sign to indicate positive values.')
