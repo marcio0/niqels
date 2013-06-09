@@ -24,6 +24,6 @@ def global_context(request):
     }
 
     if request.user.is_authenticated:
-        context['user_categories'] = [c.name.capitalize() for c in Category.objects.filter(user_id=request.user.pk)]
+        context['user_categories'] = [c.name for c in Category.objects.filter(user_id=request.user.pk)]
 
     return context

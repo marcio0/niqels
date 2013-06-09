@@ -60,7 +60,7 @@ class GlobalsContextProcessorTest(TestCase):
             'SITE_NAME': 'SpentWise beta',
             'js_date_format': u'MMM d, yyyy',
             'currency_symbol': u'$',
-            'user_categories': ['One', 'Two'],
+            'user_categories': ['one', 'two'],
             'empty_value_fields': ['password', 'password1', 'password2']
         })
 
