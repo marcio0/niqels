@@ -9174,6 +9174,23 @@ body {
 .navbar-fixed-top .navbar-inner .container {
   padding: 20px 0px;
 }
+.datepicker {
+  border: 1px solid #ccc;
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+  /*table tr td {
+		&.active,
+		&.active:hover,
+		&.active.disabled,
+		&.active.disabled:hover {
+			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
+			color: #fff;
+			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+		}
+    }*/
+
+}
 /*
  * /OVERRIDES
  */
