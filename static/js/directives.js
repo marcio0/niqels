@@ -96,9 +96,9 @@ angular.module('webapp')
 
     .directive('exCategoryfield', function () {
         return {
+            require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
-                'use strict';
 
                 element.typeahead({
                     source: user_categories,
@@ -108,6 +108,12 @@ angular.module('webapp')
                 element.tooltip({
                     placement: 'right',
                     title: gettext('Example: "Groceries", "Lunch"')
+                });
+
+                element.bind('change', function () {
+                    scope.$apply(function () {
+                        return controller.$setViewValue(element.val());
+                    });
                 });
             }
         };
