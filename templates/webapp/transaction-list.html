@@ -18,10 +18,10 @@
     {% endif %}
 
     <div class="squared-well">
-        <div ng-repeat="day in days | orderBy: 'day' : true">
+        <div ng-repeat="day in days | orderBy: 'day':true">
             <table class="table">
                 <thead><tr>
-                    <td colspan="3" ng-bind="day.day | date:fullDate"></td>
+                    <td colspan="3" ng-bind="day.day | date:'fullDate'"></td>
                 </tr></thead>
                 <tbody>
                     <tr
@@ -35,7 +35,7 @@
 
                         <td ng-bind="transaction.description"></td>
 
-                        <td class="span1">
+                        <td class="span2">
                             <span ex-currency ex-currency-value="transaction.value"></span>
                         </td>
 

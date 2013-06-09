@@ -36,7 +36,7 @@ angular.module('webapp')
             },
             link: function (scope, element, attrs) {
                 scope.$watch('rawValue', function (newValue, oldValue) {
-                    scope.value = $filter('number')(scope.rawValue, 2) * 100;
+                    scope.value = $filter('number')(scope.rawValue * 100, 2);
 
                     if (newValue == 0) {
                         scope.color = "";
