@@ -11,7 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^change_password/$', views.notify(password_change), {
         'template_name': 'access/change_password.html',
-        'post_change_redirect': '/entries/'
+        'post_change_redirect': '/'
     }, name="change_password"),
 
     # django-password-reset overrides

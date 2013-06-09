@@ -12,7 +12,7 @@ from django.conf.urls import url
 from django.core.urlresolvers import NoReverseMatch
 
 from expenses.models import Entry, Category
-from expenses.forms import CategoryForm, EntryForm
+from expenses.forms import CategoryForm
 from access.forms import UserCreationForm
 from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
