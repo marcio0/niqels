@@ -9174,6 +9174,11 @@ body {
 .navbar-fixed-top .navbar-inner .container {
   padding: 20px 0px;
 }
+.popover {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+}
 .datepicker {
   border: 1px solid #ccc;
   -webkit-border-radius: 0px !important;

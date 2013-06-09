@@ -12,6 +12,12 @@ function BalancePanelCtrl ($scope, $http, $rootScope) {
     });
 
     $scope.updateBalance();
+
+    $('#balance-help').popover({
+        placement: 'left',
+        trigger: 'hover',
+        content: gettext('Shows the sum of all your transactions up to the current day, and the comparison with the previous months.')
+    });
 }
 
 function TransactionActionBarCtrl ($scope, Transaction) {

@@ -6,13 +6,6 @@
 {% load i18n %}
 
 {% block extrahead %}
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
-<script src="{% static "js/locales/angular-locale_pt-br.js" %}"></script>
-<script src="{% static "js/app.js" %}"></script>
-<script src="{% static "js/controllers.js" %}"></script>
-<script src="{% static "js/services.js" %}"></script>
-<script src="{% static "js/directives.js" %}"></script>
 {% endblock extrahead %}
 
 {% block body %}
@@ -21,5 +14,15 @@
     <div class="row" ng-view>
     </div> <!-- container -->
 </div> <!-- row -->
+
+{% block bodyend %}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
+<script src="{% static "js/locales/angular-locale_pt-br.js" %}"></script>
+<script src="{% static "js/app.js" %}"></script>
+<script src="{% static "js/controllers.js" %}"></script>
+<script src="{% static "js/services.js" %}"></script>
+<script src="{% static "js/directives.js" %}"></script>
+{% endblock bodyend %}
 
 {% endblock body %}
