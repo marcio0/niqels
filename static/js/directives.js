@@ -136,7 +136,7 @@ angular.module('webapp')
         };
     })
 
-    .directive('exDatepicker', function ($filter) {
+    .directive('exDatepicker', function ($filter, $locale) {
         return {
             restrict: 'A',
             scope: {
@@ -150,7 +150,8 @@ angular.module('webapp')
                 };
 
                 element.datepicker({
-                    format: "dd/mm/yyyy",
+                    language: $locale.id,
+                    format: $locale.DATETIME_FORMATS.mediumDate,
                     keyboardNavigation: false,
                     todayHighlight: true
                 }).on('changeDate', updateModel);
