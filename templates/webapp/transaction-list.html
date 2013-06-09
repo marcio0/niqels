@@ -18,6 +18,9 @@
     {% endif %}
 
     <div class="squared-well">
+         
+        <h4 class="panel-title">{% trans "Transactions" %}</h4>
+
         <div ng-repeat="day in days | orderBy: 'day':true">
             <table class="table">
                 <thead><tr>
