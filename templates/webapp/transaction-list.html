@@ -32,17 +32,17 @@
                         ng-repeat="transaction in day.transactions"
                         >
 
-                        <td class="span2">
+                        <td class="category-column">
                             <span ex-category="transaction.category"></span>
                         </td>
 
-                        <td ng-bind="transaction.description"></td>
+                        <td class="description-column" ng-bind="transaction.description"></td>
 
-                        <td class="span2">
+                        <td class="value-column">
                             <span ex-currency ex-currency-value="transaction.value"></span>
                         </td>
 
-                        <td class="span1 action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+                        <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
                             <i
                                 class="icon-trash delete-entry"
                                 ng-click="removeTransaction()"

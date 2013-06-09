@@ -9485,11 +9485,24 @@ span.category-label-inverse[href] {
 /*
  * ENTRY LIST STYLES
  */
+.entry-row td.action-bar {
+  width: 10%;
+}
 .entry-row td.action-bar i {
   display: none;
   padding-right: 2px;
   padding-left: 2px;
   float: right;
+}
+.entry-row td.category-column {
+  width: 10%;
+}
+.entry-row td.description-column {
+  width: 65%;
+}
+.entry-row td.value-column {
+  width: 15%;
+  text-align: right;
 }
 .entry-row.tr-hover .action-bar i {
   display: block;
