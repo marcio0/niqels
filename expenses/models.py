@@ -13,11 +13,11 @@ class Category(models.Model):
     color = models.CharField(_('color'),
         max_length=7,
         default="#999999",
-        help_text=_('The color of this transaction, to make it visually identifiable. Accepts HEX values only.')
+        help_text=_('The color of this category, to make it visually identifiable. Accepts HEX values only.')
     )
     user = models.ForeignKey('access.User',
         verbose_name=_("user"),
-        help_text=_('The owner of this category')
+        help_text=_('The owner of this category.')
     )
 
     def __unicode__(self):
@@ -52,7 +52,7 @@ class Entry(models.Model):
         help_text=_('The description for this transaction. Ex.: "Lunch with friends".')
     )
     date = models.DateField(_('date'),
-        help_text=_('The date when this transaction happened. Ex.: 10/21/2010')
+        help_text=_('The date when this transaction happened. Ex.: 10/21/2010.')
     )
     category = models.ForeignKey(Category,
         verbose_name=_('category'),

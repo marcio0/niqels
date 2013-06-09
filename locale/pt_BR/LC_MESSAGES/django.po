@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-09 21:05-0300\n"
+"POT-Creation-Date: 2013-06-09 01:31-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: access/admin.py:14 access/forms.py:58
+#: access/admin.py:14 access/forms.py:58 templates/access/forms/login.html:48
+#: templates/access/forms/login_inline.html:10
+#: templates/access/forms/register.html:50
 msgid "Password"
 msgstr "Senha"
 
@@ -46,7 +48,7 @@ msgstr "Este email já está cadastrado"
 msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
-#: access/forms.py:57
+#: access/forms.py:57 templates/access/forms/register.html:13
 msgid "Name"
 msgstr "Nome"
 
@@ -58,13 +60,25 @@ msgstr "Repita a senha"
 msgid "Users must have an email address"
 msgstr "Digite um endereço de email"
 
-#: access/models.py:14
+#: access/models.py:13
+msgid "The email address of the user. Used to log in on this site."
+msgstr "Endereço de email do usuário. Necessário para fazer login."
+
+#: access/models.py:15 expenses/models.py:9
 msgid "name"
 msgstr "nome"
 
-#: access/models.py:18
+#: access/models.py:19
+msgid "The name of the user."
+msgstr "Nome do usuário."
+
+#: access/models.py:24
 msgid "date joined"
 msgstr "data de cadastro"
+
+#: access/models.py:26
+msgid "The date the user signed up."
+msgstr "Data de cadastro."
 
 #: access/views.py:20
 msgid "Your password was successfuly changed."
@@ -75,60 +89,144 @@ msgstr "Sua senha foi alterada."
 msgid "Welcome to %(site_name)s, %(user_name)s!"
 msgstr "Bem vindo ao %(site_name)s, %(user_name)s!"
 
-#: core/settings.py:37
+#: core/settings.py:38
 msgid "English"
 msgstr "Inglês"
 
-#: core/settings.py:38
+#: core/settings.py:39
 msgid "Portuguese"
 msgstr "Português"
 
-#: expenses/views.py:46
-msgid "Entry removed."
-msgstr "Entrada removida"
+#: expenses/models.py:11
+msgid "The category of a transaction. Ex.: \"Groceries\", \"Medical\"."
+msgstr "Categoria de uma movimentação. Ex.: \"Mercado\", \"Consulta médica\"."
 
-#: expenses/tests/view.py:183
-msgid "This field is required."
-msgstr "Este campo é obrigatório."
+#: expenses/models.py:13
+msgid "color"
+msgstr "cor"
 
-#~ msgid "Organize your money the easy way!"
-#~ msgstr "Organize seus gastos de forma fácil!"
+#: expenses/models.py:16
+msgid ""
+"The color of this category, to make it visually identifiable. Accepts HEX "
+"values only."
+msgstr "A cor desta categoria, para torná-la visualmente identificável. Aceita apenas valores hexadecimais."
 
-#~ msgid "It's simple to use!"
-#~ msgstr "É fácil de usar!"
+#: expenses/models.py:19 expenses/models.py:62
+msgid "user"
+msgstr "usuário"
 
-#~ msgid "Reset password"
-#~ msgstr "Alterar senha"
+#: expenses/models.py:20
+msgid "The owner of this category."
+msgstr "O dono desta categoria."
 
-#~ msgid "Please sign in"
-#~ msgstr "Faça login"
+#: expenses/models.py:44
+#, fuzzy
+msgid "value"
+msgstr "Valor"
 
-#~ msgid "Email"
-#~ msgstr "Email"
+#: expenses/models.py:47
+msgid "The monetary value of this transaction. Accepts decimal values."
+msgstr "O valor monetário desta movimentação. Aceita apenas valores decimais."
 
-#~ msgid "Login"
-#~ msgstr "Login"
+#: expenses/models.py:49
+#, fuzzy
+msgid "description"
+msgstr "Descrição (Opcional)"
 
-#~ msgid "Forgot your password?"
-#~ msgstr "Esqueci minha senha"
+#: expenses/models.py:52
+msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
+msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\""
 
-#~ msgid "Not a user yet?"
-#~ msgstr "Não é usuário ainda?"
+#: expenses/models.py:54
+msgid "date"
+msgstr "data"
 
-#~ msgid "Sign up here!"
-#~ msgstr "Registre-se aqui!"
+#: expenses/models.py:55
+msgid "The date when this transaction happened. Ex.: 10/21/2010"
+msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
-#~ msgid "Sign up"
-#~ msgstr "Registre-se"
+#: expenses/models.py:58
+#, fuzzy
+msgid "category"
+msgstr "Categoria"
 
-#~ msgid "Confirm password"
-#~ msgstr "Confirmar senha"
+#: expenses/models.py:59
+msgid "The category for this transaction."
+msgstr "A categoria desta transação."
 
-#~ msgid "Already a user?"
-#~ msgstr "Já é usuário?"
+#: expenses/models.py:63
+msgid "The owner of this transaction."
+msgstr "O dono desta transação."
 
-#~ msgid "Sign in"
-#~ msgstr "Login"
+#: templates/presentation.html:31
+msgid "Organize your money the easy way!"
+msgstr "Organize seus gastos de forma fácil!"
+
+#: templates/presentation.html:54 templates/presentation.html.py:69
+msgid "It's simple to use!"
+msgstr "É fácil de usar!"
+
+#: templates/access/change_password.html:10
+msgid "Reset password"
+msgstr "Alterar senha"
+
+#: templates/access/forms/login.html:14
+msgid "Please sign in"
+msgstr "Faça login"
+
+#: templates/access/forms/login.html:30
+#: templates/access/forms/login_inline.html:6
+#: templates/access/forms/register.html:32
+msgid "Email"
+msgstr "Email"
+
+#: templates/access/forms/login.html:58
+#: templates/access/forms/login_inline.html:12
+msgid "Login"
+msgstr "Login"
+
+#: templates/access/forms/login.html:62
+msgid "Forgot your password?"
+msgstr "Esqueci minha senha"
+
+#: templates/access/forms/login.html:63
+msgid "Not a user yet?"
+msgstr "Não é usuário ainda?"
+
+#: templates/access/forms/login.html:63
+msgid "Sign up here!"
+msgstr "Registre-se aqui!"
+
+#: templates/access/forms/register.html:4
+#: templates/access/forms/register.html:77
+msgid "Sign up"
+msgstr "Registre-se"
+
+#: templates/access/forms/register.html:67
+msgid "Confirm password"
+msgstr "Confirmar senha"
+
+#: templates/access/forms/register.html:81
+msgid "Already a user?"
+msgstr "Já é usuário?"
+
+#: templates/access/forms/register.html:81
+msgid "Sign in"
+msgstr "Login"
+
+#: templates/webapp/month_balance_panel.html:13
+msgid "Balance"
+msgstr "Balanço"
+
+#: templates/webapp/forms/entry.html:85
+msgid "Submit"
+msgstr "Enviar"
+
+#~ msgid "Entry removed."
+#~ msgstr "Entrada removida"
+
+#~ msgid "This field is required."
+#~ msgstr "Este campo é obrigatório."
 
 #~ msgid "Use the form to the right to create your first entry."
 #~ msgstr "Use o formulário a direita para criar sua primeira transação."
@@ -136,17 +234,5 @@ msgstr "Este campo é obrigatório."
 #~ msgid "Monthly balance:"
 #~ msgstr "Balanço mensal:"
 
-#~ msgid "Category"
-#~ msgstr "Categoria"
-
-#~ msgid "Value"
-#~ msgstr "Valor"
-
-#~ msgid "Description (Optional)"
-#~ msgstr "Descrição (Opcional)"
-
 #~ msgid "Date"
 #~ msgstr "Data"
-
-#~ msgid "Submit"
-#~ msgstr "Enviar"
