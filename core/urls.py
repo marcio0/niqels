@@ -8,12 +8,10 @@ js_info_dict = {
 }
 
 urlpatterns = patterns('',
-)
-
-urlpatterns = patterns('',
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
 
     url(r'^', include('expenses.urls')),
+    url(r'^', include('webapp.urls')),
     url(r'^', include('access.urls')),
     url(r'^api/', include('api.urls')),
 

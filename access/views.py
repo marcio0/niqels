@@ -64,7 +64,7 @@ class Recover(pr_views.Recover):
 
 def register(request):
     if request.user.is_authenticated():
-        return redirect('entry_list')
+        return redirect('index')
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -80,7 +80,7 @@ def register(request):
             messages.success(request,
                 _('Welcome to %(site_name)s, %(user_name)s!') % {'site_name': settings.SITE_NAME, 'user_name': user.name})
 
-            return redirect('entry_list')
+            return redirect('index')
     else:
         form = UserCreationForm()
 

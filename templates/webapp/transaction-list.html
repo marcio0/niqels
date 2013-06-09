@@ -1,0 +1,56 @@
+{% load staticfiles %}
+{% load humanize %}
+{% load expenses_tags %}
+{% load i18n %}
+
+<div class="span3">
+    {% include "webapp/forms/entry.html" %}
+</div>
+
+<div class="span6" ng-controller="TransactionListCtrl">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="squared-well">
+        <div ng-repeat="day in days | orderBy: 'day' : true">
+            <table class="table">
+                <thead><tr>
+                    <td colspan="3" ng-bind="day.day | date:fullDate"></td>
+                </tr></thead>
+                <tbody>
+                    <tr
+                        class="entry-row"
+                        ng-repeat="transaction in day.transactions"
+                        >
+
+                        <td class="span2">
+                            <span ex-category="transaction.category"></span>
+                        </td>
+
+                        <td ng-bind="transaction.description"></td>
+
+                        <td class="span1">
+                            <span ex-currency ex-currency-value="transaction.value"></span>
+                        </td>
+
+                        <td class="span1 action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+                            <i
+                                class="icon-trash delete-entry"
+                                ng-click="removeTransaction()"
+                            ></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+</div>
+<div class="span3">
+    {% include "webapp/month_balance_panel.html" %}
+</div>

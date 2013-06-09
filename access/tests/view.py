@@ -66,7 +66,7 @@ class RegisterViewTest(TestCase):
 
         ret = client.get('/register/')
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
+        self.assertEquals(ret.get('location'), 'http://testserver/')
 
     def test_get(self):
         client = Client()
@@ -89,7 +89,7 @@ class RegisterViewTest(TestCase):
         ret = client.post('/register/', data)
 
         self.assertEquals(ret.status_code, 302)
-        self.assertEquals(ret.get('location'), 'http://testserver/entries/')
+        self.assertEquals(ret.get('location'), 'http://testserver/')
 
         self.assertTrue(
             User.objects.filter(

@@ -1,0 +1,87 @@
+{% load i18n %}
+
+<div ng-controller="TransactionFormCtrl">
+<form
+    class="form affix-top"
+    name="entryform"
+    method="post"
+
+    data-spy="affix"
+    data-offset-top="40"
+    novalidate
+    >
+
+    <div class="control-group" ng-class="{error: errors.category}">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on"><i class="icon-tag"></i></span>
+                <input
+                    id="id_category"
+                    maxlength="200"
+                    name="category"
+                    type="text"
+
+                    ng-model="transaction.category"
+                    ex-categoryfield
+
+                    autofocus
+                    autocomplete="off"
+
+                    required
+                    />
+            </div>
+
+            <span class="help-block" ng-show="errors.category">Required</span>
+        </div>
+    </div>
+
+    <div class="control-group" ng-class="{error: errors.value}">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on">$</span>
+                <input
+                    id="id_value"
+                    name="value"
+                    type="text"
+
+                    ng-model="transaction.value"
+                    ex-valuefield
+
+                    autocomplete="off"
+                    required
+                    />
+            </div>
+
+            <span class="help-block" ng-show="errors.value">Required</span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="input-prepend input-block-level">
+                <span class="add-on"><i class="icon-pencil"></i></span>
+                <input
+                    id="id_description"
+                    maxlength="200"
+                    name="description"
+                    type="text"
+
+                    ng-model="transaction.description"
+
+                    autocomplete="off"
+                    />
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group" ng-class="{error: errors.date}">
+        <div class="controls">
+            <div ex-datepicker="transaction.date">
+            </div>
+            <span class="help-block" ng-show="errors.date">Required</span>
+        </div>
+    </div>
+
+    <button ng-click="submit()" ng-disabled="sending">{% trans "Submit" %}</button>
+</form>
+</div>

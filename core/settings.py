@@ -15,7 +15,7 @@ MANAGERS = ADMINS
 AUTH_USER_MODEL = 'access.User'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/entries/'
+LOGIN_REDIRECT_URL = '/'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -190,6 +190,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
+
+TASTYPIE_ALLOW_MISSING_SLASH = True
 
 try:
     from core.local_settings import *

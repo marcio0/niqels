@@ -19,6 +19,7 @@ class UserObjectsOnlyAuthorization(Authorization):
         return bundle.obj.user == bundle.request.user
 
     def update_list(self, object_list, bundle):
+        '''
         allowed = []
 
         # Since they may not all be saved, iterate over them.
@@ -27,11 +28,14 @@ class UserObjectsOnlyAuthorization(Authorization):
                 allowed.append(obj)
 
         return allowed
+        '''
+        return object_list.filter(user=bundle.request.user)
 
     def update_detail(self, object_list, bundle):
         return bundle.obj.user == bundle.request.user
 
     def delete_list(self, object_list, bundle):
+        '''
         allowed = []
 
         # Since they may not all be saved, iterate over them.
@@ -40,6 +44,8 @@ class UserObjectsOnlyAuthorization(Authorization):
                 allowed.append(obj)
 
         return allowed
+        '''
+        return object_list.filter(user=bundle.request.user)
 
     def delete_detail(self, object_list, bundle):
         return bundle.obj.user == bundle.request.user

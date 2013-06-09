@@ -1,7 +1,19 @@
 from tastypie.test import ResourceTestCase
 
+from django.test import TestCase
+
 from access.models import User
 from expenses.models import Category
+from api.resources import UserResource
+
+import mock
+
+
+class UserResourceUnitTest(TestCase):
+    def test_obj_get(self):
+        bundle = mock.Mock()
+        resource = UserResource()
+        self.assertEquals(resource.obj_get(bundle), bundle.request.user)
 
 
 class UserResourceTest(ResourceTestCase):
@@ -12,7 +24,7 @@ class UserResourceTest(ResourceTestCase):
         self.email = 'user@example.com'
         self.password = 'password'
         self.user = User.objects.create_user(self.email, self.password)
-        self.user.name = 'uname'
+        self.user.name = 'name'
         self.user.save()
 
         # We also build a detail URI, since we will be using it all over.
@@ -103,4 +115,4 @@ class UserResourceTest(ResourceTestCase):
         '''
         There is no endpoint on User resource with default detaul URIs.
         '''
-        self.assertHttpNotFound(self.api_client.delete(self.detail_url + '1/', format='json'))
+        self.assertHttpMethodNotAllowed(self.api_client.delete(self.detail_url + '1/', format='json'))

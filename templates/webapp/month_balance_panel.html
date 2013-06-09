@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<div 
+    class="side-panel affix-top"
+    data-spy="affix"
+    data-offset-top="40"
+
+    ng-controller="BalancePanelCtrl"
+    >
+
+    <i id="balance-help" class="icon-question-sign close"></i>
+
+    <h4>{% trans "Balance" %}</h4>
+    {% verbatim %}
+    <p>
+        <span
+            ex-currency
+            ex-currency-value="balance_data.balance.base">
+            </span>
+
+        (<span
+            ex-deviation
+            ex-deviation-value="{{balance_data.balance.deviation}}"
+            ></span>)
+    </p>
+    {% endverbatim %}
+</div>
