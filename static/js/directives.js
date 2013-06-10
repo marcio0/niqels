@@ -102,7 +102,13 @@ angular.module('webapp')
 
                 element.typeahead({
                     source: user_categories,
-                    items: 3
+                    items: 3,
+                    matcher: function (item) {
+                        return item.toLowerCase().indexOf(this.query.toLowerCase()) == 0;
+                    },
+                    highlighter: function (item) {
+                        return item;
+                    }
                 });
 
                 element.tooltip({

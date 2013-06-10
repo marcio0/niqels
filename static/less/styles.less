@@ -10,6 +10,7 @@
 @heroUnitBorder:        #ccc;
 @wellBackground:        #fff;
 @baseFontSize:          14px;
+@baseBorderRadius:      0px;
 
 body {
     background-image: url(../img/ricepaper2.png);
@@ -29,6 +30,11 @@ body {
 .popover {
     .border-radius(0px) !important;
 }
+
+.well {
+    border: 1px solid @panelBorder;
+}
+
 
 .datepicker {
     border: 1px solid #ccc;
@@ -57,12 +63,6 @@ body {
  */
 
 @panelBorder: #ccc;
-
-.squared-well {
-    .well();
-    .border-radius(0);
-    border: 1px solid @panelBorder;
-}
 
 .affix {
     top: 20px;
@@ -113,7 +113,7 @@ input {
 .center-form {
     width: 300px;
     margin: 0 auto;
-    .squared-well();
+    .well();
 }
 
 .navbar {
@@ -174,11 +174,11 @@ span.category-label {
 }
  
 .side-panel {
-    .squared-well();
+    .well();
 }
 
 form[name="entryform"] {
-    .squared-well();
+    .well();
 
     input[type="submit"] {
         .btn();
@@ -196,7 +196,7 @@ form[name="entryform"] {
  */
 
 [id="signup-area"] {
-    .squared-well();
+    .well();
 
     form {
         width: 80%;
