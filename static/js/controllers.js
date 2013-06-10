@@ -71,10 +71,19 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     $('[name="entryform"]').affix({offset: 40});
 }
 
-function TransactionListCtrl($scope, $rootScope, Transaction) {
+function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
     $scope.days = [];
 
-    Transaction.get().$then(function (result) {
+    var start = new Date();
+    start.setDate(1);
+
+    var end = new Date(start.getFullYear(), start.getMonth()+1, 0);
+    var filter = {
+        date__gte: $filter('date')(start, 'yyyy-MM-dd'),
+        date__lte: $filter('date')(end, 'yyyy-MM-dd'),
+    };
+
+    Transaction.get(filter).$then(function (result) {
         var transactions = result.data.objects;
 
         // grouping the entries by day

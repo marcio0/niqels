@@ -110,6 +110,9 @@ class TransactionResource(ModelResource):
         validation = FormValidation(form_class=EntryApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'put', 'delete']
+        filtering = {
+            'date': ALL
+        }
 
 
     def obj_create(self, bundle, **kwargs):
