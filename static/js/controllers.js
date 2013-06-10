@@ -18,6 +18,8 @@ function BalancePanelCtrl ($scope, $http, $rootScope) {
         trigger: 'hover',
         content: gettext('Shows the sum of all your transactions up to the current day, and the comparison with the previous months.')
     });
+
+    $('.side-panel').affix({offset: 40});
 }
 
 function TransactionActionBarCtrl ($scope, Transaction) {
@@ -65,6 +67,8 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                 });
         }
     };
+
+    $('[name="entryform"]').affix({offset: 40});
 }
 
 function TransactionListCtrl($scope, $rootScope, Transaction) {
