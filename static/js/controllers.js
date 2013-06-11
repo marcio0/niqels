@@ -73,39 +73,55 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
 function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
     $scope.days = [];
+    $scope.month = new Date();
+    $scope.loading = false;
 
-    var start = new Date();
-    start.setDate(1);
+    var filterTransactions = function (value) {
+        $scope.loading = true;
+        var start, end;
 
-    var end = new Date(start.getFullYear(), start.getMonth()+1, 0);
-    var filter = {
-        date__gte: $filter('date')(start, 'yyyy-MM-dd'),
-        date__lte: $filter('date')(end, 'yyyy-MM-dd'),
-    };
+        start = value;
+        start.setDate(1);
 
-    Transaction.get(filter).$then(function (result) {
-        var transactions = result.data.objects;
+        var end = new Date(start.getFullYear(), start.getMonth()+1, 0);
+        var filter = {
+            date__gte: $filter('date')(start, 'yyyy-MM-dd'),
+            date__lte: $filter('date')(end, 'yyyy-MM-dd')
+        };
 
-        // grouping the entries by day
-        var days = {};
-        for (var i in transactions) {
-            var transaction = transactions[i];
+        Transaction.get(filter).$then(function (result) {
+            console.log('voltou do get', result.data);
+            $scope.days = [];
+            var transactions = result.data.objects;
 
-            if (!(transaction.date in days)) {
-                days[transaction.date] = [];
+            if (result.data.objects.length == 0) {
+                $scope.days = [];
             }
 
-            days[transaction.date].push(transaction);
-        }
-        
-        // trasforming the data into a list to be used in ang orderBy filter
-        for (var day in days) {
-            $scope.days.push({
-                day: day,
-                transactions: days[day]
-            });
-        }
-    });
+            // grouping the entries by day
+            var days = {};
+            for (var i in transactions) {
+                var transaction = transactions[i];
+
+                if (!(transaction.date in days)) {
+                    days[transaction.date] = [];
+                }
+
+                days[transaction.date].push(transaction);
+            }
+
+            // trasforming the data into a list to be used in ang orderBy filter
+            for (var day in days) {
+                $scope.days.push({
+                    day: day,
+                    transactions: days[day]
+                });
+            }
+            console.log($scope.days);
+        }).always(function () {$scope.loading = false;});
+    };
+
+    $scope.$watch('month', filterTransactions);
     
     $rootScope.$on('transactionCreated', function (event, data) {
         for (var i in $scope.days) {

@@ -2,6 +2,49 @@
 
 angular.module('webapp')
 
+    .directive('exMonthSelector', function ($locale, $filter) {
+        return {
+            scope: {
+                month: '=exMonthSelector'
+            },
+            link: function linkFn (scope, element, attrs, controller) {
+                console.log('? - começou a diretiva');
+                var update = function (value) {
+                    console.log('2 - month mudou');
+                    var date = $filter('date')(value, 'MMMM - yyyy');
+                    element.text(date);
+                    element.data('datepicker').update(value);
+                };
+
+                scope.$watch('month', update);
+
+                var changeDate = function (ev) {
+                    console.log('change date');
+                    var datepicker = element.data('datepicker');
+                    element.text($filter('date')(ev.date, 'MMMM - yyyy'));
+                    datepicker.hide();
+
+                    scope.$apply(function () {
+                        scope.month = ev.date;
+                    });
+                };
+
+                element.datepicker({
+                    format: "yyyy-mm-dd",
+                    language: $locale.id,
+                    keyboardNavigation: false,
+                    startView: 1,
+                    minViewMode: 1,
+                    todayBtn: "linked",
+                    todayHighlight: true,
+                }).on('changeDate', changeDate);
+
+                //update(scope.month);
+                console.log('cabou diretiva');
+            }
+        };
+    })
+
     .directive('exCurrency', function ($filter) {
         return {
             replace: true,

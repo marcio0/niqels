@@ -12,8 +12,10 @@
 
 <div class="container" ng-app="webapp" id="ng-app">
     <div class="row" ng-view>
-    </div> <!-- container -->
-</div> <!-- row -->
+    </div>
+</div>
+
+{% endblock body %}
 
 {% block bodyend %}
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
@@ -25,4 +27,3 @@
 <script src="{% static "js/directives.js" %}"></script>
 {% endblock bodyend %}
 
-{% endblock body %}
