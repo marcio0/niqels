@@ -8,20 +8,24 @@ angular.module('webapp')
                 month: '=exMonthSelector'
             },
             link: function linkFn (scope, element, attrs, controller) {
-                console.log('? - começou a diretiva');
-                var update = function (value) {
-                    console.log('2 - month mudou');
+                var setElementText = function (value) {
                     var date = $filter('date')(value, 'MMMM - yyyy');
                     element.text(date);
+                };
+
+                var update = function (value) {
+                    // updates the element text and the datepicker when the month is changed outside, ex: a controller
+                    setElementText(value);
                     element.data('datepicker').update(value);
                 };
 
                 scope.$watch('month', update);
 
                 var changeDate = function (ev) {
-                    console.log('change date');
+                    // updates the element text and the month variable when a date is selected on the datepicker
+                    setElementText(ev.date);
+
                     var datepicker = element.data('datepicker');
-                    element.text($filter('date')(ev.date, 'MMMM - yyyy'));
                     datepicker.hide();
 
                     scope.$apply(function () {
@@ -38,9 +42,6 @@ angular.module('webapp')
                     todayBtn: "linked",
                     todayHighlight: true,
                 }).on('changeDate', changeDate);
-
-                //update(scope.month);
-                console.log('cabou diretiva');
             }
         };
     })

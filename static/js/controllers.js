@@ -77,26 +77,24 @@ function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
     $scope.loading = false;
 
     var filterTransactions = function (value) {
+        var start, end, filter;
+
         $scope.loading = true;
-        var start, end;
 
         start = value;
         start.setDate(1);
 
-        var end = new Date(start.getFullYear(), start.getMonth()+1, 0);
-        var filter = {
+        // somehow this sets to the last day of the month
+        end = new Date(start.getFullYear(), start.getMonth()+1, 0);
+
+        filter = {
             date__gte: $filter('date')(start, 'yyyy-MM-dd'),
             date__lte: $filter('date')(end, 'yyyy-MM-dd')
         };
 
         Transaction.get(filter).$then(function (result) {
-            console.log('voltou do get', result.data);
             $scope.days = [];
             var transactions = result.data.objects;
-
-            if (result.data.objects.length == 0) {
-                $scope.days = [];
-            }
 
             // grouping the entries by day
             var days = {};
@@ -117,13 +115,22 @@ function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
                     transactions: days[day]
                 });
             }
-            console.log($scope.days);
         }).always(function () {$scope.loading = false;});
     };
 
     $scope.$watch('month', filterTransactions);
     
     $rootScope.$on('transactionCreated', function (event, data) {
+        var showingMonth = month.getMonth() + 1;
+        var transactionMonth = parseInt(data.date.split('-')[1]);
+
+        if (showingMonth !== transactionMonth) {
+            // the transaction is not for this month, getting out
+            return;
+        }
+
+        // when a transaction is created, add it to the list
+        // it's an alternative to loading everything again
         for (var i in $scope.days) {
             var day = $scope.days[i];
             if (day.day == data.date) {
