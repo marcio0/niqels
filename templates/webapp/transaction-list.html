@@ -21,8 +21,8 @@
          
         <h4 class="panel-title">{% trans "Transactions" %}</h4>
 
-        <div width="100%" style="text-align: center; margin-bottom: 20px;">
-            <button class="btn small" id="month-selector" ex-month-selector="month"></button>
+        <div class="month-selector">
+            <button ex-month-selector="month"></button>
         </div>
 
         <div ng-repeat="day in days | orderBy: 'day':true">
@@ -57,7 +57,7 @@
             </table>
         </div> <!-- repeat -->
 
-        <div class="alert" ng-hide="days.length" style="text-align: center;" ng-cloak>
+        <div id="empty-msg" ng-hide="days.length"> 
             {% trans "No transacions for the period." %}
         </div>
 
