@@ -7,9 +7,9 @@ function BalancePanelCtrl ($scope, $http, $rootScope) {
         });
     };
 
-    $rootScope.$on('transactionCreated', function (event, data) {
-        $scope.updateBalance();
-    });
+    $rootScope.$on('transactionCreated', $scope.updateBalance);
+    $rootScope.$on('transactionRemoved', $scope.updateBalance);
+    $rootScope.$on('viewMonthChanged', $scope.updateBalance);
 
     $scope.updateBalance();
 
@@ -118,7 +118,10 @@ function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
         }).always(function () {$scope.loading = false;});
     };
 
-    $scope.$watch('month', filterTransactions);
+    $scope.$watch('month', function (newValue) {
+        $rootScope.$broadcast('viewMonthChanged', newValue);
+        filterTransactions(newValue);
+    });
     
     $rootScope.$on('transactionCreated', function (event, data) {
         var showingMonth = month.getMonth() + 1;
