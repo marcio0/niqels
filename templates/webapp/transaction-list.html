@@ -21,7 +21,7 @@
          
         <h4 class="panel-title">{% trans "Transactions" %}</h4>
 
-        <div width="100%" style="text-align: center;">
+        <div width="100%" style="text-align: center; margin-bottom: 20px;">
             <button class="btn small" id="month-selector" ex-month-selector="month"></button>
         </div>
 
@@ -54,10 +54,17 @@
                         </td>
                     </tr>
                 </tbody>
-            </table> 
+            </table>
+        </div> <!-- repeat -->
+
+        <div class="alert" ng-hide="days.length" style="text-align: center;" ng-cloak>
+            {% trans "No transacions for the period." %}
         </div>
-    </div>
+
+    </div> <!-- well -->
+
 </div>
+
 <div class="span3">
     {% include "webapp/month_balance_panel.html" %}
 </div>
