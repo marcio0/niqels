@@ -1,9 +1,11 @@
 import mock
+import datetime
 
 from tastypie.test import ResourceTestCase
 
 from access.models import User
 from expenses.models import Category
+from api.resources import BalanceResource
 
 
 class BalanceResourceTest(ResourceTestCase):
@@ -61,6 +63,37 @@ class BalanceResourceTest(ResourceTestCase):
         })
         self.assertTrue(calculator_cls().calculate.called)
 
+    @mock.patch('api.resources.AverageCalculator')
+    def test_get_filter_date(self, calculator_cls):
+        '''
+        Successful GET to a list endpoint.
+        '''
+        calculator_cls().calculate.return_value = {'attr': 'val'}
+
+        resp = self.api_client.get('/api/v1/data/balance/?date=2010-10-10', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        # Here, we're checking an entire structure for the expected data.
+        self.assertEqual(self.deserialize(resp), {
+            u'balance': {'attr': 'val'}
+        })
+
+        calculator_cls.assert_called_with(user=self.user, qty_months=3, start_date=datetime.date(2010, 10, 31))
+        self.assertTrue(calculator_cls().calculate.called)
+
+    @mock.patch('api.resources.AverageCalculator')
+    def test_get_date_bad_format(self, calculator_cls):
+        '''
+        A bad formatted date must return bad request.
+        '''
+        calculator_cls().calculate.return_value = {'attr': 'val'}
+
+        resp = self.api_client.get('/api/v1/data/balance/?date=2010-1203', format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+        resp = self.api_client.get('/api/v1/data/balance/?date=', format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
     # List tests: POST
     def test_post_list_not_allowed(self):
         '''
@@ -81,3 +114,13 @@ class BalanceResourceTest(ResourceTestCase):
         Must be authenticated to DELETE to a list endpoint.
         '''
         self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/data/balance/', format='json', authentication=self.get_credentials()))
+
+    @mock.patch('api.resources.datetime')
+    def test_get_month_filter_default(self, dt):
+        resource = BalanceResource()
+        self.assertEquals(resource.get_month_filter(), dt.date.today())
+
+    def test_get_month_filter_ok_date(self):
+        resource = BalanceResource()
+        args = {'date': '2010-10-10'}
+        self.assertEquals(resource.get_month_filter(GET=args), datetime.date(2010, 10, 31))

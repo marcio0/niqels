@@ -1,4 +1,5 @@
 import datetime
+import calendar
 
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.resources import ModelResource, Resource
@@ -8,6 +9,7 @@ from tastypie import http
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
 from tastypie.authorization import Authorization
 from tastypie.utils import trailing_slash
+from tastypie.exceptions import BadRequest
 from django.conf.urls import url
 from django.core.urlresolvers import NoReverseMatch
 
@@ -22,8 +24,10 @@ from expenses.calculator import AverageCalculator
 
 from babel.numbers import parse_decimal
 
+
 class ReturnData(object):
     pass
+
 
 class BalanceResource(Resource):
     class Meta:
@@ -34,12 +38,30 @@ class BalanceResource(Resource):
         detail_allowed_methods = ['get']
         resource_name = 'data/balance'
 
+    def get_month_filter(self, GET=None):
+        if not GET:
+            return datetime.date.today()
+
+        date = GET.get('date', None)
+        date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
+
+        last_day = calendar.monthrange(date.year, date.month)[1]
+        date = date.replace(day=last_day)
+
+        return date
+
     def obj_get(self, bundle, **kwargs):
+        try:
+            date = self.get_month_filter(bundle.request.GET)
+        except ValueError:
+            raise BadRequest('Invalid date filter')
+        
         obj = ReturnData()
         obj.average_balance = AverageCalculator(
             user=bundle.request.user,
-            start_date=datetime.date.today(),
+            start_date=date,
             qty_months=3).calculate()
+
         return obj
 
     def full_dehydrate(self, bundle, for_list=False):
