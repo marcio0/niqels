@@ -45,8 +45,8 @@ class BalanceResource(Resource):
         date = GET.get('date', None)
         date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
 
-        last_day = calendar.monthrange(date.year, date.month)[1]
-        date = date.replace(day=last_day)
+        #last_day = calendar.monthrange(date.year, date.month)[1]
+        #date = date.replace(day=last_day)
 
         return date
 

@@ -78,7 +78,7 @@ class BalanceResourceTest(ResourceTestCase):
             u'balance': {'attr': 'val'}
         })
 
-        calculator_cls.assert_called_with(user=self.user, qty_months=3, start_date=datetime.date(2010, 10, 31))
+        calculator_cls.assert_called_with(user=self.user, qty_months=3, start_date=datetime.date(2010, 10, 10))
         self.assertTrue(calculator_cls().calculate.called)
 
     @mock.patch('api.resources.AverageCalculator')
@@ -123,4 +123,4 @@ class BalanceResourceTest(ResourceTestCase):
     def test_get_month_filter_ok_date(self):
         resource = BalanceResource()
         args = {'date': '2010-10-10'}
-        self.assertEquals(resource.get_month_filter(GET=args), datetime.date(2010, 10, 31))
+        self.assertEquals(resource.get_month_filter(GET=args), datetime.date(2010, 10, 10))
