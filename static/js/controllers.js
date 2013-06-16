@@ -124,7 +124,7 @@ function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
     });
     
     $rootScope.$on('transactionCreated', function (event, data) {
-        var showingMonth = month.getMonth() + 1;
+        var showingMonth = $scope.month.getMonth() + 1;
         var transactionMonth = parseInt(data.date.split('-')[1]);
 
         if (showingMonth !== transactionMonth) {
