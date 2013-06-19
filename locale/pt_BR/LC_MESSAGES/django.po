@@ -122,18 +122,16 @@ msgid "The owner of this category."
 msgstr "O dono desta categoria."
 
 #: expenses/models.py:44
-#, fuzzy
 msgid "value"
-msgstr "Valor"
+msgstr "valor"
 
 #: expenses/models.py:47
 msgid "The monetary value of this transaction. Accepts decimal values."
 msgstr "O valor monetário desta movimentação. Aceita apenas valores decimais."
 
 #: expenses/models.py:49
-#, fuzzy
 msgid "description"
-msgstr "Descrição (Opcional)"
+msgstr "descrição"
 
 #: expenses/models.py:52
 msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
@@ -144,14 +142,12 @@ msgid "date"
 msgstr "data"
 
 #: expenses/models.py:55
-#, fuzzy
 msgid "The date when this transaction happened. Ex.: 10/21/2010."
 msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
 #: expenses/models.py:58
-#, fuzzy
 msgid "category"
-msgstr "Categoria"
+msgstr "categoria"
 
 #: expenses/models.py:59
 msgid "The category for this transaction."
@@ -230,9 +226,8 @@ msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
 
 #: templates/webapp/forms/entry.html:12
-#, fuzzy
 msgid "New transaction"
-msgstr "O dono desta transação."
+msgstr "Nova movimentação"
 
 #: templates/webapp/forms/entry.html:85
 msgid "Submit"
