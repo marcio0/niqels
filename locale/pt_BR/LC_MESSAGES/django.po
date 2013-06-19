@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-09 01:31-0300\n"
+"POT-Creation-Date: 2013-06-19 00:59-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,11 +89,11 @@ msgstr "Sua senha foi alterada."
 msgid "Welcome to %(site_name)s, %(user_name)s!"
 msgstr "Bem vindo ao %(site_name)s, %(user_name)s!"
 
-#: core/settings.py:38
+#: core/settings.py:37
 msgid "English"
 msgstr "Inglês"
 
-#: core/settings.py:39
+#: core/settings.py:38
 msgid "Portuguese"
 msgstr "Português"
 
@@ -109,7 +109,9 @@ msgstr "cor"
 msgid ""
 "The color of this category, to make it visually identifiable. Accepts HEX "
 "values only."
-msgstr "A cor desta categoria, para torná-la visualmente identificável. Aceita apenas valores hexadecimais."
+msgstr ""
+"A cor desta categoria, para torná-la visualmente identificável. Aceita "
+"apenas valores hexadecimais."
 
 #: expenses/models.py:19 expenses/models.py:62
 msgid "user"
@@ -142,7 +144,8 @@ msgid "date"
 msgstr "data"
 
 #: expenses/models.py:55
-msgid "The date when this transaction happened. Ex.: 10/21/2010"
+#, fuzzy
+msgid "The date when this transaction happened. Ex.: 10/21/2010."
 msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
 #: expenses/models.py:58
@@ -214,9 +217,22 @@ msgstr "Já é usuário?"
 msgid "Sign in"
 msgstr "Login"
 
-#: templates/webapp/month_balance_panel.html:13
+#: templates/webapp/month_balance_panel.html:11
 msgid "Balance"
 msgstr "Balanço"
+
+#: templates/webapp/transaction-list.html:22
+msgid "Transactions"
+msgstr "Movimentações"
+
+#: templates/webapp/transaction-list.html:61
+msgid "No transacions for the period."
+msgstr "Nenhuma movimentação no período."
+
+#: templates/webapp/forms/entry.html:12
+#, fuzzy
+msgid "New transaction"
+msgstr "O dono desta transação."
 
 #: templates/webapp/forms/entry.html:85
 msgid "Submit"
