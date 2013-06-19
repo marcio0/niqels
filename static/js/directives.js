@@ -5,7 +5,7 @@ angular.module('webapp')
     .directive('exMonthSelector', function ($locale, $filter) {
         return {
             scope: {
-                month: '=exMonthSelector'
+                date: '=exMonthSelector'
             },
             link: function linkFn (scope, element, attrs, controller) {
                 var setElementText = function (value) {
@@ -19,7 +19,7 @@ angular.module('webapp')
                     element.data('datepicker').update(value);
                 };
 
-                scope.$watch('month', update);
+                scope.$watch('date', update);
 
                 var changeDate = function (ev) {
                     // updates the element text and the month variable when a date is selected on the datepicker
@@ -29,7 +29,7 @@ angular.module('webapp')
                     datepicker.hide();
 
                     scope.$apply(function () {
-                        scope.month = ev.date;
+                        scope.date = ev.date;
                     });
                 };
 

@@ -1,17 +1,27 @@
 'use strict';
 
-function BalancePanelCtrl ($scope, $http, $rootScope) {
+function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
     $scope.updateBalance = function () {
-        $http.get('/api/v1/data/balance/').then(function (result) {
+        var today = new Date();
+        var date;
+
+        if ($rootScope.month == today.getMonth()) {
+            date = today;
+        }
+        else {
+            date = new Date(today.getFullYear(), $rootScope.month+1, 0);
+        }
+
+        date = $filter('date')(date, 'yyyy-MM-dd');
+
+        $http.get('/api/v1/data/balance/?date=' + date).then(function (result) {
             $scope.balance_data = result.data;
         });
     };
 
     $rootScope.$on('transactionCreated', $scope.updateBalance);
     $rootScope.$on('transactionRemoved', $scope.updateBalance);
-    $rootScope.$on('viewMonthChanged', $scope.updateBalance);
-
-    $scope.updateBalance();
+    $rootScope.$watch('month', $scope.updateBalance);
 
     $('#balance-help').popover({
         placement: 'left',
@@ -73,7 +83,8 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
 function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
     $scope.days = [];
-    $scope.month = new Date();
+    $rootScope.month = new Date().getMonth();
+    $rootScope.filterDate = new Date();
     $scope.loading = false;
 
     var filterTransactions = function (value) {
@@ -118,13 +129,13 @@ function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
         }).always(function () {$scope.loading = false;});
     };
 
-    $scope.$watch('month', function (newValue) {
-        $rootScope.$broadcast('viewMonthChanged', newValue);
+    $scope.$watch('filterDate', function (newValue) {
+        $rootScope.month = newValue.getMonth();
         filterTransactions(newValue);
     });
-    
+
     $rootScope.$on('transactionCreated', function (event, data) {
-        var showingMonth = $scope.month.getMonth() + 1;
+        var showingMonth = $rootScope.month + 1;
         var transactionMonth = parseInt(data.date.split('-')[1]);
 
         if (showingMonth !== transactionMonth) {
