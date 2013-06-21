@@ -100,7 +100,8 @@ function TransactionListCtrl($scope, $rootScope, Transaction, $filter) {
 
         filter = {
             date__gte: $filter('date')(start, 'yyyy-MM-dd'),
-            date__lte: $filter('date')(end, 'yyyy-MM-dd')
+            date__lte: $filter('date')(end, 'yyyy-MM-dd'),
+            limit: 0
         };
 
         Transaction.get(filter).$then(function (result) {
