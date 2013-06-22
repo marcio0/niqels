@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'expenses',
     'access',
+    'reminder',
     'api',
     'password_reset',
     'babeldjango',

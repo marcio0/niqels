@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-19 00:59-0300\n"
+"POT-Creation-Date: 2013-06-19 23:46-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,7 +229,19 @@ msgstr "Nenhuma movimentação no período."
 msgid "New transaction"
 msgstr "Nova movimentação"
 
-#: templates/webapp/forms/entry.html:85
+#: templates/webapp/forms/entry.html:30
+msgid "Category"
+msgstr "Categoria"
+
+#: templates/webapp/forms/entry.html:52
+msgid "Value"
+msgstr "Valor"
+
+#: templates/webapp/forms/entry.html:73
+msgid "Description (optional)"
+msgstr "Descrição (opcional)"
+
+#: templates/webapp/forms/entry.html:88
 msgid "Submit"
 msgstr "Enviar"
 

@@ -1,6 +1,6 @@
-var app = angular.module('webapp', ['transactionService', 'categoryService', 'interceptor']).
+var app = angular.module('webapp', ['models', 'interceptor'])
 
-    config(['$routeProvider', function($routeProvider, $httpProvider) {
+    .config(['$routeProvider', function($routeProvider, $httpProvider) {
         $routeProvider
             .when('/transactions/', {
                 templateUrl: '/partials/transaction-list/'
@@ -8,4 +8,9 @@ var app = angular.module('webapp', ['transactionService', 'categoryService', 'in
             .otherwise({
                 redirectTo: '/transactions/'
             });
+    }])
+
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.common['X-CSRFToken'] = $('body > input[name=csrfmiddlewaretoken]').val();
+        $httpProvider.responseInterceptors.push('sessionInterceptor');
     }]);

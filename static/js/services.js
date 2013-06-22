@@ -1,5 +1,5 @@
-angular.module('transactionService', ['ngResource']).
-    factory('Transaction', function($resource, $cacheFactory){
+angular.module('models', ['ngResource'])
+    .factory('Transaction', function($resource, $cacheFactory){
         var Transaction = $resource('/api/v1/transaction/:id', {}, {
             get: {
                 method: 'GET',
@@ -8,10 +8,9 @@ angular.module('transactionService', ['ngResource']).
         });
 
         return Transaction;
-    });
+    })
 
-angular.module('categoryService', ['ngResource']).
-    factory('Category', function($resource, $cacheFactory){
+    .factory('Category', function($resource, $cacheFactory){
 
         var cache = $cacheFactory('Category');
         var Category = $resource('/api/v1/category/:id', {}, {
@@ -64,8 +63,3 @@ angular.module('interceptor', []).
             });
         };
     }); 
-
-app.config(function ($httpProvider) {
-    $httpProvider.defaults.headers.common['X-CSRFToken'] = $('body > input[name=csrfmiddlewaretoken]').val();
-    $httpProvider.responseInterceptors.push('sessionInterceptor');
-});

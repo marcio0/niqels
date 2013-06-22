@@ -161,18 +161,11 @@ class TransactionResource(ModelResource):
 
         category_name = category_name.strip()
 
-        try:
-            category = Category.objects.get(
-                name=category_name,
-                user=bundle.request.user
-            )
-        except Category.DoesNotExist:
-            category = Category(
-                name=category_name,
-                user=bundle.request.user,
-                color=random_color()
-            )
-            category.save()
+        category, _ = Category.objects.get_or_create(
+            name=category_name,
+            user=bundle.request.user,
+            defaults={'color': random_color()}
+        )
 
         bundle.data['category'] = category
 
