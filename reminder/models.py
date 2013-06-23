@@ -35,6 +35,10 @@ class RepeatableTransaction(models.Model):
         verbose_name=_('user'),
         help_text=_('The owner of this transaction.')
     )
+
+    def update_last_date(self):
+        delta = datetime.timedelta(weeks=1)
+        self.last_date += delta
     
     def create_transaction(self, **kwargs):
         entry = Entry()
@@ -43,7 +47,9 @@ class RepeatableTransaction(models.Model):
 
         entry.date = kwargs.get('date', datetime.date.today())
         entry.description = kwargs.get('description', self.description)
+
         entry.value = kwargs.get('value', self.value)
+        if not entry.value:
+            raise ValueError(_('A value is required.'))
 
         return entry
-

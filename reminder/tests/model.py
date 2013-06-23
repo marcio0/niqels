@@ -54,3 +54,44 @@ class RepeatableTransactionTest(TestCase):
             date=datetime.date(2010, 10, 11)
         )
         self.assertEquals(transaction.date, datetime.date(2010, 10, 11))
+
+    def test_validate_value(self):
+        rep = RepeatableTransaction()
+        rep.description = 'a simple repeatition'
+        rep.category_id = 1
+        rep.user_id = 1
+        rep.repeat = 'weekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.save()
+
+        self.assertRaises(ValueError, rep.create_transaction)
+
+    def test_update_last_date_weekly(self):
+        rep = RepeatableTransaction()
+        rep.value = Decimal('-10')
+        rep.category_id = 1
+        rep.user_id = 1
+        rep.repeat = 'weekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+        
+        rep.save()
+
+        rep.update_last_date()
+
+        self.assertEquals(rep.last_date, datetime.date(2010, 10, 17))
+
+    def test_update_last_date_weekly(self):
+        rep = RepeatableTransaction()
+        rep.value = Decimal('-10')
+        rep.category_id = 1
+        rep.user_id = 1
+        rep.repeat = 'weekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.save()
+
+        rep.update_last_date()
+
+        self.assertEquals(rep.last_date, datetime.date(2010, 10, 17))
+
