@@ -15,7 +15,8 @@ class Migration(SchemaMigration):
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['expenses.Category'])),
             ('repeat', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('last_date', self.gf('django.db.models.fields.DateField')()),
+            ('_last_date', self.gf('django.db.models.fields.DateField')()),
+            ('_day_of_month', self.gf('django.db.models.fields.IntegerField')()),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['access.User'])),
         ))
         db.send_create_signal(u'reminder', ['RepeatableTransaction'])
@@ -70,10 +71,11 @@ class Migration(SchemaMigration):
         },
         u'reminder.repeatabletransaction': {
             'Meta': {'object_name': 'RepeatableTransaction'},
+            '_day_of_month': ('django.db.models.fields.IntegerField', [], {}),
+            '_last_date': ('django.db.models.fields.DateField', [], {}),
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['expenses.Category']"}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_date': ('django.db.models.fields.DateField', [], {}),
             'repeat': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['access.User']"}),
             'value': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '7', 'decimal_places': '2', 'blank': 'True'})
