@@ -1,4 +1,5 @@
 import datetime
+from dateutils import relativedelta
 
 from django.db import models
 from django.utils.translation import gettext_noop, ugettext_lazy as _
@@ -27,18 +28,42 @@ class RepeatableTransaction(models.Model):
         help_text=_('How this transaction repeats.')
     )
 
-    last_date = models.DateField(_('last occurence'),
-        help_text=_('The last occurrence of this transaction.')
-    )
-
     user = models.ForeignKey('access.User',
         verbose_name=_('user'),
         help_text=_('The owner of this transaction.')
     )
 
+    _last_date = models.DateField(_('last occurence'),
+        help_text=_('The last occurrence of this transaction.')
+    )
+    _day_of_month = models.IntegerField(_('day of month'),
+        help_text=_('The day of month this transaction must happen.')
+    )
+
+    def get_last_date(self):
+        return self._last_date
+
+    def set_last_date(self, date):
+        self._last_date = date
+        self._day_of_month = date.day
+
+    last_date = property(get_last_date, set_last_date)
+
     def update_last_date(self):
-        delta = datetime.timedelta(weeks=1)
-        self.last_date += delta
+        PERIODS = {
+            'daily': {'days': 1},
+            'weekly': {'weeks': 1},
+            'biweekly': {'weeks': 2},
+            'monthly': {'months': 1}
+        }
+        delta = relativedelta(**PERIODS[self.repeat])
+
+        if self.repeat is 'monthly':
+            delta += relativedelta(day=self._day_of_month)
+
+        self._last_date += delta
+
+        return self.last_date
     
     def create_transaction(self, **kwargs):
         entry = Entry()

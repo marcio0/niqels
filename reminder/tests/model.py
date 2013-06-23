@@ -5,6 +5,113 @@ from django.test import TestCase
 
 from reminder.models import RepeatableTransaction
 
+
+class RepeatableTransactionLastDateTest(TestCase):
+    def test_date_property(self):
+        '''
+        Updating last_date via property must set both _last_date and _day_of_month.
+        '''
+        rep = RepeatableTransaction()
+        rep.last_date = datetime.date(2010, 05, 31)
+
+        self.assertEquals(rep._day_of_month, 31)
+        self.assertEquals(rep.last_date, datetime.date(2010, 05, 31))
+
+    def test_update_last_date_weekly(self):
+        '''
+        Must advance 7 days.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'weekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.update_last_date()
+        self.assertEquals(rep._last_date, datetime.date(2010, 10, 17))
+
+    def test_update_last_date_weekly_crossing_month(self):
+        '''
+        Must advance 7 days.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'weekly'
+        rep.last_date = datetime.date(2010, 10, 25)
+
+        rep.update_last_date()
+        self.assertEquals(rep._last_date, datetime.date(2010, 11, 01))
+
+    def test_update_last_date_weekly_twice(self):
+        '''
+        Must advance 7 days.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'weekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.update_last_date()
+        rep.update_last_date()
+        self.assertEquals(rep._last_date, datetime.date(2010, 10, 24))
+
+    def test_update_last_date_monthly(self):
+        '''
+        Must advance 30 days.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'monthly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.update_last_date()
+        self.assertEquals(rep.last_date, datetime.date(2010, 11, 10))
+
+    def test_update_last_date_monthly_31_to_30_to_31(self):
+        '''
+        Must advance 30 days, respecting days with less days.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'monthly'
+        rep.last_date = datetime.date(2010, 05, 31)
+
+        rep.update_last_date()
+        self.assertEquals(rep.last_date, datetime.date(2010, 06, 30))
+
+        rep.update_last_date()
+        self.assertEquals(rep.last_date, datetime.date(2010, 07, 31))
+
+    def test_update_last_date_fortnightly(self):
+        '''
+        Must advance 2 weeks.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'biweekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.update_last_date()
+
+        self.assertEquals(rep._last_date, datetime.date(2010, 10, 24))
+
+    def test_update_last_date_fortnightly_twice(self):
+        '''
+        Must advance 2 weeks twice.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'biweekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.update_last_date()
+        rep.update_last_date()
+        self.assertEquals(rep._last_date, datetime.date(2010, 11, 07))
+
+    def test_update_last_date_daily(self):
+        '''
+        Must advance 2 weeks twice.
+        '''
+        rep = RepeatableTransaction()
+        rep.repeat = 'daily'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.update_last_date()
+        self.assertEquals(rep._last_date, datetime.date(2010, 10, 11))
+
+
 class RepeatableTransactionTest(TestCase):
     fixtures = ['RepeatableTransactionTest']
 
@@ -66,32 +173,3 @@ class RepeatableTransactionTest(TestCase):
         rep.save()
 
         self.assertRaises(ValueError, rep.create_transaction)
-
-    def test_update_last_date_weekly(self):
-        rep = RepeatableTransaction()
-        rep.value = Decimal('-10')
-        rep.category_id = 1
-        rep.user_id = 1
-        rep.repeat = 'weekly'
-        rep.last_date = datetime.date(2010, 10, 10)
-        
-        rep.save()
-
-        rep.update_last_date()
-
-        self.assertEquals(rep.last_date, datetime.date(2010, 10, 17))
-
-    def test_update_last_date_weekly(self):
-        rep = RepeatableTransaction()
-        rep.value = Decimal('-10')
-        rep.category_id = 1
-        rep.user_id = 1
-        rep.repeat = 'weekly'
-        rep.last_date = datetime.date(2010, 10, 10)
-
-        rep.save()
-
-        rep.update_last_date()
-
-        self.assertEquals(rep.last_date, datetime.date(2010, 10, 17))
-
