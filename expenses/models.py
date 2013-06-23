@@ -63,6 +63,11 @@ class Entry(models.Model):
         help_text=_('The owner of this transaction.')
     )
 
+    repeatable = models.ForeignKey('reminder.RepeatableTransaction',
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+    )
+
     '''
     Marks the time of the day this entry was saved.
     Used to order the entries inside a day by last_edition.

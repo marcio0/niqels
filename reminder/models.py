@@ -8,7 +8,6 @@ from django.utils.translation import gettext_noop, ugettext_lazy as _
 from expenses.models import Entry, Category
 
 
-
 class RepeatableTransactionQueryset(QuerySet):
     def get_on_warning_range(self, *args, **kwargs):
         start = datetime.date.today() + relativedelta(days=5)
@@ -99,5 +98,7 @@ class RepeatableTransaction(models.Model):
         entry.value = kwargs.get('value', self.value)
         if not entry.value:
             raise ValueError(_('A value is required.'))
+
+        entry.repeatable = self
 
         return entry

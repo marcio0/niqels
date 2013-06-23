@@ -141,14 +141,13 @@ class RepeatableTransactionCreateTransactionTest(TestCase):
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 10)
 
-        rep.save()
-
         transaction = rep.create_transaction()
         self.assertEquals(transaction.value, rep.value)
         self.assertEquals(transaction.description, rep.description)
         self.assertEquals(transaction.date, datetime.date.today())
         self.assertEquals(transaction.category.id, rep.category.id)
         self.assertEquals(transaction.user.id, rep.user.id)
+        self.assertEquals(transaction.repeatable, rep)
 
     def test_overrides(self):
         rep = RepeatableTransaction()
@@ -158,8 +157,6 @@ class RepeatableTransactionCreateTransactionTest(TestCase):
         rep.user_id = 1
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 10)
-
-        rep.save()
 
         transaction = rep.create_transaction(
             value=Decimal(50)
@@ -183,7 +180,5 @@ class RepeatableTransactionCreateTransactionTest(TestCase):
         rep.user_id = 1
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 10)
-
-        rep.save()
 
         self.assertRaises(ValueError, rep.create_transaction)
