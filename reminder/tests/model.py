@@ -28,3 +28,29 @@ class RepeatableTransactionTest(TestCase):
         self.assertEquals(transaction.date, datetime.date.today())
         self.assertEquals(transaction.category.id, rep.category.id)
         self.assertEquals(transaction.user.id, rep.user.id)
+
+    def test_overrides(self):
+        rep = RepeatableTransaction()
+        rep.value = Decimal('-10')
+        rep.description = 'a simple repeatition'
+        rep.category_id = 1
+        rep.user_id = 1
+        rep.repeat = 'weekly'
+        rep.last_date = datetime.date(2010, 10, 10)
+
+        rep.save()
+
+        transaction = rep.create_transaction(
+            value=Decimal(50)
+        )
+        self.assertEquals(transaction.value, Decimal(50))
+
+        transaction = rep.create_transaction(
+            description='overriden'
+        )
+        self.assertEquals(transaction.description, 'overriden')
+
+        transaction = rep.create_transaction(
+            date=datetime.date(2010, 10, 11)
+        )
+        self.assertEquals(transaction.date, datetime.date(2010, 10, 11))

@@ -36,13 +36,14 @@ class RepeatableTransaction(models.Model):
         help_text=_('The owner of this transaction.')
     )
     
-    def create_transaction(self):
+    def create_transaction(self, **kwargs):
         entry = Entry()
         entry.category = self.category
-        entry.date = datetime.date.today()
         entry.user = self.user
-        entry.description = self.description
-        entry.value = self.value
+
+        entry.date = kwargs.get('date', datetime.date.today())
+        entry.description = kwargs.get('description', self.description)
+        entry.value = kwargs.get('value', self.value)
 
         return entry
 
