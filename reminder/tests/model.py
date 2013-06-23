@@ -1,9 +1,21 @@
+import mock
 import datetime
 from decimal import Decimal
 
 from django.test import TestCase
 
 from reminder.models import RepeatableTransaction
+
+
+class RepeatableTransactionQuerysetTest(TestCase):
+    fixtures = ['RepeatableTransactionQuerysetTest']
+
+    @mock.patch('reminder.models.datetime')
+    def test_simple(self, dt):
+        dt.date.today.return_value = datetime.date(2010, 10, 5)
+
+        reps = RepeatableTransaction.objects.get_on_warning_range()
+        self.assertEquals([r.id for r in reps], [1, 2])
 
 
 class RepeatableTransactionDueDateTest(TestCase):

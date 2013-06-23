@@ -2,11 +2,30 @@ import datetime
 from dateutils import relativedelta
 
 from django.db import models
+from django.db.models.query import QuerySet
 from django.utils.translation import gettext_noop, ugettext_lazy as _
 
 from expenses.models import Entry, Category
 
+
+
+class RepeatableTransactionQueryset(QuerySet):
+    def get_on_warning_range(self, *args, **kwargs):
+        start = datetime.date.today() + relativedelta(days=5)
+        return self.filter(_last_date__lte=start, *args, **kwargs)
+
+
+class RepeatableTransactionManager(models.Manager):
+    def get_query_set(self):
+        return RepeatableTransactionQueryset(self.model)
+
+    def get_on_warning_range(self, *args, **kwargs):
+        return self.get_query_set().get_on_warning_range(*args, **kwargs)
+
+
 class RepeatableTransaction(models.Model):
+    objects = RepeatableTransactionManager()
+
     value = models.DecimalField(_('value'),
         decimal_places=2,
         max_digits=7,

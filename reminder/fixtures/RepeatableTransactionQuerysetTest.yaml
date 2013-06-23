@@ -1,0 +1,53 @@
+########
+# USER #
+########
+
+-   model: access.user
+    pk: 1
+    fields:
+        email: user1@expenses.com
+        password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
+        date_joined: "2010-02-02 00:00:00-03:00"
+
+
+############
+# CATEGORY #
+############
+
+-   model: expenses.category
+    pk: 1
+    fields:
+        user: 1
+        name: Groceries
+
+
+##########################
+# REPEATABLE TRANSACTION #
+##########################
+
+-   model: reminder.repeatabletransaction
+    pk: 1
+    fields:
+        user: 1
+        category: 1
+        value: -50
+        _last_date: 2010-10-09
+        _day_of_month: 30
+
+-   model: reminder.repeatabletransaction
+    pk: 2
+    fields:
+        user: 1
+        category: 1
+        value: -50
+        _last_date: 2010-10-10
+        _day_of_month: 30
+
+-   model: reminder.repeatabletransaction
+    pk: 3
+    fields:
+        user: 1
+        category: 1
+        value: -50
+        _last_date: 2010-10-11
+        _day_of_month: 30
