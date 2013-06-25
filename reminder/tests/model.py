@@ -19,7 +19,7 @@ class RepeatableTransactionQuerysetTest(TestCase):
 
 
 class RepeatableTransactionDueDateTest(TestCase):
-    def test_due_weekly(self):
+    def test_due_date_weekly(self):
         '''
         Must advance 7 days.
         '''
@@ -27,9 +27,9 @@ class RepeatableTransactionDueDateTest(TestCase):
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 10)
 
-        self.assertEquals(rep.due, datetime.date(2010, 10, 17))
+        self.assertEquals(rep.due_date, datetime.date(2010, 10, 17))
 
-    def test_due_weekly_crossing_month(self):
+    def test_due_date_weekly_crossing_month(self):
         '''
         Must advance 7 days.
         '''
@@ -37,9 +37,9 @@ class RepeatableTransactionDueDateTest(TestCase):
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 25)
 
-        self.assertEquals(rep.due, datetime.date(2010, 11, 01))
+        self.assertEquals(rep.due_date, datetime.date(2010, 11, 01))
 
-    def test_due_monthly(self):
+    def test_due_date_monthly(self):
         '''
         Must advance 30 days.
         '''
@@ -47,9 +47,9 @@ class RepeatableTransactionDueDateTest(TestCase):
         rep.repeat = 'monthly'
         rep.last_date = datetime.date(2010, 10, 10)
 
-        self.assertEquals(rep.due, datetime.date(2010, 11, 10))
+        self.assertEquals(rep.due_date, datetime.date(2010, 11, 10))
 
-    def test_due_fortnightly(self):
+    def test_due_date_fortnightly(self):
         '''
         Must advance 2 weeks.
         '''
@@ -57,9 +57,9 @@ class RepeatableTransactionDueDateTest(TestCase):
         rep.repeat = 'biweekly'
         rep.last_date = datetime.date(2010, 10, 10)
 
-        self.assertEquals(rep.due, datetime.date(2010, 10, 24))
+        self.assertEquals(rep.due_date, datetime.date(2010, 10, 24))
 
-    def test_due_daily(self):
+    def test_due_date_daily(self):
         '''
         Must advance 2 weeks twice.
         '''
@@ -67,7 +67,7 @@ class RepeatableTransactionDueDateTest(TestCase):
         rep.repeat = 'daily'
         rep.last_date = datetime.date(2010, 10, 10)
 
-        self.assertEquals(rep.due, datetime.date(2010, 10, 11))
+        self.assertEquals(rep.due_date, datetime.date(2010, 10, 11))
 
 
 class RepeatableTransactionLastDateTest(TestCase):
