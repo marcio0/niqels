@@ -21,6 +21,7 @@ from api.authorization import UserObjectsOnlyAuthorization
 from api.validation import EntryApiForm
 from expenses import random_color
 from expenses.calculator import AverageCalculator
+from reminder.models import RepeatableTransaction
 
 from babel.numbers import parse_decimal
 
@@ -171,6 +172,17 @@ class TransactionResource(ModelResource):
 
         return bundle
 
-    #def dehydrate_category(self, bundle):
-    #    return bundle.obj.category.name
 
+class ReminderResource(TransactionResource):
+    due_date = fields.DateField('due')
+
+    class Meta:
+        queryset = RepeatableTransaction.objects.all()
+        always_return_data = True
+        fields = []
+        excludes = ['user', '_last_date', '_day_of_month', 'date']
+        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
+        authorization = UserObjectsOnlyAuthorization()
+        #validation = FormValidation(form_class=EntryApiForm)
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
