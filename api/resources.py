@@ -174,7 +174,7 @@ class TransactionResource(ModelResource):
 
 
 class ReminderResource(TransactionResource):
-    due_date = fields.DateField('due')
+    due_date = fields.DateField('due_date')
 
     class Meta:
         queryset = RepeatableTransaction.objects.all()
