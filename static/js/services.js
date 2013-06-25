@@ -1,5 +1,17 @@
 angular.module('models', ['ngResource'])
-    .factory('Transaction', function($resource, $cacheFactory){
+
+    .factory('Reminder', ['$resource', function($resource){
+        var Reminder = $resource('/api/v1/reminder/:id', {}, {
+            get: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        return Reminder;
+    }])
+
+    .factory('Transaction', ['$resource', function($resource){
         var Transaction = $resource('/api/v1/transaction/:id', {}, {
             get: {
                 method: 'GET',
@@ -8,9 +20,9 @@ angular.module('models', ['ngResource'])
         });
 
         return Transaction;
-    })
+    }])
 
-    .factory('Category', function($resource, $cacheFactory){
+    .factory('Category', ['$resource', '$cacheFactory', function($resource, $cacheFactory){
 
         var cache = $cacheFactory('Category');
         var Category = $resource('/api/v1/category/:id', {}, {
@@ -50,10 +62,10 @@ angular.module('models', ['ngResource'])
         };
 
         return Category;
-    });
+    }]);
 
 angular.module('interceptor', []).
-    factory('sessionInterceptor', function($q, $window) {
+    factory('sessionInterceptor', ['$q', '$window', function($q, $window) {
         return function(promise) {
             return promise.then(null, function(response) {
                 if (response.status === 401) {
@@ -62,4 +74,4 @@ angular.module('interceptor', []).
                 return $q.reject(response);
             });
         };
-    }); 
+    }]); 

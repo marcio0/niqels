@@ -7,17 +7,16 @@
     {% include "webapp/forms/entry.html" %}
 </div>
 
-<div class="span6" ng-controller="TransactionListCtrl">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+<div class="span6">
 
-    <div class="well">
+    <div ng-show="reminders.length" ng-controller="RemindersCtrl">
+        <div ng-repeat="reminder in reminders">
+            <span ex-category="reminder.category"></span>
+        </div>
+        
+    </div>
+
+    <div class="well" ng-controller="TransactionListCtrl">
          
         <h4 class="panel-title">{% trans "Transactions" %}</h4>
 
