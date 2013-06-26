@@ -28,7 +28,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
 
             // grouping the entries by day
             var days = {};
-            for (var i in transactions) {
+            for (var i=0; i < transactions.length; i++) {
                 var transaction = transactions[i];
 
                 if (!(transaction.date in days)) {

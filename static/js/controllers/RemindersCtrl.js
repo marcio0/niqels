@@ -2,11 +2,9 @@
 
 function RemindersCtrl ($scope, $rootScope, Reminder) {
     $scope.reminders = [];
-
-    Reminder.get().$then(function (result) {
-        $scope.reminders  = result.data.objects;
-
-    }).always(function () {});
+    Reminder.query().$then(function (result) {
+        $scope.reminders = result.resource;
+    });
 }
 
 RemindersCtrl.$inject = ['$scope', '$rootScope', 'Reminder'];

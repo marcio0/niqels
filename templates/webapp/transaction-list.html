@@ -10,9 +10,12 @@
 <div class="span6">
 
     <div ng-show="reminders.length" ng-controller="RemindersCtrl">
-        <div ng-repeat="reminder in reminders">
+        {% verbatim %}
+        <div ng-repeat="reminder in reminders" class="well" style="padding-left: 10px; padding-right: 10px; margin-bottom: 5px;">
+            <p>This transaction is due in {{reminder.remainingDays()}} days. Please confirm, edit or cancel this transaction.</p>
             <span ex-category="reminder.category"></span>
         </div>
+        {% endverbatim %}
         
     </div>
 

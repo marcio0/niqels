@@ -21,6 +21,22 @@ angular.module('models', ['ngResource'])
             }
         });
 
+        function parseDate(input) {
+            // this is ugly, but needed for now
+            var parts = input.split('-');
+            // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+            return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
+        }
+
+        Reminder.prototype.remainingDays = function () {
+            var today = new Date(),
+                dueDate = parseDate(this.due_date),
+                diff = today - dueDate;
+                
+                diff = diff / 1000 / 60 / 60 / 24;
+            return diff;
+        };
+
         return Reminder;
     }])
 
@@ -33,13 +49,10 @@ angular.module('models', ['ngResource'])
             }
         });
 
-        Transaction.prototype.TESTE = function () {};
-
         return Transaction;
     }])
 
     .factory('Category', ['$resource', '$cacheFactory', '$http', function($resource, $cacheFactory, $http){
-
         var cache = $cacheFactory('Category');
         var Category = $resource('/api/v1/category/:id', {}, {
             query: {
