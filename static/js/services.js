@@ -22,9 +22,13 @@ angular.module('models', ['ngResource'])
         });
 
         Reminder.prototype.remainingDays = function () {
+            /*
             var today = moment(),
                 dueDate = moment(this.due_date);
             return dueDate.diff(today, 'days');
+            */
+            var dueDate = moment(this.due_date);
+            return dueDate.fromNow();
         };
 
         return Reminder;

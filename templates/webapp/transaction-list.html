@@ -12,8 +12,15 @@
     <div ng-show="reminders.length" ng-controller="RemindersCtrl">
         {% verbatim %}
         <div ng-repeat="reminder in reminders" class="well" style="padding-left: 10px; padding-right: 10px; margin-bottom: 5px;">
-            <p>This transaction is due in {{reminder.remainingDays()}} days. Please confirm, edit or cancel this transaction.</p>
+            <p>This transaction is due {{reminder.remainingDays()}}. Please confirm, edit or cancel this transaction.</p>
             <span ex-category="reminder.category"></span>
+            <span ex-currency ex-currency-value="reminder.value"></span>
+            <div class="btn-group">
+                <button class="btn btn-small"><i class="icon-ok-sign"></i> Confirm</button>
+                <button class="btn btn-small"><i class="icon-edit-sign"></i> Edit</button>
+                <button class="btn btn-small"><i class="icon-remove-sign"></i> Cancel</button>
+            </div>
+
         </div>
         {% endverbatim %}
         
