@@ -2,8 +2,8 @@
 
 function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     $scope.days = [];
-    $rootScope.month = new Date().getMonth();
-    $rootScope.filterDate = new Date();
+    $rootScope.month = moment().month()
+    $rootScope.filterDate = new Date(); //used by
     $scope.loading = false;
 
     var filterTransactions = function (value) {
@@ -11,15 +11,12 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
 
         $scope.loading = true;
 
-        start = value;
-        start.setDate(1);
-
-        // somehow this sets to the last day of the month
-        end = new Date(start.getFullYear(), start.getMonth()+1, 0);
+        start = value.startOf('month');
+        end = moment(start).endOf('month');
 
         filter = {
-            date__gte: $filter('date')(start, 'yyyy-MM-dd'),
-            date__lte: $filter('date')(end, 'yyyy-MM-dd')
+            date__gte: start.format('YYYY-MM-D'),
+            date__lte: end.format('YYYY-MM-D')
         };
 
         Transaction.query(filter).$then(function (result) {
@@ -49,8 +46,9 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     };
 
     $scope.$watch('filterDate', function (newValue) {
-        $rootScope.month = newValue.getMonth();
-        filterTransactions(newValue);
+        var date = moment(newValue);
+        $rootScope.month = date.month();
+        filterTransactions(date);
     });
 
     $rootScope.$on('transactionCreated', function (event, data) {

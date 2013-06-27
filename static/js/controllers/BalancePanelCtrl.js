@@ -2,17 +2,17 @@
 
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
     $scope.updateBalance = function () {
-        var today = new Date();
+        var today = moment();
         var date;
 
-        if ($rootScope.month == today.getMonth()) {
+        if ($rootScope.month == today.month()) {
             date = today;
         }
         else {
-            date = new Date(today.getFullYear(), $rootScope.month+1, 0);
+            date = today.endOf('month');
         }
 
-        date = $filter('date')(date, 'yyyy-MM-dd');
+        date = date.format('YYYY-MM-D');
 
         $http.get('/api/v1/data/balance/?date=' + date).then(function (result) {
             $scope.balance_data = result.data;
