@@ -1,34 +1,51 @@
+'use strict'
+
+var tastypieDataTransformer = function ($http) {
+    return $http.defaults.transformResponse.concat([
+        function (data, headersGetter) {
+            var result = data.objects;
+            result.meta = data.meta;
+            return result;
+        }
+    ])
+};
+
 angular.module('models', ['ngResource'])
 
-    .factory('Reminder', ['$resource', function($resource){
+    .factory('Reminder', ['$resource', '$http', function($resource, $http){
         var Reminder = $resource('/api/v1/reminder/:id', {}, {
-            get: {
+            query: {
                 method: 'GET',
-                isArray: false
+                isArray: true,
+                transformResponse: tastypieDataTransformer($http)
             }
         });
 
         return Reminder;
     }])
 
-    .factory('Transaction', ['$resource', function($resource){
+    .factory('Transaction', ['$resource', '$http', function($resource, $http){
         var Transaction = $resource('/api/v1/transaction/:id', {}, {
-            get: {
+            query: {
                 method: 'GET',
-                isArray: false
+                isArray: true,
+                transformResponse: tastypieDataTransformer($http)
             }
         });
+
+        Transaction.prototype.TESTE = function () {};
 
         return Transaction;
     }])
 
-    .factory('Category', ['$resource', '$cacheFactory', function($resource, $cacheFactory){
+    .factory('Category', ['$resource', '$cacheFactory', '$http', function($resource, $cacheFactory, $http){
 
         var cache = $cacheFactory('Category');
         var Category = $resource('/api/v1/category/:id', {}, {
-            get: {
+            query: {
                 method: 'GET',
-                isArray: false
+                isArray: true,
+                transformResponse: tastypieDataTransformer($http)
             }
         });
 

@@ -22,9 +22,9 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
             date__lte: $filter('date')(end, 'yyyy-MM-dd')
         };
 
-        Transaction.get(filter).$then(function (result) {
+        Transaction.query(filter).$then(function (result) {
             $scope.days = [];
-            var transactions = result.data.objects;
+            var transactions = result.resource;
 
             // grouping the entries by day
             var days = {};
