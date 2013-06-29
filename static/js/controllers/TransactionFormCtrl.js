@@ -35,8 +35,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             }
         }
     };
-
-    $('[name="entryform"]').affix({offset: 40});
 }
 
 TransactionFormCtrl.$inject = ['$scope', '$element', '$http', '$rootScope', 'Transaction', 'Category'];
