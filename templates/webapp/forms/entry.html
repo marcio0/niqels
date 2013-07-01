@@ -8,83 +8,98 @@
 
     novalidate
     >
+
+    <fieldset>
     
-    <h4 class="panel-title">{% trans "New transaction" %}</h4>
+        <h4 class="panel-title">{% trans "New transaction" %}</h4>
 
-    <div class="control-group" ng-class="{error: errors.category}">
-        <div class="controls">
-            <div class="input-prepend input-block-level">
-                <span class="add-on"><i class="icon-tag"></i></span>
-                <input
-                    id="id_category"
-                    maxlength="200"
-                    name="category"
-                    type="text"
+        <div class="control-group" ng-class="{error: errors.category}">
+            <div class="controls">
+                <div class="input-prepend input-block-level">
+                    <span class="add-on"><i class="icon-tag"></i></span>
+                    <input
+                        id="id_category"
+                        maxlength="200"
+                        name="category"
+                        type="text"
 
-                    ng-model="transaction.category"
-                    ex-categoryfield
+                        ng-model="transaction.category"
+                        ex-categoryfield
 
-                    autofocus
-                    autocomplete="off"
+                        autofocus
+                        autocomplete="off"
 
-                    placeholder="{% trans "Category" %}"
-                    required
-                    />
-            </div>
+                        placeholder="{% trans "Category" %}"
+                        required
+                        />
+                </div>
 
-            <span class="help-block" ng-show="errors.category">Required</span>
-        </div>
-    </div>
-
-    <div class="control-group" ng-class="{error: errors.value}">
-        <div class="controls">
-            <div class="input-prepend input-block-level">
-                <span class="add-on">$</span>
-                <input
-                    id="id_value"
-                    name="value"
-                    type="text"
-
-                    ng-model="transaction.value"
-                    ex-valuefield
-
-                    autocomplete="off"
-                    placeholder="{% trans "Value" %}"
-                    required
-                    />
-            </div>
-
-            <span class="help-block" ng-show="errors.value">Required</span>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <div class="controls">
-            <div class="input-prepend input-block-level">
-                <span class="add-on"><i class="icon-pencil"></i></span>
-                <input
-                    id="id_description"
-                    maxlength="200"
-                    name="description"
-                    type="text"
-
-                    ng-model="transaction.description"
-
-                    placeholder="{% trans "Description (optional)" %}"
-                    autocomplete="off"
-                    />
+                <span class="help-block" ng-show="errors.category">Required</span>
             </div>
         </div>
-    </div>
 
-    <div class="control-group" ng-class="{error: errors.date}">
-        <div class="controls">
-            <div ex-datepicker="transaction.date">
+        <div class="control-group" ng-class="{error: errors.value}">
+            <div class="controls">
+                <div class="input-prepend input-block-level">
+                    <span class="add-on">$</span>
+                    <input
+                        id="id_value"
+                        name="value"
+                        type="text"
+
+                        ng-model="transaction.value"
+                        ex-valuefield
+
+                        autocomplete="off"
+                        placeholder="{% trans "Value" %}"
+                        required
+                        />
+                </div>
+
+                <span class="help-block" ng-show="errors.value">Required</span>
             </div>
-            <span class="help-block" ng-show="errors.date">Required</span>
         </div>
-    </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="input-prepend input-block-level">
+                    <span class="add-on"><i class="icon-pencil"></i></span>
+                    <input
+                        id="id_description"
+                        maxlength="200"
+                        name="description"
+                        type="text"
+
+                        ng-model="transaction.description"
+
+                        placeholder="{% trans "Description (optional)" %}"
+                        autocomplete="off"
+                        />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group" ng-class="{error: errors.date}">
+            <div class="controls">
+                <div ex-datepicker="transaction.date">
+                </div>
+                <span class="help-block" ng-show="errors.date">Required</span>
+            </div>
+        </div>
+    </fieldset>
 
     <button ng-click="submit()" ng-disabled="sending">{% trans "Submit" %}<i ng-show="sending" class="icon-spinner icon-spin icon-large"></i></button>
+
+    <label class="checkbox">
+        <input type="checkbox" ng-model="isRepeat">Repeat this transaction</input>
+    </label>
+
+    {% verbatim %}
+    <fieldset ng-show="isRepeat">
+        <select ng-model="transaction.repeat" ng-options="label for label in repeatOptions"></select>
+    </fieldset>
+    {% endverbatim %}
 </form>
+
+
 </div>

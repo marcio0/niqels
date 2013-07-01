@@ -19,6 +19,16 @@ var app = angular.module('webapp', ['models', 'interceptor'])
     .run(['$locale', function ($locale) {
         // configuring moment language based on angular's locale
         moment().lang($locale.id);
-    }]);
+    }])
+
+    .run(['$rootScope', function ($rootScope) {
+        // configuring global vars and scope
+        $rootScope.$on('transactionCreated', function (ev, transaction) {
+            if (user_categories.indexOf(transaction.category.name) == -1) {
+                //TODO: move this to somewhere else maybe
+                user_categories.push(transaction.category.name);
+            }
+        });
+    }])
 
     ;
