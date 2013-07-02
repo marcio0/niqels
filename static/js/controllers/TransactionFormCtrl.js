@@ -15,26 +15,45 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
         if (form.$invalid) {
             $scope.errors.category = form.category.$error.required;
             $scope.errors.value = form.value.$error.required;
+            $scope.errors.repeat = form.repeat.$error.required;
         }
         else {
             $scope.sending = true;
             $scope.errors = {};  // clears invalid state
 
             /*
-                se for reminder:
-                salvar reminder;
+                se for reminder: OK
+                salvar reminder; OK
                 chamar create_transaction na api de reminder;
-                chamar mesmo callback de transacion.save;
+                chamar mesmo callback de transacion.save; OK
             */
+            var cls = null,
+                cb = null;
 
-            Transaction.save(transaction_data)
-                .$then(function (value) {
+            if ($scope.isRepeat) {
+                transaction_data.due_date = transaction_data.date;
+                $scope.isRepeat = false;
+                cls = Reminder;
+                cb = function (value) {
+                    $rootScope.$broadcast('reminderCreated', value.resource);
+                    return value;
+                };
+            }
+            else {
+                cls = Transaction;
+                cb = function (value) {
                     $rootScope.$broadcast('transactionCreated', value.resource);
+                    return value;
+                };
+            }
 
-                    // clears the form
+            cls.save(transaction_data)
+                .$then(function (value) {
                     $scope.transaction = {};
                     form.$setPristine();
+                    return value;
                 })
+                .then(cb)
                 .always(function () {
                     $scope.sending = false;
                 });

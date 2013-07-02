@@ -48,11 +48,11 @@
                         type="text"
 
                         ng-model="transaction.value"
+                        ng-required="!isRepeat"
                         ex-valuefield
 
                         autocomplete="off"
                         placeholder="{% trans "Value" %}"
-                        required
                         />
                 </div>
 
@@ -88,17 +88,22 @@
         </div>
     </fieldset>
 
-    <button ng-click="submit()" ng-disabled="sending">{% trans "Submit" %}<i ng-show="sending" class="icon-spinner icon-spin icon-large"></i></button>
-
     <label class="checkbox">
         <input type="checkbox" ng-model="isRepeat">Repeat this transaction</input>
     </label>
 
     {% verbatim %}
     <fieldset ng-show="isRepeat">
-        <select ng-model="transaction.repeat" ng-options="label for label in repeatOptions"></select>
+        <div class="control-group" ng-class="{error: errors.repeat}">
+            <div class="controls">
+                <select name="repeat" ng-model="transaction.repeat" ng-options="label for label in repeatOptions" ng-required="isRepeat"></select>
+                <span class="help-block" ng-show="errors.repeat">Required</span>
+            </div>
+        </div>
     </fieldset>
     {% endverbatim %}
+
+    <button ng-click="submit()" ng-disabled="sending">{% trans "Submit" %}<i ng-show="sending" class="icon-spinner icon-spin icon-large"></i></button>
 </form>
 
 
