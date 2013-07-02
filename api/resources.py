@@ -18,7 +18,7 @@ from expenses.forms import CategoryForm
 from access.forms import UserCreationForm
 from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
-from api.validation import EntryApiForm
+from api.validation import EntryApiForm, RepeatableTransactionApiForm
 from expenses import random_color
 from expenses.calculator import AverageCalculator
 from reminder.models import RepeatableTransaction
@@ -173,16 +173,71 @@ class TransactionResource(ModelResource):
         return bundle
 
 
-class ReminderResource(TransactionResource):
-    due_date = fields.DateField('due_date')
+class ReminderResource(ModelResource):
+    repeat = fields.CharField('repeat', blank=False, null=False)
+    due_date = fields.DateField('due_date', blank=False, null=False)
+    category = fields.ForeignKey(CategoryResource, 'category', full=True)
 
     class Meta:
         queryset = RepeatableTransaction.objects.all()
         always_return_data = True
-        fields = []
-        excludes = ['user', '_last_date', '_day_of_month', 'date']
+        excludes = ['user', '_last_date', '_day_of_month', 'date', 'due_date']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
-        #validation = FormValidation(form_class=EntryApiForm)
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
+        validation = FormValidation(form_class=RepeatableTransactionApiForm)
+        list_allowed_methods = ['get', 'post']
+        detail_allowed_methods = ['get', 'delete']
+
+    def obj_create(self, bundle, **kwargs):
+        return super(ReminderResource, self).obj_create(bundle, user=bundle.request.user)
+
+    def put_detail(self, *args, **kwargs):
+        return http.HttpNotImplemented()
+
+    def hydrate(self, bundle):
+        '''
+        Repeat must be set before everything else because of the due_date and last_date properties that depends on it.
+        '''
+        repeat = bundle.data.get('repeat')
+
+        if not repeat:
+            raise BadRequest
+
+        bundle.obj.repeat = repeat
+        return bundle
+
+    def hydrate_due_date(self, bundle):
+        due_date = bundle.data.get('due_date')
+
+        if not due_date:
+            raise BadRequest
+
+        return bundle
+
+    def hydrate_value(self, bundle):
+        value = bundle.data.get('value', None)
+
+        if value:
+            bundle.data['value'] = parse_decimal(value, locale=bundle.request.locale)
+
+        return bundle
+
+    def hydrate_category(self, bundle):
+        # TODO: unnittest this
+        category_name = bundle.data.get('category', None)
+
+        if not category_name:
+            bundle.data['category'] = category_name
+            return bundle
+
+        category_name = category_name.strip()
+
+        category, _ = Category.objects.get_or_create(
+            name=category_name,
+            user=bundle.request.user,
+            defaults={'color': random_color()}
+        )
+
+        bundle.data['category'] = category
+
+        return bundle

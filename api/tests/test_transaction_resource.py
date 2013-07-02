@@ -8,6 +8,7 @@ from expenses.models import Entry, Category
 
 class TransactionResourceTest(ResourceTestCase):
     fixtures = ['TransactionResourceTest']
+
     def setUp(self):
         super(TransactionResourceTest, self).setUp()
 

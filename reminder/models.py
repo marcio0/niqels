@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 from dateutils import relativedelta
 
 from django.db import models
@@ -28,7 +29,7 @@ class RepeatableTransaction(models.Model):
     value = models.DecimalField(_('value'),
         decimal_places=2,
         max_digits=7,
-        blank=True, null=True,
+        default=Decimal(),
         help_text=_('The monetary value of this transaction. Accepts decimal values. Optional.')
     )
     description = models.TextField(_('description'),
@@ -67,8 +68,7 @@ class RepeatableTransaction(models.Model):
 
     last_date = property(get_last_date, set_last_date)
 
-    @property
-    def due_date(self):
+    def get_due_date(self):
         PERIODS = {
             'daily': {'days': 1},
             'weekly': {'weeks': 1},
@@ -81,6 +81,23 @@ class RepeatableTransaction(models.Model):
             delta += relativedelta(day=self._day_of_month)
 
         return self.last_date + delta
+
+    def set_due_date(self, due_date):
+
+        PERIODS = {
+            'daily': {'days': 1},
+            'weekly': {'weeks': 1},
+            'biweekly': {'weeks': 2},
+            'monthly': {'months': 1}
+        }
+        delta = relativedelta(**PERIODS[self.repeat])
+
+        if self.repeat is 'monthly':
+            delta += relativedelta(day=self._day_of_month)
+
+        self.last_date = due_date - delta
+
+    due_date = property(get_due_date, set_due_date)
 
     def update_last_date(self):
         self._last_date = self.due_date
