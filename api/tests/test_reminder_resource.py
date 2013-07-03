@@ -1,10 +1,112 @@
 import datetime
+import mock
 
 from tastypie.test import ResourceTestCase
 
 from access.models import User
 from expenses.models import Entry, Category
 from reminder.models import RepeatableTransaction
+
+
+class ReminderCreateTransactionResourceTest(ResourceTestCase):
+    fixtures = ['ReminderCreateTransactionResourceTest']
+
+    def setUp(self):
+        super(ReminderCreateTransactionResourceTest, self).setUp()
+
+        # Create a user.
+        self.email = 'user@example.com'
+        self.password = 'password'
+        self.user = User.objects.create_user(self.email, self.password)
+
+        self.reminder = RepeatableTransaction.objects.get(pk=1)
+
+        self.detail_url = '/api/v1/reminder/{0}'.format(self.reminder.id)
+
+    def get_credentials(self):
+        '''
+        Get the credentials for basic http authentication.
+        '''
+        return self.create_basic(username=self.email, password=self.password)
+
+    def test_create_transaction_no_data(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder, and update the reminder's last_date.
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data={}, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+                },
+            u'description': u'',
+            u'value': u'50',
+            u'date': today,
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_passing_date(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder, and update the reminder's last_date.
+        If a date is informed, use it instead of today().
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'date': '2010-03-10'
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'',
+            u'value': u'50',
+            u'date': data['date'],
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
 
 class ReminderResourceTest(ResourceTestCase):

@@ -1,6 +1,7 @@
 import datetime
 import calendar
 
+import django
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.resources import ModelResource, Resource
 from tastypie.validation import FormValidation, CleanedDataFormValidation
@@ -8,10 +9,11 @@ from tastypie import fields
 from tastypie import http
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
 from tastypie.authorization import Authorization
-from tastypie.utils import trailing_slash
+from tastypie.utils import trailing_slash, dict_strip_unicode_keys
 from tastypie.exceptions import BadRequest
 from django.conf.urls import url
 from django.core.urlresolvers import NoReverseMatch
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 from expenses.models import Entry, Category
 from expenses.forms import CategoryForm
@@ -186,13 +188,33 @@ class ReminderResource(ModelResource):
         authorization = UserObjectsOnlyAuthorization()
         validation = FormValidation(form_class=RepeatableTransactionApiForm)
         list_allowed_methods = ['get', 'post']
-        detail_allowed_methods = ['get', 'delete']
+        detail_allowed_methods = ['get', 'delete', 'post']
 
     def obj_create(self, bundle, **kwargs):
         return super(ReminderResource, self).obj_create(bundle, user=bundle.request.user)
 
-    def put_detail(self, *args, **kwargs):
-        return http.HttpNotImplemented()
+    def post_detail(self, request, **kwargs):
+        # this comes from get_detail:
+        basic_bundle = self.build_bundle(request=request)
+
+        try:
+            obj = self.cached_obj_get(bundle=basic_bundle, **self.remove_api_resource_names(kwargs))
+        except ObjectDoesNotExist:
+            return http.HttpNotFound()
+        except MultipleObjectsReturned:
+            return http.HttpMultipleChoices("More than one resource is found at this URI.")
+
+        # this is original code:
+        transaction = obj.create_transaction()
+        transaction.save()
+        
+        # this comes from post_detail:
+        transaction_resource = TransactionResource()
+        bundle = transaction_resource.build_bundle(obj=transaction, request=request)
+        bundle = transaction_resource.full_dehydrate(bundle)
+        bundle = transaction_resource.alter_detail_data_to_serialize(request, bundle)
+        location = self.get_resource_uri(bundle)
+        return transaction_resource.create_response(request, bundle, response_class=http.HttpCreated, location=location)
 
     def hydrate(self, bundle):
         '''
