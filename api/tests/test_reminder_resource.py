@@ -29,6 +29,30 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         '''
         return self.create_basic(username=self.email, password=self.password)
 
+    # Detail tests: DELETE
+    def test_create_detail_unauthorized(self):
+        '''
+        Must be authenticated to create a transaction.
+        '''
+        self.assertHttpUnauthorized(self.api_client.post('/api/v1/reminder/1', format='json'))
+
+    def test_create_transaction_update_last_date(self):
+        '''
+        Testing a post to the detail endpoint.
+        The reminder's _last_date and _day_of_month must update accordingly to the repeat interval.
+        '''
+
+        reminder = RepeatableTransaction.objects.get(pk=1)
+        self.assertEquals(reminder._last_date, datetime.date(2010, 1, 3))
+        self.assertEquals(reminder._day_of_month, 3)
+
+        # Check how many are there first.
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data={}, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        reminder = RepeatableTransaction.objects.get(pk=1)
+        self.assertEquals(reminder.last_date, datetime.date(2010, 1, 4))
+
     def test_create_transaction_no_data(self):
         '''
         Testing a post to the detail endpoint.
@@ -55,7 +79,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
                 u'name': u'groceries',
                 u'color': u'#999999'
                 },
-            u'description': u'',
+            u'description': u'some stuff',
             u'value': u'50',
             u'date': today,
             u'id': 1,
@@ -72,9 +96,6 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         Must create a new transaction based on this reminder, and update the reminder's last_date.
         If a date is informed, use it instead of today().
         '''
-
-        # alternative to mocking datetime.date
-        today = datetime.date.today().strftime('%Y-%m-%d')
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
@@ -97,9 +118,303 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
                 u'name': u'groceries',
                 u'color': u'#999999'
             },
-            u'description': u'',
+            u'description': u'some stuff',
             u'value': u'50',
             u'date': data['date'],
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_passing_date_null(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder.
+        If date is null, uses today().
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'date': None
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'some stuff',
+            u'value': u'50',
+            u'date': today,
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_passing_value(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder.
+        If a value is informed, use it instead of the reminder's value.
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'value': '3.14'
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'some stuff',
+            u'value': u'3.14',
+            u'date': today,
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_passing_value_null(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder.
+        If value is null, use the reminder's value.
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'value': None
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'some stuff',
+            u'value': u'50',
+            u'date': today,
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_category_is_immutable(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder, and update the reminder's last_date.
+        The category cannot be changed.
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'category': 'new'
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'some stuff',
+            u'value': u'50',
+            u'date': today,
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_passing_description(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder.
+        If a description is informed, use it instead of the reminder's description.
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'description': 'something new'
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'something new',
+            u'value': u'50',
+            u'date': today,
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_passing_description_null(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder.
+        If description is null, use the reminder's description.
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'description': None
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'some stuff',
+            u'value': u'50',
+            u'date': today,
+            u'id': 1,
+            u'resource_uri': u'/api/v1/transaction/1'
+        })
+
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+
+    def test_create_transaction_passing_description_empty(self):
+        '''
+        Testing a post to the detail endpoint.
+        Must create a new transaction based on this reminder.
+        If description is empty, use it as is.
+        '''
+
+        # alternative to mocking datetime.date
+        today = datetime.date.today().strftime('%Y-%m-%d')
+
+        # Check how many are there first.
+        self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
+        
+        data = {
+            'description': ''
+        }
+
+        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'category': {
+                u'resource_uri': u'/api/v1/category/1',
+                u'id': 1,
+                u'name': u'groceries',
+                u'color': u'#999999'
+            },
+            u'description': u'',
+            u'value': u'50',
+            u'date': today,
             u'id': 1,
             u'resource_uri': u'/api/v1/transaction/1'
         })
@@ -126,7 +441,8 @@ class ReminderResourceTest(ResourceTestCase):
             'due_date': '2010-03-03',
             'value': '40',
             'category': 'STUFF',
-            'repeat': 'monthly'
+            'repeat': 'monthly',
+            'description': 'some stuff'
         }
 
         self.detail_url = '/api/v1/reminder/{0}'.format(self.reminder.id)
@@ -175,7 +491,7 @@ class ReminderResourceTest(ResourceTestCase):
         self.assertEqual(self.deserialize(resp)['objects'][0], {
             u'id': self.reminder.pk,
             u'due_date': unicode(self.reminder.due_date),
-            u'description': u'',
+            u'description': u'some stuff',
             u'value': unicode(self.reminder.value),
             u'repeat': unicode(self.reminder.repeat),
             u'resource_uri': u'/api/v1/reminder/%d' % self.reminder.id,
@@ -217,7 +533,7 @@ class ReminderResourceTest(ResourceTestCase):
                 u'name': u'STUFF',
                 u'color': u'#999999'
             },
-            u'description': u'',
+            u'description': u'some stuff',
             u'value': u'40.0',
             u'due_date': u'2010-03-03',
             u'id': 4,
@@ -253,7 +569,7 @@ class ReminderResourceTest(ResourceTestCase):
                 u'id': 4,
                 u'name': u'new'
             },
-            u'description': u'',
+            u'description': u'some stuff',
             u'value': u'40.0',
             u'due_date': u'2010-03-03',
             u'repeat': 'monthly',
@@ -367,7 +683,7 @@ class ReminderResourceTest(ResourceTestCase):
         self.assertEqual(self.deserialize(resp), {
             u'id': self.reminder.pk,
             u'due_date': unicode(self.reminder.due_date),
-            u'description': u'',
+            u'description': u'some stuff',
             u'value': unicode(self.reminder.value),
             u'repeat': unicode(self.reminder.repeat),
             u'resource_uri': u'/api/v1/reminder/%d' % self.reminder.id,
@@ -387,14 +703,6 @@ class ReminderResourceTest(ResourceTestCase):
         detail_url = '/api/v1/reminder/3'
         resp = self.api_client.get(detail_url, format='json', authentication=self.get_credentials())
         self.assertHttpNotFound(resp)
-
-
-    # Detail tests: POST
-    def test_post_detail_not_allowed(self):
-        '''
-        Asserts the POST method is not allowed on the detail endpoint.
-        '''
-        self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json', authentication=self.get_credentials()))
 
 
     # Detail tests: PUT

@@ -204,11 +204,53 @@ class ReminderResource(ModelResource):
         except MultipleObjectsReturned:
             return http.HttpMultipleChoices("More than one resource is found at this URI.")
 
+        # this comes from post_list
+        if django.VERSION >= (1, 4):
+            body = request.body
+        else:
+            body = request.raw_post_data
+        deserialized = self.deserialize(request, body, format=request.META.get('CONTENT_TYPE', 'application/json'))
+        deserialized = self.alter_deserialized_detail_data(request, deserialized)
+        bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized), request=request)
+
         # this is original code:
         transaction = obj.create_transaction()
+
+        '''
+        Holy shit this is some ugly code!
+        It's necessary because the default flow of TransactionResource's hydrating was
+        raising BadRequestException.
+        So I go directly to it's fields and hydrating manually. Exceptions were supressed.
+        '''
+        transaction_resource = TransactionResource()
+        try:
+            # this is a bug on tastypie, django's DateField's are mapped to a api's DateTimeField://github.com/toastdriven/django-tastypie/issues/591:
+            # https://github.com/toastdriven/django-tastypie/issues/591
+            date = transaction_resource.fields['date'].hydrate(bundle).date()
+            if date:
+                transaction.date = date
+        except Exception, e:
+            pass
+
+        try:
+            value = transaction_resource.fields['value'].hydrate(bundle)
+            if value:
+                transaction.value = value
+        except Exception, e:
+            pass
+
+        try:
+            description = transaction_resource.fields['description'].hydrate(bundle)
+            if description is not None:
+                transaction.description = description
+        except Exception, e:
+            pass
+
         transaction.save()
+        obj.update_last_date()
+        obj.save()
         
-        # this comes from post_detail:
+        # this comes from post_list:
         transaction_resource = TransactionResource()
         bundle = transaction_resource.build_bundle(obj=transaction, request=request)
         bundle = transaction_resource.full_dehydrate(bundle)

@@ -19,6 +19,7 @@
         _last_date: '2010-01-03'
         _day_of_month: 03
         repeat: 'daily'
+        description: 'some stuff'
 
 -   model: reminder.RepeatableTransaction
     pk: 2
