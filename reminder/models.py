@@ -83,7 +83,6 @@ class RepeatableTransaction(models.Model):
         return self.last_date + delta
 
     def set_due_date(self, due_date):
-
         PERIODS = {
             'daily': {'days': 1},
             'weekly': {'weeks': 1},
@@ -95,7 +94,7 @@ class RepeatableTransaction(models.Model):
         if self.repeat is 'monthly':
             delta += relativedelta(day=self._day_of_month)
 
-        self.last_date = due_date - delta
+        self.last_date = due_date + (delta * -1)
 
     due_date = property(get_due_date, set_due_date)
 
