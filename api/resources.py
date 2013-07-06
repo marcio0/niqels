@@ -189,6 +189,9 @@ class ReminderResource(ModelResource):
         validation = FormValidation(form_class=RepeatableTransactionApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'delete', 'post']
+        filtering = {
+            'due_date': ALL
+        }
 
     def obj_create(self, bundle, **kwargs):
         return super(ReminderResource, self).obj_create(bundle, user=bundle.request.user)
