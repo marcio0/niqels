@@ -21,17 +21,13 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             $scope.sending = true;
             $scope.errors = {};  // clears invalid state
 
-            /*
-                se for reminder: OK
-                salvar reminder; OK
-                chamar create_transaction na api de reminder;
-                chamar mesmo callback de transacion.save; OK
-            */
             var cls = null,
                 cb = null;
 
             if ($scope.isRepeat) {
                 transaction_data.due_date = transaction_data.date;
+                debugger;
+                // forward the date
                 $scope.isRepeat = false;
                 cls = Reminder;
                 cb = function (value) {
