@@ -43,7 +43,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         '''
 
         reminder = RepeatableTransaction.objects.get(pk=1)
-        self.assertEquals(reminder._last_date, datetime.date(2010, 1, 3))
+        self.assertEquals(reminder._due_date, datetime.date(2010, 1, 3))
         self.assertEquals(reminder._day_of_month, 3)
 
         # Check how many are there first.
@@ -51,7 +51,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         reminder = RepeatableTransaction.objects.get(pk=1)
-        self.assertEquals(reminder.last_date, datetime.date(2010, 1, 4))
+        self.assertEquals(reminder.due_date, datetime.date(2010, 1, 4))
 
     def test_create_transaction_no_data(self):
         '''

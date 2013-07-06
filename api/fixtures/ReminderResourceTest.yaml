@@ -22,7 +22,7 @@
         value: 5
         category: 1
         user: 1
-        _last_date: '2010-01-03'
+        _due_date: '2010-01-03'
         _day_of_month: 03
         repeat: 'daily'
         description: some stuff
@@ -33,7 +33,7 @@
         value: 0
         category: 1
         user: 1
-        _last_date: '2010-01-03'
+        _due_date: '2010-01-03'
         _day_of_month: 03
         repeat: 'daily'
 
@@ -43,6 +43,6 @@
         value: 0
         category: 3
         user: 2
-        _last_date: '2010-01-03'
+        _due_date: '2010-01-03'
         _day_of_month: 03
         repeat: 'daily'

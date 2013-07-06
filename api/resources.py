@@ -48,9 +48,6 @@ class BalanceResource(Resource):
         date = GET.get('date', None)
         date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
 
-        #last_day = calendar.monthrange(date.year, date.month)[1]
-        #date = date.replace(day=last_day)
-
         return date
 
     def obj_get(self, bundle, **kwargs):
@@ -176,22 +173,19 @@ class TransactionResource(ModelResource):
 
 
 class ReminderResource(ModelResource):
-    repeat = fields.CharField('repeat', blank=False, null=False)
-    due_date = fields.DateField('due_date', blank=False, null=False)
+    repeat = fields.CharField('repeat')
     category = fields.ForeignKey(CategoryResource, 'category', full=True)
+    due_date = fields.CharField('_due_date')
 
     class Meta:
         queryset = RepeatableTransaction.objects.all()
         always_return_data = True
-        excludes = ['user', '_last_date', '_day_of_month', 'date', 'due_date']
+        excludes = ['user', '_day_of_month', '_due_date']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         validation = FormValidation(form_class=RepeatableTransactionApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'delete', 'post']
-        filtering = {
-            'due_date': ALL
-        }
 
     def obj_create(self, bundle, **kwargs):
         return super(ReminderResource, self).obj_create(bundle, user=bundle.request.user)
@@ -250,7 +244,7 @@ class ReminderResource(ModelResource):
             pass
 
         transaction.save()
-        obj.update_last_date()
+        obj.due_date = obj.next_due_date
         obj.save()
         
         # this comes from post_list:
@@ -260,26 +254,6 @@ class ReminderResource(ModelResource):
         bundle = transaction_resource.alter_detail_data_to_serialize(request, bundle)
         location = self.get_resource_uri(bundle)
         return transaction_resource.create_response(request, bundle, response_class=http.HttpCreated, location=location)
-
-    def hydrate(self, bundle):
-        '''
-        Repeat must be set before everything else because of the due_date and last_date properties that depends on it.
-        '''
-        repeat = bundle.data.get('repeat')
-
-        if not repeat:
-            raise BadRequest
-
-        bundle.obj.repeat = repeat
-        return bundle
-
-    def hydrate_due_date(self, bundle):
-        due_date = bundle.data.get('due_date')
-
-        if not due_date:
-            raise BadRequest
-
-        return bundle
 
     def hydrate_value(self, bundle):
         value = bundle.data.get('value', None)
