@@ -29,7 +29,7 @@ angular.module('models', ['ngResource'])
         Reminder.prototype.createReminder = function () {
             var deferred = $q.defer();
             var me = this;
-            //this.due_date = moment(this.due_date).add('month', 1).calendar()
+            this.due_date = moment(this.due_date).add('month', 1).calendar()
 
             this.$save({},
                 function success (reminder) {

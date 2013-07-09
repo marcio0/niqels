@@ -8,8 +8,7 @@ function RemindersCtrl ($scope, $rootScope, Reminder) {
             filter = {
                 'due_date__lte': range
             };
-        //Reminder.query(range).$then(function (result) {
-        Reminder.query().$then(function (result) {
+        Reminder.query(filter).$then(function (result) {
             $scope.reminders = result.resource;
         });
     }
