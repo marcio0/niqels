@@ -8,17 +8,19 @@ function RemindersCtrl ($scope, $rootScope, Reminder) {
             filter = {
                 'due_date__lte': range
             };
+        //Reminder.query(range).$then(function (result) {
         Reminder.query().$then(function (result) {
             $scope.reminders = result.resource;
         });
     }
+
+    $rootScope.$on('reminderCreated', loadReminders);
 
     $scope.createTransaction = function (reminder) {
         reminder.createTransaction().then(function (transaction) {
             $rootScope.$broadcast('transactionCreated', transaction);
             loadReminders();
         });
-
     };
 
     loadReminders();

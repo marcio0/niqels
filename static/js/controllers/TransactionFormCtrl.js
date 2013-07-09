@@ -22,37 +22,41 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             $scope.errors = {};  // clears invalid state
 
             var cls = null,
-                cb = null;
+                promise = null;
 
             if ($scope.isRepeat) {
                 transaction_data.due_date = transaction_data.date;
-                debugger;
-                // forward the date
+                var reminder = new Reminder(transaction_data);
+
+                promise = reminder.createReminder()
+                    .then(function (value) {
+                        $scope.transaction = {};
+                        form.$setPristine();
+                        return value;
+                    })
+                    .then(function (value) {
+                        $rootScope.$broadcast('reminderCreated', value.resource);
+                        return value;
+                    });
+
                 $scope.isRepeat = false;
-                cls = Reminder;
-                cb = function (value) {
-                    $rootScope.$broadcast('reminderCreated', value.resource);
-                    return value;
-                };
             }
             else {
-                cls = Transaction;
-                cb = function (value) {
-                    $rootScope.$broadcast('transactionCreated', value.resource);
-                    return value;
-                };
+                promise = Transaction.save(transaction_data)
+                    .$then(function (value) {
+                        $scope.transaction = {};
+                        form.$setPristine();
+                        return value;
+                    })
+                    .then(function (value) {
+                        $rootScope.$broadcast('transactionCreated', value.resource);
+                        return value;
+                    });
             }
 
-            cls.save(transaction_data)
-                .$then(function (value) {
-                    $scope.transaction = {};
-                    form.$setPristine();
-                    return value;
-                })
-                .then(cb)
-                .always(function () {
-                    $scope.sending = false;
-                });
+            promise.always(function () {
+                $scope.sending = false;
+            });
         }
     };
 }

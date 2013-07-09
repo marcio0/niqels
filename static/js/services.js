@@ -12,7 +12,7 @@ var tastypieDataTransformer = function ($http) {
 
 angular.module('models', ['ngResource'])
 
-    .factory('Reminder', ['$resource', '$http', 'Transaction', '$q', function($resource, $http, Transaction, $q){
+    .factory('Reminder', ['$resource', '$http', 'Transaction', '$q', '$rootScope', function($resource, $http, Transaction, $q, $rootScope){
         var Reminder = $resource('/api/v1/reminder/:id', {id: '@id'}, {
             query: {
                 method: 'GET',
@@ -24,6 +24,28 @@ angular.module('models', ['ngResource'])
         Reminder.prototype.remainingDays = function () {
             var dueDate = moment(this.due_date);
             return dueDate.fromNow();
+        };
+
+        Reminder.prototype.createReminder = function () {
+            var deferred = $q.defer();
+            var me = this;
+            //this.due_date = moment(this.due_date).add('month', 1).calendar()
+
+            this.$save({},
+                function success (reminder) {
+                    var promise = reminder.createTransaction()
+                        .then(function (transaction) {
+                            $rootScope.$broadcast('transactionCreated', transaction);
+                            return reminder;
+                        });
+                    deferred.resolve(promise);
+                },
+                function failure (result) {
+                    deferred.reject(result);
+                }
+            );
+
+            return deferred.promise;
         };
 
         Reminder.prototype.createTransaction = function () {
