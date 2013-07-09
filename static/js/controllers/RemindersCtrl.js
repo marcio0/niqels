@@ -4,7 +4,7 @@ function RemindersCtrl ($scope, $rootScope, Reminder) {
     $scope.reminders = [];
 
     function loadReminders () {
-        var range = moment().subtract('days', 5).format('YYYY-MM-DD'),
+        var range = moment().add('days', 5).format('YYYY-MM-DD'),
             filter = {
                 'due_date__lte': range
             };
