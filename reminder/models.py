@@ -78,7 +78,7 @@ class RepeatableTransaction(models.Model):
         entry.description = kwargs.get('description', self.description)
 
         entry.value = kwargs.get('value', self.value)
-        if not entry.value:
+        if entry.value is None:
             raise ValueError(_('A value is required.'))
 
         entry.repeatable = self
