@@ -170,9 +170,9 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
-    def test_post_bad_data_missing_value(self):
+    def test_post_value_default(self):
         '''
-        Unsuccessful POST to a list endpoint.
+        The default value for the value attribute is zero.
         '''
         # Check how many are there first.
         self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
@@ -181,10 +181,14 @@ class TransactionResourceTest(ResourceTestCase):
         data = self.post_data.copy()
         del data['value']
 
-        self.assertHttpBadRequest(self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials()))
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+        content = self.deserialize(resp)
+
+        self.assertEquals(content['value'], '0')
 
         # Verify a new one has been added.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
     def test_post_bad_data_missing_date(self):

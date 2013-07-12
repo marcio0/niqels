@@ -21,7 +21,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         self.reminder = RepeatableTransaction.objects.get(pk=1)
 
-        self.detail_url = '/api/v1/reminder/{0}'.format(self.reminder.id)
+        self.detail_url = '/api/v1/reminder/{0}/transaction'.format(self.reminder.id)
 
     def get_credentials(self):
         '''
@@ -29,17 +29,16 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         '''
         return self.create_basic(username=self.email, password=self.password)
 
-    # Detail tests: DELETE
     def test_create_detail_unauthorized(self):
         '''
         Must be authenticated to create a transaction.
         '''
-        self.assertHttpUnauthorized(self.api_client.post('/api/v1/reminder/1', format='json'))
+        self.assertHttpUnauthorized(self.api_client.post(self.detail_url, format='json'))
 
-    def test_create_transaction_update_last_date(self):
+    def test_create_transaction_update_due_date(self):
         '''
         Testing a post to the detail endpoint.
-        The reminder's _last_date and _day_of_month must update accordingly to the repeat interval.
+        The reminder's due_date must update accordingly to the repeat interval.
         '''
 
         reminder = RepeatableTransaction.objects.get(pk=1)
@@ -47,7 +46,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         self.assertEquals(reminder._day_of_month, 3)
 
         # Check how many are there first.
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data={}, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data={}, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         reminder = RepeatableTransaction.objects.get(pk=1)
@@ -56,7 +55,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
     def test_create_transaction_no_data(self):
         '''
         Testing a post to the detail endpoint.
-        Must create a new transaction based on this reminder, and update the reminder's last_date.
+        Must create a new transaction based on this reminder, and update the reminder's due_date.
         '''
 
         # alternative to mocking datetime.date
@@ -67,7 +66,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data={}, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data={}, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -93,7 +92,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
     def test_create_transaction_passing_date(self):
         '''
         Testing a post to the detail endpoint.
-        Must create a new transaction based on this reminder, and update the reminder's last_date.
+        Must create a new transaction based on this reminder, and update the reminder's due_date.
         If a date is informed, use it instead of today().
         '''
 
@@ -106,7 +105,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
             'date': '2010-03-10'
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -148,7 +147,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
             'date': None
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -190,7 +189,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
             'value': '3.14'
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -227,12 +226,12 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
-        
+
         data = {
             'value': None
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -258,7 +257,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
     def test_create_transaction_category_is_immutable(self):
         '''
         Testing a post to the detail endpoint.
-        Must create a new transaction based on this reminder, and update the reminder's last_date.
+        Must create a new transaction based on this reminder, and update the reminder's due_date.
         The category cannot be changed.
         '''
 
@@ -274,7 +273,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
             'category': 'new'
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -316,7 +315,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
             'description': 'something new'
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -358,7 +357,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
             'description': None
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
@@ -400,7 +399,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
             'description': ''
         }
 
-        resp = self.api_client.post('/api/v1/reminder/1', format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)

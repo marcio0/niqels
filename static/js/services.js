@@ -53,7 +53,7 @@ angular.module('models', ['ngResource'])
         Reminder.prototype.createTransaction = function () {
             var deferred = $q.defer();
 
-            $http.post(this.resource_uri, {}).success(function (result) {
+            $http.post(this.resource_uri + '/transaction', {}).success(function (result) {
                 deferred.resolve(new Transaction(result));
             }).error(function (result) {
                 deferred.reject(result);

@@ -186,6 +186,7 @@ class ReminderResource(ModelResource):
         validation = FormValidation(form_class=RepeatableTransactionApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'delete', 'post']
+        transaction_allowed_methods = ['post']
         filtering = {
             'due_date': ALL
         }
@@ -193,7 +194,7 @@ class ReminderResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         return super(ReminderResource, self).obj_create(bundle, user=bundle.request.user)
 
-    def post_detail(self, request, **kwargs):
+    def post_transaction(self, request, **kwargs):
         # this comes from get_detail:
         basic_bundle = self.build_bundle(request=request)
 
@@ -285,3 +286,16 @@ class ReminderResource(ModelResource):
         bundle.data['category'] = category
 
         return bundle
+
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)/transaction%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_transaction'), name="api_create_repeatable_transaction"),
+        ]
+
+    def dispatch_transaction(self, request, **kwargs):
+        """
+        A view for handling the creation of a transaction.
+
+        Relies on ``Resource.dispatch`` for the heavy-lifting.
+        """
+        return self.dispatch('transaction', request, **kwargs)
