@@ -1,4 +1,5 @@
 import datetime
+import decimal
 from dateutil.relativedelta import relativedelta
 
 from django.db import models
@@ -42,6 +43,7 @@ class EntryManager(models.Manager):
 
 class Entry(models.Model):
     value = models.DecimalField(_('value'),
+        default=decimal.Decimal(0),
         decimal_places=2,
         max_digits=7,
         help_text=_('The monetary value of this transaction. Accepts decimal values.')
