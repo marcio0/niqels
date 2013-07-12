@@ -3,9 +3,12 @@
 var tastypieDataTransformer = function ($http) {
     return $http.defaults.transformResponse.concat([
         function (data, headersGetter) {
-            var result = data.objects;
-            result.meta = data.meta;
-            return result;
+            if (data.meta && data.objects) {
+                var result = data.objects;
+                result.meta = data.meta;
+                return result;
+            }
+            return data;
         }
     ])
 };
