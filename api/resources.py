@@ -187,12 +187,16 @@ class ReminderResource(ModelResource):
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'delete', 'post']
         transaction_allowed_methods = ['post']
+        skip_allowed_methods = ['post']
         filtering = {
             'due_date': ALL
         }
 
     def obj_create(self, bundle, **kwargs):
         return super(ReminderResource, self).obj_create(bundle, user=bundle.request.user)
+
+    def post_skip(self, request, **kwargs):
+        pass
 
     def post_transaction(self, request, **kwargs):
         # this comes from get_detail:
@@ -290,6 +294,7 @@ class ReminderResource(ModelResource):
     def prepend_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)/transaction%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_transaction'), name="api_create_repeatable_transaction"),
+            url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)/skip%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_skip'), name="api_skip_transacion"),
         ]
 
     def dispatch_transaction(self, request, **kwargs):
@@ -299,3 +304,11 @@ class ReminderResource(ModelResource):
         Relies on ``Resource.dispatch`` for the heavy-lifting.
         """
         return self.dispatch('transaction', request, **kwargs)
+
+    def dispatch_skip(self, request, **kwargs):
+        """
+        A view for handling the skipping of a reminder period.
+
+        Relies on ``Resource.dispatch`` for the heavy-lifting.
+        """
+        return self.dispatch('skip', request, **kwargs)

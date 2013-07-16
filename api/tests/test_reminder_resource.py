@@ -8,6 +8,37 @@ from expenses.models import Entry, Category
 from reminder.models import RepeatableTransaction
 
 
+class ReminderSkipTransactionResourceTest(ResourceTestCase):
+    fixtures = ['ReminderSkipTransactionResourceTest']
+
+    def setUp(self):
+        super(ReminderSkipTransactionResourceTest, self).setUp()
+
+        # Create a user.
+        self.email = 'user@example.com'
+        self.password = 'password'
+        self.user = User.objects.create_user(self.email, self.password)
+
+        self.reminder = RepeatableTransaction.objects.get(pk=1)
+
+        self.detail_url = '/api/v1/reminder/{0}/skip'.format(self.reminder.id)
+
+    def get_credentials(self):
+        '''
+        Get the credentials for basic http authentication.
+        '''
+        return self.create_basic(username=self.email, password=self.password)
+
+    def test_get_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials()))
+
+    def test_put_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.put(self.detail_url, format='json', authentication=self.get_credentials()))
+
+    def test_delete_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.delete(self.detail_url, format='json', authentication=self.get_credentials()))
+
+
 class ReminderCreateTransactionResourceTest(ResourceTestCase):
     fixtures = ['ReminderCreateTransactionResourceTest']
 
