@@ -50,6 +50,10 @@ angular.module('models', ['ngResource'])
             return deferred.promise;
         };
 
+        Reminder.prototype.skip = function () {
+            return $http.post(this.resource_uri + '/skip', {});
+        };
+
         Reminder.prototype.createTransaction = function () {
             var deferred = $q.defer();
 

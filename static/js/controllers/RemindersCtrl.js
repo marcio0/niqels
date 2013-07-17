@@ -22,6 +22,11 @@ function RemindersCtrl ($scope, $rootScope, Reminder) {
         });
     };
 
+    $scope.skip = function (reminder) {
+        reminder.skip();
+        loadReminders();
+    };
+
     loadReminders();
 }
 
