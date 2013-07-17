@@ -38,6 +38,30 @@ class ReminderSkipTransactionResourceTest(ResourceTestCase):
     def test_delete_not_allowed(self):
         self.assertHttpMethodNotAllowed(self.api_client.delete(self.detail_url, format='json', authentication=self.get_credentials()))
 
+    def test_post_unauthorized(self):
+        self.assertHttpUnauthorized(self.api_client.post(self.detail_url, format='json'))
+
+    def test_post_ok_daily(self):
+        self.assertEquals(self.reminder.due_date, datetime.date(2010, 01, 03))
+        self.reminder.repeat = 'daily'
+
+        resp = self.api_client.post(self.detail_url, format='json', data={}, authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        reminder = RepeatableTransaction.objects.get(pk=1)
+        self.assertEquals(reminder.due_date, datetime.date(2010, 01, 04))
+
+    def test_post_ok_weekly(self):
+        self.assertEquals(self.reminder.due_date, datetime.date(2010, 01, 03))
+        self.reminder.repeat = 'weekly'
+        self.reminder.save()
+
+        resp = self.api_client.post(self.detail_url, format='json', data={}, authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        reminder = RepeatableTransaction.objects.get(pk=1)
+        self.assertEquals(reminder.due_date, datetime.date(2010, 01, 10))
+
 
 class ReminderCreateTransactionResourceTest(ResourceTestCase):
     fixtures = ['ReminderCreateTransactionResourceTest']

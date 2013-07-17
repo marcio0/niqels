@@ -196,7 +196,20 @@ class ReminderResource(ModelResource):
         return super(ReminderResource, self).obj_create(bundle, user=bundle.request.user)
 
     def post_skip(self, request, **kwargs):
-        pass
+        # this comes from get_detail:
+        basic_bundle = self.build_bundle(request=request)
+
+        try:
+            obj = self.cached_obj_get(bundle=basic_bundle, **self.remove_api_resource_names(kwargs))
+        except ObjectDoesNotExist:
+            return http.HttpNotFound()
+        except MultipleObjectsReturned:
+            return http.HttpMultipleChoices("More than one resource is found at this URI.")
+
+        obj.due_date = obj.next_due_date
+        obj.save()
+        
+        return http.HttpNoContent()
 
     def post_transaction(self, request, **kwargs):
         # this comes from get_detail:
