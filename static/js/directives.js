@@ -49,7 +49,7 @@ angular.module('webapp')
     .directive('exCurrency', function ($filter) {
         return {
             replace: true,
-            template: '<span class="text-{{color}}" ng-bind="value"></span>',
+            template: '<span class="text-((color))" ng-bind="value"></span>',
             scope: {
                 rawValue: '=exCurrencyValue'
             },
@@ -67,14 +67,14 @@ angular.module('webapp')
                         scope.color = '';
                     }
                 });
-                }
+            }
         };
     })
 
     .directive('exDeviation', function ($filter) {
         return {
             replace: true,
-            template: '<span class="text-{{color}}" >{{value}}% <i class="{{icon}} icon-large"></i></span>',
+            template: '<span class="text-((color))" >((value))% <i class="((icon)) icon-large"></i></span>',
             scope: {
                 rawValue: '@exDeviationValue'
             },
@@ -109,7 +109,7 @@ angular.module('webapp')
 
                 var dialog = '<div class="content">' +
                                 '<span>' + message + '</span>' +
-                                '<button class="btn small danger">{{okBtn}}</button><button class="btn small">'+cancelBtn+'</button>' +
+                                '<button class="btn small danger">((okBtn))</button><button class="btn small">'+cancelBtn+'</button>' +
                             '</div>';
 
                 var config = {

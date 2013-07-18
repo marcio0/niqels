@@ -1,4 +1,4 @@
-var app = angular.module('webapp', ['models', 'interceptor'])
+var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'])
 
     .config(['$routeProvider', function($routeProvider, $httpProvider) {
         $routeProvider
@@ -14,6 +14,11 @@ var app = angular.module('webapp', ['models', 'interceptor'])
         // sending csrf token on all requests
         $httpProvider.defaults.headers.common['X-CSRFToken'] = $('body > input[name=csrfmiddlewaretoken]').val();
         $httpProvider.responseInterceptors.push('sessionInterceptor');
+    }])
+
+    .config(['$interpolateProvider', function($interpolateProvider) {
+        $interpolateProvider.startSymbol('((');
+        $interpolateProvider.endSymbol('))');
     }])
 
     .run(['$locale', function ($locale) {
