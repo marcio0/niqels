@@ -12,7 +12,7 @@
     <div ng-show="reminders.length" ng-controller="RemindersCtrl">
         <div ng-repeat="reminder in reminders" class="reminder">
 
-            <p>{% trans "This transaction is due ((reminder.remainingDays() )). Please confirm, edit or cancel this transaction." %}</p>
+            <p>{% trans "This transaction is due ((reminder.remainingDays() )). Please confirm, edit or skip this transaction." %}</p>
 
             <span ex-category="reminder.category"></span>
             <span ex-currency ex-currency-value="reminder.value"></span>

@@ -38,7 +38,7 @@
                         />
                 </div>
 
-                <span class="help-block" ng-show="errors.category">Required</span>
+                <span class="help-block" ng-show="errors.category">{% trans "Required" %}</span>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
                         />
                 </div>
 
-                <span class="help-block" ng-show="errors.value">Required</span>
+                <span class="help-block" ng-show="errors.value">{% trans "Required" %}</span>
             </div>
         </div>
 
@@ -86,29 +86,22 @@
             </div>
         </div>
 
-        <div class="control-group" ng-class="{error: errors.date}">
-            <div class="controls">
-                <div ex-datepicker="transaction.date">
-                </div>
-                <span class="help-block" ng-show="errors.date">Required</span>
-            </div>
-        </div>
+        <div ex-datepicker="transaction.date"></div>
+
     </fieldset>
 
     <label class="checkbox">
-        <input type="checkbox" ng-model="isRepeat">Repeat this transaction</input>
+        <input type="checkbox" ng-model="isRepeat">{% trans "Repeat this transaction" %}</input>
     </label>
 
-    {% verbatim %}
     <fieldset ng-show="isRepeat">
         <div class="control-group" ng-class="{error: errors.repeat}">
             <div class="controls">
                 <select name="repeat" ng-model="transaction.repeat" ng-options="label for label in repeatOptions" ng-required="isRepeat"></select>
-                <span class="help-block" ng-show="errors.repeat">Required</span>
+                <span class="help-block" ng-show="errors.repeat">{% trans "Required" %}</span>
             </div>
         </div>
     </fieldset>
-    {% endverbatim %}
 
     <button ng-click="submit()" ng-disabled="sending">{% trans "Submit" %}<i ng-show="sending" class="icon-spinner icon-spin icon-large"></i></button>
 </form>
