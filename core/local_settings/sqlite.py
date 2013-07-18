@@ -1,7 +1,5 @@
 from core.settings import *
 
-DEBUG = True
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -13,9 +11,3 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-
-INSTALLED_APPS += (
-    'django_coverage',
-)
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
