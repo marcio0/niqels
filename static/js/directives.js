@@ -2,14 +2,14 @@
 
 angular.module('webapp')
 
-    .directive('exMonthSelector', function ($locale, $filter) {
+    .directive('exMonthSelector', function ($locale) {
         return {
             scope: {
                 date: '=exMonthSelector'
             },
             link: function linkFn (scope, element, attrs, controller) {
                 var setElementText = function (value) {
-                    var date = $filter('date')(value, 'MMMM - yyyy');
+                    var date = moment(value).format('MMMM - YYYY');
                     element.text(date);
                 };
 
@@ -34,7 +34,7 @@ angular.module('webapp')
                 };
 
                 element.datepicker({
-                    format: "yyyy-mm-dd",
+                    format: "dd-mm-yyyy",
                     language: $locale.id,
                     keyboardNavigation: false,
                     startView: 1,
@@ -49,7 +49,7 @@ angular.module('webapp')
     .directive('exCurrency', function ($filter) {
         return {
             replace: true,
-            template: '<span class="text-{{color}}" ng-bind="value"></span>',
+            template: '<span class="text-((color))" ng-bind="value"></span>',
             scope: {
                 rawValue: '=exCurrencyValue'
             },
@@ -74,7 +74,7 @@ angular.module('webapp')
     .directive('exDeviation', function ($filter) {
         return {
             replace: true,
-            template: '<span class="text-{{color}}" >{{value}}% <i class="{{icon}} icon-large"></i></span>',
+            template: '<span class="text-((color))" >((value))% <i class="((icon)) icon-large"></i></span>',
             scope: {
                 rawValue: '@exDeviationValue'
             },
@@ -109,7 +109,7 @@ angular.module('webapp')
 
                 var dialog = '<div class="content">' +
                                 '<span>' + message + '</span>' +
-                                '<button class="btn small danger">{{okBtn}}</button><button class="btn small">'+cancelBtn+'</button>' +
+                                '<button class="btn small danger">((okBtn))</button><button class="btn small">'+cancelBtn+'</button>' +
                             '</div>';
 
                 var config = {
@@ -155,11 +155,6 @@ angular.module('webapp')
                     }
                 });
 
-                element.tooltip({
-                    placement: 'right',
-                    title: gettext('Example: "Groceries", "Lunch"')
-                });
-
                 element.bind('change', function () {
                     scope.$apply(function () {
                         return controller.$setViewValue(element.val());
@@ -186,7 +181,7 @@ angular.module('webapp')
         };
     })
 
-    .directive('exDatepicker', function ($filter, $locale) {
+    .directive('exDatepicker', function ($locale) {
         return {
             restrict: 'A',
             scope: {
@@ -195,20 +190,21 @@ angular.module('webapp')
             link: function (scope, element, attrs) {
                 var updateModel = function (ev) {
                     scope.$apply(function () {
-                        scope.date = $filter('date')(ev.date, 'dd/MM/yyyy')
+                        scope.date = moment(ev.date).format('DD/MM/YYYY');
                     });
                 };
 
                 element.datepicker({
                     language: $locale.id,
-                    format: $locale.DATETIME_FORMATS.mediumDate,
+                    format: 'yyyy-mm-dd',
                     keyboardNavigation: false,
-                    todayHighlight: true
+                    todayHighlight: true,
+                    todayBtn: "linked"
                 }).on('changeDate', updateModel);
 
                 scope.$watch('date', function (newValue, oldValue) {
                     if (newValue == undefined) {
-                        var today = $filter('date')(new Date(), 'dd/MM/yyyy');
+                        var today = moment().format('YYYY-MM-DD');
                         element.data('datepicker').update(today);
                         scope.date = today;
                     }
@@ -229,10 +225,12 @@ angular.module('webapp')
                     });
                 };
 
-                element.maskMoney({allowNegative: true, thousands:'.', decimal:',', negativeDefault: true});
-                element.tooltip({
-                    placement: 'right',
-                    title: gettext('Use a "+" sign to indicate positive values.')
+                element.maskMoney({
+                    allowNegative: true,
+                    allowZero: true,
+                    thousands:'.',
+                    decimal:',',
+                    negativeDefault: true
                 });
 
                 element.keyup(function(event) {

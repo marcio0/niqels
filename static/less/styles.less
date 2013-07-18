@@ -9,7 +9,7 @@
 @heroUnitBackground:    #fff;
 @heroUnitBorder:        #ccc;
 @wellBackground:        #fff;
-@baseFontSize:          14px;
+@baseFontSize:          12px;
 @baseBorderRadius:      1px;
 @borderRadiusLarge:     1px;
 @borderRadiusSmall:     1px;
@@ -151,6 +151,36 @@ span.category-label {
 /*
  * ENTRY LIST STYLES
  */
+
+.reminder {
+    .alert();
+    .alert-block();
+
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+    
+    p {
+        margin-bottom: 10px;
+    }
+
+    .buttons {
+        .pull-right();
+
+        .ok {
+            color: @green;
+        }
+
+        .edit {
+            color: @blue;
+        }
+
+        .cancel {
+            color: @red;
+        }
+    }
+}
+
 .entry-row {
     td {
         // the delete icon

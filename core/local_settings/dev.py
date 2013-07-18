@@ -14,10 +14,6 @@ DATABASES = {
     }
 }
 
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
-
 INSTALLED_APPS += (
     'django_coverage',
 )

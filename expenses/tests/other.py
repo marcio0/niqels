@@ -57,7 +57,7 @@ class GlobalsContextProcessorTest(TestCase):
         context = global_context(request)
 
         self.assertEquals(context, {
-            'SITE_NAME': 'SpentWise beta',
+            'SITE_NAME': 'Niqels',
             'js_date_format': u'MMM d, yyyy',
             'currency_symbol': u'$',
             'user_categories': ['one', 'two'],

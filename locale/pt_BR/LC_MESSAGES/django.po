@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-19 00:59-0300\n"
+"POT-Creation-Date: 2013-07-18 00:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgstr "Digite um endereço de email"
 msgid "The email address of the user. Used to log in on this site."
 msgstr "Endereço de email do usuário. Necessário para fazer login."
 
-#: access/models.py:15 expenses/models.py:9
+#: access/models.py:15 expenses/models.py:10
 msgid "name"
 msgstr "nome"
 
@@ -97,15 +97,15 @@ msgstr "Inglês"
 msgid "Portuguese"
 msgstr "Português"
 
-#: expenses/models.py:11
+#: expenses/models.py:12
 msgid "The category of a transaction. Ex.: \"Groceries\", \"Medical\"."
 msgstr "Categoria de uma movimentação. Ex.: \"Mercado\", \"Consulta médica\"."
 
-#: expenses/models.py:13
+#: expenses/models.py:14
 msgid "color"
 msgstr "cor"
 
-#: expenses/models.py:16
+#: expenses/models.py:17
 msgid ""
 "The color of this category, to make it visually identifiable. Accepts HEX "
 "values only."
@@ -113,49 +113,90 @@ msgstr ""
 "A cor desta categoria, para torná-la visualmente identificável. Aceita "
 "apenas valores hexadecimais."
 
-#: expenses/models.py:19 expenses/models.py:62
+#: expenses/models.py:20 expenses/models.py:64 reminder/models.py:35
 msgid "user"
 msgstr "usuário"
 
-#: expenses/models.py:20
+#: expenses/models.py:21
 msgid "The owner of this category."
 msgstr "O dono desta categoria."
 
-#: expenses/models.py:44
+#: expenses/models.py:45 reminder/models.py:13
 msgid "value"
 msgstr "valor"
 
-#: expenses/models.py:47
+#: expenses/models.py:49
 msgid "The monetary value of this transaction. Accepts decimal values."
 msgstr "O valor monetário desta movimentação. Aceita apenas valores decimais."
 
-#: expenses/models.py:49
+#: expenses/models.py:51 reminder/models.py:19
 msgid "description"
 msgstr "descrição"
 
-#: expenses/models.py:52
-msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
-msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\""
-
 #: expenses/models.py:54
+msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
+msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
+
+#: expenses/models.py:56
 msgid "date"
 msgstr "data"
 
-#: expenses/models.py:55
+#: expenses/models.py:57
 msgid "The date when this transaction happened. Ex.: 10/21/2010."
 msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
-#: expenses/models.py:58
+#: expenses/models.py:60 reminder/models.py:25
 msgid "category"
 msgstr "categoria"
 
-#: expenses/models.py:59
+#: expenses/models.py:61 reminder/models.py:26
 msgid "The category for this transaction."
 msgstr "A categoria desta transação."
 
-#: expenses/models.py:63
+#: expenses/models.py:65 reminder/models.py:36
 msgid "The owner of this transaction."
 msgstr "O dono desta transação."
+
+#: reminder/models.py:17
+msgid ""
+"The monetary value of this transaction. Accepts decimal values. Optional."
+msgstr ""
+"O valor monetário desta movimentação. Aceita apenas valores decimais. "
+"Opcional."
+
+#: reminder/models.py:22
+msgid ""
+"The description for this transaction. Ex.: \"Lunch with friends\". Optional."
+msgstr ""
+"A descrição desta movimentação. Ex.: \"Almoço com os amigos\". Opcional."
+
+#: reminder/models.py:29
+msgid "repeat"
+msgstr "repetição"
+
+#: reminder/models.py:31
+msgid "How this transaction repeats."
+msgstr "Como esta movimentação se repete."
+
+#: reminder/models.py:39
+msgid "due date"
+msgstr "vencimento"
+
+#: reminder/models.py:40
+msgid "The due date for this transaction."
+msgstr "Vencimento desta movimentação."
+
+#: reminder/models.py:42
+msgid "day of month"
+msgstr "dia do mês"
+
+#: reminder/models.py:43
+msgid "The day of month this transaction must happen."
+msgstr "O dia do mês em que esta movimentação vence."
+
+#: reminder/models.py:82
+msgid "A value is required."
+msgstr "Este campo é obrigatório."
 
 #: templates/presentation.html:31
 msgid "Organize your money the easy way!"
@@ -213,31 +254,82 @@ msgstr "Já é usuário?"
 msgid "Sign in"
 msgstr "Login"
 
-#: templates/webapp/month_balance_panel.html:11
+#: templates/webapp/month_balance_panel.html:15
+msgid ""
+"Shows the sum of all your transactions up to the current day, and the "
+"comparison with the previous months."
+msgstr ""
+"Exibe a soma de todas as suas transações até o dia atual, e a comparação com "
+"os meses anteriores."
+
+#: templates/webapp/month_balance_panel.html:19
 msgid "Balance"
 msgstr "Balanço"
 
-#: templates/webapp/transaction-list.html:22
+#: templates/webapp/transaction-list.html:15
+msgid ""
+"This transaction is due ((reminder.remainingDays() )). Please confirm, edit "
+"or skip this transaction."
+msgstr ""
+"Esta movimentação vence ((reminder.remainingDays() )). Por favor "
+"confirme, edite ou pule esta movimentação."
+
+#: templates/webapp/transaction-list.html:24
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: templates/webapp/transaction-list.html:32
+msgid "Skip"
+msgstr "Pular"
+
+#: templates/webapp/transaction-list.html:43
 msgid "Transactions"
 msgstr "Movimentações"
 
-#: templates/webapp/transaction-list.html:61
+#: templates/webapp/transaction-list.html:82
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
 
-#: templates/webapp/forms/entry.html:12
+#: templates/webapp/forms/entry.html:14
 msgid "New transaction"
 msgstr "Nova movimentação"
 
-#: templates/webapp/forms/entry.html:85
+#: templates/webapp/forms/entry.html:30
+msgid "Example: &quot;Groceries&quot;, &quot;Lunch&quot;"
+msgstr "Exemplo: &quot;Mercado&quot;, &quot;Almoço&quot;"
+
+#: templates/webapp/forms/entry.html:36
+msgid "Category"
+msgstr "Categoria"
+
+#: templates/webapp/forms/entry.html:41 templates/webapp/forms/entry.html:66
+#: templates/webapp/forms/entry.html:101
+msgid "Required"
+msgstr "Obrigatório"
+
+#: templates/webapp/forms/entry.html:58
+msgid "Use a &quot;+&quot; sign to indicate positive values."
+msgstr "Utilize o sinal &quot;+&quot; para indicar valores positivos."
+
+#: templates/webapp/forms/entry.html:62
+msgid "Value"
+msgstr "Valor"
+
+#: templates/webapp/forms/entry.html:82
+msgid "Description (optional)"
+msgstr "Descrição (opcional)"
+
+#: templates/webapp/forms/entry.html:94
+#, fuzzy
+msgid "Repeat this transaction"
+msgstr "Repetir esta movimentação"
+
+#: templates/webapp/forms/entry.html:106
 msgid "Submit"
 msgstr "Enviar"
 
 #~ msgid "Entry removed."
 #~ msgstr "Entrada removida"
-
-#~ msgid "This field is required."
-#~ msgstr "Este campo é obrigatório."
 
 #~ msgid "Use the form to the right to create your first entry."
 #~ msgstr "Use o formulário a direita para criar sua primeira transação."

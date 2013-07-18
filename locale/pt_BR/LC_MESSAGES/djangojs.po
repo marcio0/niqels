@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-19 01:01-0300\n"
+"POT-Creation-Date: 2013-07-18 00:52-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: static/js/controllers.js:29
-msgid ""
-"Shows the sum of all your transactions up to the current day, and the "
-"comparison with the previous months."
-msgstr ""
-"Exibe a soma de todas as suas transações até o dia atual, e a comparação com "
-"os meses anteriores."
 
 #: static/js/directives.js:105
 msgid "Confirm"
@@ -38,13 +30,18 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: static/js/directives.js:160
-msgid "Example: \"Groceries\", \"Lunch\""
-msgstr "Exemplo: \"Mercado\", \"Almoço\""
+#~ msgid ""
+#~ "Shows the sum of all your transactions up to the current day, and the "
+#~ "comparison with the previous months."
+#~ msgstr ""
+#~ "Exibe a soma de todas as suas transações até o dia atual, e a comparação "
+#~ "com os meses anteriores."
 
-#: static/js/directives.js:235
-msgid "Use a \"+\" sign to indicate positive values."
-msgstr "Utilize o sinal \"+\" para indicar valores positivos."
+#~ msgid "Example: \"Groceries\", \"Lunch\""
+#~ msgstr "Exemplo: \"Mercado\", \"Almoço\""
+
+#~ msgid "Use a \"+\" sign to indicate positive values."
+#~ msgstr "Utilize o sinal \"+\" para indicar valores positivos."
 
 #~ msgid "Month balance"
 #~ msgstr "Balanço mensal"

@@ -20,9 +20,16 @@
 {% block bodyend %}
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
+<script src="{% static "js/moment.min.js" %}"></script>
+<script src="{% static "js/locales/pt-br.js" %}"></script>
 <script src="{% static "js/locales/angular-locale_pt-br.js" %}"></script>
+<script src="{% static "js/angular-strap.min.js" %}"></script>
 <script src="{% static "js/app.js" %}"></script>
-<script src="{% static "js/controllers.js" %}"></script>
+<script src="{% static "js/controllers/BalancePanelCtrl.js" %}"></script>
+<script src="{% static "js/controllers/RemindersCtrl.js" %}"></script>
+<script src="{% static "js/controllers/TransactionActionBarCtrl.js" %}"></script>
+<script src="{% static "js/controllers/TransactionFormCtrl.js" %}"></script>
+<script src="{% static "js/controllers/TransactionListCtrl.js" %}"></script>
 <script src="{% static "js/services.js" %}"></script>
 <script src="{% static "js/directives.js" %}"></script>
 {% endblock bodyend %}

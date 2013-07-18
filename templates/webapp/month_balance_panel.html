@@ -6,7 +6,15 @@
     ng-controller="BalancePanelCtrl"
     >
 
-    <i id="balance-help" class="icon-question-sign close"></i>
+    <i
+        id="balance-help"
+        class="icon-question-sign close"
+
+        data-placement="left"
+        data-trigger="hover"
+        data-content="{% trans 'Shows the sum of all your transactions up to the current day, and the comparison with the previous months.' %}"
+
+        ></i>
 
     <h4 class="panel-title">{% trans "Balance" %}</h4>
     {% verbatim %}
@@ -18,7 +26,7 @@
 
         (<span
             ex-deviation
-            ex-deviation-value="{{balance_data.balance.deviation}}"
+            ex-deviation-value="((balance_data.balance.deviation))"
             ></span>)
     </p>
     {% endverbatim %}

@@ -7,17 +7,38 @@
     {% include "webapp/forms/entry.html" %}
 </div>
 
-<div class="span6" ng-controller="TransactionListCtrl">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+<div class="span6">
 
-    <div class="well">
+    <div ng-show="reminders.length" ng-controller="RemindersCtrl">
+        <div ng-repeat="reminder in reminders" class="reminder">
+
+            <p>{% trans "This transaction is due ((reminder.remainingDays() )). Please confirm, edit or skip this transaction." %}</p>
+
+            <span ex-category="reminder.category"></span>
+            <span ex-currency ex-currency-value="reminder.value"></span>
+
+            <div class="buttons">
+                <a
+                    ng-click="createTransaction(reminder)"
+
+                    title="{% trans 'Confirm' %}"
+                    bs-tooltip
+
+                    ><i class="icon-ok ok"></i></a>
+
+                <a
+                    ng-click="skip(reminder)"
+
+                    title="{% trans 'Skip' %}"
+                    bs-tooltip
+
+                    ><i class="icon-remove cancel"></i></a>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="well" ng-controller="TransactionListCtrl">
          
         <h4 class="panel-title">{% trans "Transactions" %}</h4>
 
