@@ -155,11 +155,6 @@ angular.module('webapp')
                     }
                 });
 
-                element.tooltip({
-                    placement: 'right',
-                    title: gettext('Example: "Groceries", "Lunch"')
-                });
-
                 element.bind('change', function () {
                     scope.$apply(function () {
                         return controller.$setViewValue(element.val());
@@ -230,18 +225,12 @@ angular.module('webapp')
                     });
                 };
 
-
                 element.maskMoney({
                     allowNegative: true,
                     allowZero: true,
                     thousands:'.',
                     decimal:',',
                     negativeDefault: true
-                });
-
-                element.tooltip({
-                    placement: 'right',
-                    title: gettext('Use a "+" sign to indicate positive values.')
                 });
 
                 element.keyup(function(event) {

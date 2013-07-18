@@ -26,6 +26,10 @@
                         ng-model="transaction.category"
                         ex-categoryfield
 
+                        bs-tooltip
+                        title="{% trans "Example: &quot;Groceries&quot;, &quot;Lunch&quot;" %}"
+                        data-placement="right"
+
                         autofocus
                         autocomplete="off"
 
@@ -49,6 +53,10 @@
 
                         ng-model="transaction.value"
                         ex-valuefield
+
+                        bs-tooltip
+                        title="{% trans "Use a &quot;+&quot; sign to indicate positive values." %}"
+                        data-placement="right"
 
                         autocomplete="off"
                         placeholder="{% trans "Value" %}"

@@ -10,10 +10,9 @@
 <div class="span6">
 
     <div ng-show="reminders.length" ng-controller="RemindersCtrl">
-        {% verbatim %}
         <div ng-repeat="reminder in reminders" class="reminder">
 
-            <p>This transaction is due ((reminder.remainingDays() )). Please confirm, edit or cancel this transaction.</p>
+            <p>{% trans "This transaction is due ((reminder.remainingDays() )). Please confirm, edit or cancel this transaction." %}</p>
 
             <span ex-category="reminder.category"></span>
             <span ex-currency ex-currency-value="reminder.value"></span>
@@ -22,15 +21,20 @@
                 <a
                     ng-click="createTransaction(reminder)"
 
-                    bs-tooltip="createTransactionText"
+                    title="{% trans 'Confirm' %}"
+                    bs-tooltip
+
                     ><i class="icon-ok ok"></i></a>
 
                 <a
                     ng-click="skip(reminder)"
+
+                    title="{% trans 'Skip' %}"
+                    bs-tooltip
+
                     ><i class="icon-remove cancel"></i></a>
             </div>
         </div>
-        {% endverbatim %}
         
     </div>
 

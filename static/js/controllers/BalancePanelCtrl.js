@@ -23,11 +23,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
     $rootScope.$on('transactionRemoved', $scope.updateBalance);
     $rootScope.$watch('month', $scope.updateBalance);
 
-    $('#balance-help').popover({
-        placement: 'left',
-        trigger: 'hover',
-        content: gettext('Shows the sum of all your transactions up to the current day, and the comparison with the previous months.')
-    });
+    $('#balance-help').popover();
 
     $('.side-panel').affix({offset: 40});
 }
