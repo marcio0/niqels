@@ -10,6 +10,6 @@ python-dateutil==2.1
 ipython==0.13.1
 psycopg2==2.5
 django-tastypie==0.9.15
-dateutils=0.6.6
+dateutils==0.6.6
 static==0.4
 dj-static==0.0.5
