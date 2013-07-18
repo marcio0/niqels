@@ -62,7 +62,7 @@ class EntryModelTest(TestCase):
         '''
         repeatable = RepeatableTransaction()
         repeatable.value = Decimal(40)
-        repeatable.last_date = datetime.date(2010, 10, 10)
+        repeatable.due_date = datetime.date(2010, 10, 10)
         repeatable.category_id = 1
         repeatable.user_id = 1
         repeatable.save()
