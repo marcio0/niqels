@@ -3,7 +3,7 @@ import datetime
 from tastypie.test import ResourceTestCase
 
 from access.models import User
-from expenses.models import Entry, Category
+from expenses.models import Transaction, Category
 
 
 class TransactionResourceTest(ResourceTestCase):
@@ -17,7 +17,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.password = 'password'
         self.user = User.objects.create_user(self.email, self.password)
 
-        self.transaction = Entry.objects.get(pk=1)
+        self.transaction = Transaction.objects.get(pk=1)
 
         self.post_data = {
             'date': '03/03/2010',
@@ -94,7 +94,7 @@ class TransactionResourceTest(ResourceTestCase):
         Successful POST to a list endpoint.
         '''
         # Check how many are there first.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=self.post_data, authentication=self.get_credentials())
@@ -116,7 +116,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'resource_uri': u'/api/v1/transaction/4'
         })
 
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
     def test_post_list_new_category(self):
@@ -124,7 +124,7 @@ class TransactionResourceTest(ResourceTestCase):
         Successful POST to a list endpoint.
         '''
         # Check how many are there first.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
@@ -149,7 +149,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'resource_uri': u'/api/v1/transaction/4'
         })
 
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 3)
 
     def test_post_value_another_format(self):
@@ -157,7 +157,7 @@ class TransactionResourceTest(ResourceTestCase):
         Must try to fix the number format.
         '''
         # Check how many are there first.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
@@ -167,7 +167,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         # Verify a new one has been added.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
     def test_post_value_default(self):
@@ -175,7 +175,7 @@ class TransactionResourceTest(ResourceTestCase):
         The default value for the value attribute is zero.
         '''
         # Check how many are there first.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
@@ -188,7 +188,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEquals(content['value'], '0')
 
         # Verify a new one has been added.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
     def test_post_bad_data_missing_date(self):
@@ -196,7 +196,7 @@ class TransactionResourceTest(ResourceTestCase):
         Unsuccessful POST to a list endpoint.
         '''
         # Check how many are there first.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
@@ -205,7 +205,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertHttpBadRequest(self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials()))
 
         # Verify a new one has been added.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
     def test_post_bad_data_missing_category(self):
@@ -213,7 +213,7 @@ class TransactionResourceTest(ResourceTestCase):
         Unsuccessful POST to a list endpoint.
         '''
         # Check how many are there first.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
@@ -222,7 +222,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertHttpBadRequest(self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials()))
 
         # Verify a new one has been added.
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
 
 
@@ -312,8 +312,8 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         Successful DELETE to a detail endpoint.
         '''
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
         self.assertHttpAccepted(self.api_client.delete(self.detail_url, format='json', authentication=self.get_credentials()))
 
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)

@@ -2,7 +2,7 @@ from decimal import Decimal, InvalidOperation
 
 from django.db.models import Sum
 
-from expenses.models import Entry
+from expenses.models import Transaction 
 
 
 class AverageCalculator(object):
@@ -12,7 +12,7 @@ class AverageCalculator(object):
         self.start_date = start_date
 
     def calculate(self):
-        qss = Entry.objects.up_to_day(
+        qss = Transaction.objects.up_to_day(
             qty_months=self.qty_months,
             start_date=self.start_date,
             user=self.user)

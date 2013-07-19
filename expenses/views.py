@@ -10,7 +10,6 @@ from django.views.generic.edit import FormView, DeletionMixin
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from expenses.models import Entry, Category
 from access.views import AutenticationRequiredMixin
 from access.forms import UserCreationForm
 from expenses.calculator import AverageCalculator

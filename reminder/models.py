@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.utils.translation import gettext_noop, ugettext_lazy as _
 
-from expenses.models import Entry, Category
+from expenses.models import Transaction, Category
 
 
 class RepeatableTransaction(models.Model):
@@ -70,7 +70,7 @@ class RepeatableTransaction(models.Model):
         return self.due_date + delta
     
     def create_transaction(self, **kwargs):
-        entry = Entry()
+        entry = Transaction()
         entry.category = self.category
         entry.user = self.user
 

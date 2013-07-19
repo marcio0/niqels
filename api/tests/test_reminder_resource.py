@@ -4,7 +4,7 @@ import mock
 from tastypie.test import ResourceTestCase
 
 from access.models import User
-from expenses.models import Entry, Category
+from expenses.models import Transaction, Category
 from reminder.models import RepeatableTransaction
 
 
@@ -118,7 +118,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
         resp = self.api_client.post(self.detail_url, format='json', data={}, authentication=self.get_credentials())
@@ -141,7 +141,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_passing_date(self):
@@ -153,7 +153,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
         
         data = {
@@ -180,7 +180,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_passing_date_null(self):
@@ -195,7 +195,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
         
         data = {
@@ -222,7 +222,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_passing_value(self):
@@ -237,7 +237,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
         
         data = {
@@ -264,7 +264,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_passing_value_null(self):
@@ -279,7 +279,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
         data = {
@@ -306,7 +306,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_category_is_immutable(self):
@@ -321,7 +321,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
         
         data = {
@@ -348,7 +348,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_passing_description(self):
@@ -363,7 +363,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
         
         data = {
@@ -390,7 +390,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_passing_description_null(self):
@@ -405,7 +405,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
         
         data = {
@@ -432,7 +432,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
     def test_create_transaction_passing_description_empty(self):
@@ -447,7 +447,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
 
         # Check how many are there first.
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 0)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
         
         data = {
@@ -474,7 +474,7 @@ class ReminderCreateTransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(RepeatableTransaction.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(Entry.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
         self.assertEqual(Category.objects.filter(user=self.user).count(), 1)
 
 

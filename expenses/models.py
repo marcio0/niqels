@@ -25,7 +25,7 @@ class Category(models.Model):
         return self.name
 
 
-class EntryManager(models.Manager):
+class TransactionManager(models.Manager):
     def up_to_day(self, start_date=None, qty_months=1, **kwargs):
         if not start_date:
             start_date = datetime.date.today()
@@ -41,7 +41,7 @@ class EntryManager(models.Manager):
         return result
 
 
-class Entry(models.Model):
+class Transaction(models.Model):
     value = models.DecimalField(_('value'),
         default=decimal.Decimal(0),
         decimal_places=2,
@@ -71,12 +71,12 @@ class Entry(models.Model):
     )
 
     '''
-    Marks the time of the day this entry was saved.
+    Marks the time of the day this Transaction was saved.
     Used to order the entries inside a day by last_edition.
     '''
     last_edited_time = models.TimeField(auto_now=True)
 
-    objects = EntryManager()
+    objects = TransactionManager()
 
     def __unicode__(self):
         return '%d of %s on %s' % (

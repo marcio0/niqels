@@ -1,10 +1,10 @@
 from django import forms
 
-from expenses.models import Entry, Category
+from expenses.models import Transaction, Category
 from reminder.models import RepeatableTransaction
 
 
-class EntryApiForm(forms.ModelForm):
+class TransactionApiForm(forms.ModelForm):
     category = forms.CharField(max_length=200 , required=True)
 
     def clean_category(self):
@@ -18,7 +18,7 @@ class EntryApiForm(forms.ModelForm):
 
 
     class Meta:
-        model = Entry
+        model = Transaction
         exclude = ('user', 'category')
 
 

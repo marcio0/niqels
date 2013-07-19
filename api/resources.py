@@ -15,12 +15,12 @@ from django.conf.urls import url
 from django.core.urlresolvers import NoReverseMatch
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-from expenses.models import Entry, Category
+from expenses.models import Transaction, Category
 from expenses.forms import CategoryForm
 from access.forms import UserCreationForm
 from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
-from api.validation import EntryApiForm, RepeatableTransactionApiForm
+from api.validation import TransactionApiForm, RepeatableTransactionApiForm
 from expenses import random_color
 from expenses.calculator import AverageCalculator
 from reminder.models import RepeatableTransaction
@@ -124,12 +124,12 @@ class TransactionResource(ModelResource):
     category = fields.ForeignKey(CategoryResource, 'category', full=True)
 
     class Meta:
-        queryset = Entry.objects.all()
+        queryset = Transaction.objects.all()
         always_return_data = True
         excludes = ['last_edited_time']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
-        validation = FormValidation(form_class=EntryApiForm)
+        validation = FormValidation(form_class=TransactionApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'put', 'delete']
         filtering = {

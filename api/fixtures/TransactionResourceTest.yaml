@@ -16,7 +16,7 @@
         name: other
         user: 2
 
--   model: expenses.Entry
+-   model: expenses.Transaction
     pk: 1
     fields:
         value: 5
@@ -25,7 +25,7 @@
         date: '2010-01-03'
         last_edited_time: "00:00:00"
 
--   model: expenses.Entry
+-   model: expenses.Transaction
     pk: 2
     fields:
         value: 0
@@ -34,7 +34,7 @@
         date: '2010-01-03'
         last_edited_time: "00:00:00"
 
--   model: expenses.Entry
+-   model: expenses.Transaction
     pk: 3
     fields:
         value: 0

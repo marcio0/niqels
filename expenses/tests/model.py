@@ -6,19 +6,19 @@ import django.forms
 from django.test import TestCase
 
 import expenses.models
-from expenses.models import Category, Entry
+from expenses.models import Category, Transaction
 from expenses import forms
 from access.models import User
 from reminder.models import RepeatableTransaction
 
 
-class EntryUpToDayTest(TestCase):
-    fixtures = ['EntryUpToDayTest.yaml']
+class TransactionUpToDayTest(TestCase):
+    fixtures = ['TransactionUpToDayTest.yaml']
 
     def test_one_month(self):
         start = datetime.date(2010, 03, 10)
 
-        result = Entry.objects.up_to_day(start_date=start)
+        result = Transaction.objects.up_to_day(start_date=start)
 
         self.assertEquals(len(result), 1)
         self.assertEquals(result[0].count(), 2)
@@ -27,7 +27,7 @@ class EntryUpToDayTest(TestCase):
     def test_three_months(self):
         start = datetime.date(2010, 03, 10)
 
-        result = Entry.objects.up_to_day(start_date=start, qty_months=3)
+        result = Transaction.objects.up_to_day(start_date=start, qty_months=3)
 
         self.assertEquals(len(result), 3)
 
@@ -41,7 +41,7 @@ class EntryUpToDayTest(TestCase):
 
         expenses.models.datetime = dt_m
 
-        result = Entry.objects.up_to_day()
+        result = Transaction.objects.up_to_day()
 
         self.assertEquals(len(result), 1)
         self.assertEquals(result[0].count(), 3)
@@ -53,8 +53,8 @@ class CategoryModelTest(TestCase):
         self.assertEquals(str(cat), 'test')
 
 
-class EntryModelTest(TestCase):
-    fixtures = ['EntryUpToDayTest.yaml']
+class TransactionModelTest(TestCase):
+    fixtures = ['TransactionUpToDayTest.yaml']
 
     def test_repeatable_cascade(self):  
         '''
@@ -71,6 +71,6 @@ class EntryModelTest(TestCase):
         transaction.save()
 
         repeatable.delete()
-        self.assertTrue(Entry.objects.filter(pk=transaction.id).exists())
+        self.assertTrue(Transaction.objects.filter(pk=transaction.id).exists())
 
 

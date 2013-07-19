@@ -5,12 +5,12 @@ from django.test import TestCase
 
 import expenses.models
 from expenses.calculator import AverageCalculator
-from expenses.models import Category, Entry
+from expenses.models import Category, Transaction
 from access.models import User
 
 
 class AverageTest(TestCase):
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_no_data_at_all(self, mgr):
         '''
             |
@@ -42,7 +42,7 @@ class AverageTest(TestCase):
             'deviation': Decimal('0')
         })
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_no_data_for_average(self, mgr):
         '''
             |             30 (base)
@@ -75,7 +75,7 @@ class AverageTest(TestCase):
             'deviation': Decimal('0')
         })
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_no_data_for_base__positive_average(self, mgr):
         '''
             |
@@ -112,7 +112,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_no_data_for_base__negative_average(self, mgr):
         '''
             |Jan   Feb   Mar 
@@ -149,7 +149,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_positive_avg__positive_actual__positive_diff(self, mgr):
         '''
             |             30 (base)
@@ -188,7 +188,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_positive_avg__positive_actual__negative_diff(self, mgr):
         '''
             |
@@ -228,7 +228,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_negative_avg__negative_actual__negative_diff(self, mgr):
         '''
             |Jan   Feb   Mar 
@@ -267,7 +267,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_negative_avg__positive_actual(self, mgr):
         '''
             |
@@ -309,7 +309,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_positive_avg__negative_actual(self, mgr):
         '''
             |
@@ -352,7 +352,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_negative_avg__negative_actual__pos_diff(self, mgr):
         '''
             |Jan   Feb   Mar 
@@ -391,7 +391,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_too_few_data_for_average(self, mgr):
         '''
             |Jan   Feb   Mar 
@@ -428,7 +428,7 @@ class AverageTest(TestCase):
 
         self.assertEquals(abs(result['average']) * result['deviation'] + result['average'], result['base'])
 
-    @mock.patch.object(expenses.models.Entry, 'objects')
+    @mock.patch.object(expenses.models.Transaction, 'objects')
     def test_empty_month_on_the_middle(self, mgr):
         '''
             |Jan   Feb   Mar 
