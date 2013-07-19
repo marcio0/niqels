@@ -84,3 +84,11 @@ class RepeatableTransaction(models.Model):
         entry.repeatable = self
 
         return entry
+
+    def __unicode__(self):  
+        desc = '%(value)d of %(category)s due %(date)s (%(repeat)s)'
+        return desc % dict(
+            value=self.value,
+            category=self.category.name,
+            date=self.due_date.isoformat(),
+            repeat=self.repeat)

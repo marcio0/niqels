@@ -5,6 +5,26 @@ from decimal import Decimal
 from django.test import TestCase
 
 from reminder.models import RepeatableTransaction
+from expenses.models import Category
+from access.models import User
+
+
+class RepeatableTransactionModelTest(TestCase):
+    def test_unicode(self):
+        user = User.objects.create_user('user@test.com', 'asd')
+
+        category = Category()
+        category.name = 'cat'
+        category.user = user
+        category.save()
+
+        rep = RepeatableTransaction()
+        rep.repeat = 'weekly'
+        rep.value = Decimal("-40")
+        rep.due_date = datetime.date(2010, 10, 10)
+        rep.category = category
+        self.assertEquals(str(rep), '-40 of cat due 2010-10-10 (weekly)')
+
 
 
 class RepeatableTransactionNextDueDateTest(TestCase):
