@@ -8030,13 +8030,16 @@ span.category-label-inverse[href] {
 .reminder .buttons {
   float: right;
 }
+.reminder .buttons a {
+  cursor: pointer;
+}
 .reminder .buttons .ok {
   color: #46a546;
 }
 .reminder .buttons .edit {
   color: #049cdb;
 }
-.reminder .buttons .cancel {
+.reminder .buttons .skip {
   color: #9d261d;
 }
 .entry-row td.action-bar {
