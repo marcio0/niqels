@@ -30,8 +30,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
                 promise = reminder.createReminder()
                     .then(function (value) {
-                        $scope.transaction.category = "";
-                        $scope.transaction.value = "0";
+                        $scope.transaction = {};
                         form.$setPristine();
                         return value;
                     })
