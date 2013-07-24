@@ -1,6 +1,6 @@
 'use strict';
 
-function RemindersCtrl ($scope, $rootScope, Reminder) {
+function RemindersCtrl ($scope, $rootScope, Reminder, $filter) {
     $scope.reminders = [];
 
     function loadReminders () {
@@ -22,7 +22,7 @@ function RemindersCtrl ($scope, $rootScope, Reminder) {
         });
     };
 
-    $scope.skip = function (reminder) {
+    $scope.skip = function skipReminder (reminder) {
         reminder.skip();
         loadReminders();
     };
@@ -30,4 +30,4 @@ function RemindersCtrl ($scope, $rootScope, Reminder) {
     loadReminders();
 }
 
-RemindersCtrl.$inject = ['$scope', '$rootScope', 'Reminder'];
+RemindersCtrl.$inject = ['$scope', '$rootScope', 'Reminder', '$filter'];
