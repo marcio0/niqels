@@ -1,0 +1,52 @@
+[id="signup-area"] {
+    .well();
+
+    form {
+        width: 80%;
+        margin: auto;
+    }
+}
+
+section.main {
+    background-image: url(../img/textured_paper.png);
+}
+/*
+section.highlight1 {
+    background-image: url(../img/paper_2.png);
+}
+section.highlight2 {
+    background-image: url(../img/ricepaper2.png);
+}
+*/
+
+.hero-unit.presentation-block {
+    #translucent > .border(@alpha: 0);
+    #translucent > .background(@alpha: 0) !important;
+}
+
+form {
+    &[id="register-form"], &[id="signin-form"] {
+        input[type="submit"] {
+            .btn();
+            .btn-block();
+        }
+    }
+
+    &[id="register-form"] {
+        input[type="submit"] {
+            .btn-danger();
+        }
+    }
+
+    &[id="login-inline"] {
+        input {
+            &[type="text"], &[type="password"] {
+                margin-right: 10px;
+            }
+
+            &[type="submit"] {
+                .btn();
+            }
+        }
+    }
+}

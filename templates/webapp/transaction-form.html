@@ -2,7 +2,7 @@
 
 <div ng-controller="TransactionFormCtrl">
 <form
-    class="form"
+    class="form transaction-form"
     name="entryform"
     method="post"
 
@@ -88,11 +88,12 @@
 
         <div ex-datepicker="transaction.date"></div>
 
-    </fieldset>
+        <hr/>
 
-    <label class="checkbox">
-        <input type="checkbox" ng-model="isRepeat">{% trans "Repeat this transaction" %}</input>
-    </label>
+        <label class="checkbox">
+            <input type="checkbox" ng-model="isRepeat">{% trans "Repeat this transaction" %}</input>
+        </label>
+    </fieldset>
 
     <fieldset ng-show="isRepeat">
         <div class="control-group" ng-class="{error: errors.repeat}">
