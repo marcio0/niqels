@@ -11,7 +11,7 @@
 {% block body %}
 
 <div class="container" ng-app="webapp" id="ng-app">
-    <div class="row" ng-view>
+    <div class="row" ui-view>
     </div>
 </div>
 
@@ -20,6 +20,7 @@
 {% block bodyend %}
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
+<script src="{% static "js/angular-ui-router.min.js" %}"></script>
 <script src="{% static "js/moment.min.js" %}"></script>
 <script src="{% static "js/locales/pt-br.js" %}"></script>
 <script src="{% static "js/locales/angular-locale_pt-br.js" %}"></script>

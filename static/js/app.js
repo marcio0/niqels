@@ -1,13 +1,26 @@
-var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'])
+var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.state'])
 
-    .config(['$routeProvider', function($routeProvider, $httpProvider) {
-        $routeProvider
-            .when('/transactions/', {
-                templateUrl: '/partials/transaction-list/'
+    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+        $urlRouterProvider.otherwise("/transactions");
+
+        $stateProvider
+            // Transaction list view.
+            .state('transactionList', {
+                url: "/transactions",
+                templateUrl: "/partials/transaction-list/"
             })
-            .otherwise({
-                redirectTo: '/transactions/'
-            });
+
+            // Settings view.
+            .state('settings', {
+                url: "/settings",
+                templateUrl: "/partials/settings/"
+            })
+            // Settings view -> category list.
+            .state('settings.categoryList', {
+                url: "/categories",
+                templateUrl: "/partials/category-list/"
+            })
+            // Settings view -> reminder list.
     }])
 
     .config(['$httpProvider', function ($httpProvider) {
