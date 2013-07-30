@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^partials/transaction-list/$', TemplateView.as_view(template_name="webapp/transaction-list.html")),
     url(r'^partials/settings/$', TemplateView.as_view(template_name="webapp/settings.html")),
     url(r'^partials/category-list/$', TemplateView.as_view(template_name="webapp/settings/category-list.html")),
+    url(r'^partials/reminder-list/$', TemplateView.as_view(template_name="webapp/settings/reminder-list.html")),
 )
