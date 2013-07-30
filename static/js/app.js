@@ -5,7 +5,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
 
         $stateProvider
             // Transaction list view.
-            .state('transactionList', {
+            .state('transactions', {
                 url: "/transactions",
                 templateUrl: "/partials/transaction-list/"
             })
@@ -16,7 +16,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 templateUrl: "/partials/settings/"
             })
             // Settings view -> category list.
-            .state('settings.categoryList', {
+            .state('settings.categories', {
                 url: "/categories",
                 templateUrl: "/partials/category-list/"
             })
@@ -40,7 +40,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
     }])
 
     // configuring global vars and scope
-    .run(['$rootScope', function ($rootScope) {
+    .run(['$rootScope', '$state', function ($rootScope, $state) {
         $rootScope.$on('transactionCreated', function (ev, transaction) {
             if (user_categories.indexOf(transaction.category.name) == -1) {
                 //TODO: move this to somewhere else maybe
@@ -55,6 +55,8 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
         $rootScope.interpolate = function ngInterpolate (fmt, obj, named) {
             return interpolate(fmt, obj, named);
         };
+
+        $rootScope.$state = $state;
     }])
 
     ;
