@@ -24,7 +24,8 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
             // Settings view -> reminder list.
             .state('settings.reminders', {
                 url: "/reminders",
-                templateUrl: "/partials/reminder-list/"
+                templateUrl: "/partials/reminder-list/",
+                controller: "ReminderListCtrl"
             })
     }])
 
