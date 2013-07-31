@@ -10,14 +10,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr
-            ng-repeat="category in categories"
-            >
-
-            <td ng-bind="category.color"></td>
+        <tr ng-repeat="category in categories">
+            <td>
+                <span class="category-label" ng-style="{backgroundColor: category.color}">&nbsp;&nbsp;&nbsp;</span>
+            </td>
 
             <td ng-bind="category.name"></td>
-
         </tr>
     </tbody>
 </table>
