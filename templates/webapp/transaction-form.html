@@ -98,6 +98,7 @@
     <fieldset ng-show="isRepeat">
         <div class="control-group" ng-class="{error: errors.repeat}">
             <div class="controls">
+                <label class="control-label" for="repeat">{% trans "Create a reminder that repeats:" %}</label>
                 <select name="repeat" ng-model="transaction.repeat" ng-options="label for label in repeatOptions" ng-required="isRepeat"></select>
                 <span class="help-block" ng-show="errors.repeat">{% trans "Required" %}</span>
             </div>

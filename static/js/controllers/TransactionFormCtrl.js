@@ -1,12 +1,17 @@
 'use strict';
 
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Reminder) {
-    $scope.transaction = {};
-    $scope.errors = {};
-    $scope.sending = false;
-
-    $scope.isRepeat = false;
     $scope.repeatOptions = ['daily', 'weekly', 'biweekly', 'monthly'];
+
+    var resetForm =  function resetForm () {
+        $scope.transaction = {repeat: 'monthly'};
+        $scope.errors = {};
+        $scope.sending = false;
+
+        $scope.isRepeat = false;
+    };
+
+    resetForm();
 
     $scope.submit = function () {
         var transaction_data = $scope.transaction,
@@ -30,8 +35,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
                 promise = reminder.createReminder()
                     .then(function (value) {
-                        $scope.transaction = {};
-                        form.$setPristine();
+                        resetForm();
                         return value;
                     })
                     .then(function (value) {
@@ -44,7 +48,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             else {
                 promise = Transaction.save(transaction_data)
                     .$then(function (value) {
-                        $scope.transaction = {};
+                        resetForm();
                         form.$setPristine();
                         return value;
                     })

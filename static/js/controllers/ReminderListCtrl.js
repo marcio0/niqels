@@ -5,4 +5,4 @@ function ReminderListCtrl ($scope, Reminder) {
     });
 }
 
-RemindersListCtrl.$inject = ['$scope', 'Reminder'];
+ReminderListCtrl.$inject = ['$scope', 'Reminder'];
