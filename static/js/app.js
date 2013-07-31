@@ -18,7 +18,8 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
             // Settings view -> category list.
             .state('settings.categories', {
                 url: "/categories",
-                templateUrl: "/partials/category-list/"
+                templateUrl: "/partials/category-list/",
+                controller: "CategoryListCtrl"
             })
             // Settings view -> reminder list.
             .state('settings.reminders', {

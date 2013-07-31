@@ -1,1 +1,27 @@
-category
+{% load i18n %}
+
+<h4 class="panel-title">{% trans "Categories" %}</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>{% trans "Color" %}</th>
+            <th>{% trans "Name" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            ng-repeat="category in categories"
+            >
+
+            <td ng-bind="category.color"></td>
+
+            <td ng-bind="category.name"></td>
+
+        </tr>
+    </tbody>
+</table>
+
+<div id="empty-msg" ng-hide="categories.length"> 
+    {% trans "No categories." %}
+</div>
