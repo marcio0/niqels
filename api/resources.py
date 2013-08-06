@@ -106,7 +106,8 @@ class CategoryResource(ModelResource):
         return super(CategoryResource, self).obj_create(bundle, user=bundle.request.user)
 
     class Meta:
-        queryset = Category.objects.all()
+        queryset = Category.objects.filter(active=True)
+        excludes = ['active']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         validation = FormValidation(form_class=CategoryForm)

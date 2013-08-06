@@ -20,6 +20,7 @@ class Category(models.Model):
         verbose_name=_("user"),
         help_text=_('The owner of this category.')
     )
+    active = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.name
