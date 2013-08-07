@@ -95,7 +95,7 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=self.post_data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
@@ -117,7 +117,33 @@ class TransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
+
+    def test_post_list_reactivating_category(self):
+        '''
+        Creating a transaction in a inactive category will make it active again.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=False).count(), 1)
+
+        post_data = self.post_data.copy()
+        post_data['category'] = 'Inactive'
+        
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=post_data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content['category'], {
+            u'resource_uri': u'/api/v1/category/4',
+            u'id': 4,
+            u'name': u'Inactive',
+            u'color': u'#999999'
+        })
+
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Category.objects.filter(user=self.user, active=False).count(), 0)
 
     def test_post_list_new_category(self):
         '''
@@ -125,7 +151,7 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         data['category'] = 'new'
@@ -138,8 +164,8 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'category': {
-                u'resource_uri': u'/api/v1/category/4',
-                u'id': 4,
+                u'resource_uri': u'/api/v1/category/5',
+                u'id': 5,
                 u'name': u'new'
             },
             u'description': u'',
@@ -150,7 +176,7 @@ class TransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 3)
 
     def test_post_value_another_format(self):
         '''
@@ -158,7 +184,7 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         data['value'] = '4.840,00'
@@ -168,7 +194,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
     def test_post_value_default(self):
         '''
@@ -176,7 +202,7 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         del data['value']
@@ -189,7 +215,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
     def test_post_bad_data_missing_date(self):
         '''
@@ -197,7 +223,7 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         del data['date']
@@ -206,7 +232,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
     def test_post_bad_data_missing_category(self):
         '''
@@ -214,7 +240,7 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         del data['category']
@@ -223,7 +249,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
 
     # List tests: PUT

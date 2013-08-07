@@ -168,6 +168,10 @@ class TransactionResource(ModelResource):
             defaults={'color': random_color()}
         )
 
+        if not category.active:
+            category.active = True
+            category.save()
+
         bundle.data['category'] = category
 
         return bundle

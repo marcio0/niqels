@@ -89,21 +89,38 @@ class CategoryResourceTest(ResourceTestCase):
         A valid post to list endpoint.
         '''
         # Check how many are there first.
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(active=True, user=self.user).count(), 2)
 
         self.assertHttpCreated(self.api_client.post('/api/v1/category/', format='json', data=self.post_data, authentication=self.get_credentials()))
 
         # Verify a new one has been added.
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Category.objects.filter(active=True, user=self.user).count(), 3)
 
         # TODO increment this, check values
+
+    def test_post_list_reactivate(self):
+        '''
+        When creating a category, finds if it exists and is deactivated.
+        Reactivates it if it finds one.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Category.objects.filter(active=False, user=self.user).count(), 1)
+
+        post_data = {
+            'color': '#fefefe',
+            'name': 'Inactive'
+        }
+        self.assertHttpCreated(self.api_client.post('/api/v1/category/', format='json', data=post_data, authentication=self.get_credentials()))
+
+        # Verify a new one has been added.
+        self.assertEqual(Category.objects.filter(active=False, user=self.user).count(), 0)
 
     def test_post_list_missing_name(self):
         '''
         Invalid post; a name is required. Must return bad request.
         '''
         # Check how many are there first.
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(active=True, user=self.user).count(), 2)
 
         data = self.post_data.copy()
         del data['name']
@@ -111,7 +128,7 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertHttpBadRequest(self.api_client.post('/api/v1/category/', format='json', data=data, authentication=self.get_credentials()))
 
         # Verify a new one has been added.
-        self.assertEqual(Category.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(Category.objects.filter(active=True, user=self.user).count(), 2)
 
     def test_put_list_not_allowed(self):
         '''
@@ -150,6 +167,13 @@ class CategoryResourceTest(ResourceTestCase):
         # We use ``assertKeys`` here to just verify the keys, not all the data.
         self.assertKeys(self.deserialize(resp), ['name', 'color', 'id', 'resource_uri'])
         self.assertEqual(self.deserialize(resp)['name'], 'Groceries')
+
+    def test_only_own_objects(self):
+        '''
+        Can only retrieve active categories.
+        '''
+        category = Category.objects.get(name="Inactive")
+        self.assertHttpNotFound(self.api_client.get('/api/v1/category/%d' % category.id, format='json', authentication=self.get_credentials()))
 
     # Detail tests: POST
     def test_post_detail_not_allowed(self):
