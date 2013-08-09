@@ -226,6 +226,20 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertEqual(updated.name, 'new name')
         self.assertEqual(updated.color, '#000')
 
+    def test_put_detail_inactive_wont_find(self):
+        '''
+        Trying to update a inactive category will reactivate it, while updating the data.
+        '''
+        category_before = Category.objects.get(name="Inactive")
+
+        self.assertFalse(category_before.active)
+
+        self.assertHttpCreated(self.api_client.put('/api/v1/category/%d' % category_before.pk, format='json', data={'name':'New name'}, authentication=self.get_credentials()))
+
+        category_after = Category.objects.get(pk=category_before.pk)
+        self.assertTrue(category_after.active)
+        self.assertEquals(category_after.name, 'New name')
+
     def test_put_detail_missing_name(self):
         '''
         Name is required, must (should) return bad request.
