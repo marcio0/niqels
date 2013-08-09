@@ -189,12 +189,17 @@ class CategoryResourceTest(ResourceTestCase):
         '''
         self.assertHttpUnauthorized(self.api_client.delete('/api/v1/category/1/', format='json'))
 
-    def test_delete_detail_not_implemented(self):
+    def test_delete_detail_deactivate(self):
         '''
-        Cannot DELETE a category for now.
-        Resource accepts the DELETE but returns a NotImplemented.
+        Deleting a category must set active to False instead of removing the object.
         '''
-        self.assertHttpNotImplemented(self.api_client.delete('/api/v1/category/1/', format='json', authentication=self.get_credentials()))
+        category = Category.objects.get(name="Groceries")
+        self.assertTrue(category.active)
+
+        self.assertHttpAccepted(self.api_client.delete('/api/v1/category/%d' % category.pk, format='json', authentication=self.get_credentials()))
+
+        category = Category.objects.get(name="Groceries")
+        self.assertFalse(category.active)
 
     # Detail tests: PUT
     def test_put_detail_unauthenticated(self):

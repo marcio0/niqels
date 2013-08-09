@@ -117,8 +117,19 @@ class CategoryResource(ModelResource):
             'name': ALL
         }
 
-    def delete_detail(self, *args, **kwargs):
-        return http.HttpNotImplemented()
+    def obj_delete(self, bundle, **kwargs):
+        """
+        When deletion of a category is requested, it's active attribute is set to False.
+        """
+        if not hasattr(bundle.obj, 'delete'):
+            try:
+                bundle.obj = self.obj_get(bundle=bundle, **kwargs)
+            except ObjectDoesNotExist:
+                raise NotFound("A model instance matching the provided arguments could not be found.")
+
+        self.authorized_delete_detail(self.get_object_list(bundle.request), bundle)
+        bundle.obj.active = False
+        bundle.obj.save()
 
 
 class TransactionResource(ModelResource):
