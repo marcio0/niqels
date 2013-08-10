@@ -138,7 +138,7 @@ span.category-label {
 
 
 /*
- * ENTRY LIST STYLES
+ * TRANSACTION LIST STYLES
  */
 
 .reminder {
@@ -174,34 +174,45 @@ span.category-label {
     }
 }
 
-.entry-row {
-    td {
-        // the delete icon
-        &.action-bar {
-            width: 10%;
-            i{
-                .hide();
-                padding-right: 2px;
-                padding-left: 2px;
-                .pull-right();
-            }
-        }
+.transaction-table {
+    .table();
+    .table-striped();
 
-        &.category-column {
-            width: 10%;
-        }
-        &.description-column {
-            width: 65%;
-        }
-        &.value-column {
-            width: 15%;
-            text-align: right;
+    .header {
+        .transaction-list-day {
+            text-align: center;
         }
     }
 
-    &.tr-hover {
-        .action-bar i {
-            .show();
+    .transaction-row {
+        td {
+            // the delete icon
+            &.action-bar {
+                width: 10%;
+                i{
+                    .hide();
+                    padding-right: 2px;
+                    padding-left: 2px;
+                    .pull-right();
+                }
+            }
+
+            &.category-column {
+                width: 10%;
+            }
+            &.description-column {
+                width: 65%;
+            }
+            &.value-column {
+                width: 15%;
+                text-align: right;
+            }
+        }
+
+        &.tr-hover {
+            .action-bar i {
+                .show();
+            }
         }
     }
 }
@@ -228,5 +239,5 @@ span.category-label {
 }
 
 /*
- * /ENTRY LIST STYLES
+ * /TRANSACTION LIST STYLES
  */

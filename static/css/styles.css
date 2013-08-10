@@ -8362,7 +8362,7 @@ span.category-label-inverse[href] {
  * /GLOBAL STYLES
  */
 /*
- * ENTRY LIST STYLES
+ * TRANSACTION LIST STYLES
  */
 .reminder {
   padding: 8px 35px 8px 14px;
@@ -8398,26 +8398,65 @@ span.category-label-inverse[href] {
 .reminder .buttons .skip {
   color: #9d261d;
 }
-.entry-row td.action-bar {
+.transaction-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.transaction-table th,
+.transaction-table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+.transaction-table th {
+  font-weight: bold;
+}
+.transaction-table thead th {
+  vertical-align: bottom;
+}
+.transaction-table caption + thead tr:first-child th,
+.transaction-table caption + thead tr:first-child td,
+.transaction-table colgroup + thead tr:first-child th,
+.transaction-table colgroup + thead tr:first-child td,
+.transaction-table thead:first-child tr:first-child th,
+.transaction-table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+.transaction-table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+.transaction-table .table {
+  background-color: #f5f5f5;
+}
+.transaction-table tbody > tr:nth-child(odd) > td,
+.transaction-table tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+.transaction-table .header .transaction-list-day {
+  text-align: center;
+}
+.transaction-table .transaction-row td.action-bar {
   width: 10%;
 }
-.entry-row td.action-bar i {
+.transaction-table .transaction-row td.action-bar i {
   display: none;
   padding-right: 2px;
   padding-left: 2px;
   float: right;
 }
-.entry-row td.category-column {
+.transaction-table .transaction-row td.category-column {
   width: 10%;
 }
-.entry-row td.description-column {
+.transaction-table .transaction-row td.description-column {
   width: 65%;
 }
-.entry-row td.value-column {
+.transaction-table .transaction-row td.value-column {
   width: 15%;
   text-align: right;
 }
-.entry-row.tr-hover .action-bar i {
+.transaction-table .transaction-row.tr-hover .action-bar i {
   display: block;
 }
 .month-selector {
@@ -8553,5 +8592,5 @@ span.category-label-inverse[href] {
   border-color: rgba(0, 0, 0, 0.15);
 }
 /*
- * /ENTRY LIST STYLES
+ * /TRANSACTION LIST STYLES
  */

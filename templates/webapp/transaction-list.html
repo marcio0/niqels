@@ -17,21 +17,21 @@
         </div>
 
         <div ng-repeat="day in days | orderBy: 'day':true">
-            <table class="table table-striped">
-                <thead>
+            <table class="transaction-table">
+                <thead class="header">
                     <tr>
-                        <td colspan="3" ng-bind="day.day | date:'fullDate'"></td>
+                        <th colspan="4" class="transaction-list-day" ng-bind="day.day | date:'fullDate'"></th>
                     </tr>
                     <tr>
-                        <td>{% trans "Category" %}</td>
-                        <td>{% trans "Description" %}</td>
-                        <td>{% trans "Value" %}</td>
-                        <td>{% trans "Actions" %}</td>
+                        <th>{% trans "Category" %}</th>
+                        <th>{% trans "Description" %}</th>
+                        <th>{% trans "Value" %}</th>
+                        <th>{% trans "Actions" %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        class="entry-row"
+                        class="transaction-row"
                         ng-repeat="transaction in day.transactions"
                         >
 
