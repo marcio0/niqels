@@ -2,7 +2,7 @@
 
 <h4 class="panel-title">{% trans "Categories" %}</h4>
 
-<table class="table table-striped">
+<table class="category-table">
     <thead>
         <tr>
             <th>{% trans "Color" %}</th>
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="category in categories">
+        <tr class="category-row" ng-repeat="category in categories" ng-click="editCategory(category)">
             <td>
                 <span class="category-label" ng-style="{backgroundColor: category.color}">&nbsp;&nbsp;&nbsp;</span>
             </td>

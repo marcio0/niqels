@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>{% trans "Edit category" %}</h3>
+</div>
+
+<div class="modal-body">
+    <form class="ng-pristine ng-valid form-horizontal" name="category_form">
+        <div class="control-group">
+            <label class="control-label" for="name">{% trans "Name" %}</label>
+            <div class="controls">
+                <input type="text" name="name" ng-model="category.name">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="color">{% trans "Color" %}</label>
+            <div class="controls">
+                <input type="text" name="color" ng-model="category.color">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn" ng-click="hide()">Close</button>
+    <button class="btn btn-primary" ng-click="">Save changes</button>
+</div>

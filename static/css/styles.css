@@ -7752,6 +7752,11 @@ body {
 .navbar-fixed-top .navbar-inner .container {
   padding: 20px 0px;
 }
+.modal {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
 .popover {
   -webkit-border-radius: 1px !important;
   -moz-border-radius: 1px !important;
@@ -8201,6 +8206,48 @@ form.transaction-form fieldset {
 }
 form.transaction-form hr {
   margin: 10px 0;
+}
+.category-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.category-table th,
+.category-table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+.category-table th {
+  font-weight: bold;
+}
+.category-table thead th {
+  vertical-align: bottom;
+}
+.category-table caption + thead tr:first-child th,
+.category-table caption + thead tr:first-child td,
+.category-table colgroup + thead tr:first-child th,
+.category-table colgroup + thead tr:first-child td,
+.category-table thead:first-child tr:first-child th,
+.category-table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+.category-table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+.category-table .table {
+  background-color: #f5f5f5;
+}
+.category-table tbody > tr:nth-child(odd) > td,
+.category-table tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+.category-table .category-row {
+  cursor: pointer;
+}
+.category-table .category-row:hover {
+  text-decoration: underline;
 }
 #settings-menu {
   min-height: 20px;
