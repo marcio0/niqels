@@ -18,9 +18,17 @@
 
         <div ng-repeat="day in days | orderBy: 'day':true">
             <table class="table table-striped">
-                <thead><tr>
-                    <td colspan="3" ng-bind="day.day | date:'fullDate'"></td>
-                </tr></thead>
+                <thead>
+                    <tr>
+                        <td colspan="3" ng-bind="day.day | date:'fullDate'"></td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Category" %}</td>
+                        <td>{% trans "Description" %}</td>
+                        <td>{% trans "Value" %}</td>
+                        <td>{% trans "Actions" %}</td>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr
                         class="entry-row"
