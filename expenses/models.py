@@ -23,7 +23,7 @@ class Category(models.Model):
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return self.name
+        return "Category: %s" % self.name
 
 
 class TransactionManager(models.Manager):
@@ -80,7 +80,7 @@ class Transaction(models.Model):
     objects = TransactionManager()
 
     def __unicode__(self):
-        return '%d of %s on %s' % (
+        return 'Transaction: %d of %s on %s' % (
             self.value,
             self.category,
             self.date
