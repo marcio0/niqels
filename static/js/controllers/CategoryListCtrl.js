@@ -8,7 +8,13 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
         });
     };
 
-    $scope.saveCategory = function saveCategory (category) {
+    $scope.removeCategory = function removeCategory (category) {
+        category.$delete();
+        this.loadCategories();
+        this.hide();
+    };
+
+    $scope.saveCategory = function saveCategory () {
         var scope = this;
 
         this.editing_category.$update(
