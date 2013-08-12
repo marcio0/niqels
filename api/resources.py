@@ -101,16 +101,13 @@ class UserResource(ModelResource):
 
 
 class CategoryResource(ModelResource):
-    def _obj_create(self, bundle, **kwargs):
-        # TODO: unnittest this
-        return super(CategoryResource, self).obj_create(bundle, user=bundle.request.user)
-
     class Meta:
         queryset = Category.objects.filter(active=True)
         excludes = ['active']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         validation = FormValidation(form_class=CategoryForm)
+        always_return_data = True
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'put', 'delete']
         filtering = {
