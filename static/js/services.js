@@ -83,12 +83,13 @@ angular.module('models', ['ngResource'])
 
     .factory('Category', ['$resource', '$cacheFactory', '$http', function($resource, $cacheFactory, $http){
         var cache = $cacheFactory('Category');
-        var Category = $resource('/api/v1/category/:id', {}, {
+        var Category = $resource('/api/v1/category/:id', {id: '@id'}, {
             query: {
                 method: 'GET',
                 isArray: true,
                 transformResponse: tastypieDataTransformer($http)
-            }
+            },
+            update: {method: 'PUT'}
         });
 
         var loadCache = function (value) {
