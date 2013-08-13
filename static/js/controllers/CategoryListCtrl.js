@@ -10,7 +10,7 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
 
     $scope.removeCategory = function removeCategory (category) {
         category.$delete();
-        this.loadCategories();
+        $scope.loadCategories();
         this.hide();
     };
 
