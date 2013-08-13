@@ -8286,6 +8286,12 @@ form.transaction-form hr {
   border-color: rgba(0, 0, 0, 0.15);
 }
 /*
+ * Category edit
+ */
+button.remove-category {
+  float: left;
+}
+/*
  * GLOBAL STYLES
  */
 /* 
