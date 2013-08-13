@@ -23,7 +23,14 @@
 </div>
 
 <div class="modal-footer">
-    <button ng-click="removeCategory(category)" class="remove-category btn btn-link" ex-confirmation-needed="{% trans "Do you wish to remove this category?"%}">{% trans "Remove category" %}</a>
+    <button
+        ng-click="removeCategory(category)"
+        ng-show="editing_category.id"
+        ex-confirmation-needed="{% trans "Do you wish to remove this category?"%}"
+        class="remove-category btn btn-link">
+        
+        {% trans "Remove category" %}</button>
+
     <button type="button" class="btn" ng-click="hide()">Close</button>
     <button class="btn btn-primary" ng-click="saveCategory()">Save changes</button>
 </div>

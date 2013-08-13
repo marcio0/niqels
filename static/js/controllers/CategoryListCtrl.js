@@ -8,6 +8,10 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
         });
     };
 
+    $scope.createCategory = function newCategory () {
+        $scope.editCategory(new Category());
+    };
+
     $scope.removeCategory = function removeCategory (category) {
         category.$delete();
         $scope.loadCategories();
@@ -16,8 +20,9 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
 
     $scope.saveCategory = function saveCategory () {
         var scope = this;
+        var action = this.editing_category.id ? '$update' : '$save';
 
-        this.editing_category.$update(
+        this.editing_category[action](
             function success () {
                 scope.loadCategories();
                 scope.hide();

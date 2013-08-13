@@ -101,7 +101,6 @@ angular.module('webapp')
     .directive('exConfirmationNeeded', function () {
         return {
             priority: 1,
-            terminal: true,
             link: function (scope, element, attr) {
                 var msg = attr.exConfirmationNeeded || gettext("Are you sure?");
                 var clickAction = attr.ngClick;
