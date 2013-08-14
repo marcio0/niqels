@@ -11,6 +11,7 @@
 
         <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}" />
         <link href="{% static "css/datepicker.css" %}" rel="stylesheet" media="screen">
+        <link href="{% static "css/spectrum.css" %}" rel="stylesheet" media="screen">
 
         <script type="text/javascript">
             user_categories = {{ user_categories|to_json }};
@@ -21,6 +22,7 @@
         <script src="{% static "js/bootstrap.min.js" %}"></script>
         <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
         <script src="{% static "js/locales/bootstrap-datepicker.pt-BR.js" %}" type="text/javascript"></script>
+        <script src="{% static "js/spectrum.js" %}"></script>
         <script src="{% url "django.views.i18n.javascript_catalog" %}" type="text/javascript"></script>
 
         {% block extrahead %}{% endblock extrahead %}
