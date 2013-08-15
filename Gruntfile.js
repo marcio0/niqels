@@ -46,11 +46,16 @@ module.exports = function(grunt) {
                 ],
                 dest: 'static/js/webapp.js',
             }
+        },
+
+        clean: {
+            buildjs: ['static/js/webapp-script.js']
         }
     });
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
 
     /*
@@ -64,5 +69,5 @@ module.exports = function(grunt) {
      * script.js - the scripts for all pages (including the webapp);
      * webapp.js - scripts for the webapp.
      */
-    grunt.registerTask('buildjs', ['concat:base', 'uglify:webapp', 'concat:webapp']);
+    grunt.registerTask('buildjs', ['concat:base', 'uglify:webapp', 'concat:webapp', 'clean:buildjs']);
 };
