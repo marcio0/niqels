@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('webapp')
-    .directive('colorpicker', function ($parse) {
+    .directive('colorpicker', ['$parse', function ($parse) {
         return {
             require: 'ngModel',
             restrict: 'A',
@@ -40,9 +40,9 @@ angular.module('webapp')
                 });
             }
         };
-    })
+    }])
 
-    .directive('exMonthSelector', function ($locale) {
+    .directive('exMonthSelector', ['$locale', function ($locale) {
         return {
             scope: {
                 date: '=exMonthSelector'
@@ -84,9 +84,9 @@ angular.module('webapp')
                 }).on('changeDate', changeDate);
             }
         };
-    })
+    }])
 
-    .directive('exCurrency', function ($filter) {
+    .directive('exCurrency', ['$filter', function ($filter) {
         return {
             replace: true,
             template: '<span class="text-((color))" ng-bind="value"></span>',
@@ -109,9 +109,9 @@ angular.module('webapp')
                 });
             }
         };
-    })
+    }])
 
-    .directive('exDeviation', function ($filter) {
+    .directive('exDeviation', ['$filter', function ($filter) {
         return {
             replace: true,
             template: '<span class="text-((color))" >((value))% <i class="((icon)) icon-large"></i></span>',
@@ -136,7 +136,7 @@ angular.module('webapp')
                 });
             }
         };
-    })
+    }])
 
     .directive('exConfirmationNeeded', function () {
         return {
@@ -210,7 +210,7 @@ angular.module('webapp')
         };
     })
 
-    .directive('exDatepicker', function ($locale) {
+    .directive('exDatepicker', ['$locale', function ($locale) {
         return {
             restrict: 'A',
             scope: {
@@ -240,7 +240,7 @@ angular.module('webapp')
                 });
             }
         };
-    })
+    }])
 
     .directive('exValuefield', function () {
         return {
