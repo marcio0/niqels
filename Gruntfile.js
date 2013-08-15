@@ -50,13 +50,25 @@ module.exports = function(grunt) {
 
         clean: {
             buildjs: ['static/js/webapp-script.js']
+        },
+
+        less: {
+            development: {
+                options: {
+                },
+                files: {
+                    "static/css/styles.css": "static/less/styles.less"
+                }
+            }
         }
+
     });
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     /*
      * Task: buildjs
