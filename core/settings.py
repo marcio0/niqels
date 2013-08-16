@@ -21,6 +21,9 @@ LOGIN_REDIRECT_URL = '/'
 ALLOWED_HOSTS = [
     'localhost',
     '.herokuapp.com',
+    '.niqels.com.br',
+    '.niquels.com.br',
+    '.niqels.com'
 ]
 
 SITE_ID = 1
