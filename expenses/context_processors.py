@@ -20,7 +20,9 @@ def global_context(request):
         # Usually password fields.
         'empty_value_fields': ['password', 'password1', 'password2'],
 
-        "js_date_format": js_frm
+        "js_date_format": js_frm,
+
+        "debug": settings.DEBUG and settings.TEMPLATE_DEBUG
     }
 
     if request.user.is_authenticated:

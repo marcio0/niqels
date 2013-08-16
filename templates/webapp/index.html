@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
+{% load static %}
 {% load humanize %}
 {% load expenses_tags %}
 {% load i18n %}
@@ -27,15 +28,40 @@
 
 {% block bodyend %}
 
-{% comment %}
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
-{% endcomment %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
+{% if debug %}
 
-<script src="{% static "js/webapp.min.js" %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
+
+    <script src="{% static "js/webapp-libs.min.js" %}"></script>
+
+    {% get_static_prefix as static_path %}
+
+    {% with src=static_path|add:"js/src/" controllers=static_path|add:"js/src/controllers/" %}
+
+        <script src="{{src}}app.js"></script>
+        <script src="{{controllers}}BalancePanelCtrl.js"></script>
+        <script src="{{controllers}}RemindersCtrl.js"></script>
+        <script src="{{controllers}}TransactionActionBarCtrl.js"></script>
+        <script src="{{controllers}}TransactionFormCtrl.js"></script>
+        <script src="{{controllers}}TransactionListCtrl.js"></script>
+        <script src="{{controllers}}CategoryListCtrl.js"></script>
+        <script src="{{controllers}}ReminderListCtrl.js"></script>
+        <script src="{{src}}services.js"></script>
+        <script src="{{src}}directives.js"></script>
+
+    {% endwith %}
+
+{% else %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
+
+    <script src="{% static "js/webapp.min.js" %}"></script>
+
+{% endif %}
+
 
 {% comment %}
 <script src="{% static "js/lib/jquery.maskMoney.js" %}"></script>
@@ -47,16 +73,6 @@
 <script src="{% static "js/locales/pt-br.js" %}"></script>
 <script src="{% static "js/locales/angular-locale_pt-br.js" %}"></script>
 <script src="{% static "js/lib/min/angular-strap.min.js" %}"></script>
-<script src="{% static "js/app.js" %}"></script>
-<script src="{% static "js/controllers/BalancePanelCtrl.js" %}"></script>
-<script src="{% static "js/controllers/RemindersCtrl.js" %}"></script>
-<script src="{% static "js/controllers/TransactionActionBarCtrl.js" %}"></script>
-<script src="{% static "js/controllers/TransactionFormCtrl.js" %}"></script>
-<script src="{% static "js/controllers/TransactionListCtrl.js" %}"></script>
-<script src="{% static "js/controllers/CategoryListCtrl.js" %}"></script>
-<script src="{% static "js/controllers/ReminderListCtrl.js" %}"></script>
-<script src="{% static "js/services.js" %}"></script>
-<script src="{% static "js/directives.js" %}"></script>
 {% endcomment %}
 {% endblock bodyend %}
 

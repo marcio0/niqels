@@ -60,7 +60,39 @@ class GlobalsContextProcessorTest(TestCase):
             'SITE_NAME': 'Niqels',
             'js_date_format': u'MMM d, yyyy',
             'currency_symbol': u'$',
+            'debug': False,
             'user_categories': ['one', 'two'],
             'empty_value_fields': ['password', 'password1', 'password2']
         })
+
+    def test_template_debug_conditions(self):
+        request = mock.Mock()
+        request.user = self.user
+        request.locale = Locale.parse('en_US')
+
+        from django.conf import settings
+
+        settings.DEBUG = False
+        settings.TEMPLATE_DEBUG = True
+
+        context = global_context(request)
+        self.assertFalse(context['debug'])
+
+        settings.DEBUG = True
+        settings.TEMPLATE_DEBUG = False
+
+        context = global_context(request)
+        self.assertFalse(context['debug'])
+
+        settings.DEBUG = False
+        settings.TEMPLATE_DEBUG = False
+
+        context = global_context(request)
+        self.assertFalse(context['debug'])
+
+        settings.DEBUG = True
+        settings.TEMPLATE_DEBUG = True
+
+        context = global_context(request)
+        self.assertTrue(context['debug'])
 
