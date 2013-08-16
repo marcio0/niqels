@@ -56,6 +56,14 @@ LOCALE_CURRENCIES = {
     'en-us': 'USD',
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "app15337311@heroku.com"
+EMAIL_HOST_PASSWORD = "s9ooqg1t"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = ''
