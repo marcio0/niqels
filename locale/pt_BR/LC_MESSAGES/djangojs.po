@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-18 00:52-0300\n"
+"POT-Creation-Date: 2013-08-16 01:12-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/js/directives.js:105
-msgid "Confirm"
-msgstr "Confirmar"
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:26
+#: static/js/src/directives.js:145
+msgid "Are you sure?"
+msgstr "Tem certeza?"
 
-#: static/js/directives.js:106
-msgid "Ok"
-msgstr "Ok"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
 
-#: static/js/directives.js:107
-msgid "Cancel"
-msgstr "Cancelar"
+#~ msgid "Confirm"
+#~ msgstr "Confirmar"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
 
 #~ msgid ""
 #~ "Shows the sum of all your transactions up to the current day, and the "
