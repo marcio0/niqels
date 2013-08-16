@@ -92,6 +92,11 @@ module.exports = function(grunt) {
                     "static/css/styles.css": "static/less/styles.less"
                 }
             }
+        },
+
+        watch: {
+            files: ['static/less/*.less'],
+            tasks: ['less']
         }
 
     });
@@ -101,6 +106,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     /*
      * Task: buildjs
