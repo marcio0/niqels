@@ -138,12 +138,15 @@ angular.module('webapp')
         };
     }])
 
-    .directive('exConfirmationNeeded', function () {
+    .directive('confirmationNeeded', function () {
         return {
             priority: 1,
-            link: function (scope, element, attr) {
-                var msg = attr.exConfirmationNeeded || gettext("Are you sure?");
-                var clickAction = attr.ngClick;
+            link: function (scope, element, attrs) {
+                var msg = attrs.confirmationNeeded || gettext("Confirm action");
+                var clickAction = attrs.ngClick;
+
+                // removing ng-click so it won't be called twice.
+                delete attrs.ngClick;
 
                 element.bind('click', function () {
                     scope.$apply(function () {
