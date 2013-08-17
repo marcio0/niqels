@@ -17,7 +17,7 @@ function RemindersCtrl ($scope, $rootScope, Reminder, $filter) {
 
     $scope.createTransaction = function (reminder) {
         reminder.createTransaction().then(function (transaction) {
-            $rootScope.$broadcast('transactionCreated', transaction);
+            $rootScope.$emit('transactionCreated', transaction);
             loadReminders();
         });
     };

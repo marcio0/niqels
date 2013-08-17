@@ -23,9 +23,11 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
         var action = this.editing_category.id ? '$update' : '$save';
 
         this.editing_category[action](
-            function success () {
+            function success (value) {
                 scope.loadCategories();
                 scope.hide();
+                var eventName = (action == '$save') ? 'categoryCreated' : 'categoryUpdated';
+                scope.$emit(eventName, value);
             }
         );
     };
@@ -35,7 +37,7 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
         scope.editing_category = new Category(category);
         //arrumar um jeito de substituir a categoria sendo editada no save do modal
 
-        var modalPromise = $modal({template: '/partials/category-edit/', persist: "false", show: false, backdrop: 'static', scope: scope});
+        var modalPromise = $modal({template: '/partials/category-edit/', persist: "false", show: false, backdrop: true, scope: scope});
         $q.when(modalPromise).then(function(modalEl) {
             modalEl.modal('show');
         });

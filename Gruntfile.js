@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                         'static/js/lib/bootstrap-datepicker.js',
                         'static/js/lib/jquery.maskMoney.js',
                         'static/js/lib/spectrum.js',
+                        'static/js/lib/toastr.js',
 
                         // i18n code
                         'static/js/locales/*.js'
@@ -89,7 +90,10 @@ module.exports = function(grunt) {
                 options: {
                 },
                 files: {
-                    "static/css/styles.css": "static/less/styles.less"
+                    "static/css/styles.css": [
+                        "static/less/styles.less",
+                        "static/less/toastr-override.less"
+                    ]
                 }
             }
         },

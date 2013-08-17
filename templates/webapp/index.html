@@ -7,7 +7,13 @@
 {% load i18n %}
 
 {% block extrahead %}
+
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "css/spectrum.css" %}" rel="stylesheet" media="screen">
+
 {% endblock extrahead %}
+
+
 
 {% block body %}
 
@@ -26,8 +32,9 @@
 
 {% endblock body %}
 
-{% block bodyend %}
 
+
+{% block bodyend %}
 
 {% if debug %}
 
@@ -63,4 +70,3 @@
 {% endif %}
 
 {% endblock bodyend %}
-

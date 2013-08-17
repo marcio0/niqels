@@ -1,0 +1,10 @@
+/*
+ * This is necessary because it conflict with bootstrap mixins.
+ * It is compiled separately and concatenated with the web app css.
+ */
+@import "lib/toastr.less";
+@import "variables.less";
+
+#toast-container > div {
+    .borderRadius(@baseBorderRadius) !important;
+}

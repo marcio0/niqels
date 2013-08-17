@@ -1,17 +1,7 @@
 @import "bootstrap/bootstrap.less";
 @import "bootstrap/responsive.less";
+@import "variables.less";
 @import "datepicker.less";
-
-@bodyBackground:        #f5f5f5;
-@heroUnitBackground:    #fff;
-@heroUnitBorder:        #ccc;
-@wellBackground:        #fff;
-@baseFontSize:          12px;
-@baseBorderRadius:      1px;
-@borderRadiusLarge:     1px;
-@borderRadiusSmall:     1px;
-
-@panelBorder: #ccc;
 
 /*
  * OVERRIDES
@@ -56,6 +46,11 @@ body {
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
     }*/
+}
+
+// modal override
+.modal-backdrop.fade.in {
+  .opacity(0.3) !important;
 }
 
 /*

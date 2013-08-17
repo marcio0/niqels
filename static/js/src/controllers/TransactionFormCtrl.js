@@ -39,7 +39,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                         return value;
                     })
                     .then(function (value) {
-                        $rootScope.$broadcast('reminderCreated', value.resource);
+                        $rootScope.$emit('reminderCreated', value.resource);
                         return value;
                     });
 
@@ -53,7 +53,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                         return value;
                     })
                     .then(function (value) {
-                        $rootScope.$broadcast('transactionCreated', value.resource);
+                        $rootScope.$emit('transactionCreated', value.resource);
                         return value;
                     });
             }

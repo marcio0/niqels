@@ -13,6 +13,20 @@ var tastypieDataTransformer = function ($http) {
     ])
 };
 
+// notifier creator 
+/*
+var updt_fun = Category.update;
+console.log(updt_fun);
+Category.update = function $update (params, data, success, error) {
+    var success_override = function (value) {
+        console.log(arguments);
+        success.apply(arguments);
+        $rootScope.$broadcast('categoryUpdated', value);
+    };
+    updt_fun.apply(this, [params, data, success_override, error]);
+};
+*/
+
 angular.module('models', ['ngResource'])
 
     .factory('Reminder', ['$resource', '$http', 'Transaction', '$q', '$rootScope', function($resource, $http, Transaction, $q, $rootScope){
@@ -37,9 +51,10 @@ angular.module('models', ['ngResource'])
                 function success (reminder) {
                     var promise = reminder.createTransaction()
                         .then(function (transaction) {
-                            $rootScope.$broadcast('transactionCreated', transaction);
+                            $rootScope.$broadcast('transactionCreated', transaction, {silent: true});
                             return reminder;
                         });
+
                     deferred.resolve(promise);
                 },
                 function failure (result) {
@@ -66,10 +81,17 @@ angular.module('models', ['ngResource'])
             return deferred.promise;
         };
 
+        $rootScope.$on('reminderCreated', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyCreationSuccess(gettext('Reminder'));
+            }
+        });
+
         return Reminder;
     }])
 
-    .factory('Transaction', ['$resource', '$http', function($resource, $http){
+    .factory('Transaction', ['$resource', '$http', '$rootScope', function($resource, $http, $rootScope){
         var Transaction = $resource('/api/v1/transaction/:id', {}, {
             query: {
                 method: 'GET',
@@ -78,10 +100,17 @@ angular.module('models', ['ngResource'])
             }
         });
 
+        $rootScope.$on('transactionCreated', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyCreationSuccess(gettext('Transaction'));
+            }
+        });
+
         return Transaction;
     }])
 
-    .factory('Category', ['$resource', '$cacheFactory', '$http', function($resource, $cacheFactory, $http){
+    .factory('Category', ['$resource', '$cacheFactory', '$http', '$rootScope', function($resource, $cacheFactory, $http, $rootScope){
         var cache = $cacheFactory('Category');
         var Category = $resource('/api/v1/category/:id', {id: '@id'}, {
             query: {
@@ -120,6 +149,20 @@ angular.module('models', ['ngResource'])
                 });
             }
         };
+
+        $rootScope.$on('categoryUpdated', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyUpdateSuccess(gettext('Category'));
+            }
+        });
+
+        $rootScope.$on('categoryCreated', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyCreationSuccess(gettext('Category'));
+            }
+        });
 
         return Category;
     }]);

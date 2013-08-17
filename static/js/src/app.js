@@ -46,8 +46,8 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
     }])
 
     // configuring global vars and scope
-    .run(['$rootScope', '$state', function ($rootScope, $state) {
-        $rootScope.$on('transactionCreated', function (ev, transaction) {
+    .run(['$rootScope', '$state', '$window', function ($rootScope, $state, $window) {
+        $rootScope.$on('transactionCreated', function (e, transaction) {
             if (user_categories.indexOf(transaction.category.name) == -1) {
                 //TODO: move this to somewhere else maybe
                 user_categories.push(transaction.category.name);
@@ -63,6 +63,27 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
         };
 
         $rootScope.$state = $state;
+
+        //configuring toastr
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+            "fadeIn": 300,
+            "fadeOut": 500,
+            "timeOut": 3000,
+            "extendedTimeOut": 3000
+        };
+
+        toastr.notifyCreationSuccess = function (entity, values) {
+            toastr.success(gettext('%s sucessfuly created!').replace('%s', entity));
+        };
+
+        toastr.notifyUpdateSuccess = function (entity, values) {
+            toastr.success(gettext('%s sucessfuly updated!').replace('%s', entity));
+        };
+
+        toastr.notifyCreationFailure = function (entity, values) {
+            toastr.error(gettext('An error ocurred creating %s.').replace('%s', entity.toLowerCase()));
+        };
     }])
 
     ;
