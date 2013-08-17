@@ -16,6 +16,7 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
         category.$delete();
         $scope.loadCategories();
         this.hide();
+        $scope.$emit('categoryRemoved', category);
     };
 
     $scope.saveCategory = function saveCategory () {

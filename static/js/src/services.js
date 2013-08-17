@@ -164,6 +164,13 @@ angular.module('models', ['ngResource'])
             }
         });
 
+        $rootScope.$on('categoryRemoved', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyRemovalSuccess(gettext('Category'));
+            }
+        });
+
         return Category;
     }]);
 

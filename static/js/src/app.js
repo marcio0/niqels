@@ -84,6 +84,11 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
         toastr.notifyCreationFailure = function (entity, values) {
             toastr.error(gettext('An error ocurred creating %s.').replace('%s', entity.toLowerCase()));
         };
+
+        toastr.notifyRemovalSuccess = function (entity, values) {
+            toastr.success(gettext('%s sucessfuly removed.').replace('%s', entity));
+        };
+
     }])
 
     ;
