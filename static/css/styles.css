@@ -7783,8 +7783,8 @@ body {
 
 }
 .modal-backdrop.fade.in {
-  opacity: 0.003 !important;
-  filter: alpha(opacity=0.3) !important;
+  opacity: 0.3 !important;
+  filter: alpha(opacity=30) !important;
 }
 /*
  * /OVERRIDES
@@ -8652,6 +8652,10 @@ span.category-label-inverse[href] {
  * /TRANSACTION LIST STYLES
  */
 
+/*
+ * This is necessary because it conflict with bootstrap mixins.
+ * It is compiled separately and concatenated with the web app css.
+ */
 .toast-title {
   font-weight: bold;
 }
