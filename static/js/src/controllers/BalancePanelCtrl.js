@@ -10,6 +10,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
         }
         else {
             date = today.endOf('month');
+            date.month($rootScope.month);
         }
 
         date = date.format('YYYY-MM-DD');
