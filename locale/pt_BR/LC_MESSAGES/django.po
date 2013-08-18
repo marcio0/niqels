@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-16 01:07-0300\n"
+"POT-Creation-Date: 2013-08-18 20:35-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,11 +91,11 @@ msgstr "Sua senha foi alterada."
 msgid "Welcome to %(site_name)s, %(user_name)s!"
 msgstr "Bem vindo ao %(site_name)s, %(user_name)s!"
 
-#: core/settings.py:37
+#: core/settings.py:40
 msgid "English"
 msgstr "Inglês"
 
-#: core/settings.py:38
+#: core/settings.py:41
 msgid "Portuguese"
 msgstr "Português"
 
@@ -252,11 +252,91 @@ msgstr "Já é usuário?"
 msgid "Sign in"
 msgstr "Login"
 
-#: templates/webapp/index.html:18 templates/webapp/transaction-list.html:13
+#: templates/password_reset/recovery_done.html:3
+msgid "New password set"
+msgstr "Senha alterada"
+
+#: templates/password_reset/recovery_done.html:6
+msgid ""
+"Your password has successfully been reset. You can use it right now on the "
+"login page."
+msgstr "Sua senha foi resetada. Você pode usá-la na página de login."
+
+#: templates/password_reset/recovery_email.txt:1
+#, python-format
+msgid "Dear %(username)s,"
+msgstr "Caro %(username)"
+
+#: templates/password_reset/recovery_email.txt:3
+#, python-format
+msgid ""
+"You -- or someone pretending to be you -- has requested a password reset on "
+"%(domain)s."
+msgstr ""
+"Você -- ou alguém se passando por você -- requisitou uma troca de senha em "
+"%(domain)s."
+
+#: templates/password_reset/recovery_email.txt:5
+msgid "You can set your new password by following this link:"
+msgstr "Você pode alterar usa nova senha clicando nesse link:"
+
+#: templates/password_reset/recovery_email.txt:9
+msgid ""
+"If you don't want to reset your password, simply ignore this email and it "
+"will stay unchanged."
+msgstr ""
+"Se você não quer trocar sua senha, ignore este email e ela permanecerá "
+"inalterada."
+
+#: templates/password_reset/recovery_email_subject.txt:1
+#, python-format
+msgid "Password recovery on %(domain)s"
+msgstr "Troca de senha em %(domain)s"
+
+#: templates/password_reset/recovery_form.html:5
+msgid "Password recovery"
+msgstr "Recuperar senha"
+
+#: templates/password_reset/recovery_form.html:11
+msgid "Recover my password"
+msgstr "Recuperar minha senha"
+
+#: templates/password_reset/reset.html:5
+#, python-format
+msgid ""
+"Sorry, this password reset link is invalid. You can still <a href="
+"\"%(recovery_url)s\">request a new one</a>."
+msgstr ""
+"Desculpe, este link para resetar sua senha está inválido. Você ainda pode <a "
+"href=\"%(recovery_url)s\">requisitar uma nova</a>."
+
+#: templates/password_reset/reset.html:7
+#, python-format
+msgid "Hi, <strong>%(username)s</strong>. Please choose your new password."
+msgstr "Olá, <strong>%(username)s</strong>. Por favor escolha sua nova senha."
+
+#: templates/password_reset/reset.html:11
+msgid "Set new password"
+msgstr "Alterar senha"
+
+#: templates/password_reset/reset_sent.html:4
+msgid "Password recovery sent"
+msgstr "Email de confirmação enviado"
+
+#: templates/password_reset/reset_sent.html:7
+#, python-format
+msgid ""
+"An email was sent to <strong>%(email)s</strong> %(ago)s ago. Use the link in "
+"it to set a new password."
+msgstr ""
+"Um email foi enviado para <strong>%(email)s</strong> %(ago)s atrás. Siga as "
+"instruções no email para recuperar sua senha."
+
+#: templates/webapp/index.html:24 templates/webapp/transaction-list.html:13
 msgid "Transactions"
 msgstr "Movimentações"
 
-#: templates/webapp/index.html:19
+#: templates/webapp/index.html:25
 msgid "Settings"
 msgstr "Configurações"
 
@@ -283,20 +363,6 @@ msgstr ""
 #: templates/webapp/reminder-list.html:15
 msgid "Confirm"
 msgstr "Confirmar"
-
-#: templates/webapp/settings.html:5
-msgid "Menu"
-msgstr "Menu"
-
-#: templates/webapp/settings.html:6
-#: templates/webapp/settings/category-list.html:3
-msgid "Categories"
-msgstr "Categorias"
-
-#: templates/webapp/settings.html:7
-#: templates/webapp/settings/reminder-list.html:3
-msgid "Reminders"
-msgstr "Lembretes"
 
 #: templates/webapp/transaction-form.html:14
 msgid "New transaction"
@@ -379,6 +445,11 @@ msgstr "Cancelar"
 msgid "Save"
 msgstr "Salvar"
 
+#: templates/webapp/settings/category-list.html:3
+#: templates/webapp/settings/settings.html:6
+msgid "Categories"
+msgstr "Categorias"
+
 #: templates/webapp/settings/category-list.html:5
 msgid "New category"
 msgstr "Nova categoria"
@@ -386,6 +457,11 @@ msgstr "Nova categoria"
 #: templates/webapp/settings/category-list.html:25
 msgid "No categories."
 msgstr "Nenhuma categoria."
+
+#: templates/webapp/settings/reminder-list.html:3
+#: templates/webapp/settings/settings.html:7
+msgid "Reminders"
+msgstr "Lembretes"
 
 #: templates/webapp/settings/reminder-list.html:11
 msgid "Repeats: "
@@ -398,6 +474,10 @@ msgstr "Vencimento: "
 #: templates/webapp/settings/reminder-list.html:20
 msgid "No reminders."
 msgstr "Nenhum lembrete."
+
+#: templates/webapp/settings/settings.html:5
+msgid "Menu"
+msgstr "Menu"
 
 #~ msgid "It's simple to use!"
 #~ msgstr "É fácil de usar!"
