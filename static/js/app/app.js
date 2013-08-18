@@ -67,7 +67,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
         //configuring toastr
         toastr.options = {
             "positionClass": "toast-bottom-right",
-            "fadeIn": 300,
+            "fadeIn": 400,
             "fadeOut": 500,
             "timeOut": 3000,
             "extendedTimeOut": 3000

@@ -5,6 +5,13 @@
 @import "lib/toastr.less";
 @import "variables.less";
 
-#toast-container > div {
-    .borderRadius(@baseBorderRadius) !important;
+#toast-container {
+    > div {
+        .borderRadius(@baseBorderRadius) !important;
+        .boxShadow(none) !important;
+    }
+
+	> :hover {
+		.boxShadow(0 0 12px @grey) !important;
+    }
 }
