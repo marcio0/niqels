@@ -16,11 +16,12 @@
             user_categories = {{ user_categories|to_json }};
         </script>
 
-        {% comment %}
-        <script src="{% static "js/lib/min/jquery-1.10.1.min.js" %}"></script>
-        <script src="{% static "js/lib/min/bootstrap.min.js" %}"></script>
-        {% endcomment %}
+        {% if debug %}
+        <script src="{% static "js/lib/jquery-1.10.2.js" %}"></script>
+        <script src="{% static "js/lib/bootstrap.js" %}"></script>
+        {% else %}
         <script src="{% static "js/script.min.js" %}"></script>
+        {% endif %}
         <script src="{% url "django.views.i18n.javascript_catalog" %}" type="text/javascript"></script>
 
         {% block extrahead %}{% endblock extrahead %}

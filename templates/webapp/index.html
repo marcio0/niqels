@@ -41,13 +41,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
 
-    <script src="{% static "js/webapp-libs.min.js" %}"></script>
-
     {% get_static_prefix as static_path %}
 
-    {% with src=static_path|add:"js/src/" controllers=static_path|add:"js/src/controllers/" %}
+    {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" %}
 
-        <script src="{{src}}app.js"></script>
+        <script src="{{lib}}angular-strap.js"></script>
+        <script src="{{lib}}angular-ui-router.js"></script>
+        <script src="{{lib}}bootstrap-datepicker.js"></script>
+        <script src="{{lib}}jquery.maskMoney.js"></script>
+        <script src="{{lib}}spectrum.js"></script>
+        <script src="{{lib}}toastr.js"></script>
+        <script src="{{lib}}min/moment.min.js"></script>
+
+        <script src="{{app}}app.js"></script>
+        <script src="{{controllers}}BalancePanelCtrl.js"></script>
         <script src="{{controllers}}BalancePanelCtrl.js"></script>
         <script src="{{controllers}}RemindersCtrl.js"></script>
         <script src="{{controllers}}TransactionActionBarCtrl.js"></script>
@@ -55,8 +62,8 @@
         <script src="{{controllers}}TransactionListCtrl.js"></script>
         <script src="{{controllers}}CategoryListCtrl.js"></script>
         <script src="{{controllers}}ReminderListCtrl.js"></script>
-        <script src="{{src}}services.js"></script>
-        <script src="{{src}}directives.js"></script>
+        <script src="{{app}}services.js"></script>
+        <script src="{{app}}directives.js"></script>
 
     {% endwith %}
 

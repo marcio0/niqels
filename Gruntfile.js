@@ -33,10 +33,10 @@ module.exports = function(grunt) {
                      */
                     'static/js/webapp-scripts.min.js': [
                         //webapp code
-                        'static/js/src/app.js',
-                        'static/js/src/directives.js',
-                        'static/js/src/services.js',
-                        'static/js/src/controllers/*.js'
+                        'static/js/app/app.js',
+                        'static/js/app/directives.js',
+                        'static/js/app/services.js',
+                        'static/js/app/controllers/*.js'
                     ]
                 }
             }
