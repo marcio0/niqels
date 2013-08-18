@@ -15,12 +15,11 @@ module.exports = function(grunt) {
                      *
                      * Libs used by the webapp.
                      */
-                    'static/js/webapp-libs.tmp.min.js': [
+                    'static/js/webapp-libs.min.js': [
                         // libs
                         'static/js/lib/bootstrap-datepicker.js',
                         'static/js/lib/jquery.maskMoney.js',
                         'static/js/lib/spectrum.js',
-                        'static/js/lib/toastr.js',
 
                         // i18n code
                         'static/js/locales/*.js'
@@ -52,7 +51,7 @@ module.exports = function(grunt) {
                      * Base scripts used in the entire site.
                      */
                     'static/js/script.min.js': [
-                        'static/js/lib/min/jquery-1.10.1.min.js',
+                        'static/js/lib/min/jquery-1.10.2.min.js',
                         'static/js/lib/min/bootstrap.min.js'
                     ],
 
@@ -65,7 +64,8 @@ module.exports = function(grunt) {
                         'static/js/lib/min/angular-strap.min.js',
                         'static/js/lib/min/angular-ui-router.min.js',
                         'static/js/lib/min/moment.min.js',
-                        'static/js/webapp-libs.tmp.min.js'
+                        'static/js/lib/min/toastr.min.js',
+                        'static/js/webapp-libs.min.js'
                     ],
 
                     /*
