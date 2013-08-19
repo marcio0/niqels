@@ -101,6 +101,15 @@ module.exports = function(grunt) {
         watch: {
             files: ['static/less/*.less'],
             tasks: ['less']
+        },
+
+        exec: {
+            makemessagesDjango: {
+                command: 'python manage.py makemessages -l pt_BR -i node_modules -i staticfiles'
+            },
+            makemessagesJS: {
+                command: 'python manage.py makemessages -l pt_BR -d djangojs -i node_modules -i staticfiles'
+            }
         }
 
     });
@@ -111,6 +120,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-exec');
 
     /*
      * Task: buildjs
@@ -124,4 +134,5 @@ module.exports = function(grunt) {
      * webapp.min.js            : the entire webapp scripts, minus global scripts.
      */
     grunt.registerTask('buildjs', ['uglify:webapp', 'concat:webapp', 'clean:buildjs']);
+    grunt.registerTask('makemsgs', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
 };
