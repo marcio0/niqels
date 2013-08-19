@@ -19,13 +19,13 @@
         <div ng-repeat="day in days | orderBy: 'day':true">
             <table class="transaction-table">
                 <thead class="header">
-                    <tr>
-                        <th colspan="4" class="transaction-list-day" ng-bind="day.day | date:'fullDate'"></th>
+                    <tr class="transaction-list-day">
+                        <th colspan="4" ng-bind="day.day | date:'fullDate'"></th>
                     </tr>
-                    <tr>
+                    <tr class="transaction-list-columns">
                         <th>{% trans "Category" %}</th>
-                        <th>{% trans "Description" %}</th>
-                        <th>{% trans "Value" %}</th>
+                        <th class="description-column-header">{% trans "Description" %}</th>
+                        <th class="value-column-header">{% trans "Value" %}</th>
                         <th>{% trans "Actions" %}</th>
                     </tr>
                 </thead>

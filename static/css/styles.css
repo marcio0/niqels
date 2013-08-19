@@ -7,33 +7,6 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.clearfix:after {
-  clear: both;
-}
-.hide-text {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-.input-block-level {
-  display: block;
-  width: 100%;
-  min-height: 30px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 article,
 aside,
 details,
@@ -6192,6 +6165,33 @@ a.badge:focus {
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 @-ms-viewport {
   width: device-width;
 }
@@ -8491,7 +8491,20 @@ span.category-label-inverse[href] {
 .transaction-table tbody > tr:nth-child(odd) > th {
   background-color: #f9f9f9;
 }
-.transaction-table .header .transaction-list-day {
+.transaction-table td {
+  border-top: none;
+}
+.transaction-table .header tr.transaction-list-day > th {
+  font-size: 14px;
+  text-align: center;
+}
+.transaction-table .header tr.transaction-list-columns > th {
+  font-weight: normal;
+}
+.transaction-table .header tr.transaction-list-columns > th.value-column-header {
+  text-align: right;
+}
+.transaction-table .header tr.transaction-list-columns > th.description-column-header {
   text-align: center;
 }
 .transaction-table .transaction-row td.action-bar {

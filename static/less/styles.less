@@ -178,9 +178,29 @@ span.category-label {
     .table();
     .table-striped();
 
+    td {
+        border-top: none;
+    }
+
     .header {
-        .transaction-list-day {
+        tr.transaction-list-day > th {
+            font-size: 14px;
+            //font-weight: normal;
             text-align: center;
+        }
+
+        tr.transaction-list-columns { 
+            > th {
+                font-weight: normal;
+
+                &.value-column-header {
+                    text-align: right;
+                }
+
+                &.description-column-header {
+                    text-align: center;
+                }
+            }
         }
     }
 
