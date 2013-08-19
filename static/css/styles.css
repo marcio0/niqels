@@ -7,6 +7,33 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 article,
 aside,
 details,
@@ -6165,33 +6192,6 @@ a.badge:focus {
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.clearfix:after {
-  clear: both;
-}
-.hide-text {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-.input-block-level {
-  display: block;
-  width: 100%;
-  min-height: 30px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 @-ms-viewport {
   width: device-width;
 }
@@ -7986,10 +7986,6 @@ form[id="register-form"] input[type="submit"] .caret {
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;
 }
-form[id="login-inline"] input[type="text"],
-form[id="login-inline"] input[type="password"] {
-  margin-right: 10px;
-}
 form[id="login-inline"] input[type="submit"] {
   display: inline-block;
   *display: inline;
@@ -8337,6 +8333,17 @@ button.remove-category {
 }
 .input-prepend input {
   border-left: 0;
+}
+i.input-icon {
+  position: relative;
+}
+i.input-icon:before {
+  position: absolute;
+  left: 10px;
+  top: 0px;
+}
+i.input-icon + input {
+  text-indent: 23px;
 }
 .center-form {
   width: 300px;
