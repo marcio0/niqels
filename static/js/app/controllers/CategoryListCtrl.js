@@ -38,7 +38,7 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
         scope.editing_category = new Category(category);
         //arrumar um jeito de substituir a categoria sendo editada no save do modal
 
-        var modalPromise = $modal({template: '/partials/category-edit/', persist: "false", show: false, backdrop: true, scope: scope});
+        var modalPromise = $modal({template: 'category-edit.html', persist: "false", show: false, backdrop: true, scope: scope});
         $q.when(modalPromise).then(function(modalEl) {
             modalEl.modal('show');
         });

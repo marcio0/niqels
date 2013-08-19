@@ -7,13 +7,13 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
             // Transaction list view.
             .state('transactions', {
                 url: "/transactions",
-                templateUrl: "/partials/transaction-list/"
+                templateUrl: "transaction-list.html"
             })
 
             // Settings view.
             .state('settings', {
                 url: "/settings",
-                templateUrl: "/partials/settings/"
+                templateUrl: "settings.html"
             })
             // Settings view -> category list.
             .state('settings.categories', {
