@@ -116,6 +116,7 @@ angular.module('models', ['ngResource'])
             query: {
                 method: 'GET',
                 isArray: true,
+                cache: true,
                 transformResponse: tastypieDataTransformer($http)
             },
             update: {method: 'PUT'}

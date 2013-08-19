@@ -170,21 +170,34 @@ angular.module('webapp')
         };
     })
 
-    .directive('exCategoryfield', function () {
+    .directive('exCategoryfield', ['Category', function (Category) {
         return {
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
 
-                element.typeahead({
-                    source: user_categories,
-                    items: 3,
-                    matcher: function (item) {
-                        return item.toLowerCase().indexOf(this.query.toLowerCase()) == 0;
-                    },
-                    highlighter: function (item) {
-                        return item;
-                    }
+                Category.query().$then(function (result) {
+                    element.typeahead({
+                        source: result.resource,
+                        items: 3,
+                        matcher: function (item) {
+                            //return item.name.toLowerCase().indexOf(this.query.toLowerCase()) == 0;
+                            return $.fn.typeahead.Constructor.prototype.matcher.call(this, item.name);
+                        },
+                        sorter: function (items) {
+                            var names = [];
+                            for (var i=0; i<items.length; i++) {
+                                names.push(items[i].name);
+                            }
+                            return $.fn.typeahead.Constructor.prototype.sorter.apply(this, [names]);
+                        },
+                        updater: function (item) {
+                            return item.name;
+                        },
+                        highlighter: function (item) {
+                            return item;
+                        }
+                    });
                 });
 
                 element.bind('change', function () {
@@ -194,7 +207,7 @@ angular.module('webapp')
                 });
             }
         };
-    })
+    }])
 
     .directive('exActionbar', function () {
         return {
