@@ -8334,16 +8334,26 @@ button.remove-category {
 .input-prepend input {
   border-left: 0;
 }
-i.input-icon {
+form.form-inline i.input-icon {
+  top: 6px;
+  left: 10px;
+}
+form.form-inline input {
+  margin-left: 10px;
+}
+form i.input-icon {
   position: relative;
 }
-i.input-icon:before {
+form i.input-icon:before {
   position: absolute;
   left: 10px;
-  top: 0px;
+  top: -8px;
 }
-i.input-icon + input {
+form i.input-icon + input {
   text-indent: 23px;
+}
+form .control-group {
+  margin-bottom: 0px;
 }
 .center-form {
   width: 300px;

@@ -110,17 +110,33 @@ body {
 }
 
 
-i.input-icon {
-    position: relative;
+form {
+    &.form-inline {
+        i.input-icon {
+            top: 6px;
+            left: 10px;
+        }
 
-    &:before {
-        position: absolute;
-        left: 10px;
-        top: 0px;
+        input {
+            margin-left: 10px;
+        }
+    }
+    i.input-icon {
+        position: relative;
+
+        &:before {
+            position: absolute;
+            left: 10px;
+            top: -8px;
+        }
+
+        + input {
+            text-indent: 23px;
+        }
     }
 
-    + input {
-        text-indent: 23px;
+    .control-group {
+        margin-bottom: 0px;
     }
 }
 
