@@ -36,16 +36,9 @@ body {
     border: 1px solid #ccc;
 	.border-radius(@baseBorderRadius) !important;
 
-	/*table tr td {
-		&.active,
-		&.active:hover,
-		&.active.disabled,
-		&.active.disabled:hover {
-			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-			color: #fff;
-			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-		}
-    }*/
+    td, th, .active, .today, tr > td > span {
+        .border-radius(@baseBorderRadius) !important;
+    }
 }
 
 // modal override
