@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var tastypieDataTransformer = function ($http) {
     return $http.defaults.transformResponse.concat([

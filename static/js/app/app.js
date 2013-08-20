@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.state'])
 
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
