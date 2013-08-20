@@ -51,7 +51,7 @@
 
     {% get_static_prefix as static_path %}
 
-    {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" %}
+    {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" locales=static_path|add:"js/locales/" %}
 
         <script src="{{lib}}angular-strap.js"></script>
         <script src="{{lib}}angular-ui-router.js"></script>
@@ -60,6 +60,10 @@
         <script src="{{lib}}spectrum.js"></script>
         <script src="{{lib}}toastr.js"></script>
         <script src="{{lib}}min/moment.min.js"></script>
+
+        <script src="{{locales}}angular-locale_pt-br.js"></script>
+        <script src="{{locales}}bootstrap-datepicker.pt-BR.js"></script>
+        <script src="{{locales}}pt-br.js"></script>
 
         <script src="{{app}}app.js"></script>
         <script src="{{controllers}}BalancePanelCtrl.js"></script>
