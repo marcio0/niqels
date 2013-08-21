@@ -15,28 +15,27 @@
 
         <div class="control-group" ng-class="{error: errors.category}">
             <div class="controls">
-                <div class="input-prepend input-block-level">
-                    <span class="add-on"><i class="icon-tag"></i></span>
-                    <input
-                        id="id_category"
-                        maxlength="200"
-                        name="category"
-                        type="text"
+                <i class="icon-tag input-icon"></i>
+                <input
+                    id="id_category"
+                    maxlength="200"
+                    name="category"
+                    type="text"
+                    class="input-block-level"
 
-                        ng-model="transaction.category"
-                        ex-categoryfield
+                    ng-model="transaction.category"
+                    ex-categoryfield
 
-                        bs-tooltip
-                        title="{% trans "Example: &quot;Groceries&quot;, &quot;Lunch&quot;" %}"
-                        data-placement="right"
+                    bs-tooltip
+                    title="{% trans "Example: &quot;Groceries&quot;, &quot;Lunch&quot;" %}"
+                    data-placement="right"
 
-                        autofocus
-                        autocomplete="off"
+                    autofocus
+                    autocomplete="off"
 
-                        placeholder="{% trans "Category" %}"
-                        required
-                        />
-                </div>
+                    placeholder="{% trans "Category" %}"
+                    required
+                    />
 
                 <span class="help-block" ng-show="errors.category">{% trans "Required" %}</span>
             </div>
@@ -44,24 +43,23 @@
 
         <div class="control-group" ng-class="{error: errors.value}">
             <div class="controls">
-                <div class="input-prepend input-block-level">
-                    <span class="add-on">$</span>
-                    <input
-                        id="id_value"
-                        name="value"
-                        type="text"
+                <i class="icon-dollar input-icon"></i>
+                <input
+                    id="id_value"
+                    name="value"
+                    type="text"
+                    class="input-block-level"
 
-                        ng-model="transaction.value"
-                        ex-valuefield
+                    ng-model="transaction.value"
+                    ex-valuefield
 
-                        bs-tooltip
-                        title="{% trans "Use a &quot;+&quot; sign to indicate positive values." %}"
-                        data-placement="right"
+                    bs-tooltip
+                    title="{% trans "Use a &quot;+&quot; sign to indicate positive values." %}"
+                    data-placement="right"
 
-                        autocomplete="off"
-                        placeholder="{% trans "Value" %}"
-                        />
-                </div>
+                    autocomplete="off"
+                    placeholder="{% trans "Value" %}"
+                    />
 
                 <span class="help-block" ng-show="errors.value">{% trans "Required" %}</span>
             </div>
@@ -69,20 +67,19 @@
 
         <div class="control-group">
             <div class="controls">
-                <div class="input-prepend input-block-level">
-                    <span class="add-on"><i class="icon-pencil"></i></span>
-                    <input
-                        id="id_description"
-                        maxlength="200"
-                        name="description"
-                        type="text"
+                <i class="icon-pencil input-icon"></i>
+                <input
+                    id="id_description"
+                    maxlength="200"
+                    name="description"
+                    type="text"
+                    class="input-block-level"
 
-                        ng-model="transaction.description"
+                    ng-model="transaction.description"
 
-                        placeholder="{% trans "Description (optional)" %}"
-                        autocomplete="off"
-                        />
-                </div>
+                    placeholder="{% trans "Description (optional)" %}"
+                    autocomplete="off"
+                    />
             </div>
         </div>
 
