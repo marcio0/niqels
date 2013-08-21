@@ -8289,6 +8289,34 @@ form.transaction-form hr {
 button.remove-category {
   float: left;
 }
+div.balance-info {
+  padding-right: 15px;
+}
+div.balance-info div {
+  position: relative;
+  text-align: right;
+  margin: 15px 0;
+}
+div.balance-info div .value {
+  font-size: 20px;
+}
+div.balance-info div.income {
+  color: #46a546;
+}
+div.balance-info div.outcome {
+  color: #9d261d;
+}
+div.balance-info div .description {
+  line-height: none;
+  position: absolute;
+  font-size: 11px;
+  bottom: 0px;
+  left: 0px;
+}
+div.balance-info div.total .value {
+  border-top: 1px solid #CCC;
+  padding: 5px 0;
+}
 /*
  * GLOBAL STYLES
  */

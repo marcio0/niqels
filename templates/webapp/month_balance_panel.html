@@ -17,7 +17,7 @@
         ></i>
 
     <h4 class="panel-title">{% trans "Balance" %}</h4>
-    {% verbatim %}
+    {% comment %} 
     <p>
         <span
             ex-currency
@@ -29,5 +29,39 @@
             ex-deviation-value="((balance_data.balance.deviation))"
             ></span>)
     </p>
-    {% endverbatim %}
+    {% endcomment %} 
+
+    <div class="balance-info">
+        <div class="income">
+            <span class="description">
+                income
+            </span>
+            <span class="value">
+                500,00
+            </span>
+        </div>
+
+        <div class="outcome">
+            <span class="description">
+                outcome
+            </span>
+            <span class="value">
+                - 300,00
+            </span>
+        </div>
+
+
+        <div class="total">
+            <span class="description">
+                total
+            </span>
+            <span class="value">
+                - 200,00
+            </span>
+        </div>
+    </div>
+
+    <h4 class="panel-title">{% trans "Average" %}</h4>
+
+    <chart value='chartData' type="area" height="300"></chart>
 </div>
