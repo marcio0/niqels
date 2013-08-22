@@ -23,7 +23,7 @@ angular.module('chartsExample.directives',[])
       };
       
         //Update when charts data changes
-        scope.$watch(function() { return scope.chartData; }, function(value) {
+        scope.$watch('chartData', function(value) {
           if(!value) return;
             // We need deep copy in order to NOT override original chart object.
             // This allows us to override chart data member and still the keep
@@ -31,6 +31,7 @@ angular.module('chartsExample.directives',[])
             var deepCopy = true;
             var newSettings = {};
             $.extend(deepCopy, newSettings, chartsDefaults, scope.chartData);
+            console.log(newSettings);
             var chart = new Highcharts.Chart(newSettings);
         });
       }
