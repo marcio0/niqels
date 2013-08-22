@@ -3,7 +3,35 @@ from decimal import Decimal, InvalidOperation
 from django.db.models import Sum
 
 from expenses.models import Transaction 
+from access.models import User
 
+import datetime
+
+
+class BalanceQuery(object):
+    """
+    Returns income and outcome for the informed months.
+    Optionally filters the queries up to the specified day.
+    """
+    def __init__(self, months=None, day=None):
+        if not months or not isinstance(months, list):
+            raise TypeError
+
+        self.months = months
+        self.day = day
+
+    def calculate(self):
+        groups = Transaction.objects.up_to_day(months=self.months, day=self.day)
+        result = {}
+
+        for month in groups:
+            income = groups[month].filter(value__gte=0).aggregate(Sum('value'))['value__sum']
+            outcome = groups[month].filter(value__lte=0).aggregate(Sum('value'))['value__sum']
+
+            result[month] = dict(income=income, outcome=outcome)
+
+        return result
+ 
 
 class AverageCalculator(object):
     def __init__(self, user, qty_months, start_date):
