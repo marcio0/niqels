@@ -3,27 +3,43 @@
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
     $scope.updateBalance = function () {
         var today = moment();
-        var date, day, first_month, months;
+        var reference_date, day, months;
 
         if ($rootScope.month == today.month()) {
-            date = today;
+            reference_date = today;
         }
         else {
-            date = today.endOf('month');
-            date.month($rootScope.month);
+            reference_date = today.endOf('month');
+            reference_date.month($rootScope.month);
         }
 
-        date = date.format('YYYY-MM-DD').split('-');
-        day = date[2];
+        months = [reference_date];
+        for (var i=0; i<2; i++) {
+            var actual_date = months[i].clone().subtract('month', 1);
+            months.push(actual_date);
+        }
 
-        first_month = [date[0], date[1]].join('-');
+        months.reverse();
 
-        months = [];
-        //montar o dict de meses
+        for (var i in months) {
+            months[i] = months[i].format('YYYY-MM');
+        }
 
+        months = angular.toJson(months);
 
-        $http.get('/api/v1/data/balance/?date=' + date).then(function (result) {
-            $scope.balance_data = result.data;
+        $http.get('/api/v1/data/balance/?months=' + months + '&up_to_day=' + reference_date.date()).then(function (result) {
+            chartOptions;
+            var categories = [],
+                values = [];
+
+            for(var k in result.data) {
+                categories.push(k);
+                values.push(parseFloat(result.data[k].income) + parseFloat(result.data[k].outcome));
+            }
+
+            chartOptions.xAxis.categories = categories
+            chartOptions.series = [{'data': values, name: 'asd'}];
+            $scope.chartData = chartOptions;
         });
     };
 
@@ -35,17 +51,14 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
             text: ''
         },
         xAxis: {
-            categories: [
-                'Jan',
-                'Feb',
-                'Mar'
-            ]
         },
         yAxis: {
-            min: 0,
-            title: {
-                text: ''
-            }
+            plotLines:[{
+                value: 0,
+                color: '#000',
+                width: 1,
+                zIndex: 4
+            }]
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -60,14 +73,8 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
                 pointPadding: 0.2,
                 borderWidth: 0
             }
-        },
-        series: [{
-            name: 'Balanço',
-            data: [1, 2, 3]
-        }]
+        }
     };
-
-    $rootScope.chartData = chartOptions;
 
     $rootScope.$on('transactionCreated', $scope.updateBalance);
     $rootScope.$on('transactionRemoved', $scope.updateBalance);
