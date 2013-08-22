@@ -34,7 +34,12 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
 
             for(var k in result.data) {
                 categories.push(k);
-                values.push(parseFloat(result.data[k].income) + parseFloat(result.data[k].outcome));
+                var data = {};
+                data.income = parseFloat(result.data[k].income);
+                data.outcome = parseFloat(result.data[k].outcome)
+                data.y = data.income + data.outcome;
+                data.color = data.y < 0 ? 'red' : 'blue';
+                values.push(data);
             }
 
             chartOptions.xAxis.categories = categories
@@ -61,11 +66,15 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
             }]
         },
         tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
+            headerFormat: '<span style="font-size:10px">{point.key}</span><div>',
+            pointFormat:    '<p style="color:{series.color};">Income: <b>{point.income}</b></p>' +
+                            '<p style="color:{series.color};">Outcome: <b>{point.outcome}</b></p>' +
+                            '<p style="color:{series.color};">Total: <b>{point.y}</b></p>',
+            footerFormat: '</div>',
+            borderRadius: 0,
+            shared: false,
+            hideDelay: 50,
+            animation: false,
             useHTML: true
         },
         plotOptions: {
