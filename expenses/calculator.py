@@ -25,8 +25,8 @@ class BalanceQuery(object):
         result = {}
 
         for month in groups:
-            income = groups[month].filter(value__gte=0).aggregate(Sum('value'))['value__sum']
-            outcome = groups[month].filter(value__lte=0).aggregate(Sum('value'))['value__sum']
+            income = groups[month].filter(value__gte=0).aggregate(Sum('value'))['value__sum'] or 0
+            outcome = groups[month].filter(value__lte=0).aggregate(Sum('value'))['value__sum'] or 0
 
             result[month] = dict(income=income, outcome=outcome)
 

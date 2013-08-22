@@ -52,6 +52,24 @@ class BalanceQueryTest(TestCase):
             }
         })
 
+    def test_no_data(self):
+        months = ['2010-01', '2010-04']
+
+        calc = BalanceQuery(months)
+
+        result = calc.calculate()
+
+        self.assertEquals(result, {
+            '2010-01': {
+                'income': 450,
+                'outcome': -300
+            },
+            '2010-04': {
+                'income': 0,
+                'outcome': 0
+            }
+        })
+
     def test_calculate_three_months_and_day(self):
         months = ['2010-01', '2010-02', '2010-03']
         day = 10
