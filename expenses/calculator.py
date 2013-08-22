@@ -20,8 +20,8 @@ class BalanceQuery(object):
         self.months = months
         self.day = day
 
-    def calculate(self):
-        groups = Transaction.objects.up_to_day(months=self.months, day=self.day)
+    def calculate(self, **kwargs):
+        groups = Transaction.objects.up_to_day(months=self.months, day=self.day, **kwargs)
         result = {}
 
         for month in groups:
