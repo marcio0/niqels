@@ -3,7 +3,7 @@
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
     $scope.updateBalance = function () {
         var today = moment();
-        var date;
+        var date, day, first_month, months;
 
         if ($rootScope.month == today.month()) {
             date = today;
@@ -13,7 +13,14 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
             date.month($rootScope.month);
         }
 
-        date = date.format('YYYY-MM-DD');
+        date = date.format('YYYY-MM-DD').split('-');
+        day = date[2];
+
+        first_month = [date[0], date[1]].join('-');
+
+        months = [];
+        //montar o dict de meses
+
 
         $http.get('/api/v1/data/balance/?date=' + date).then(function (result) {
             $scope.balance_data = result.data;
