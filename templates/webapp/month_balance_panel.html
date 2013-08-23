@@ -34,29 +34,26 @@
     <div class="balance-info">
         <div class="income">
             <span class="description">
-                income
+                {% trans "income" %}
             </span>
-            <span class="value">
-                500,00
-            </span>
-        </div>
-
-        <div class="outcome">
-            <span class="description">
-                outcome
-            </span>
-            <span class="value">
-                - 300,00
+            <span class="value" ng-bind="income | currency">
             </span>
         </div>
 
-
-        <div class="total">
+        <div class="outgo">
             <span class="description">
-                total
+                {% trans "outgo" %}
             </span>
-            <span class="value">
-                - 200,00
+            <span class="value" ng-bind="outgo | currency">
+            </span>
+        </div>
+
+
+        <div class="total" ng-class="{true: 'positive', false: 'negative'}[total >= 0]">
+            <span class="description">
+                {% trans "total" %}
+            </span>
+            <span class="value" ng-bind="(income + outgo) | currency">
             </span>
         </div>
     </div>

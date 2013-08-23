@@ -10,7 +10,7 @@ import datetime
 
 class BalanceQuery(object):
     """
-    Returns income and outcome for the informed months.
+    Returns income and outgo for the informed months.
     Optionally filters the queries up to the specified day.
     """
     def __init__(self, months=None, day=None):
@@ -26,9 +26,9 @@ class BalanceQuery(object):
 
         for month in groups:
             income = groups[month].filter(value__gte=0).aggregate(Sum('value'))['value__sum'] or 0
-            outcome = groups[month].filter(value__lte=0).aggregate(Sum('value'))['value__sum'] or 0
+            outgo = groups[month].filter(value__lte=0).aggregate(Sum('value'))['value__sum'] or 0
 
-            result[month] = dict(income=income, outcome=outcome)
+            result[month] = dict(income=income, outgo=outgo)
 
         return result
  

@@ -8303,7 +8303,13 @@ div.balance-info div .value {
 div.balance-info div.income {
   color: #46a546;
 }
-div.balance-info div.outcome {
+div.balance-info div.outgo {
+  color: #9d261d;
+}
+div.balance-info div.total.positive {
+  color: #049cdb;
+}
+div.balance-info div.total.negative {
   color: #9d261d;
 }
 div.balance-info div .description {
@@ -8316,6 +8322,12 @@ div.balance-info div .description {
 div.balance-info div.total .value {
   border-top: 1px solid #CCC;
   padding: 5px 0;
+}
+p.income {
+  color: #46a546;
+}
+p.outgo {
+  color: #9d261d;
 }
 /*
  * GLOBAL STYLES

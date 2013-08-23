@@ -26,7 +26,7 @@ class BalanceQueryTest(TestCase):
         self.assertEquals(result, {
             '2010-01': {
                 'income': 450,
-                'outcome': -300
+                'outgo': -300
             }
         })
 
@@ -40,15 +40,15 @@ class BalanceQueryTest(TestCase):
         self.assertEquals(result, {
             '2010-01': {
                 'income': 450,
-                'outcome': -300
+                'outgo': -300
             },
             '2010-02': {
                 'income': 480,
-                'outcome': -360
+                'outgo': -360
             },
             '2010-03': {
                 'income': 600,
-                'outcome': -450
+                'outgo': -450
             }
         })
 
@@ -62,11 +62,11 @@ class BalanceQueryTest(TestCase):
         self.assertEquals(result, {
             '2010-01': {
                 'income': 450,
-                'outcome': -300
+                'outgo': -300
             },
             '2010-04': {
                 'income': 0,
-                'outcome': 0
+                'outgo': 0
             }
         })
 
@@ -81,15 +81,15 @@ class BalanceQueryTest(TestCase):
         self.assertEquals(result, {
             '2010-01': {
                 'income': 150,
-                'outcome': -300
+                'outgo': -300
             },
             '2010-02': {
                 'income': 160,
-                'outcome': -360
+                'outgo': -360
             },
             '2010-03': {
                 'income': 200,
-                'outcome': -150
+                'outgo': -150
             }
         })
 

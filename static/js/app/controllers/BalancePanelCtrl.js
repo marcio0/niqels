@@ -3,10 +3,11 @@
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
     $scope.updateBalance = function () {
         var today = moment();
-        var reference_date, day, months;
+        var reference_date, day, months, this_month;
 
         reference_date = today;
 
+        // if it's not the actual month, uses the last_day
         if ($rootScope.month != today.month()) {
             reference_date.month($rootScope.month);
             reference_date = reference_date.endOf('month');
@@ -24,13 +25,23 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
             months[i] = months[i].format('YYYY-MM');
         }
 
+        this_month = months[months.length-1];
+
         months = angular.toJson(months);
 
-        $http.get('/api/v1/data/balance/?months=' + months + '&up_to_day=' + reference_date.date()).then(function (result) {
+        var params = {
+            months: months,
+            up_to_day:  reference_date.date()
+        };
+
+        $http.get('/api/v1/data/balance/', {params: params}).then(function (result) {
             var categories = [],
                 values = [],
                 options = {},
-                median = 0;;
+                median = 0;
+
+            $scope.income = parseFloat(result.data[this_month].income);
+            $scope.outgo = parseFloat(result.data[this_month].outgo);
 
             $.extend(true, options, chartOptions);
 
@@ -40,14 +51,17 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
                 categories.push(k);
 
                 data.income = parseFloat(result.data[k].income);
-                data.outcome = parseFloat(result.data[k].outcome)
+                data.income_text = $filter('currency')(data.income);
+                data.outgo = parseFloat(result.data[k].outgo)
+                data.outgo_text = $filter('currency')(data.outgo);
 
-                data.y = data.income + data.outcome;
+                data.y = data.income + data.outgo;
+                data.y_text = $filter('currency')(data.y);
                 data.color = data.y < 0 ? 'red' : 'blue';
 
-                median += data.y;
-
                 values.push(data);
+
+                median += data.y;
             }
 
             median = median / values.length;
@@ -60,7 +74,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
                 zIndex: 4,
                 label: {
                     align: 'right',
-                    text: median
+                    text: $filter('currency')(median)
                 }
             });
             options.series = [{data: values}];
@@ -93,9 +107,9 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><div>',
-            pointFormat:    '<p style="color:{series.color};">Income: <b>{point.income}</b></p>' +
-                            '<p style="color:{series.color};">Outcome: <b>{point.outcome}</b></p>' +
-                            '<p style="color:{series.color};">Total: <b>{point.y}</b></p>',
+            pointFormat:    '<p class="income">Income: <b>{point.income_text}</b></p>' +
+                            '<p class="outgo">Outgo: <b>{point.outgo_text}</b></p>' +
+                            '<p class="total">Total: <b>{point.y_text}</b></p>',
             footerFormat: '</div>',
             borderRadius: 0,
             shared: true,

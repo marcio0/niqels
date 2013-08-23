@@ -14,8 +14,17 @@ div.balance-info {
             color: @green;
         }
 
-        &.outcome {
+        &.outgo {
             color: @red;
+        }
+
+        &.total {
+            &.positive {
+                color: @blue;
+            }
+            &.negative {
+                color: @red;
+            }
         }
 
         .description {
@@ -30,5 +39,14 @@ div.balance-info {
             border-top: 1px solid #CCC;
             padding: 5px 0;
         }
+    }
+}
+
+p {
+    &.income {
+        color: @green;
+    }
+    &.outgo {
+        color: @red;
     }
 }
