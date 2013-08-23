@@ -45,7 +45,10 @@ class TransactionManager(models.Manager):
             if not day:
                 last_day = calendar.monthrange(start_date.year, start_date.month)[1]
             else:
-                last_day = day
+                if day > calendar.mdays[start_date.month]:
+                    last_day = calendar.mdays[start_date.month]
+                else:
+                    last_day = day
 
             end_date = start_date.replace(day=last_day)
             result[month] = self.get_query_set().filter(date__range=(start_date, end_date), **kwargs)

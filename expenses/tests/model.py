@@ -31,6 +31,15 @@ class TransactionUpToDayTest(TestCase):
 
         expenses.models.datetime = datetime
 
+    def test_day_greater_than_month_days(self):
+        '''
+        Must use last day of months if `day` is greater than the amount of days of that month.
+        '''
+        result = Transaction.objects.up_to_day(months=['2010-02'], day=31)
+
+        self.assertEquals(len(result), 1)
+        self.assertEquals(result['2010-02'].count(), 5)
+
     def test_one_month(self):
         result = Transaction.objects.up_to_day(months=['2010-03'])
 
