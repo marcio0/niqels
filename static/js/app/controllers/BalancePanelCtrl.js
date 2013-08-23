@@ -28,36 +28,63 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
         months = angular.toJson(months);
 
         $http.get('/api/v1/data/balance/?months=' + months + '&up_to_day=' + reference_date.date()).then(function (result) {
-            chartOptions;
             var categories = [],
-                values = [];
+                values = [],
+                options = {},
+                median = 0;;
+
+            $.extend(true, options, chartOptions);
 
             for(var k in result.data) {
-                categories.push(k);
                 var data = {};
+
+                categories.push(k);
+
                 data.income = parseFloat(result.data[k].income);
                 data.outcome = parseFloat(result.data[k].outcome)
+
                 data.y = data.income + data.outcome;
                 data.color = data.y < 0 ? 'red' : 'blue';
+
+                median += data.y;
+
                 values.push(data);
             }
 
-            chartOptions.xAxis.categories = categories
-            chartOptions.series = [{'data': values, name: 'asd'}];
-            $scope.chartData = chartOptions;
+            median = median / values.length;
+
+            options.xAxis.categories = categories;
+            options.yAxis.plotLines.push({
+                value: median,
+                color: 'red',
+                width: 1,
+                zIndex: 4,
+                label: {
+                    align: 'right',
+                    text: median
+                }
+            });
+            options.series = [{data: values, name: 'asd'}];
+            $scope.chartData = options;
         });
     };
 
     var chartOptions = {
         chart: {
-            type: 'column'
+            type: 'column',
+            spacingLeft: 3,
+            spacingRight: 3,
         },
         title: {
-            text: ''
+            text: null
         },
         xAxis: {
         },
+        legend: {
+            enabled: false
+        },
         yAxis: {
+            title: null,
             plotLines:[{
                 value: 0,
                 color: '#000',
@@ -72,7 +99,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
                             '<p style="color:{series.color};">Total: <b>{point.y}</b></p>',
             footerFormat: '</div>',
             borderRadius: 0,
-            shared: false,
+            shared: true,
             hideDelay: 50,
             animation: false,
             useHTML: true
