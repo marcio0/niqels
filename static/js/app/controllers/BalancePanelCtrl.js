@@ -5,12 +5,11 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
         var today = moment();
         var reference_date, day, months;
 
-        if ($rootScope.month == today.month()) {
-            reference_date = today;
-        }
-        else {
-            reference_date = today.endOf('month');
+        reference_date = today;
+
+        if ($rootScope.month != today.month()) {
             reference_date.month($rootScope.month);
+            reference_date = reference_date.endOf('month');
         }
 
         months = [reference_date];
@@ -64,7 +63,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
                     text: median
                 }
             });
-            options.series = [{data: values, name: 'asd'}];
+            options.series = [{data: values}];
             $scope.chartData = options;
         });
     };
