@@ -12,6 +12,7 @@ angular.module('charts', [])
                     var categories = [],
                         values = [],
                         options = {},
+                        avg = 0;
 
                     $.extend(true, options, me.chartOptions);
 
@@ -35,20 +36,20 @@ angular.module('charts', [])
 
                         values.push(data);
 
-                        median += data.y;
+                        avg += data.y;
                     }
 
-                    median = median / median_len;
+                    avg = avg / values.length;
 
                     options.xAxis.categories = categories;
                     options.yAxis.plotLines.push({
-                        value: median,
+                        value: avg,
                         color: 'red',
                         width: 1,
                         zIndex: 4,
                         label: {
                             align: 'right',
-                            text: $filter('currency')(median)
+                            text: $filter('currency')(avg)
                         }
                     });
                     options.series = [{data: values}];
