@@ -49,7 +49,7 @@
         </div>
 
 
-        <div class="total" ng-class="{true: 'positive', false: 'negative'}[total >= 0]">
+        <div class="total" ng-class="{true: 'positive', false: 'negative'}[(income + outgo) >= 0]">
             <span class="description">
                 {% trans "total" %}
             </span>

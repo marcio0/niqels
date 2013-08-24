@@ -27,6 +27,16 @@ Category.update = function $update (params, data, success, error) {
 };
 */
 
+angular.module('webapp')
+    .factory('calculators', function () {
+        return {
+            deviation: function () {
+                debugger;
+            }
+        };
+    })
+    ;
+
 angular.module('models', ['ngResource'])
 
     .factory('Reminder', ['$resource', '$http', 'Transaction', '$q', '$rootScope', function($resource, $http, Transaction, $q, $rootScope){
