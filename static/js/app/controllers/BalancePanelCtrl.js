@@ -41,6 +41,11 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
             $scope.income = parseFloat(httpResult.data[this_month].income);
             $scope.outgo = parseFloat(httpResult.data[this_month].outgo);
 
+            options.subtitle = {
+                text: gettext('Data up to day %s.').replace('%s', reference_date.date())
+            };
+
+
             return result.options;
         });
     };
