@@ -192,7 +192,7 @@ angular.module('webapp')
                             return $.fn.typeahead.Constructor.prototype.sorter.apply(this, [names]);
                         },
                         updater: function (item) {
-                            return item.name;
+                            return item;
                         },
                         highlighter: function (item) {
                             return item;
