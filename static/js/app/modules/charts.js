@@ -110,7 +110,7 @@ angular.module('charts', [])
 
     .directive('chart', [function () {
         return {
-            restrict: 'E',
+            restrict: 'A',
             template: '<div></div>',
             scope: {
                 chartData: "=value"
