@@ -6,8 +6,10 @@ div.balance-info {
         text-align: right;
         margin: 15px 0;
 
-        .value {
-            font-size: 20px;
+        &.income, &.outgo {
+            .value {
+                font-size: 16px;
+            }
         }
 
         &.income {
@@ -19,6 +21,11 @@ div.balance-info {
         }
 
         &.total {
+            .value {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
             &.positive {
                 color: @blue;
             }

@@ -8297,14 +8297,19 @@ div.balance-info div {
   text-align: right;
   margin: 15px 0;
 }
-div.balance-info div .value {
-  font-size: 20px;
+div.balance-info div.income .value,
+div.balance-info div.outgo .value {
+  font-size: 16px;
 }
 div.balance-info div.income {
   color: #46a546;
 }
 div.balance-info div.outgo {
   color: #9d261d;
+}
+div.balance-info div.total .value {
+  font-size: 20px;
+  font-weight: bold;
 }
 div.balance-info div.total.positive {
   color: #049cdb;
