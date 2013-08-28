@@ -2,11 +2,15 @@
 
 <form id="login-inline" class="navbar-form form-inline pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
 
-        <i class="icon-envelope input-icon"></i>
-        <input type="text" class="input-medium" name="username" placeholder="{% trans "Email" %}">
+        <span class="input-icon">
+            <i class="icon-envelope input-icon-prepend"></i>
+            <input type="text" class="input-medium" name="username" placeholder="{% trans "Email" %}">
+        </span>
 
-        <i class="icon-asterisk input-icon"></i>
-        <input type="password" class="input-medium" name="password" placeholder="{% trans "Password" %}">
+        <span class="input-icon">
+            <i class="icon-asterisk input-icon-prepend"></i>
+            <input type="password" class="input-medium" name="password" placeholder="{% trans "Password" %}">
+        </span>
 
     <input type="submit" value="{% trans "Login" %}">
 </form>

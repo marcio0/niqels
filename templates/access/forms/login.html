@@ -21,16 +21,15 @@
     {% endfor %}
 
     <div class="control-group {% if form.username.errors %}error{% endif %}">
-        <div class="controls">
-            <div class="input-prepend input-block-level">
-                <span class="add-on"><i class="icon-envelope"></i></span>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="{% trans "Email" %}"
-                    value="{{ form.username.value|default_if_none:"" }}"
-                >
-            </div>
+        <div class="controls input-icon">
+            <i class="icon-envelope input-icon-prepend"></i>
+            <input
+                type="text"
+                name="username"
+                class="input-block-level"
+                placeholder="{% trans "Email" %}"
+                value="{{ form.username.value|default_if_none:"" }}"
+            >
 
             {% for error in form.username.errors %}
                 <span class="help-block error">{{ error }}</span>
@@ -39,15 +38,14 @@
     </div>
 
     <div class="control-group {% if form.password.errors %}error{% endif %}">
-        <div class="controls">
-            <div class="input-prepend input-block-level">
-                <span class="add-on"><i class="icon-asterisk"></i></span>
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="{% trans "Password" %}"
-                >
-            </div>
+        <div class="controls input-icon">
+            <i class="icon-asterisk input-icon-prepend"></i>
+            <input
+                type="password"
+                name="password"
+                placeholder="{% trans "Password" %}"
+                class="input-block-level"
+            >
 
             {% for error in form.password.errors %}
                 <span class="help-block error">{{ error }}</span>

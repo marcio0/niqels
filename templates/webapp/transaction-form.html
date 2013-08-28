@@ -11,63 +11,70 @@
 
     <h4 class="panel-title">{% trans "New transaction" %}</h4>
 
-    <i class="icon-tag input-icon"></i>
-    <input
-        id="id_category"
-        maxlength="200"
-        name="category"
-        type="text"
-        class="input-block-level"
+    <div class="input-icon">
+        <i class="icon-tag input-icon-prepend"></i>
+        <input
+            id="id_category"
+            maxlength="200"
+            name="category"
+            type="text"
+            class="input-block-level"
 
-        ng-model="transaction.category"
-        ex-categoryfield
+            ng-model="transaction.category"
+            ex-categoryfield
 
-        {% comment %}
-        bs-tooltip
-        title="{% trans "Example: &quot;Groceries&quot;, &quot;Lunch&quot;" %}"
-        data-placement="right"
-        {% endcomment %}
+            {% comment %}
+            bs-tooltip
+            title="{% trans "Example: &quot;Groceries&quot;, &quot;Lunch&quot;" %}"
+            data-placement="right"
+            {% endcomment %}
 
-        autofocus
-        autocomplete="off"
+            autofocus
+            autocomplete="off"
 
-        placeholder="{% trans "Category" %}"
-        required
-        />
+            placeholder="{% trans "Category" %}"
+            required
+            />
+        <i class="icon-remove input-icon-append"></i>
+    </div>
 
-    <i class="icon-dollar input-icon"></i>
-    <input
-        id="id_value"
-        name="value"
-        type="text"
-        class="input-block-level"
+    <div class="input-icon">
+        <i class="icon-dollar input-icon-prepend"></i>
+        <input
+            id="id_value"
+            name="value"
+            type="text"
+            class="input-block-level"
 
-        ng-model="transaction.value"
-        ex-valuefield
+            ng-model="transaction.value"
+            ex-valuefield
 
-        {% comment %}
-        bs-tooltip
-        title="{% trans "Use a &quot;+&quot; sign to indicate positive values." %}"
-        data-placement="right"
-        {% endcomment %}
+            {% comment %}
+            bs-tooltip
+            title="{% trans "Use a &quot;+&quot; sign to indicate positive values." %}"
+            data-placement="right"
+            {% endcomment %}
 
-        autocomplete="off"
-        placeholder="{% trans "Value" %}"
-        />
+            autocomplete="off"
+            placeholder="{% trans "Value" %}"
+            />
+    </div>
 
-    <i class="icon-pencil input-icon"></i>
-    <input
-        id="id_description"
-        maxlength="200"
-        name="description"
-        type="text"
-        class="input-block-level"
+    <div class="input-icon">
+        <i class="icon-pencil input-icon-prepend"></i>
+        <input
+            id="id_description"
+            maxlength="200"
+            name="description"
+            type="text"
+            class="input-block-level"
 
-        ng-model="transaction.description"
+            ng-model="transaction.description"
 
-        placeholder="{% trans "Description (optional)" %}"
-        autocomplete="off"
-        />
+            placeholder="{% trans "Description (optional)" %}"
+            autocomplete="off"
+            />
+    </div>
 
     <div ex-datepicker="transaction.date"></div>
 
