@@ -14,9 +14,9 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
 
     $scope.removeCategory = function removeCategory (category) {
         category.$delete();
-        $scope.loadCategories();
         this.hide();
         $scope.$emit('categoryRemoved', category);
+        $scope.loadCategories();
     };
 
     $scope.saveCategory = function saveCategory () {
@@ -25,10 +25,11 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
 
         this.editing_category[action](
             function success (value) {
-                scope.loadCategories();
                 scope.hide();
                 var eventName = (action == '$save') ? 'categoryCreated' : 'categoryUpdated';
                 scope.$emit(eventName, value);
+                console.log('antes do load');
+                scope.loadCategories();
             }
         );
     };

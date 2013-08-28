@@ -112,34 +112,48 @@ angular.module('models', ['ngResource'])
 
     .factory('Category', ['$resource', '$cacheFactory', '$http', '$rootScope', function($resource, $cacheFactory, $http, $rootScope){
         var cache = $cacheFactory('Category');
-        var Category = $resource('/api/v1/category/:id', {id: '@id'}, {
+        var Category = $resource('/api/v1/category/:id', {id: '@id', limit: 100}, {
             query: {
                 method: 'GET',
                 isArray: true,
-                cache: true,
+                cache: cache,
                 transformResponse: tastypieDataTransformer($http)
             },
             update: {method: 'PUT'}
         });
 
-        $rootScope.$on('categoryUpdated', function (e, value, opts) {
+        $rootScope.$on('categoryUpdated', function (e, category, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyUpdateSuccess(gettext('Category'));
             }
+            cache.remove('/api/v1/category?limit=100');
         });
 
-        $rootScope.$on('categoryCreated', function (e, value, opts) {
+        $rootScope.$on('categoryCreated', function (e, category, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Category'));
             }
+            console.log('removendo');
+            cache.remove('/api/v1/category?limit=100');
         });
 
-        $rootScope.$on('categoryRemoved', function (e, value, opts) {
+        $rootScope.$on('categoryRemoved', function (e, category, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyRemovalSuccess(gettext('Category'));
+            }
+            cache.remove('/api/v1/category?limit=100');
+        });
+
+        $rootScope.$on('transactionCreated', function (e, transaction) {
+            console.log('recarregando cache');
+            var cache = $cacheFactory.get('Category'),
+                cache_result = cache.get('/api/v1/category?limit=100'),
+                id = transaction.category.id;
+
+            if (cache_result.indexOf('"id": %d,'.replace('%d', id)) == -1) {
             }
         });
 
