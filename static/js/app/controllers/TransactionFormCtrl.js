@@ -5,7 +5,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
     var resetForm =  function resetForm () {
         $scope.transaction = {repeat: 'monthly'};
-        $scope.errors = {};
         $scope.sending = false;
 
         $scope.isRepeat = false;
@@ -17,14 +16,8 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
         var transaction_data = $scope.transaction,
             form = this.entryform;
 
-        if (form.$invalid) {
-            $scope.errors.category = form.category.$error.required;
-            $scope.errors.value = form.value.$error.required;
-            $scope.errors.repeat = form.repeat.$error.required;
-        }
-        else {
+        if (form.$valid) {
             $scope.sending = true;
-            $scope.errors = {};  // clears invalid state
 
             var cls = null,
                 promise = null;

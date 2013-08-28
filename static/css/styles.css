@@ -8199,9 +8199,6 @@ form.transaction-form input[type="submit"] .badge {
   position: relative;
   top: -1px;
 }
-form.transaction-form fieldset {
-  margin-bottom: 15px;
-}
 form.transaction-form hr {
   margin: 10px 0;
 }
