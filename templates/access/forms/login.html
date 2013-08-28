@@ -26,14 +26,23 @@
             <input
                 type="text"
                 name="username"
+                id="username"
                 class="input-block-level"
                 placeholder="{% trans "Email" %}"
                 value="{{ form.username.value|default_if_none:"" }}"
             >
 
-            {% for error in form.username.errors %}
-                <span class="help-block error">{{ error }}</span>
-            {% endfor %}
+            {% if form.username.errors %}
+                <i
+                    class="icon-exclamation icon-2x input-icon-append"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                    data-container="body"
+                    
+                    title="{{ form.username.errors | join:"\n"}}"
+                    ></i>
+
+            {% endif %}
         </div>
     </div>
 
@@ -47,9 +56,17 @@
                 class="input-block-level"
             >
 
-            {% for error in form.password.errors %}
-                <span class="help-block error">{{ error }}</span>
-            {% endfor %}
+            {% if form.password.errors %}
+                <i
+                    class="icon-exclamation icon-2x input-icon-append"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                    data-container="body"
+                    
+                    title="{{ form.password.errors | join:"\n"}}"
+                    ></i>
+
+            {% endif %}
         </div>
     </div>
 
@@ -60,3 +77,9 @@
     <p><a href="{% url "password_reset_recover" %}">{% trans "Forgot your password?" %}</a></p>
     <p>{% trans "Not a user yet?" %} <a href="{% url "register" %}">{% trans "Sign up here!" %}</a></p>
 </form>
+
+<script type="text/javascript">
+    $(function () {
+        $('#signin-form .icon-exclamation').tooltip('show');
+    });
+</script>
