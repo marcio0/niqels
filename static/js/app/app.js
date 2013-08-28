@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.state'])
+var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.state', 'charts'])
 
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
         $urlRouterProvider.otherwise("/transactions");

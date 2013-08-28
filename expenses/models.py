@@ -1,4 +1,5 @@
 import datetime
+import calendar
 import decimal
 from dateutil.relativedelta import relativedelta
 
@@ -27,17 +28,30 @@ class Category(models.Model):
 
 
 class TransactionManager(models.Manager):
-    def up_to_day(self, start_date=None, qty_months=1, **kwargs):
-        if not start_date:
-            start_date = datetime.date.today()
+    def up_to_day(self, months=None, day=None, **kwargs):
+        """
+        Returns every transaction for each month in `months`, up to `day`.
+        By default, `months` is the actual month; and `day` is the last day of month.
+        """
+        if not months:
+            today = datetime.date.today()
+            months = [today.strftime('%Y-%m')]
 
-        result = ()
+        result = {}
 
-        for i in range(0, qty_months):
-            end = start_date - relativedelta(months=i)
-            start = end.replace(day=1)
+        for month in months:
+            start_date = datetime.datetime.strptime(month, '%Y-%m')
 
-            result = result + (self.get_query_set().filter(date__range=(start, end), **kwargs),)
+            if not day:
+                last_day = calendar.monthrange(start_date.year, start_date.month)[1]
+            else:
+                if day > calendar.mdays[start_date.month]:
+                    last_day = calendar.mdays[start_date.month]
+                else:
+                    last_day = day
+
+            end_date = start_date.replace(day=last_day)
+            result[month] = self.get_query_set().filter(date__range=(start_date, end_date), **kwargs)
 
         return result
 

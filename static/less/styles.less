@@ -54,6 +54,8 @@ body {
 @import "transaction-form.less";
 @import "category-list.less";
 @import "settings.less";
+@import "balance.less";
+@import "charts.less";
 
 /*
  * GLOBAL STYLES
@@ -234,13 +236,21 @@ span.category-label {
 
 .month-selector {
     margin-bottom: 20px;
-    text-align: center;
     width: 100%;
+    text-align: center;
 
-    > button {
-        .btn();
-        .btn-small();
+    i {
+        font-size: 20px;
     }
+
+    .actual-month {
+        width: 25%
+    }
+}
+
+.loading-spinner {
+    width: 100%;
+    text-align: center;
 }
 
 #empty-msg {

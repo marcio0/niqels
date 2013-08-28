@@ -1,0 +1,52 @@
+div.balance-info {
+    padding-right: 15px;
+
+    div {
+        position: relative;
+        text-align: right;
+        margin: 15px 0;
+
+        .value {
+            font-size: 20px;
+        }
+
+        &.income {
+            color: @green;
+        }
+
+        &.outgo {
+            color: @red;
+        }
+
+        &.total {
+            &.positive {
+                color: @blue;
+            }
+            &.negative {
+                color: @red;
+            }
+        }
+
+        .description {
+            line-height: none;
+            position: absolute;
+            font-size: 11px;
+            bottom: 0px;
+            left: 0px;
+        }
+
+        &.total .value {
+            border-top: 1px solid #CCC;
+            padding: 5px 0;
+        }
+    }
+}
+
+p {
+    &.income {
+        color: @green;
+    }
+    &.outgo {
+        color: @red;
+    }
+}

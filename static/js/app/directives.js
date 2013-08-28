@@ -170,34 +170,33 @@ angular.module('webapp')
         };
     })
 
-    .directive('exCategoryfield', ['Category', function (Category) {
+    .directive('exCategoryfield', ['Category', '$rootScope', '$cacheFactory', function (Category, $rootScope, $cacheFactory) {
         return {
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
-
                 Category.query().$then(function (result) {
-                    element.typeahead({
-                        source: result.resource,
-                        items: 3,
-                        matcher: function (item) {
-                            //return item.name.toLowerCase().indexOf(this.query.toLowerCase()) == 0;
-                            return $.fn.typeahead.Constructor.prototype.matcher.call(this, item.name);
-                        },
-                        sorter: function (items) {
-                            var names = [];
-                            for (var i=0; i<items.length; i++) {
-                                names.push(items[i].name);
-                            }
-                            return $.fn.typeahead.Constructor.prototype.sorter.apply(this, [names]);
-                        },
-                        updater: function (item) {
-                            return item.name;
-                        },
-                        highlighter: function (item) {
-                            return item;
+                    element.data('typeahead').source = result.resource;
+                });
+
+                element.typeahead({
+                    items: 3,
+                    matcher: function (item) {
+                        return $.fn.typeahead.Constructor.prototype.matcher.call(this, item.name);
+                    },
+                    sorter: function (items) {
+                        var names = [];
+                        for (var i=0; i<items.length; i++) {
+                            names.push(items[i].name);
                         }
-                    });
+                        return $.fn.typeahead.Constructor.prototype.sorter.apply(this, [names]);
+                    },
+                    updater: function (item) {
+                        return item;
+                    },
+                    highlighter: function (item) {
+                        return item;
+                    }
                 });
 
                 element.bind('change', function () {

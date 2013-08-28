@@ -17,7 +17,7 @@
         ></i>
 
     <h4 class="panel-title">{% trans "Balance" %}</h4>
-    {% verbatim %}
+    {% comment %} 
     <p>
         <span
             ex-currency
@@ -29,5 +29,36 @@
             ex-deviation-value="((balance_data.balance.deviation))"
             ></span>)
     </p>
-    {% endverbatim %}
+    {% endcomment %} 
+
+    <div class="balance-info">
+        <div class="income">
+            <span class="description">
+                {% trans "income" %}
+            </span>
+            <span class="value" ng-bind="income | currency">
+            </span>
+        </div>
+
+        <div class="outgo">
+            <span class="description">
+                {% trans "outgo" %}
+            </span>
+            <span class="value" ng-bind="outgo | currency">
+            </span>
+        </div>
+
+
+        <div class="total" ng-class="{true: 'positive', false: 'negative'}[(income + outgo) >= 0]">
+            <span class="description">
+                {% trans "total" %}
+            </span>
+            <span class="value" ng-bind="(income + outgo) | currency">
+            </span>
+        </div>
+    </div>
+
+    <h4 class="panel-title">{% trans "Average" %}</h4>
+
+    <div value='chartData' type="area" height="300" chart></div>
 </div>

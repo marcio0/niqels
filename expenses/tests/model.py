@@ -15,36 +15,60 @@ from reminder.models import RepeatableTransaction
 class TransactionUpToDayTest(TestCase):
     fixtures = ['TransactionUpToDayTest.yaml']
 
-    def test_one_month(self):
-        start = datetime.date(2010, 03, 10)
-
-        result = Transaction.objects.up_to_day(start_date=start)
-
-        self.assertEquals(len(result), 1)
-        self.assertEquals(result[0].count(), 2)
-
-
-    def test_three_months(self):
-        start = datetime.date(2010, 03, 10)
-
-        result = Transaction.objects.up_to_day(start_date=start, qty_months=3)
-
-        self.assertEquals(len(result), 3)
-
-        self.assertEquals(result[0].count(), 2)
-        self.assertEquals(result[1].count(), 3)
-        self.assertEquals(result[2].count(), 4)
-
-    def test_default_date(self):
+    def test_default(self):
+        """
+        By default, uses today as the reference date; and returns one month of data.
+        """
         dt_m = mock.Mock()
-        dt_m.date.today.return_value = datetime.date(2010, 01, 03)
-
+        dt_m.date.today.return_value = datetime.date(2010, 03, 10)
+        dt_m.datetime = datetime.datetime
         expenses.models.datetime = dt_m
 
         result = Transaction.objects.up_to_day()
 
         self.assertEquals(len(result), 1)
-        self.assertEquals(result[0].count(), 3)
+        self.assertEquals(result['2010-03'].count(), 4)
+
+        expenses.models.datetime = datetime
+
+    def test_day_greater_than_month_days(self):
+        '''
+        Must use last day of months if `day` is greater than the amount of days of that month.
+        '''
+        result = Transaction.objects.up_to_day(months=['2010-02'], day=31)
+
+        self.assertEquals(len(result), 1)
+        self.assertEquals(result['2010-02'].count(), 5)
+
+    def test_one_month(self):
+        result = Transaction.objects.up_to_day(months=['2010-03'])
+
+        self.assertEquals(len(result), 1)
+        self.assertEquals(result['2010-03'].count(), 4)
+
+    def test_one_month_and_day(self):
+        result = Transaction.objects.up_to_day(months=['2010-03'], day=10)
+
+        self.assertEquals(len(result), 1)
+        self.assertEquals(result['2010-03'].count(), 2)
+    
+    def test_three_months(self):
+        months = ['2010-03', '2010-02', '2010-01']
+        result = Transaction.objects.up_to_day(months=months)
+
+        self.assertEquals(len(result), 3)
+        self.assertEquals(result['2010-03'].count(), 4)
+        self.assertEquals(result['2010-02'].count(), 5)
+        self.assertEquals(result['2010-01'].count(), 6)
+
+    def test_three_months_and_day(self):
+        months = ['2010-03', '2010-02', '2010-01']
+        result = Transaction.objects.up_to_day(months=months, day=10)
+
+        self.assertEquals(len(result), 3)
+        self.assertEquals(result['2010-03'].count(), 2)
+        self.assertEquals(result['2010-02'].count(), 3)
+        self.assertEquals(result['2010-01'].count(), 4)
 
 
 class CategoryModelTest(TestCase):

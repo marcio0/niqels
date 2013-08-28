@@ -1,5 +1,6 @@
 import datetime
 import calendar
+import json
 
 import django
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
@@ -22,7 +23,7 @@ from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
 from api.validation import TransactionApiForm, RepeatableTransactionApiForm
 from expenses import random_color
-from expenses.calculator import AverageCalculator
+from expenses.calculator import AverageCalculator, BalanceQuery
 from reminder.models import RepeatableTransaction
 
 from babel.numbers import parse_decimal
@@ -41,32 +42,51 @@ class BalanceResource(Resource):
         detail_allowed_methods = ['get']
         resource_name = 'data/balance'
 
-    def get_month_filter(self, GET=None):
-        if not GET:
-            return datetime.date.today()
+    def get_months(self, GET=None):
+        if not GET or not GET.get('months'):
+            today = datetime.date.today()
+            return [today.strftime('%Y-%m')]
 
-        date = GET.get('date', None)
-        date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
+        try:
+            months = json.loads(GET['months'])
 
-        return date
+            if not isinstance(months, list):
+                raise ValueError
+
+        except ValueError:
+            raise ValueError('Invalid month format.')
+            
+        return months
+
+    def get_day(self, GET=None):
+        if not GET or not GET.get('up_to_day'):
+            return None
+
+        try:
+            day = int(GET['up_to_day'])
+        except ValueError:
+            raise ValueError('Invalid day format.')
+
+        return day
 
     def obj_get(self, bundle, **kwargs):
         try:
-            date = self.get_month_filter(bundle.request.GET)
-        except ValueError:
-            raise BadRequest('Invalid date filter')
+            months = self.get_months(bundle.request.GET)
+            day = self.get_day(bundle.request.GET)
+        except ValueError, e:
+            raise BadRequest(e)
         
         obj = ReturnData()
-        obj.average_balance = AverageCalculator(
-            user=bundle.request.user,
-            start_date=date,
-            qty_months=3).calculate()
+        obj.balance = BalanceQuery(
+            months=months,
+            day=day
+        ).calculate(user=bundle.request.user)
 
         return obj
 
     def full_dehydrate(self, bundle, for_list=False):
         bundle = super(BalanceResource, self).full_dehydrate(bundle, for_list)
-        bundle.data['balance'] = bundle.obj.average_balance
+        bundle.data = bundle.obj.balance
         return bundle
 
     def dispatch_list(self, request, **kwargs):

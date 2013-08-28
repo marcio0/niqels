@@ -1,22 +1,52 @@
 'use strict';
 
-function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
+function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, BalanceChart) {
     $scope.updateBalance = function () {
         var today = moment();
-        var date;
+        var reference_date, day, months, this_month;
 
-        if ($rootScope.month == today.month()) {
-            date = today;
+        reference_date = today;
+
+        // if it's not the actual month, uses the last_day
+        if ($rootScope.month != today.month()) {
+            reference_date.month($rootScope.month);
+            reference_date = reference_date.endOf('month');
         }
-        else {
-            date = today.endOf('month');
-            date.month($rootScope.month);
+
+        months = [reference_date];
+        for (var i=0; i<2; i++) {
+            var actual_date = months[i].clone().subtract('month', 1);
+            months.push(actual_date);
         }
 
-        date = date.format('YYYY-MM-DD');
+        months.reverse();
 
-        $http.get('/api/v1/data/balance/?date=' + date).then(function (result) {
-            $scope.balance_data = result.data;
+        for (var i in months) {
+            months[i] = months[i].format('YYYY-MM');
+        }
+
+        this_month = months[months.length-1];
+
+        months = angular.toJson(months);
+
+        var params = {
+            months: months,
+            up_to_day:  reference_date.date()
+        };
+
+        $scope.chartData = BalanceChart.fetchData(params).then(function setupScope (result) {
+            var options = result.options,
+                httpResult = result.result;
+
+            $scope.income = parseFloat(httpResult.data[this_month].income);
+            $scope.outgo = parseFloat(httpResult.data[this_month].outgo);
+
+            options.subtitle = {
+                text: gettext('Data up to day %s.').replace('%s', reference_date.date())
+            };
+
+
+            return result.options;
         });
     };
 
@@ -29,4 +59,4 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter) {
     $('.side-panel').affix({offset: 40});
 }
 
-BalancePanelCtrl.$inject = ['$scope', '$http', '$rootScope', '$filter'];
+BalancePanelCtrl.$inject = ['$scope', '$http', '$rootScope', '$filter', 'calculators', 'BalanceChart'];

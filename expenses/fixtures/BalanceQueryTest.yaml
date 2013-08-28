@@ -37,7 +37,7 @@
     fields:
         user: 1
         category: 2
-        date: '2010-01-01 00:00:00-03:00'
+        date: 2010-01-01
         value: -100
         last_edited_time: "00:00:00"
 
@@ -46,8 +46,8 @@
     fields:
         user: 1
         category: 1
-        date: '2010-01-02 00:00:00-03:00'
-        value: -110
+        date: 2010-01-02
+        value: -100
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -55,8 +55,8 @@
     fields:
         user: 1
         category: 1
-        date: '2010-01-03 00:00:00-03:00'
-        value: -80
+        date: 2010-01-03
+        value: -100
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -64,8 +64,8 @@
     fields:
         user: 1
         category: 2
-        date: !!timestamp 2010-01-04 00:00:00 -3
-        value: 600
+        date: 2010-01-04
+        value: 150
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -73,8 +73,8 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-11 00:00:00 -3
-        value: -100
+        date: 2010-01-11
+        value: 150
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -82,8 +82,8 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-15 00:00:00 -3
-        value: -100
+        date: 2010-01-15
+        value: 150
         last_edited_time: "00:00:00"
 
 # February
@@ -92,8 +92,8 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-01 00:00:00 -3
-        value: -50
+        date: 2010-02-01
+        value: -120
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -101,8 +101,8 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-02 00:00:00 -3
-        value: 100
+        date: 2010-02-02
+        value: -120
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -110,8 +110,8 @@
     fields:
         user: 1
         category: 2
-        date: !!timestamp 2010-02-03 00:00:00 -3
-        value: -300
+        date: 2010-02-03
+        value: -120
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -119,8 +119,8 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-11 00:00:00 -3
-        value: -130
+        date: 2010-02-11
+        value: 160
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -128,27 +128,27 @@
     fields:
         user: 1
         category: 2
-        date: !!timestamp 2010-02-15 00:00:00 -3
-        value: 1000
+        date: 2010-02-15
+        value: 160
         last_edited_time: "00:00:00"
 
-# March
 -   model: expenses.Transaction
     pk: 12
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-03-01 00:00:00 -3
-        value: +110
+        date: 2010-02-01
+        value: 160
         last_edited_time: "00:00:00"
 
+# March
 -   model: expenses.Transaction
     pk: 13
     fields:
         user: 1
         category: 2
-        date: !!timestamp 2010-03-02 00:00:00 -3
-        value: -320
+        date: 2010-03-02
+        value: -150
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -156,8 +156,8 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-03-11 00:00:00 -3
-        value: -100
+        date: 2010-03-11
+        value: -150
         last_edited_time: "00:00:00"
 
 -   model: expenses.Transaction
@@ -165,6 +165,33 @@
     fields:
         user: 1
         category: 2
-        date: !!timestamp 2010-03-15 00:00:00 -3
-        value: 100
+        date: 2010-03-15
+        value: -150
+        last_edited_time: "00:00:00"
+
+-   model: expenses.Transaction
+    pk: 16
+    fields:
+        user: 1
+        category: 2
+        date: 2010-03-02
+        value: 200
+        last_edited_time: "00:00:00"
+
+-   model: expenses.Transaction
+    pk: 17
+    fields:
+        user: 1
+        category: 1
+        date: 2010-03-11
+        value: 200
+        last_edited_time: "00:00:00"
+
+-   model: expenses.Transaction
+    pk: 18
+    fields:
+        user: 1
+        category: 2
+        date: 2010-03-15
+        value: 200
         last_edited_time: "00:00:00"

@@ -6,14 +6,18 @@
 
 <div class="span6">
 
+    {% comment %}
     {% include "webapp/reminder-list.html" %}
+    {% endcomment %}
 
     <div class="well" ng-controller="TransactionListCtrl">
          
         <h4 class="panel-title">{% trans "Transactions" %}</h4>
 
-        <div class="month-selector">
-            <button ex-month-selector="filterDate"></button>
+        <div class="month-selector btn-group">
+            <button class="btn btn-link previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left" ng-click="moveMonth('subtract')"></i></button>
+            <button class="btn btn-link actual-month" ng-class="{disabled: loading}" ex-month-selector="filterDate"></button>
+            <button class="btn btn-link next-month" ng-class="{disabled: loading}"><i class="icon-chevron-right" ng-click="moveMonth('add')"></i></button>
         </div>
 
         <div ng-repeat="day in days | orderBy: 'day':true">
@@ -56,8 +60,12 @@
             </table>
         </div> <!-- repeat -->
 
-        <div id="empty-msg" ng-hide="days.length"> 
+        <div id="empty-msg" ng-show="isEmpty()">
             {% trans "No transacions for the period." %}
+        </div>
+
+        <div class="loading-spinner" ng-show="loading">
+            <i class="icon-spinner icon-spin icon-3x"></i>
         </div>
 
     </div> <!-- well -->
