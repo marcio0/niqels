@@ -3,6 +3,7 @@
 <h4 class="panel-title">{% trans "Categories" %}</h4>
 
 <button class="btn" ng-click="createCategory()"><i class="icon-plus icon-large"></i> {% trans "New category" %}</button>
+<input type="text" class="search-query pull-right" ng-model="search.name" placeholder="{% trans "Search categories"%}">
 <table class="category-table">
     <thead>
         <tr>
@@ -11,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="category-row" ng-repeat="category in categories" ng-click="editCategory(category)">
+        <tr class="category-row" ng-repeat="category in categories | filter:search" ng-click="editCategory(category)">
             <td>
                 <span class="category-label" ng-style="{backgroundColor: category.color}">&nbsp;&nbsp;&nbsp;</span>
             </td>
