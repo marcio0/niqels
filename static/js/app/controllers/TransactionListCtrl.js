@@ -2,9 +2,9 @@
 
 function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     $scope.days = [];
-    $rootScope.month = moment().month()
-    $rootScope.filterDate = new Date(); //used by
-    $scope.loading = false;
+    $rootScope.month = moment().month();
+    $rootScope.filterDate = new Date();
+    $scope.loading = true;
 
     var filterTransactions = function (value) {
         var start, end, filter;
@@ -52,6 +52,10 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
         filterTransactions(date);
     });
 
+    $scope.moveMonth = function moveMonth (dir) {
+        $scope.filterDate = moment($scope.filterDate)[dir]('month', 1).toDate();
+    };
+
     $rootScope.$on('transactionCreated', function (event, data) {
         var showingMonth = $rootScope.month + 1;
         var transactionMonth = parseInt(data.date.split('-')[1]);
@@ -75,6 +79,10 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
             transactions: [data]
         });
     });
+
+    $scope.isEmpty = function isEmpty () {
+        return ($scope.days.length == 0) && !$scope.loading;
+    };
 }
 
 TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter'];
