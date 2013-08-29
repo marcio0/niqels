@@ -92,3 +92,7 @@ class RepeatableTransaction(models.Model):
             category=self.category.name,
             date=self.due_date.isoformat(),
             repeat=self.repeat)
+
+    class Meta:
+        verbose_name = _('Reminder')
+        verbose_name_plural = _('Reminders')

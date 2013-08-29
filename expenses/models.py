@@ -21,10 +21,14 @@ class Category(models.Model):
         verbose_name=_("user"),
         help_text=_('The owner of this category.')
     )
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(_('active'), default=True)
 
     def __unicode__(self):
         return "Category: %s" % self.name
+
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
 
 class TransactionManager(models.Manager):
@@ -82,7 +86,9 @@ class Transaction(models.Model):
 
     repeatable = models.ForeignKey('reminder.RepeatableTransaction',
         blank=True, null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
+        verbose_name=_("repeatable"),
+        help_text=_("The reminder that created this transaction, if it's repeatable.")
     )
 
     '''
@@ -102,3 +108,5 @@ class Transaction(models.Model):
 
     class Meta:
         ordering = ['-date', '-last_edited_time']
+        verbose_name = _('Transaction')
+        verbose_name_plural = _('Transactions')

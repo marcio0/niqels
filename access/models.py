@@ -6,7 +6,7 @@ from access.managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
-        verbose_name='email address',
+        verbose_name=_('email address'),
         max_length=255,
         unique=True,
         db_index=True,
@@ -44,3 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+    class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
