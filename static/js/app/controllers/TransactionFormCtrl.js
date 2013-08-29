@@ -42,7 +42,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                 promise = Transaction.save(transaction_data)
                     .$then(function (value) {
                         resetForm();
-                        form.$setPristine();
                         return value;
                     })
                     .then(function (value) {
@@ -52,8 +51,14 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             }
 
             promise.always(function () {
+                form.$setPristine();
                 $scope.sending = false;
             });
+        }
+        else {
+            // forcing the error icon
+            form.category.$dirty = true;
+            toastr.warning(gettext('Please fill in the fields correctly.'));
         }
     };
 }

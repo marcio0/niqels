@@ -1,16 +1,23 @@
 {% load i18n %}
 
+<div ng-controller="CategoryEditCtrl">
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>{% trans "Edit category" %}</h3>
 </div>
 
 <div class="modal-body">
-    <form class="ng-pristine ng-valid form-horizontal" name="category_form">
+    <form class="form-horizontal" name="category_form">
         <div class="control-group">
             <label class="control-label" for="name">{% trans "Name" %}</label>
             <div class="controls">
-                <input type="text" name="name" ng-model="editing_category.name">
+                <span class="input-icon">
+                    <input type="text" name="name" ng-model="editing_category.name" required>
+                    <i
+                        class="icon-exclamation icon-2x input-icon-append input-error"
+                        ng-show="category_form.name.$error.required && category_form.name.$dirty"
+                        ></i>
+                </span>
             </div>
         </div>
         <div class="control-group">
@@ -33,4 +40,5 @@
 
     <button type="button" class="btn" ng-click="hide()">{% trans "Cancel" %}</button>
     <button class="btn btn-primary" ng-click="saveCategory()">{% trans "Save" %}</button>
+</div>
 </div>

@@ -12,28 +12,6 @@ function CategoryListCtrl ($scope, Category, $modal, $q) {
         $scope.editCategory(new Category());
     };
 
-    $scope.removeCategory = function removeCategory (category) {
-        category.$delete();
-        this.hide();
-        $scope.$emit('categoryRemoved', category);
-        $scope.loadCategories();
-    };
-
-    $scope.saveCategory = function saveCategory () {
-        var scope = this;
-        var action = this.editing_category.id ? '$update' : '$save';
-
-        this.editing_category[action](
-            function success (value) {
-                scope.hide();
-                var eventName = (action == '$save') ? 'categoryCreated' : 'categoryUpdated';
-                scope.$emit(eventName, value);
-                console.log('antes do load');
-                scope.loadCategories();
-            }
-        );
-    };
-
     $scope.editCategory = function editCategory (category) {
         var scope = this.$new();
         scope.editing_category = new Category(category);
