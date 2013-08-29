@@ -15,5 +15,5 @@ urlpatterns = patterns('',
     url(r'^', include('access.urls')),
     url(r'^api/', include('api.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin panel/', include(admin.site.urls)),
 )
