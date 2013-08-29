@@ -3,8 +3,8 @@
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Reminder) {
     $scope.repeatOptions = ['daily', 'weekly', 'biweekly', 'monthly'];
 
-    var resetForm =  function resetForm () {
-        $scope.transaction = {repeat: 'monthly'};
+    var resetForm = function resetForm () {
+        $scope.formData = {repeat: 'monthly'};
         $scope.sending = false;
 
         $scope.isRepeat = false;
@@ -13,8 +13,8 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     resetForm();
 
     $scope.submit = function () {
-        var transaction_data = $scope.transaction,
-            form = this.entryform;
+        var transaction_data = $scope.formData,
+            form = this.transactionForm;
 
         if (form.$valid) {
             $scope.sending = true;

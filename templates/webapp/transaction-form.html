@@ -3,7 +3,7 @@
 <div ng-controller="TransactionFormCtrl">
 <form
     class="form transaction-form"
-    name="entryform"
+    name="transactionForm"
     method="post"
 
     novalidate
@@ -20,7 +20,7 @@
             type="text"
             class="input-block-level"
 
-            ng-model="transaction.category"
+            ng-model="formData.category"
             ex-categoryfield
 
             {% comment %}
@@ -29,13 +29,15 @@
             data-placement="right"
             {% endcomment %}
 
-            autofocus
             autocomplete="off"
 
             placeholder="{% trans "Category" %}"
             required
             />
-        <i class="icon-remove input-icon-append"></i>
+        <i
+            class="icon-exclamation icon-2x input-icon-append input-error"
+            ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"
+            ></i>
     </div>
 
     <div class="input-icon">
@@ -46,7 +48,7 @@
             type="text"
             class="input-block-level"
 
-            ng-model="transaction.value"
+            ng-model="formData.value"
             ex-valuefield
 
             {% comment %}
@@ -69,14 +71,14 @@
             type="text"
             class="input-block-level"
 
-            ng-model="transaction.description"
+            ng-model="formData.description"
 
             placeholder="{% trans "Description (optional)" %}"
             autocomplete="off"
             />
     </div>
 
-    <div ex-datepicker="transaction.date"></div>
+    <div ex-datepicker="formData.date"></div>
 
     <hr/>
 
@@ -88,7 +90,7 @@
     <div class="control-group" ng-class="{error: errors.repeat}">
         <div class="controls">
             <label class="control-label" for="repeat">{% trans "Create a reminder that repeats:" %}</label>
-            <select name="repeat" ng-model="transaction.repeat" ng-options="label for label in repeatOptions" ng-required="isRepeat"></select>
+            <select name="repeat" ng-model="formData.repeat" ng-options="label for label in repeatOptions" ng-required="isRepeat"></select>
             <span class="help-block" ng-show="errors.repeat">{% trans "Required" %}</span>
         </div>
     </div>

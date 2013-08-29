@@ -1,6 +1,23 @@
 'use strict';
 
 angular.module('webapp')
+    /*
+    .directive('inputError', ['$parse', '$compile', function ($parse, $compile) {
+        return {
+            require: 'ngModel',
+            restrict: 'A',
+            link: function linkFn (scope, element, attrs) {
+                var baseHtml = '<i ' +
+                                    'class="icon-exclamation icon-2x input-icon-append input-error"' +
+                                    'ng-show="{{fieldName}}.$error.required && {{fieldName}}.$dirty"' +
+                                    '></i>',
+                    iconHtml = baseHtml.replace(/{{fieldName}}/g, attrs.inputError);
+                element.after($compile(iconHtml)(scope));
+            }
+        };
+    }])
+    */
+
     .directive('colorpicker', ['$parse', function ($parse) {
         return {
             require: 'ngModel',
