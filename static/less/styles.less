@@ -1,7 +1,7 @@
 @import "lib/bootstrap/bootstrap.less";
-@import "lib/bootstrap/responsive.less";
-@import "lib/datepicker.less";
+//@import "lib/datepicker.less";
 @import "variables.less";
+
 
 /*
  * OVERRIDES
@@ -14,18 +14,19 @@ body {
     border: 1px solid @heroUnitBorder;
 }
 
+/*
 .navbar-fixed-top .navbar-inner {
     .container {
         padding: 20px 0px;
     }
-}
+}*/
 
 .modal {
-    .border-radius(0);
+    //.border-radius(0);
 }
 
 .popover {
-    .border-radius(@baseBorderRadius) !important;
+    //.border-radius(@baseBorderRadius) !important;
 }
 
 .well {
@@ -34,10 +35,10 @@ body {
 
 .datepicker {
     border: 1px solid #ccc;
-	.border-radius(@baseBorderRadius) !important;
+	//.border-radius(@baseBorderRadius) !important;
 
     td, th, .active, .today, tr > td > span {
-        .border-radius(@baseBorderRadius) !important;
+        //.border-radius(@baseBorderRadius) !important;
     }
 }
 
@@ -50,6 +51,7 @@ body {
  * /OVERRIDES
  */
 
+/*
 @import "presentation.less";
 @import "transaction-form.less";
 @import "category-list.less";
@@ -57,6 +59,7 @@ body {
 @import "balance.less";
 @import "charts.less";
 @import "forms.less";
+*/
 
 /*
  * GLOBAL STYLES
@@ -82,9 +85,11 @@ body {
     .well();
 }
 
+/*
 .navbar {
     margin-bottom: 20px;
 }
+*/
 
 
 span.category-label {
@@ -109,8 +114,8 @@ span.category-label {
  */
 
 .reminder {
-    .alert();
-    .alert-block();
+    //.alert();
+    //.alert-block();
 
     padding-left: 10px;
     padding-right: 10px;
@@ -128,15 +133,15 @@ span.category-label {
         }
 
         .ok {
-            color: @green;
+            //color: @green;
         }
 
         .edit {
-            color: @blue;
+            //color: @blue;
         }
 
         .skip {
-            color: @red;
+            //color: @red;
         }
     }
 }
@@ -224,7 +229,7 @@ span.category-label {
 }
 
 #empty-msg {
-    .alert();
+    //.alert();
 
     text-align: center;
 }
