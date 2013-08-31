@@ -1,18 +1,21 @@
 {% load i18n %}
 
-<div class="span3">
+<div class="col-md-3">
+<div class="panel panel-default">
     {% include "webapp/transaction-form.html" %}
 </div>
+</div>
 
-<div class="span6">
+<div class="col-md-6">
 
     {% comment %}
     {% include "webapp/reminder-list.html" %}
     {% endcomment %}
 
-    <div class="well" ng-controller="TransactionListCtrl">
+    <div class="panel panel-default" ng-controller="TransactionListCtrl">
          
-        <h4 class="panel-title">{% trans "Transactions" %}</h4>
+        <div class="panel-heading">{% trans "Transactions" %}</div>
+        <div class="panel-body">
 
         <div class="month-selector btn-group">
             <button class="btn btn-link previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left" ng-click="moveMonth('subtract')"></i></button>
@@ -68,10 +71,13 @@
             <i class="icon-spinner icon-spin icon-3x"></i>
         </div>
 
+    </div>
     </div> <!-- well -->
 
 </div>
 
-<div class="span3">
+<div class="col-md-3">
+<div class="panel panel-default">
     {% include "webapp/month_balance_panel.html" %}
+</div>
 </div>

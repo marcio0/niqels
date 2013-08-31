@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="span3">
+<div class="col-md-3">
     <ul class="nav nav-list" id="settings-menu">
         <li class="nav-header">{% trans "Menu" %}</li>
         <li ng-class="{active: $state.includes('settings.categories')}"><a href="#/settings/categories">{% trans "Categories" %}</a></li>
@@ -10,6 +10,6 @@
     </ul>
 </div>
 
-<div class="span9">
+<div class="col-md-9">
     <div id="settings-pane" ui-view></div>
 </div>

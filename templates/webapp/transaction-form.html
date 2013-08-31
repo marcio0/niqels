@@ -1,6 +1,7 @@
 {% load i18n %}
 
-<div ng-controller="TransactionFormCtrl">
+<div class="panel-heading">{% trans "New transaction" %}</div>
+<div ng-controller="TransactionFormCtrl" class="panel-body">
 <form
     class="form transaction-form"
     name="transactionForm"
@@ -9,16 +10,15 @@
     novalidate
     >
 
-    <h4 class="panel-title">{% trans "New transaction" %}</h4>
 
-    <div class="input-icon">
+    <div class="form-group input-icon">
         <i class="icon-tag input-icon-prepend"></i>
         <input
             id="id_category"
             maxlength="200"
             name="category"
             type="text"
-            class="input-block-level"
+            class="form-control"
 
             ng-model="formData.category"
             ex-categoryfield
@@ -40,13 +40,13 @@
             ></i>
     </div>
 
-    <div class="input-icon">
+    <div class="form-group input-icon">
         <i class="icon-dollar input-icon-prepend"></i>
         <input
             id="id_value"
             name="value"
             type="text"
-            class="input-block-level"
+            class="form-control"
 
             ng-model="formData.value"
             ex-valuefield
@@ -62,14 +62,14 @@
             />
     </div>
 
-    <div class="input-icon">
+    <div class="form-group input-icon">
         <i class="icon-pencil input-icon-prepend"></i>
         <input
             id="id_description"
             maxlength="200"
             name="description"
             type="text"
-            class="input-block-level"
+            class="form-control"
 
             ng-model="formData.description"
 
@@ -104,4 +104,5 @@
 </form>
 
 
+</div>
 </div>

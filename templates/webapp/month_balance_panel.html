@@ -1,10 +1,8 @@
 {% load i18n %}
 
-<div 
-    class="side-panel"
+<div class="panel-heading">{% trans "Balance" %}</div>
 
-    ng-controller="BalancePanelCtrl"
-    >
+<div ng-controller="BalancePanelCtrl" class="panel-body">
 
     <i
         id="balance-help"
@@ -16,7 +14,6 @@
 
         ></i>
 
-    <h4 class="panel-title">{% trans "Balance" %}</h4>
     {% comment %} 
     <p>
         <span
