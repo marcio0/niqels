@@ -15,20 +15,21 @@ form {
     .input-icon {
         position: relative;
 
-        i.input-icon-prepend {
+        i.input-icon-prepend, i.input-icon-append {
             position: absolute;
+            top: @padding-base-vertical;
+        }
+
+        i.input-icon-prepend {
             left: 10px;
-            top: 5px;
         }
 
         i.input-icon-append {
-            position: absolute;
             right: 10px;
-            top: 5px;
         }
 
         input {
-            text-indent: 23px;
+            text-indent: 25px;
         }
     }
 }

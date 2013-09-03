@@ -6971,18 +6971,19 @@ form.form-inline .input-icon input {
 form .input-icon {
   position: relative;
 }
-form .input-icon i.input-icon-prepend {
-  position: absolute;
-  left: 10px;
-  top: 5px;
-}
+form .input-icon i.input-icon-prepend,
 form .input-icon i.input-icon-append {
   position: absolute;
+  top: 6px;
+}
+form .input-icon i.input-icon-prepend {
+  left: 10px;
+}
+form .input-icon i.input-icon-append {
   right: 10px;
-  top: 5px;
 }
 form .input-icon input {
-  text-indent: 23px;
+  text-indent: 25px;
 }
 i.input-error {
   color: #b94a48;
