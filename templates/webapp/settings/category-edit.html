@@ -1,6 +1,8 @@
 {% load i18n %}
 
-<div ng-controller="CategoryEditCtrl">
+<div class="modal-dialog">
+<div ng-controller="CategoryEditCtrl" class="modal-content">
+
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>{% trans "Edit category" %}</h3>
@@ -40,5 +42,7 @@
 
     <button type="button" class="btn" ng-click="hide()">{% trans "Cancel" %}</button>
     <button class="btn btn-primary" ng-click="saveCategory()">{% trans "Save" %}</button>
+</div>
+
 </div>
 </div>

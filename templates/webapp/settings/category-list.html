@@ -1,31 +1,41 @@
 {% load i18n %}
 
-<h4 class="panel-title">{% trans "Categories" %}</h4>
+<div class="panel-heading">
+    {% trans "Categories" %}
+</div>
 
-<button class="btn" ng-click="createCategory()"><i class="icon-plus icon-large"></i> {% trans "New category" %}</button>
-<input type="text" class="search-query pull-right" ng-model="search.name" placeholder="{% trans "Search categories"%}">
-<table class="category-table">
-    <thead>
-        <tr>
-            <th>{% trans "Color" %}</th>
-            <th>{% trans "Name" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="category-row" ng-repeat="category in categories | filter:search" ng-click="editCategory(category)">
-            <td>
-                <span class="category-label" ng-style="{backgroundColor: category.color}">&nbsp;&nbsp;&nbsp;</span>
-            </td>
+<div class="panel-body">
+    <button class="btn btn-default" ng-click="createCategory()">
+        {% trans "New category" %}
+        <i class="icon-plus icon-large"></i>
+    </button>
 
-            <td ng-bind="category.name" width="99%"></td>
-        </tr>
-    </tbody>
-</table>
+    <input type="search" class="pull-right" ng-model="search.name" placeholder="{% trans "Search categories"%}">
 
-<div id="empty-msg" ng-hide="categories.length"> 
-    {% trans "No categories." %}
+    <table class="table table-striped category-table">
+        <thead>
+            <tr>
+                <th>{% trans "Color" %}</th>
+                <th>{% trans "Name" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="category-row" ng-repeat="category in categories | filter:search" ng-click="editCategory(category)">
+                <td>
+                    <span class="category-label" ng-style="{backgroundColor: category.color}">&nbsp;&nbsp;&nbsp;</span>
+                </td>
+
+                <td ng-bind="category.name" width="99%"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="empty-msg" ng-hide="categories.length"> 
+        {% trans "No categories." %}
+    </div>
 </div>
 
 <script type="text/ng-template" id="category-edit.html">
 {% include "webapp/settings/category-edit.html" %}
 </script>
+

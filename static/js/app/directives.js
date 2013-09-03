@@ -192,6 +192,7 @@ angular.module('webapp')
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
+                /*
                 Category.query().$then(function (result) {
                     element.data('typeahead').source = result.resource;
                 });
@@ -221,6 +222,7 @@ angular.module('webapp')
                         return controller.$setViewValue(element.val());
                     });
                 });
+                */
             }
         };
     }])

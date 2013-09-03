@@ -10,48 +10,27 @@ body {
     background-image: url(../img/ricepaper2.png);
 }
 
-.hero-unit {
-    border: 1px solid @heroUnitBorder;
-}
-
-/*
-.navbar-fixed-top .navbar-inner {
-    .container {
-        padding: 20px 0px;
-    }
-}*/
-
-.modal {
-    //.border-radius(0);
-}
-
-.popover {
-    //.border-radius(@baseBorderRadius) !important;
-}
-
-.well {
-    border: 1px solid @panelBorder;
-}
-
 .datepicker {
-    border: 1px solid #ccc;
-	//.border-radius(@baseBorderRadius) !important;
+    border: 1px solid @input-border;
+	border-radius: @border-radius-base !important;
 
     td, th, .active, .today, tr > td > span {
-        //.border-radius(@baseBorderRadius) !important;
+        border-radius: @border-radius-base !important;
     }
 }
 
-// modal override
-.modal-backdrop.fade.in {
-  .opacity(30) !important;
+.btn {
+    text-transform: uppercase;
+
+    i {
+        margin-left: 5px;
+    }
 }
 
 /*
  * /OVERRIDES
  */
 
-/*
 @import "presentation.less";
 @import "transaction-form.less";
 @import "category-list.less";
@@ -59,6 +38,7 @@ body {
 @import "balance.less";
 @import "charts.less";
 @import "forms.less";
+/*
 */
 
 /*

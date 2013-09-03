@@ -3,31 +3,6 @@
 <div class="panel-heading">{% trans "Balance" %}</div>
 
 <div ng-controller="BalancePanelCtrl" class="panel-body">
-
-    <i
-        id="balance-help"
-        class="icon-question-sign close"
-
-        data-placement="left"
-        data-trigger="hover"
-        data-content="{% trans 'Shows the sum of all your transactions up to the current day, and the comparison with the previous months.' %}"
-
-        ></i>
-
-    {% comment %} 
-    <p>
-        <span
-            ex-currency
-            ex-currency-value="balance_data.balance.base">
-            </span>
-
-        (<span
-            ex-deviation
-            ex-deviation-value="((balance_data.balance.deviation))"
-            ></span>)
-    </p>
-    {% endcomment %} 
-
     <div class="balance-info">
         <div class="income">
             <span class="description">

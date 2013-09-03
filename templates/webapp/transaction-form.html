@@ -96,10 +96,10 @@
     </div>
     {% endcomment %}
 
-    <button ng-click="submit()" class="btn" ng-disabled="sending">
+    <button ng-click="submit()" class="btn btn-block btn-primary" ng-disabled="sending">
+    {% trans "Submit" %}
     <i ng-show="sending" class="icon-spinner icon-spin icon-large"></i>
     <i ng-hide="sending" class="icon-ok icon-large"></i>
-    {% trans "Submit" %}
     </button>
 </form>
 

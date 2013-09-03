@@ -435,7 +435,7 @@ angular.module('$strap.directives').factory('$modal', [
           return res.data;
         })).then(function onSuccess(template) {
           var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, '-') + '-' + scope.$id;
-          var $modal = $('<div class="modal hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
+          var $modal = $('<div class="modal" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
           if (options.modalClass)
             $modal.addClass(options.modalClass);
           $('body').append($modal);
