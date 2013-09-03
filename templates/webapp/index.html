@@ -14,18 +14,17 @@
 {% endblock extrahead %}
 
 
+{% block webapp-menu %}
+<ul class="nav navbar-nav">
+    <li ng-class="{active: $state.includes('transactions')}"><a href="#/transactions">{% trans "Transactions" %}</a></li>
+    <li ng-class="{active: $state.includes('settings')}"><a href="#/settings">{% trans "Settings" %}</a></li>
+</ul>
+{% endblock webapp-menu %}
+
 
 {% block body %}
 
-<div class="container" ng-app="webapp" id="ng-app">
-    <div class="row">
-        <div class="col-md-8">
-        <ul class="nav nav-pills">
-            <li ng-class="{active: $state.includes('transactions')}"><a href="#/transactions">{% trans "Transactions" %}</a></li>
-            <li ng-class="{active: $state.includes('settings')}"><a href="#/settings">{% trans "Settings" %}</a></li>
-        </ul>
-        </div>
-    </div>
+<div class="container">
     <div class="row" ui-view>
     </div>
 
