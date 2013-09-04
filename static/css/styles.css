@@ -6974,7 +6974,7 @@ form .input-icon {
 form .input-icon i.input-icon-prepend,
 form .input-icon i.input-icon-append {
   position: absolute;
-  top: 6px;
+  top: 7px;
 }
 form .input-icon i.input-icon-prepend {
   left: 10px;
@@ -7154,14 +7154,7 @@ span.category-label:empty {
 }
 .month-selector {
   margin-bottom: 20px;
-  width: 100%;
   text-align: center;
-}
-.month-selector i {
-  font-size: 20px;
-}
-.month-selector .actual-month {
-  width: 25%;
 }
 .loading-spinner {
   width: 100%;
