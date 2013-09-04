@@ -6892,6 +6892,11 @@ form.transaction-form hr {
 button.remove-category {
   float: left;
 }
+.chart-title {
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 30px;
+}
 div.balance-info {
   padding-right: 15px;
 }
@@ -6921,10 +6926,9 @@ div.balance-info div.total.negative {
   color: #9d261d;
 }
 div.balance-info div .description {
-  line-height: none;
   position: absolute;
   font-size: 11px;
-  bottom: 0px;
+  bottom: 3px;
   left: 0px;
 }
 div.balance-info div.total .value {
@@ -7050,10 +7054,6 @@ span.category-label[href]:focus {
 }
 span.category-label:empty {
   display: none;
-}
-.panel-title {
-  text-align: center;
-  margin-bottom: 30px;
 }
 /*
  * /GLOBAL STYLES
