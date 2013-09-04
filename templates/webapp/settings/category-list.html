@@ -5,12 +5,17 @@
 </div>
 
 <div class="panel-body">
-    <button class="btn btn-default" ng-click="createCategory()">
-        {% trans "New category" %}
-        <i class="icon-plus icon-large"></i>
-    </button>
+    <div class="toolbar">
+        <button class="btn btn-default" ng-click="createCategory()">
+            {% trans "New category" %}
+            <i class="icon-plus icon-large"></i>
+        </button>
 
-    <input type="search" role="search" class="pull-right" ng-model="search.name" placeholder="{% trans "Search categories"%}">
+        <span class="input-icon pull-right">
+            <i class="icon-search input-icon-prepend icon-large"></i>
+            <input type="text" role="search" class="input-lg" ng-model="search.name" placeholder="{% trans "Search categories"%}">
+        </span>
+    </div>
 
     <table class="table table-striped category-table">
         <thead>
@@ -20,12 +25,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="category-row" ng-repeat="category in categories | filter:search" ng-click="editCategory(category)">
+            <tr ng-repeat="category in categories | filter:search" ng-click="editCategory(category)">
                 <td>
                     <span class="category-label" ng-style="{backgroundColor: category.color}">&nbsp;&nbsp;&nbsp;</span>
                 </td>
 
-                <td ng-bind="category.name" width="99%"></td>
+                <td class="category-name" ng-bind="category.name" width="99%"></td>
             </tr>
         </tbody>
     </table>

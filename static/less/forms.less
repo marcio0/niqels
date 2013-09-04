@@ -1,36 +1,38 @@
-form {
-    &.form-inline {
-        .input-icon {
-            i.input-icon-prepend {
-                top: 1px;
-                left: 20px;
-            }
-
-            input {
-                margin-left: 10px;
-            }
-        }
-    }
-
+.form-inline {
     .input-icon {
-        position: relative;
-
-        i.input-icon-prepend, i.input-icon-append {
-            position: absolute;
-            top: (@padding-base-vertical + 1); //padding + border
-        }
-
         i.input-icon-prepend {
-            left: 10px;
-        }
-
-        i.input-icon-append {
-            right: 10px;
+            top: 1px;
+            left: 20px;
         }
 
         input {
+            margin-left: 10px;
+        }
+    }
+}
+
+.input-icon {
+    position: relative;
+
+    i.input-icon-prepend, i.input-icon-append {
+        position: absolute;
+        top: (@padding-base-vertical + 1); //padding + border
+    }
+
+    i.input-icon-prepend {
+        left: 10px;
+
+        + input {
             text-indent: 25px;
         }
+    }
+
+    i.input-icon-append {
+        right: 10px;
+    }
+
+    .xinput {
+        text-indent: 25px;
     }
 }
 

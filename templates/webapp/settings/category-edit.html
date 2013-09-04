@@ -10,21 +10,20 @@
 
 <div class="modal-body">
     <form class="form-horizontal" name="category_form">
-        <div class="control-group">
-            <label class="control-label" for="name">{% trans "Name" %}</label>
-            <div class="controls">
-                <span class="input-icon">
-                    <input type="text" name="name" ng-model="editing_category.name" required>
-                    <i
-                        class="icon-exclamation icon-small input-icon-append input-error"
-                        ng-show="category_form.name.$error.required && category_form.name.$dirty"
-                        ></i>
-                </span>
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="name">{% trans "Name" %}</label>
+            <div class="col-lg-10 input-icon">
+                <input type="text" class="form-control" name="name" ng-model="editing_category.name" required>
+                <i
+                    class="icon-exclamation input-icon-append input-error"
+                    ng-show="category_form.name.$error.required && category_form.name.$dirty"
+                    ></i>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="cor">{% trans "Color" %}</label>
-            <div class="controls">
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="cor">{% trans "Color" %}</label>
+            <div class="col-lg-10">
                 <input type="text" name="cor" ng-model="editing_category.color" colorpicker>
             </div>
         </div>

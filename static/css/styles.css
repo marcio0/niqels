@@ -4537,6 +4537,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
     margin-left: 0;
   }
 }
+.navbar-form .input-icon i.input-icon-prepend {
+  top: 1px;
+  left: 20px;
+}
+.navbar-form .input-icon input {
+  margin-left: 10px;
+}
 @media (max-width: 767px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
@@ -6880,10 +6887,10 @@ form[id="login-inline"] input[type="submit"] i {
 form.transaction-form hr {
   margin: 10px 0;
 }
-.category-table .category-row {
+.category-table tbody tr {
   cursor: pointer;
 }
-.category-table .category-row:hover {
+.category-table tbody tr td.category-name:hover {
   text-decoration: underline;
 }
 /*
@@ -6965,28 +6972,31 @@ p.outgo {
   text-align: center;
   margin-bottom: 5px;
 }
-form.form-inline .input-icon i.input-icon-prepend {
+.form-inline .input-icon i.input-icon-prepend {
   top: 1px;
   left: 20px;
 }
-form.form-inline .input-icon input {
+.form-inline .input-icon input {
   margin-left: 10px;
 }
-form .input-icon {
+.input-icon {
   position: relative;
 }
-form .input-icon i.input-icon-prepend,
-form .input-icon i.input-icon-append {
+.input-icon i.input-icon-prepend,
+.input-icon i.input-icon-append {
   position: absolute;
   top: 7px;
 }
-form .input-icon i.input-icon-prepend {
+.input-icon i.input-icon-prepend {
   left: 10px;
 }
-form .input-icon i.input-icon-append {
+.input-icon i.input-icon-prepend + input {
+  text-indent: 25px;
+}
+.input-icon i.input-icon-append {
   right: 10px;
 }
-form .input-icon input {
+.input-icon .xinput {
   text-indent: 25px;
 }
 i.input-error {
@@ -7076,53 +7086,14 @@ span.category-label:empty {
 .reminder .buttons a {
   cursor: pointer;
 }
-.transaction-table {
-  width: 100%;
-  margin-bottom: 20px;
-}
-.transaction-table thead > tr > th,
-.transaction-table tbody > tr > th,
-.transaction-table tfoot > tr > th,
-.transaction-table thead > tr > td,
-.transaction-table tbody > tr > td,
-.transaction-table tfoot > tr > td {
-  padding: 8px;
-  line-height: 1.428571429;
-  vertical-align: top;
-  border-top: 1px solid #dddddd;
-}
-.transaction-table thead > tr > th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dddddd;
-}
-.transaction-table caption + thead tr:first-child th,
-.transaction-table colgroup + thead tr:first-child th,
-.transaction-table thead:first-child tr:first-child th,
-.transaction-table caption + thead tr:first-child td,
-.transaction-table colgroup + thead tr:first-child td,
-.transaction-table thead:first-child tr:first-child td {
-  border-top: 0;
-}
-.transaction-table tbody + tbody {
-  border-top: 2px solid #dddddd;
-}
-.transaction-table .table {
-  background-color: #ffffff;
-}
-.transaction-table > tbody > tr:nth-child(odd) > td,
-.transaction-table > tbody > tr:nth-child(odd) > th {
-  background-color: #f9f9f9;
-}
-.transaction-table thead tr th {
-  border-bottom: 0;
-}
-.transaction-table thead tr.transaction-list-columns > th {
+thead tr th {
+  font-style: italic;
   font-weight: normal;
 }
-.transaction-table thead tr.transaction-list-columns > th.value-column-header {
+.transaction-table.transaction-list-columns th.value-column-header {
   text-align: right;
 }
-.transaction-table thead tr.transaction-list-columns > th.description-column-header {
+.transaction-table.transaction-list-columns th.description-column-header {
   text-align: center;
 }
 .transaction-table tbody + tbody {

@@ -121,29 +121,19 @@ span.category-label {
     }
 }
 
+thead tr th {
+    font-style: italic;
+    font-weight: normal;
+}
+
 .transaction-table {
-    .table();
-    .table-striped();
+    &.transaction-list-columns { 
+        th.value-column-header {
+            text-align: right;
+        }
 
-    thead {
-        tr {
-            th {
-                border-bottom: 0;
-            }
-
-            &.transaction-list-columns { 
-                > th {
-                    font-weight: normal;
-
-                    &.value-column-header {
-                        text-align: right;
-                    }
-
-                    &.description-column-header {
-                        text-align: center;
-                    }
-                }
-            }
+        th.description-column-header {
+            text-align: center;
         }
     }
 
