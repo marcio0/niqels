@@ -6690,6 +6690,7 @@ td.visible-print {
   z-index: 1051;
   margin-top: 2px;
   border-radius: 0px;
+  width: 100%;
 }
 /*
  * OVERRIDES
