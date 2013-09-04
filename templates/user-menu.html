@@ -1,7 +1,6 @@
 {% load i18n %}
-<ul class="nav navbar-nav navbar-right">
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.name|capfirst }} <i class="icon-gears"></i></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.name|capfirst }} <i class="icon-gears icon-large"></i></a>
         <ul class="dropdown-menu">
             <li>
                 <a href="{% url "change_password" %}" class="navbar-link">{% trans "Change password" %}</a>
@@ -11,4 +10,3 @@
             </li>
         </ul>
     </li>
-</ul>
