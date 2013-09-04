@@ -130,29 +130,40 @@ span.category-label {
     .table();
     .table-striped();
 
-    td {
-        border-top: none;
-    }
+    thead {
+        tr {
+            th {
+                border-bottom: 0;
+            }
 
-    .header {
-        tr.transaction-list-day > th {
-            font-size: 14px;
-            //font-weight: normal;
-            text-align: center;
-        }
+            &.transaction-list-columns { 
+                > th {
+                    font-weight: normal;
 
-        tr.transaction-list-columns { 
-            > th {
-                font-weight: normal;
+                    &.value-column-header {
+                        text-align: right;
+                    }
 
-                &.value-column-header {
-                    text-align: right;
-                }
-
-                &.description-column-header {
-                    text-align: center;
+                    &.description-column-header {
+                        text-align: center;
+                    }
                 }
             }
+        }
+    }
+
+    tbody + tbody {
+        border-top: 0;
+    }
+
+    tr.transaction-list-day {
+        td {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            background-color: #FFF !important;
         }
     }
 

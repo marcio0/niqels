@@ -7113,21 +7113,28 @@ span.category-label:empty {
 .transaction-table > tbody > tr:nth-child(odd) > th {
   background-color: #f9f9f9;
 }
-.transaction-table td {
-  border-top: none;
+.transaction-table thead tr th {
+  border-bottom: 0;
 }
-.transaction-table .header tr.transaction-list-day > th {
-  font-size: 14px;
-  text-align: center;
-}
-.transaction-table .header tr.transaction-list-columns > th {
+.transaction-table thead tr.transaction-list-columns > th {
   font-weight: normal;
 }
-.transaction-table .header tr.transaction-list-columns > th.value-column-header {
+.transaction-table thead tr.transaction-list-columns > th.value-column-header {
   text-align: right;
 }
-.transaction-table .header tr.transaction-list-columns > th.description-column-header {
+.transaction-table thead tr.transaction-list-columns > th.description-column-header {
   text-align: center;
+}
+.transaction-table tbody + tbody {
+  border-top: 0;
+}
+.transaction-table tr.transaction-list-day td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #FFF !important;
 }
 .transaction-table .transaction-row td.action-bar {
   width: 10%;
