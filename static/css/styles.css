@@ -6747,22 +6747,40 @@ td.visible-print {
     width: 25%;
   }
 }
-.content-column {
+.content-column-middle {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .content-column {
+  .content-column-middle {
     float: left;
     width: 58.333333333333336%;
   }
 }
 @media (min-width: 1200px) {
-  .content-column {
+  .content-column-middle {
     float: left;
     width: 50%;
+  }
+}
+.content-column-right {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .content-column-right {
+    float: left;
+    width: 58.333333333333336%;
+  }
+}
+@media (min-width: 1200px) {
+  .content-column-right {
+    float: left;
+    width: 75%;
   }
 }
 .right-column {
