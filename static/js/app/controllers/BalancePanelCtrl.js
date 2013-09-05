@@ -54,9 +54,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
     $rootScope.$on('transactionRemoved', $scope.updateBalance);
     $rootScope.$watch('month', $scope.updateBalance);
 
-    $('#balance-help').popover();
-
-    $('.side-panel').affix({offset: 40});
+    //$('.side-panel').affix({offset: 40});
 }
 
 BalancePanelCtrl.$inject = ['$scope', '$http', '$rootScope', '$filter', 'calculators', 'BalanceChart'];

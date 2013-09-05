@@ -6729,6 +6729,60 @@ td.visible-print {
 /*
  * OVERRIDES
  */
+.left-column {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .left-column {
+    float: left;
+    width: 41.66666666666667%;
+  }
+}
+@media (min-width: 1200px) {
+  .left-column {
+    float: left;
+    width: 25%;
+  }
+}
+.content-column {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .content-column {
+    float: left;
+    width: 58.333333333333336%;
+  }
+}
+@media (min-width: 1200px) {
+  .content-column {
+    float: left;
+    width: 50%;
+  }
+}
+.right-column {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .right-column {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .right-column {
+    float: left;
+    width: 25%;
+  }
+}
 .datepicker {
   border: 1px solid #cccccc;
   border-radius: 4px !important;
@@ -7187,6 +7241,9 @@ h4.area-header {
 }
 .navbar-nav li.dropdown > ul.dropdown-menu > li > a:hover {
   color: #fdfdfd;
+}
+.navbar-nav li.dropdown a.dropdown-toggle {
+  cursor: pointer;
 }
 .navbar-brand {
   padding-top: 0;
