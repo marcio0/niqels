@@ -7079,11 +7079,6 @@ i.input-error {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
 }
-/*
-.navbar {
-    margin-bottom: 20px;
-}
-*/
 span.category-label {
   display: inline;
   padding: .2em .6em .3em;
@@ -7192,6 +7187,13 @@ h4.area-header {
 }
 .navbar-nav li.dropdown > ul.dropdown-menu > li > a:hover {
   color: #fdfdfd;
+}
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.navbar-brand img {
+  max-height: 50px;
 }
 .btn {
   font-family: "Roboto", sans-serif;

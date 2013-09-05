@@ -69,13 +69,6 @@ a > i[class^="icon"] {
     .well();
 }
 
-/*
-.navbar {
-    margin-bottom: 20px;
-}
-*/
-
-
 span.category-label {
     .label();
     padding: 4px 6px;
@@ -227,6 +220,15 @@ h4.area-header {
 // fixing color on navbar dropdown item hover 
 .navbar-nav li.dropdown > ul.dropdown-menu > li > a:hover {
     color: @white;
+}
+
+.navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    
+    img {
+        max-height: @navbar-height;
+    }
 }
 
 .btn {
