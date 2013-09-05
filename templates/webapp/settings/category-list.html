@@ -1,10 +1,7 @@
 {% load i18n %}
 
-<div class="panel-heading">
-    {% trans "Categories" %}
-</div>
+<h4 class="area-header">{% trans "Categories" %}</h4>
 
-<div class="panel-body">
     <div class="toolbar">
         <button class="btn btn-default" ng-click="createCategory()">
             {% trans "New category" %}
@@ -38,9 +35,7 @@
     <div id="empty-msg" ng-hide="categories.length"> 
         {% trans "No categories." %}
     </div>
-</div>
 
 <script type="text/ng-template" id="category-edit.html">
 {% include "webapp/settings/category-edit.html" %}
 </script>
-
