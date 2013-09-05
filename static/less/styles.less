@@ -8,7 +8,7 @@
  * OVERRIDES
  */
 body {
-    background-image: url(../img/ricepaper2.png);
+//    background-image: url(../img/ricepaper2.png);
 }
 
 .datepicker {
@@ -127,6 +127,9 @@ thead tr th {
     font-weight: normal;
 }
 
+#transaction-list-panel {
+}
+
 .transaction-table {
     &.transaction-list-columns { 
         th.value-column-header {
@@ -149,7 +152,6 @@ thead tr th {
             font-size: 14px;
             font-weight: bold;
             text-align: center;
-            background-color: #FFF !important;
         }
     }
 
@@ -206,13 +208,26 @@ thead tr th {
 }
 
 #empty-msg {
-    //.alert();
-
     text-align: center;
 }
- 
-.side-panel {
-    .well();
+
+h4.area-header {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.datepicker {
+    background-color: @input-bg;
+}
+
+// fixing color on navbar dropdown item hover 
+.navbar-nav li.dropdown > ul.dropdown-menu > li > a:hover {
+    color: @white;
+}
+
+.datepicker:before {
+    visibility: hidden;
 }
 
 /*

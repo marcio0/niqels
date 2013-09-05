@@ -1,7 +1,8 @@
 {% load i18n %}
 
-<div class="panel-heading">{% trans "Balance" %}</div>
+<h4 class="area-header">{% trans "Balance" %}</h4>
 
+<div class="panel panel-default">
 <div ng-controller="BalancePanelCtrl" class="panel-body">
     <div class="balance-info">
         <div class="income">
@@ -33,4 +34,5 @@
     <h4 class="chart-title">{% trans "Average" %}</h4>
 
     <div value='chartData' type="area" height="300" chart></div>
+</div>
 </div>

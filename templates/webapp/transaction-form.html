@@ -1,6 +1,9 @@
 {% load i18n %}
 
-<div class="panel-heading">{% trans "New transaction" %}</div>
+<h4 class="area-header">{% trans "New transaction" %}</h4>
+
+<div class="panel panel-default">
+
 <div ng-controller="TransactionFormCtrl" class="panel-body">
 <form
     class="transaction-form"
@@ -103,5 +106,6 @@
 </form>
 
 
+</div>
 </div>
 </div>
