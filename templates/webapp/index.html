@@ -24,18 +24,16 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="row" ui-view>
-    </div>
-
-    <script type="text/ng-template" id="transaction-list.html">
-    {% include "webapp/transaction-list.html" %}
-    </script>
-
-    <script type="text/ng-template" id="settings.html">
-    {% include "webapp/settings/settings.html" %}
-    </script>
+<div class="row" ui-view>
 </div>
+
+<script type="text/ng-template" id="transaction-list.html">
+{% include "webapp/transaction-list.html" %}
+</script>
+
+<script type="text/ng-template" id="settings.html">
+{% include "webapp/settings/settings.html" %}
+</script>
 
 {% endblock body %}
 

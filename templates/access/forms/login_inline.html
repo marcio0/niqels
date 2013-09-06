@@ -1,16 +1,18 @@
 {% load i18n %}
 
-<form id="login-inline" class="navbar-form form-inline pull-right" action="{% url "login" %}" method="POST">{% csrf_token %}
+<form id="login-inline" class="navbar-form form-inline navbar-right" action="{% url "login" %}" method="POST">{% csrf_token %}
+    <div class="form-group input-icon">
+        <i class="icon-envelope input-icon-prepend"></i>
+        <input type="email" class="form-control" name="username" placeholder="{% trans "Email" %}">
+    </div>
 
-        <span class="input-icon">
-            <i class="icon-envelope input-icon-prepend"></i>
-            <input type="email" class="input-medium" name="username" placeholder="{% trans "Email" %}">
-        </span>
+    <div class="form-group input-icon">
+        <i class="icon-asterisk input-icon-prepend"></i>
+        <input type="password" class="form-control" name="password" placeholder="{% trans "Password" %}">
+    </div>
 
-        <span class="input-icon">
-            <i class="icon-asterisk input-icon-prepend"></i>
-            <input type="password" class="input-medium" name="password" placeholder="{% trans "Password" %}">
-        </span>
-
-    <input type="submit" value="{% trans "Login" %}">
+        <button type="submit" class="btn btn-primary">
+            {% trans "Login" %}
+            <i class="icon-lock"></i>
+        </button>
 </form>

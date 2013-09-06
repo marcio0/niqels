@@ -1,9 +1,101 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block body %}
     
-<div class="container center-form">
-    {% include "access/forms/login.html" %}
-</div> <!-- container -->
+<h2 class="area-header">{% trans "Please sign in" %}</h2>
+
+<div class="panel panel-default change-password-panel">
+    <div class="panel-body">
+        <form id="signin-form" method="POST" action="{% url "login" %}" class="form-horizontal">{% csrf_token %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{error}}
+                </div>
+            {% endfor %}
+
+            <div class="form-group {% if form.username.errors %}error{% endif %}">
+                <label class="col-lg-3 control-label" for="username">{% trans "Email" %}</label>
+                <div class="col-lg-9 input-icon">
+                    <i class="icon-envelope input-icon-prepend"></i>
+                    <input
+                        type="email"
+                        name="username"
+                        id="username"
+                        class="form-control"
+                        value="{{ form.username.value|default_if_none:"" }}"
+                    >
+                </div>
+
+                {% if form.username.errors %}
+                    <i
+                        class="icon-exclamation icon-2x input-icon-append"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        data-container="body"
+                        
+                        title="{{ form.username.errors | join:"\n"}}"
+                        ></i>
+
+                {% endif %}
+            </div>
+
+            <div class="form-group {% if form.password.errors %}error{% endif %}">
+                <label class="col-lg-3 control-label" for="password">{% trans "Password" %}</label>
+                <div class="col-lg-9 input-icon">
+                    <i class="icon-asterisk input-icon-prepend"></i>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="form-control"
+                        value="{{ form.email.value|default_if_none:"" }}"
+                    >
+                </div>
+
+                {% if form.password.errors %}
+                    <i
+                        class="icon-exclamation icon-2x input-icon-append"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        data-container="body"
+                        
+                        title="{{ form.password.errors | join:"\n"}}"
+                        ></i>
+
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-9">
+                    <button class="btn btn-primary" type="submit">
+                        {% trans "Login" %}
+                        <i class="icon-ok icon-large"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+         
+        <hr>
+
+        <div class="col-lg-offset-3 col-lg-9">
+            <p><a href="{% url "password_reset_recover" %}">{% trans "Forgot your password?" %}</a></p>
+            <p>{% trans "Not a user yet?" %} <a href="{% url "register" %}">{% trans "Sign up here!" %}</a></p>
+        </div>
+    </div> 
+</div> 
 
 {% endblock body %}
