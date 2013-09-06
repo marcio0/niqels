@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                         'static/js/lib/bootstrap-datepicker.js',
                         'static/js/lib/jquery.maskMoney.js',
                         'static/js/lib/spectrum.js',
+                        'static/js/lib/bootstrap-typeahead.js',
 
                         // i18n code
                         'static/js/locales/*.js'
@@ -35,7 +36,8 @@ module.exports = function(grunt) {
                         'static/js/app/app.js',
                         'static/js/app/directives.js',
                         'static/js/app/services.js',
-                        'static/js/app/controllers/*.js'
+                        'static/js/app/controllers/*.js',
+                        'static/js/app/modules/*.js'
                     ]
                 }
             }
@@ -65,6 +67,7 @@ module.exports = function(grunt) {
                         'static/js/lib/min/angular-ui-router.min.js',
                         'static/js/lib/min/moment.min.js',
                         'static/js/lib/min/toastr.min.js',
+                        'static/js/lib/min/highcharts.js',
                         'static/js/webapp-libs.min.js'
                     ],
 
