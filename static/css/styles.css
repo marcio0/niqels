@@ -7104,6 +7104,9 @@ thead tr th {
   margin-left: auto;
   margin-right: auto;
 }
+hr {
+  border-color: #807f88;
+}
 
 /*
  * This is necessary because it conflict with bootstrap mixins.

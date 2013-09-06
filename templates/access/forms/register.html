@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <form id="register-form" method="POST" action="{% url "register" %}" class="form-horizontal">{% csrf_token %}
-    <div class="form-group {% if register_form.name.errors %}error{% endif %}">
+    <div class="form-group {% if register_form.name.errors %}has-error{% endif %}">
         <label class="col-lg-3 control-label" for="name">{% trans "Name" %}</label> 
         <div class="col-lg-9 input-icon">
             <i class="icon-user input-icon-prepend"></i>
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="form-group {% if register_form.email.errors %}error{% endif %}">
+    <div class="form-group {% if register_form.email.errors %}has-error{% endif %}">
         <label class="col-lg-3 control-label" for="email">{% trans "Email" %}</label> 
         <div class="col-lg-9 input-icon">
             <i class="icon-envelope input-icon-prepend"></i>
@@ -33,10 +33,10 @@
         </div>
     </div>
 
-    <div class="form-group {% if register_form.password1.errors %}error{% endif %}">
+    <div class="form-group {% if register_form.password1.errors %}has-error{% endif %}">
         <label class="col-lg-3 control-label" for="password1">{% trans "Password" %}</label> 
         <div class="col-lg-9 input-icon">
-            <i class="icon-envelope input-icon-prepend"></i>
+            <i class="icon-asterisk input-icon-prepend"></i>
             <input
                 type="password"
                 name="password1"
@@ -49,10 +49,10 @@
         </div>
     </div>
 
-    <div class="form-group {% if register_form.password2.errors %}error{% endif %}">
+    <div class="form-group {% if register_form.password2.errors %}has-error{% endif %}">
         <label class="col-lg-3 control-label" for="password2">{% trans "Confirm password" %}</label> 
         <div class="col-lg-9 input-icon">
-            <i class="icon-envelope input-icon-prepend"></i>
+            <i class="icon-asterisk input-icon-prepend"></i>
             <input
                 type="password"
                 name="password2"
