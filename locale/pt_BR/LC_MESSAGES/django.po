@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-18 20:35-0300\n"
+"POT-Creation-Date: 2013-09-06 18:02-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: access/admin.py:14 access/forms.py:58 templates/access/forms/login.html:48
-#: templates/access/forms/login_inline.html:10
-#: templates/access/forms/register.html:50
+#: access/admin.py:14 access/forms.py:58 templates/access/login.html:48
+#: templates/access/forms/login_inline.html:11
+#: templates/access/forms/register.html:37
 msgid "Password"
 msgstr "Senha"
 
@@ -48,9 +48,9 @@ msgstr "Este email já está cadastrado"
 msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
-#: access/forms.py:57 templates/access/forms/register.html:13
-#: templates/webapp/settings/category-edit.html:11
-#: templates/webapp/settings/category-list.html:10
+#: access/forms.py:57 templates/access/forms/register.html:5
+#: templates/webapp/settings/category-edit.html:14
+#: templates/webapp/settings/category-list.html:21
 msgid "Name"
 msgstr "Nome"
 
@@ -62,11 +62,15 @@ msgstr "Repita a senha"
 msgid "Users must have an email address"
 msgstr "Digite um endereço de email"
 
+#: access/models.py:9
+msgid "email address"
+msgstr "endereço de email"
+
 #: access/models.py:13
 msgid "The email address of the user. Used to log in on this site."
 msgstr "Endereço de email do usuário. Necessário para fazer login."
 
-#: access/models.py:15 expenses/models.py:10
+#: access/models.py:15 expenses/models.py:11
 msgid "name"
 msgstr "nome"
 
@@ -81,6 +85,14 @@ msgstr "data de cadastro"
 #: access/models.py:26
 msgid "The date the user signed up."
 msgstr "Data de cadastro."
+
+#: access/models.py:49
+msgid "User"
+msgstr "Usuário"
+
+#: access/models.py:50
+msgid "Users"
+msgstr "Usuários"
 
 #: access/views.py:20
 msgid "Your password was successfuly changed."
@@ -99,15 +111,15 @@ msgstr "Inglês"
 msgid "Portuguese"
 msgstr "Português"
 
-#: expenses/models.py:12
+#: expenses/models.py:13
 msgid "The category of a transaction. Ex.: \"Groceries\", \"Medical\"."
 msgstr "Categoria de uma movimentação. Ex.: \"Mercado\", \"Consulta médica\"."
 
-#: expenses/models.py:14
+#: expenses/models.py:15
 msgid "color"
 msgstr "cor"
 
-#: expenses/models.py:17
+#: expenses/models.py:18
 msgid ""
 "The color of this category, to make it visually identifiable. Accepts HEX "
 "values only."
@@ -115,49 +127,80 @@ msgstr ""
 "A cor desta categoria, para torná-la visualmente identificável. Aceita "
 "apenas valores hexadecimais."
 
-#: expenses/models.py:20 expenses/models.py:65 reminder/models.py:35
+#: expenses/models.py:21 expenses/models.py:83 reminder/models.py:35
 msgid "user"
 msgstr "usuário"
 
-#: expenses/models.py:21
+#: expenses/models.py:22
 msgid "The owner of this category."
 msgstr "O dono desta categoria."
 
-#: expenses/models.py:46 reminder/models.py:13
+#: expenses/models.py:24
+msgid "active"
+msgstr "ativo"
+
+#: expenses/models.py:30 templates/webapp/transaction-form.html:37
+#: templates/webapp/transaction-list.html:29
+msgid "Category"
+msgstr "Categoria"
+
+#: expenses/models.py:31 templates/webapp/settings/category-list.html:3
+#: templates/webapp/settings/settings.html:9
+msgid "Categories"
+msgstr "Categorias"
+
+#: expenses/models.py:64 reminder/models.py:13
 msgid "value"
 msgstr "valor"
 
-#: expenses/models.py:50
+#: expenses/models.py:68
 msgid "The monetary value of this transaction. Accepts decimal values."
 msgstr "O valor monetário desta movimentação. Aceita apenas valores decimais."
 
-#: expenses/models.py:52 reminder/models.py:19
+#: expenses/models.py:70 reminder/models.py:19
 msgid "description"
 msgstr "descrição"
 
-#: expenses/models.py:55
+#: expenses/models.py:73
 msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
 msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
 
-#: expenses/models.py:57
+#: expenses/models.py:75
 msgid "date"
 msgstr "data"
 
-#: expenses/models.py:58
+#: expenses/models.py:76
 msgid "The date when this transaction happened. Ex.: 10/21/2010."
 msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
-#: expenses/models.py:61 reminder/models.py:25
+#: expenses/models.py:79 reminder/models.py:25
 msgid "category"
 msgstr "categoria"
 
-#: expenses/models.py:62 reminder/models.py:26
+#: expenses/models.py:80 reminder/models.py:26
 msgid "The category for this transaction."
 msgstr "A categoria desta transação."
 
-#: expenses/models.py:66 reminder/models.py:36
+#: expenses/models.py:84 reminder/models.py:36
 msgid "The owner of this transaction."
 msgstr "O dono desta transação."
+
+#: expenses/models.py:90
+msgid "repeatable"
+msgstr "repetitivo"
+
+#: expenses/models.py:91
+msgid "The reminder that created this transaction, if it's repeatable."
+msgstr "O lembrete que criou esta transação, se ela se repete."
+
+#: expenses/models.py:111
+msgid "Transaction"
+msgstr "Movimentação"
+
+#: expenses/models.py:112 templates/webapp/index.html:19
+#: templates/webapp/transaction-list.html:16
+msgid "Transactions"
+msgstr "Movimentações"
 
 #: reminder/models.py:17
 msgid ""
@@ -200,55 +243,97 @@ msgstr "O dia do mês em que esta movimentação vence."
 msgid "A value is required."
 msgstr "Este campo é obrigatório."
 
-#: templates/presentation.html:31
+#: reminder/models.py:97
+msgid "Reminder"
+msgstr "Lembrete"
+
+#: reminder/models.py:98 templates/webapp/settings/reminder-list.html:3
+msgid "Reminders"
+msgstr "Lembretes"
+
+#: templates/base.html:56
+msgid "Contact us"
+msgstr "Entre em contato"
+
+#: templates/base.html:59
+msgid "Like us on Facebook"
+msgstr "Curta nossa página no Facebook"
+
+#: templates/base.html:62
+msgid "Follow us on Twitter"
+msgstr "Siga-nos no Twitter"
+
+#: templates/base.html:65
+msgid "Email us"
+msgstr "Contate-nos por email"
+
+#: templates/presentation.html:26
 msgid "Organize your money the easy way!"
 msgstr "Organize seus gastos de forma fácil!"
 
-#: templates/access/change_password.html:10
-msgid "Reset password"
-msgstr "Alterar senha"
+#: templates/user-menu.html:6
+msgid "Change password"
+msgstr "Mudar senha"
 
-#: templates/access/forms/login.html:14
-msgid "Please sign in"
-msgstr "Faça login"
+#: templates/user-menu.html:9
+msgid "Logout"
+msgstr "Sair"
 
-#: templates/access/forms/login.html:30
-#: templates/access/forms/login_inline.html:6
-#: templates/access/forms/register.html:32
-msgid "Email"
-msgstr "Email"
+#: templates/access/change_password.html:11
+msgid "Old password"
+msgstr "Senha antiga"
 
-#: templates/access/forms/login.html:58
-#: templates/access/forms/login_inline.html:12
-msgid "Login"
-msgstr "Login"
+#: templates/access/change_password.html:18
+#: templates/password_reset/reset.html:28
+msgid "New password"
+msgstr "Nova senha"
 
-#: templates/access/forms/login.html:62
-msgid "Forgot your password?"
-msgstr "Esqueci minha senha"
-
-#: templates/access/forms/login.html:63
-msgid "Not a user yet?"
-msgstr "Não é usuário ainda?"
-
-#: templates/access/forms/login.html:63
-msgid "Sign up here!"
-msgstr "Registre-se aqui!"
-
-#: templates/access/forms/register.html:4
-#: templates/access/forms/register.html:77
-msgid "Sign up"
-msgstr "Registre-se"
-
-#: templates/access/forms/register.html:67
+#: templates/access/change_password.html:25
+#: templates/access/forms/register.html:53
+#: templates/password_reset/reset.html:38
 msgid "Confirm password"
 msgstr "Confirmar senha"
 
-#: templates/access/forms/register.html:81
+#: templates/access/change_password.html:33
+msgid "Reset password"
+msgstr "Alterar senha"
+
+#: templates/access/login.html:7
+msgid "Please sign in"
+msgstr "Faça login"
+
+#: templates/access/login.html:31 templates/access/forms/login_inline.html:6
+#: templates/access/forms/register.html:21
+#: templates/password_reset/recovery_form.html:10
+msgid "Email"
+msgstr "Email"
+
+#: templates/access/login.html:67 templates/access/forms/login_inline.html:15
+msgid "Login"
+msgstr "Login"
+
+#: templates/access/login.html:77 templates/access/forms/register.html:83
+msgid "Forgot your password?"
+msgstr "Esqueci minha senha"
+
+#: templates/access/login.html:78
+msgid "Not a user yet?"
+msgstr "Não é usuário ainda?"
+
+#: templates/access/login.html:78
+msgid "Sign up here!"
+msgstr "Registre-se aqui!"
+
+#: templates/access/register.html:7 templates/access/forms/register.html:70
+#: templates/access/forms/register.html:71
+msgid "Sign up"
+msgstr "Registre-se"
+
+#: templates/access/forms/register.html:82
 msgid "Already a user?"
 msgstr "Já é usuário?"
 
-#: templates/access/forms/register.html:81
+#: templates/access/forms/register.html:82
 msgid "Sign in"
 msgstr "Login"
 
@@ -262,12 +347,12 @@ msgid ""
 "login page."
 msgstr "Sua senha foi resetada. Você pode usá-la na página de login."
 
-#: templates/password_reset/recovery_email.txt:1
+#: templates/password_reset/recovery_email.txt:4
 #, python-format
-msgid "Dear %(username)s,"
-msgstr "Caro %(username)"
+msgid "Dear %(name)s,"
+msgstr "Caro %(name)s"
 
-#: templates/password_reset/recovery_email.txt:3
+#: templates/password_reset/recovery_email.txt:6
 #, python-format
 msgid ""
 "You -- or someone pretending to be you -- has requested a password reset on "
@@ -276,11 +361,11 @@ msgstr ""
 "Você -- ou alguém se passando por você -- requisitou uma troca de senha em "
 "%(domain)s."
 
-#: templates/password_reset/recovery_email.txt:5
+#: templates/password_reset/recovery_email.txt:8
 msgid "You can set your new password by following this link:"
-msgstr "Você pode alterar usa nova senha clicando nesse link:"
+msgstr "Você pode escolher sua nova senha clicando nesse link:"
 
-#: templates/password_reset/recovery_email.txt:9
+#: templates/password_reset/recovery_email.txt:12
 msgid ""
 "If you don't want to reset your password, simply ignore this email and it "
 "will stay unchanged."
@@ -288,7 +373,7 @@ msgstr ""
 "Se você não quer trocar sua senha, ignore este email e ela permanecerá "
 "inalterada."
 
-#: templates/password_reset/recovery_email_subject.txt:1
+#: templates/password_reset/recovery_email_subject.txt:3
 #, python-format
 msgid "Password recovery on %(domain)s"
 msgstr "Troca de senha em %(domain)s"
@@ -297,25 +382,24 @@ msgstr "Troca de senha em %(domain)s"
 msgid "Password recovery"
 msgstr "Recuperar senha"
 
-#: templates/password_reset/recovery_form.html:11
+#: templates/password_reset/recovery_form.html:22
 msgid "Recover my password"
 msgstr "Recuperar minha senha"
 
-#: templates/password_reset/reset.html:5
+#: templates/password_reset/reset.html:13
 #, python-format
 msgid ""
 "Sorry, this password reset link is invalid. You can still <a href="
 "\"%(recovery_url)s\">request a new one</a>."
 msgstr ""
-"Desculpe, este link para resetar sua senha está inválido. Você ainda pode <a "
+"Desculpe, este link para resetar sua senha é inválido. Você ainda pode <a "
 "href=\"%(recovery_url)s\">requisitar uma nova</a>."
 
-#: templates/password_reset/reset.html:7
-#, python-format
-msgid "Hi, <strong>%(username)s</strong>. Please choose your new password."
-msgstr "Olá, <strong>%(username)s</strong>. Por favor escolha sua nova senha."
+#: templates/password_reset/reset.html:24
+msgid "Please choose a new password for your account."
+msgstr "Por favor escolha uma nova senha para sua conta."
 
-#: templates/password_reset/reset.html:11
+#: templates/password_reset/reset.html:50
 msgid "Set new password"
 msgstr "Alterar senha"
 
@@ -323,34 +407,39 @@ msgstr "Alterar senha"
 msgid "Password recovery sent"
 msgstr "Email de confirmação enviado"
 
-#: templates/password_reset/reset_sent.html:7
+#: templates/password_reset/reset_sent.html:8
 #, python-format
-msgid ""
-"An email was sent to <strong>%(email)s</strong> %(ago)s ago. Use the link in "
-"it to set a new password."
+msgid "An email was sent to <strong>%(email)s</strong>."
 msgstr ""
-"Um email foi enviado para <strong>%(email)s</strong> %(ago)s atrás. Siga as "
-"instruções no email para recuperar sua senha."
+"Um email foi enviado para <strong>%(email)s</strong>."
 
-#: templates/webapp/index.html:24 templates/webapp/transaction-list.html:13
-msgid "Transactions"
-msgstr "Movimentações"
+#: templates/password_reset/reset_sent.html:11
+msgid "Follow the instructions on this email to set a new password."
+msgstr "Siga as instruções neste email para escolher uma nova senha."
 
-#: templates/webapp/index.html:25
+#: templates/webapp/index.html:20
 msgid "Settings"
 msgstr "Configurações"
 
-#: templates/webapp/month_balance_panel.html:15
-msgid ""
-"Shows the sum of all your transactions up to the current day, and the "
-"comparison with the previous months."
-msgstr ""
-"Exibe a soma de todas as suas transações até o dia atual, e a comparação com "
-"os meses anteriores."
-
-#: templates/webapp/month_balance_panel.html:19
+#: templates/webapp/month_balance_panel.html:3
 msgid "Balance"
 msgstr "Balanço"
+
+#: templates/webapp/month_balance_panel.html:10
+msgid "income"
+msgstr "recebimentos"
+
+#: templates/webapp/month_balance_panel.html:18
+msgid "outgo"
+msgstr "gastos"
+
+#: templates/webapp/month_balance_panel.html:27
+msgid "total"
+msgstr "total"
+
+#: templates/webapp/month_balance_panel.html:34
+msgid "Average"
+msgstr "Média"
 
 #: templates/webapp/reminder-list.html:6
 msgid ""
@@ -364,104 +453,71 @@ msgstr ""
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: templates/webapp/transaction-form.html:14
+#: templates/webapp/transaction-form.html:3
 msgid "New transaction"
 msgstr "Nova movimentação"
 
-#: templates/webapp/transaction-form.html:30
-msgid "Example: &quot;Groceries&quot;, &quot;Lunch&quot;"
-msgstr "Exemplo: &quot;Mercado&quot;, &quot;Almoço&quot;"
-
-#: templates/webapp/transaction-form.html:36
-#: templates/webapp/transaction-list.html:26
-msgid "Category"
-msgstr "Categoria"
-
-#: templates/webapp/transaction-form.html:41
-#: templates/webapp/transaction-form.html:66
-#: templates/webapp/transaction-form.html:103
-msgid "Required"
-msgstr "Obrigatório"
-
-#: templates/webapp/transaction-form.html:58
-msgid "Use a &quot;+&quot; sign to indicate positive values."
-msgstr "Utilize o sinal &quot;+&quot; para indicar valores positivos."
-
-#: templates/webapp/transaction-form.html:62
-#: templates/webapp/transaction-list.html:28
+#: templates/webapp/transaction-form.html:65
+#: templates/webapp/transaction-list.html:31
 msgid "Value"
 msgstr "Valor"
 
-#: templates/webapp/transaction-form.html:82
+#: templates/webapp/transaction-form.html:80
 msgid "Description (optional)"
 msgstr "Descrição (opcional)"
 
-#: templates/webapp/transaction-form.html:94
-msgid "Repeat this transaction"
-msgstr "Repetir esta movimentação"
-
-#: templates/webapp/transaction-form.html:101
-msgid "Create a reminder that repeats:"
-msgstr "Criar um lembrete que se repete:"
-
-#: templates/webapp/transaction-form.html:111
+#: templates/webapp/transaction-form.html:105
 msgid "Submit"
 msgstr "Enviar"
 
-#: templates/webapp/transaction-list.html:27
+#: templates/webapp/transaction-list.html:30
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/webapp/transaction-list.html:29
+#: templates/webapp/transaction-list.html:32
 msgid "Actions"
 msgstr "Ações"
 
-#: templates/webapp/transaction-list.html:60
+#: templates/webapp/transaction-list.html:65
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
 
-#: templates/webapp/settings/category-edit.html:5
+#: templates/webapp/settings/category-edit.html:8
 msgid "Edit category"
 msgstr "Editar categoria"
 
-#: templates/webapp/settings/category-edit.html:17
-#: templates/webapp/settings/category-list.html:9
+#: templates/webapp/settings/category-edit.html:25
+#: templates/webapp/settings/category-list.html:20
 msgid "Color"
 msgstr "Cor"
 
-#: templates/webapp/settings/category-edit.html:29
+#: templates/webapp/settings/category-edit.html:37
 msgid "Do you wish to remove this category?"
 msgstr "Deseja remover esta categoria?"
 
-#: templates/webapp/settings/category-edit.html:32
+#: templates/webapp/settings/category-edit.html:40
 msgid "Remove category"
 msgstr "Remover categoria"
 
-#: templates/webapp/settings/category-edit.html:34
+#: templates/webapp/settings/category-edit.html:42
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/webapp/settings/category-edit.html:35
+#: templates/webapp/settings/category-edit.html:43
 msgid "Save"
 msgstr "Salvar"
 
-#: templates/webapp/settings/category-list.html:3
-#: templates/webapp/settings/settings.html:6
-msgid "Categories"
-msgstr "Categorias"
-
-#: templates/webapp/settings/category-list.html:5
+#: templates/webapp/settings/category-list.html:7
 msgid "New category"
 msgstr "Nova categoria"
 
-#: templates/webapp/settings/category-list.html:25
+#: templates/webapp/settings/category-list.html:13
+msgid "Search categories"
+msgstr "Buscar categorias"
+
+#: templates/webapp/settings/category-list.html:36
 msgid "No categories."
 msgstr "Nenhuma categoria."
-
-#: templates/webapp/settings/reminder-list.html:3
-#: templates/webapp/settings/settings.html:7
-msgid "Reminders"
-msgstr "Lembretes"
 
 #: templates/webapp/settings/reminder-list.html:11
 msgid "Repeats: "
@@ -475,9 +531,35 @@ msgstr "Vencimento: "
 msgid "No reminders."
 msgstr "Nenhum lembrete."
 
-#: templates/webapp/settings/settings.html:5
+#: templates/webapp/settings/settings.html:4
 msgid "Menu"
 msgstr "Menu"
+
+#~ msgid "Hi, <strong>%(username)s</strong>. Please choose your new password."
+#~ msgstr ""
+#~ "Olá, <strong>%(username)s</strong>. Por favor escolha sua nova senha."
+
+#~ msgid ""
+#~ "Shows the sum of all your transactions up to the current day, and the "
+#~ "comparison with the previous months."
+#~ msgstr ""
+#~ "Exibe a soma de todas as suas transações até o dia atual, e a comparação "
+#~ "com os meses anteriores."
+
+#~ msgid "Example: &quot;Groceries&quot;, &quot;Lunch&quot;"
+#~ msgstr "Exemplo: &quot;Mercado&quot;, &quot;Almoço&quot;"
+
+#~ msgid "Required"
+#~ msgstr "Obrigatório"
+
+#~ msgid "Use a &quot;+&quot; sign to indicate positive values."
+#~ msgstr "Utilize o sinal &quot;+&quot; para indicar valores positivos."
+
+#~ msgid "Repeat this transaction"
+#~ msgstr "Repetir esta movimentação"
+
+#~ msgid "Create a reminder that repeats:"
+#~ msgstr "Criar um lembrete que se repete:"
 
 #~ msgid "It's simple to use!"
 #~ msgstr "É fácil de usar!"

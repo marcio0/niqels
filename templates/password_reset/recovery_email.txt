@@ -1,13 +1,9 @@
 {% load i18n %}
 {% load url from future %}
 
-{% blocktrans with name=user.name %}
-Dear {{ name }},
-{% endblocktrans %}
+{% blocktrans with name=user.name %}Dear {{ name }},{% endblocktrans %}
 
-{% blocktrans with domain=site.domain %}
-You -- or someone pretending to be you -- has requested a password reset on {{ domain }}.
-{% endblocktrans %}
+{% blocktrans with domain=site.domain %}You -- or someone pretending to be you -- has requested a password reset on {{ domain }}.{% endblocktrans %}
 
 {% trans "You can set your new password by following this link:" %}
 

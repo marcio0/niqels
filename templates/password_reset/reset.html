@@ -10,9 +10,7 @@
 {% block content %}
 	{% if invalid %}{% url "password_reset_recover" as recovery_url %}
 		<p>
-        {% blocktrans %}
-            Sorry, this password reset link is invalid. You can still <a href="{{ recovery_url }}">request a new one</a>.
-        {% endblocktrans %}
+        {% blocktrans %}Sorry, this password reset link is invalid. You can still <a href="{{ recovery_url }}">request a new one</a>.{% endblocktrans %}
         </p>
 	{% else %}
 		<p>
@@ -22,9 +20,7 @@
             Hi, <strong>{{ name }}</strong>. Please choose a new password for your account.
         {% endblocktrans %}
         {% endcomment %}
-        {% blocktrans %}
-           Please choose a new password for your account.
-        {% endblocktrans %}
+        {% blocktrans %}Please choose a new password for your account.{% endblocktrans %}
         </p>
 		<form method="post" action="{% url "password_reset_reset" token %}" class="form-horizontal">{% csrf_token %}
             <div class="form-group {% if form.password1.errors %}has-error{% endif %}">

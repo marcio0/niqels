@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-16 01:12-0300\n"
+"POT-Creation-Date: 2013-09-06 18:02-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:26
-#: static/js/src/directives.js:145
-msgid "Are you sure?"
-msgstr "Tem certeza?"
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/app.js:79
+#, c-format
+msgid "%s sucessfuly created!"
+msgstr "%s criada com sucesso!"
+
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/app.js:83
+#, c-format
+msgid "%s sucessfuly updated!"
+msgstr "%s atualizada com sucesso!"
+
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/app.js:87
+#, c-format
+msgid "An error ocurred creating %s."
+msgstr "Um erro ocorreu ao criado %s."
+
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/app.js:91
+#, c-format
+msgid "%s sucessfuly removed."
+msgstr "%s removida com sucesso."
+
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/directives.js:146
+msgid "Confirm action"
+msgstr "Confirmar ação"
+
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/modules/models.js:87
+msgid "Reminder"
+msgstr "Lembrete"
+
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/modules/models.js:106
+msgid "Transaction"
+msgstr "Transação"
+
+#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
+#: static/js/app/modules/models.js:128 static/js/app/modules/models.js.c:136
+#: static/js/app/modules/models.js:145
+msgid "Category"
+msgstr "Categoria"
+
+#: static/js/app/controllers/BalancePanelCtrl.js:45
+#, c-format
+msgid "Data up to day %s."
+msgstr "Dados até o dia %s."
+
+#: static/js/app/controllers/CategoryEditCtrl.js:26
+#: static/js/app/controllers/TransactionFormCtrl.js:61
+msgid "Please fill in the fields correctly."
+msgstr "Por favor, preencha os campos corretamente."
+
+#~ msgid "Are you sure?"
+#~ msgstr "Tem certeza?"
 
 #~ msgid "Cancel"
 #~ msgstr "Cancelar"
-
-#~ msgid "Confirm"
-#~ msgstr "Confirmar"
 
 #~ msgid "Ok"
 #~ msgstr "Ok"
