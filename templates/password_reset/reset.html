@@ -16,8 +16,14 @@
         </p>
 	{% else %}
 		<p>
+        {% comment %}
         {% blocktrans %}
+            User's name isn't available because password reset only set's username on the context.
             Hi, <strong>{{ name }}</strong>. Please choose a new password for your account.
+        {% endblocktrans %}
+        {% endcomment %}
+        {% blocktrans %}
+           Please choose a new password for your account.
         {% endblocktrans %}
         </p>
 		<form method="post" action="{% url "password_reset_reset" token %}" class="form-horizontal">{% csrf_token %}

@@ -21,7 +21,7 @@
             user_categories = {{ user_categories|to_json }};
         </script>
 
-        {% if debug %}
+        {% if is_debug %}
         <script src="{% static "js/lib/jquery-1.10.2.js" %}"></script>
         <script src="{% static "js/lib/bootstrap.js" %}"></script>
         {% else %}

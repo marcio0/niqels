@@ -3,7 +3,6 @@ angular.module('webapp')
     .factory('calculators', function () {
         return {
             deviation: function () {
-                debugger;
             }
         };
     })

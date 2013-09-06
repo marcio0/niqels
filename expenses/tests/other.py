@@ -60,7 +60,7 @@ class GlobalsContextProcessorTest(TestCase):
             'SITE_NAME': 'Niqels',
             'js_date_format': u'MMM d, yyyy',
             'currency_symbol': u'$',
-            'debug': False,
+            'is_debug': False,
             'user_categories': ['one', 'two'],
             'empty_value_fields': ['password', 'password1', 'password2']
         })
@@ -76,23 +76,23 @@ class GlobalsContextProcessorTest(TestCase):
         settings.TEMPLATE_DEBUG = True
 
         context = global_context(request)
-        self.assertFalse(context['debug'])
+        self.assertFalse(context['is_debug'])
 
         settings.DEBUG = True
         settings.TEMPLATE_DEBUG = False
 
         context = global_context(request)
-        self.assertFalse(context['debug'])
+        self.assertFalse(context['is_debug'])
 
         settings.DEBUG = False
         settings.TEMPLATE_DEBUG = False
 
         context = global_context(request)
-        self.assertFalse(context['debug'])
+        self.assertFalse(context['is_debug'])
 
         settings.DEBUG = True
         settings.TEMPLATE_DEBUG = True
 
         context = global_context(request)
-        self.assertTrue(context['debug'])
+        self.assertTrue(context['is_debug'])
 

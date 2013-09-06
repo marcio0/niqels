@@ -22,7 +22,7 @@ def global_context(request):
 
         "js_date_format": js_frm,
 
-        "debug": settings.DEBUG and settings.TEMPLATE_DEBUG
+        "is_debug": settings.DEBUG and settings.TEMPLATE_DEBUG
     }
 
     if request.user.is_authenticated:
