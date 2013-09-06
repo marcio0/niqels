@@ -1,14 +1,54 @@
-{% extends "password_reset/base.html" %}{% load i18n %}{% load url from future %}
+{% extends "password_reset/base.html" %}
+
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}
+    Choose new password
+{% endblock title %}
 
 {% block content %}
 	{% if invalid %}{% url "password_reset_recover" as recovery_url %}
-		<p>{% blocktrans %}Sorry, this password reset link is invalid. You can still <a href="{{ recovery_url }}">request a new one</a>.{% endblocktrans %}</p>
+		<p>
+        {% blocktrans %}
+            Sorry, this password reset link is invalid. You can still <a href="{{ recovery_url }}">request a new one</a>.
+        {% endblocktrans %}
+        </p>
 	{% else %}
-		<p>{% blocktrans %}Hi, <strong>{{ username }}</strong>. Please choose your new password.{% endblocktrans %}</p>
-		<form method="post" action="{% url "password_reset_reset" token %}">
-			{% csrf_token %}
-			{{ form.as_p }}
-			<p><input type="submit" value="{% trans "Set new password" %}"></p>
+		<p>
+        {% blocktrans %}
+            Hi, <strong>{{ name }}</strong>. Please choose a new password for your account.
+        {% endblocktrans %}
+        </p>
+		<form method="post" action="{% url "password_reset_reset" token %}" class="form-horizontal">{% csrf_token %}
+            <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
+                <label for="id_password1" class="col-lg-4 form-label">{% trans "New password" %}</label>
+                <div class="col-lg-8 input-icon">
+                    <i class="icon-asterisk input-icon-prepend"></i>
+                    <input id="id_password1" name="password1" type="password" class="form-control" required>
+                    {% for error in form.password1.errors %}
+                        <span class="help-block error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
+                <label for="id_password2" class="col-lg-4 form-label">{% trans "Confirm password" %}</label>
+                <div class="col-lg-8 input-icon">
+                    <i class="icon-asterisk input-icon-prepend"></i>
+                    <input id="id_password2" name="password2" type="password" class="form-control" required>
+                    {% for error in form.password2.errors %}
+                        <span class="help-block error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+			<div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit" class="btn btn-primary">
+                        {% trans "Set new password" %}
+                        <i class="icon-ok"></i>
+                    </button>
+                </div>
+            </div>
 		</form>
 	{% endif %}
 {% endblock %}

@@ -2,12 +2,27 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block title %}{% trans "Password recovery" %}{% endblock %}
+{% block title %}{% trans "Password recovery"  %}{% endblock %}
 
 {% block content %}
-	<form method="post" action="{{ url }}">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<p><input type="submit" value="{% trans "Recover my password" %}"></p>
+	<form method="post" action="{{ url }}" class="form form-horizontal">{% csrf_token %}
+        <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+            <label class="col-lg-3 control-label" for="id_username_or_email">{% trans "Email" %}</label>
+            <div class="col-lg-9 input-icon">
+                <i class="icon-envelope input-icon-prepend"></i>
+                <input id="id_username_or_email" name="username_or_email" type="email" class="form-control">
+                {% for error in recovery_form.email.errors %}
+                    <span class="help-block error">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-9 col-lg-offset-3">
+                <button type="submit" class="btn btn-primary">
+                    {% trans "Recover my password" %}
+                    <i class="icon-ok input-icon-append"></i>
+                </button>
+            </div>
+        </div>
 	</form>
 {% endblock %}

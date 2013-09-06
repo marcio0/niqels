@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block body %}
-    <div class="center-block">
-        <h3>{% block title %}{% endblock title %}</h3>
+
+<h2 class="area-header">{% block title %}{% endblock title %}</h2>
+
+<div class="panel panel-default change-password-panel">
+    <div class="panel-body">
         {% block content %}
         {% endblock content %}
-    </div> <!-- container -->
+    </div>
+</div>
 {% endblock body %}
+
+
+
