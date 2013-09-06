@@ -6922,8 +6922,8 @@ p.outgo {
 .input-icon i.input-icon-append {
   right: 10px;
 }
-.input-icon .xinput {
-  text-indent: 25px;
+.input-icon[class^="col-"] i.input-icon-prepend {
+  left: 25px;
 }
 i.input-error {
   color: #b94a48;
