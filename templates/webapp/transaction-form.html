@@ -14,6 +14,7 @@
     >
 
     <div class="form-group input-icon">
+        <label for="id_category" class="form-label">{% trans "Category" %}</label>
         <i class="icon-tag input-icon-prepend"></i>
         <input
             id="id_category"
@@ -33,7 +34,7 @@
 
             autocomplete="off"
 
-            placeholder="{% trans "Category" %}"
+            placeholder="{% trans "Example: &quot;Light&quot;, &quot;Groceries&quot;" %}"
             required
             />
         <i
@@ -43,6 +44,7 @@
     </div>
 
     <div class="form-group input-icon">
+        <label for="id_value" class="form-label">{% trans "Value" %}</label>
         <i class="icon-dollar input-icon-prepend"></i>
         <input
             id="id_value"
@@ -60,11 +62,12 @@
             {% endcomment %}
 
             autocomplete="off"
-            placeholder="{% trans "Value" %}"
+            placeholder="{% trans "Tip: use &quot;+&quot; for positive values" %}"
             />
     </div>
 
     <div class="form-group input-icon">
+        <label for="id_description" class="form-label">{% trans "Description (optional)" %}</label>
         <i class="icon-pencil input-icon-prepend"></i>
         <input
             id="id_description"
@@ -75,11 +78,12 @@
 
             ng-model="formData.description"
 
-            placeholder="{% trans "Description (optional)" %}"
+            placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
             autocomplete="off"
             />
     </div>
 
+    <label class="form-label">{% trans "Date" %}</label>
     <div ex-datepicker="formData.date"></div>
 
     <hr/>

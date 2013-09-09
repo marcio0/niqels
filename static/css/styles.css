@@ -6905,7 +6905,7 @@ div.balance-info div.total .value {
 .input-icon i.input-icon-prepend,
 .input-icon i.input-icon-append {
   position: absolute;
-  top: 7px;
+  bottom: 7px;
 }
 .input-icon i.input-icon-prepend {
   left: 10px;
