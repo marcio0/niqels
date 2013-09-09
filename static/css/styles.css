@@ -7101,6 +7101,7 @@ thead tr th {
 hr {
   border-color: #807f88;
 }
+<<<<<<< HEAD
 .value-column {
   border-right-width: 3px;
   border-right-style: solid;
@@ -7111,6 +7112,10 @@ hr {
 }
 .value-column-outgo {
   border-right-color: #9d261d;
+=======
+#transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
+  color: #d9534f;
+>>>>>>> new color for delete-transaction
 }
 
 /*
