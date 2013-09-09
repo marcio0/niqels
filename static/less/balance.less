@@ -12,10 +12,18 @@ div.balance-info {
         text-align: right;
         margin: 15px 0;
 
-        &.income, &.outgo {
+        &.renevues, &.expenses {
             .value {
                 font-size: 16px;
             }
+        }
+
+        &.renevues {
+            color: @renevues;
+        }
+
+        &.expenses {
+            color: @expenses;
         }
 
         &.total {
@@ -46,9 +54,11 @@ div.balance-info {
     }
 }
 
-.income {
-    color: @income;
-}
-.outgo {
-    color: @outgo;
+p {
+    &.renevues {
+        color: @renevues;
+    }
+    &.expenses {
+        color: @expenses;
+    }
 }

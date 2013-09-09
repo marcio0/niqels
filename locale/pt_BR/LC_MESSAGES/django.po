@@ -426,11 +426,11 @@ msgid "Balance"
 msgstr "Balanço"
 
 #: templates/webapp/month_balance_panel.html:10
-msgid "income"
+msgid "renevues"
 msgstr "recebimentos"
 
 #: templates/webapp/month_balance_panel.html:18
-msgid "outgo"
+msgid "expenses"
 msgstr "gastos"
 
 #: templates/webapp/month_balance_panel.html:27

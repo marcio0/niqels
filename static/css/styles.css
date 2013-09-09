@@ -6693,8 +6693,8 @@ td.visible-print {
 // Charts colors
 @positive:                  #049cdb;
 @negative:                  #9d261d;
-@income:                    #46a546;
-@outgo:                     @negative;
+@renevues:                  #46a546;
+@expenses:                  @negative;
 
 // used in inputs, panels, tables
 @component-border-color:    #ccc;
@@ -6845,10 +6845,19 @@ div.balance-info div {
   text-align: right;
   margin: 15px 0;
 }
-div.balance-info div.income .value,
-div.balance-info div.outgo .value {
+div.balance-info div.renevues .value,
+div.balance-info div.expenses .value {
   font-size: 16px;
 }
+<<<<<<< HEAD
+=======
+div.balance-info div.renevues {
+  color: #46a546;
+}
+div.balance-info div.expenses {
+  color: #9d261d;
+}
+>>>>>>> renaming stuff
 div.balance-info div.total .value {
   font-size: 20px;
   font-weight: bold;
@@ -6869,10 +6878,17 @@ div.balance-info div.total .value {
   border-top: 1px solid #CCC;
   padding: 5px 0;
 }
+<<<<<<< HEAD
 .income {
   color: #46a546;
 }
 .outgo {
+=======
+p.renevues {
+  color: #46a546;
+}
+p.expenses {
+>>>>>>> renaming stuff
   color: #9d261d;
 }
 /*
@@ -7263,8 +7279,8 @@ hr {
 // Charts colors
 @positive:                  #049cdb;
 @negative:                  #9d261d;
-@income:                    #46a546;
-@outgo:                     @negative;
+@renevues:                  #46a546;
+@expenses:                  @negative;
 
 // used in inputs, panels, tables
 @component-border-color:    #ccc;

@@ -5,28 +5,28 @@
 <div class="panel panel-default">
 <div ng-controller="BalancePanelCtrl" class="panel-body">
     <div class="balance-info">
-        <div class="income">
+        <div class="renevues">
             <span class="description">
-                {% trans "income" %}
+                {% trans "renevues" %}
             </span>
-            <span class="value" ng-bind="income | currency">
+            <span class="value" ng-bind="renevues | currency">
             </span>
         </div>
 
-        <div class="outgo">
+        <div class="expenses">
             <span class="description">
-                {% trans "outgo" %}
+                {% trans "expenses" %}
             </span>
-            <span class="value" ng-bind="outgo | currency">
+            <span class="value" ng-bind="expenses | currency">
             </span>
         </div>
 
 
-        <div class="total" ng-class="{true: 'positive', false: 'negative'}[(income + outgo) >= 0]">
+        <div class="total" ng-class="{true: 'positive', false: 'negative'}[(renevues + expenses) >= 0]">
             <span class="description">
                 {% trans "total" %}
             </span>
-            <span class="value" ng-bind="(income + outgo) | currency">
+            <span class="value" ng-bind="(renevues + expenses) | currency">
             </span>
         </div>
     </div>

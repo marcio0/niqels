@@ -23,12 +23,12 @@ angular.module('charts', [])
                         category = moment(k, 'YYYY-MM').format('MMM YYYY');
                         categories.push(category);
 
-                        data.income = parseFloat(result.data[k].income);
-                        data.income_text = $filter('currency')(data.income);
-                        data.outgo = parseFloat(result.data[k].outgo)
-                        data.outgo_text = $filter('currency')(data.outgo);
+                        data.renevues = parseFloat(result.data[k].renevues);
+                        data.renevues_text = $filter('currency')(data.renevues);
+                        data.expenses = parseFloat(result.data[k].expenses)
+                        data.expenses_text = $filter('currency')(data.expenses);
 
-                        data.y = data.income + data.outgo;
+                        data.y = data.renevues + data.expenses;
                         data.y_text = $filter('currency')(data.y);
                         data.color = data.y < 0 ? '#9d261d' : '#049cdb';
 
@@ -87,8 +87,8 @@ angular.module('charts', [])
                 },
                 tooltip: {
                     headerFormat: '<div class="title">{point.key}</div>',
-                    pointFormat:    '<p class="income">Income: <b>{point.income_text}</b></p>' +
-                                    '<p class="outgo">Outgo: <b>{point.outgo_text}</b></p>' +
+                    pointFormat:    '<p class="renevues">renevues: <b>{point.renevues_text}</b></p>' +
+                                    '<p class="expenses">expenses: <b>{point.expenses_text}</b></p>' +
                                     '<p class="total">Total: <b>{point.y_text}</b></p>',
                     borderRadius: 0,
                     shared: true,
