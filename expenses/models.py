@@ -91,11 +91,10 @@ class Transaction(models.Model):
         help_text=_("The reminder that created this transaction, if it's repeatable.")
     )
 
-    '''
-    Marks the time of the day this Transaction was saved.
-    Used to order the entries inside a day by last_edition.
-    '''
-    last_edited_time = models.TimeField(auto_now=True)
+    add_date = models.DateTimeField(_('add date'),
+        help_text=_("Date when this transaction was added."),
+        auto_now_add=True)
+
 
     objects = TransactionManager()
 
@@ -107,6 +106,6 @@ class Transaction(models.Model):
         )
 
     class Meta:
-        ordering = ['-date', '-last_edited_time']
+        ordering = ['-date', '-add_date']
         verbose_name = _('Transaction')
         verbose_name_plural = _('Transactions')
