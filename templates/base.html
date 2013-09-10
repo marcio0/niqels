@@ -80,6 +80,9 @@
     </div>
 
         {% block bodyend %}{% endblock bodyend %}
+        
+        {% include "ga.html" %}
+
         {% csrf_token %}
     </body>
 </html>
