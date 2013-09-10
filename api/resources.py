@@ -153,7 +153,7 @@ class CategoryResource(ModelResource):
         Creating a inactive category will reactivate it.
         """
         try:
-            bundle.obj = self._meta.object_class.objects.get(name=bundle.data.get('name'))
+            bundle.obj = self._meta.object_class.objects.get(name=bundle.data.get('name'), user=bundle.request.user)
         except self._meta.object_class.DoesNotExist:
             bundle.obj = self._meta.object_class()
 

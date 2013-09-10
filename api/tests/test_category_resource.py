@@ -98,6 +98,21 @@ class CategoryResourceTest(ResourceTestCase):
 
         # TODO increment this, check values
 
+    def test_post_name_conflict(self):
+        '''
+        Bug where reactivating categories that also exists for another user would break the api.
+        '''
+        user = User.objects.create_user(email="b@b.com")
+        Category.objects.create(name="existing", user=user)
+        Category.objects.create(name="existing", user=self.user)
+
+        post_data = {
+            'color': '#fefefe',
+            'name': 'existing'
+        }
+
+        self.assertHttpCreated(self.api_client.post('/api/v1/category/', format='json', data=post_data, authentication=self.get_credentials()))
+
     def test_post_list_reactivate(self):
         '''
         When creating a category, finds if it exists and is deactivated.
