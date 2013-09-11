@@ -13,20 +13,6 @@ var tastypieDataTransformer = function ($http) {
     ])
 };
 
-// notifier creator 
-/*
-var updt_fun = Category.update;
-console.log(updt_fun);
-Category.update = function $update (params, data, success, error) {
-    var success_override = function (value) {
-        console.log(arguments);
-        success.apply(arguments);
-        $rootScope.$broadcast('categoryUpdated', value);
-    };
-    updt_fun.apply(this, [params, data, success_override, error]);
-};
-*/
-
 angular.module('models', ['ngResource'])
 
     .factory('Reminder', ['$resource', '$http', 'Transaction', '$q', '$rootScope', function($resource, $http, Transaction, $q, $rootScope){
@@ -135,7 +121,6 @@ angular.module('models', ['ngResource'])
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Category'));
             }
-            console.log('removendo');
             cache.remove('/api/v1/category?limit=100');
         });
 
@@ -148,7 +133,6 @@ angular.module('models', ['ngResource'])
         });
 
         $rootScope.$on('transactionCreated', function (e, transaction) {
-            console.log('recarregando cache');
             var cache = $cacheFactory.get('Category'),
                 cache_result = cache.get('/api/v1/category?limit=100'),
                 id = transaction.category.id;
