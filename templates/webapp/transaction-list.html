@@ -46,8 +46,8 @@
 
                     <td class="description-column" ng-bind="transaction.description"></td>
 
-                    <td class="value-column">
-                        <span ex-currency ex-currency-value="transaction.value"></span>
+                    <td class="value-column" is-positive-class="transaction.value">
+                        <span ng-bind="transaction.value | number:2"></span>
                     </td>
 
                     <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">

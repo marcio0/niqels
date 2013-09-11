@@ -6849,12 +6849,6 @@ div.balance-info div.income .value,
 div.balance-info div.outgo .value {
   font-size: 16px;
 }
-div.balance-info div.income {
-  color: #46a546;
-}
-div.balance-info div.outgo {
-  color: #9d261d;
-}
 div.balance-info div.total .value {
   font-size: 20px;
   font-weight: bold;
@@ -6875,10 +6869,10 @@ div.balance-info div.total .value {
   border-top: 1px solid #CCC;
   padding: 5px 0;
 }
-p.income {
+.income {
   color: #46a546;
 }
-p.outgo {
+.outgo {
   color: #9d261d;
 }
 /*
@@ -7106,6 +7100,17 @@ thead tr th {
 }
 hr {
   border-color: #807f88;
+}
+.value-column {
+  border-right-width: 3px;
+  border-right-style: solid;
+  border-right-color: #eeeeee;
+}
+.value-column-income {
+  border-right-color: #46a546;
+}
+.value-column-outgo {
+  border-right-color: #9d261d;
 }
 
 /*

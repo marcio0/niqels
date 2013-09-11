@@ -87,27 +87,22 @@ angular.module('webapp')
         };
     }])
 
-    .directive('exCurrency', ['$filter', function ($filter) {
+    .directive('isPositiveClass', ['$filter', '$parse', function ($filter, $parse) {
         return {
-            replace: true,
-            template: '<span class="text-((color))" ng-bind="value"></span>',
-            scope: {
-                rawValue: '=exCurrencyValue'
-            },
+            //replace: true,
+            //template: '<span><span ng-bind="value"></span> <i class="icon-caret-((dir)) ((colorCls))"></i></span>',
             link: function (scope, element, attrs) {
-                scope.$watch('rawValue', function (newValue, oldValue) {
-                    scope.value = $filter('currency')(scope.rawValue);
+                var valueGetter = $parse(attrs.isPositiveClass),
+                    value = parseFloat(valueGetter(scope)),
+                    cls = '';
 
-                    if (scope.rawValue < 0) {
-                        scope.color = 'error';
-                    }
-                    else if (scope.rawValue > 0) {
-                        scope.color = 'success';
-                    }
-                    else {
-                        scope.color = '';
-                    }
-                });
+                if (value > 0) {
+                    cls = 'value-column-income';
+                }
+                else if (value < 0) {
+                    cls = 'value-column-outgo';
+                }
+                element.addClass(cls);
             }
         };
     }])
