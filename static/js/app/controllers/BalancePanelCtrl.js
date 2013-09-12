@@ -2,16 +2,10 @@
 
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, BalanceChart) {
     $scope.updateBalance = function () {
-        var today = moment();
         var reference_date, day, months, this_month;
 
-        reference_date = today;
-
-        // if it's not the actual month, uses the last_day
-        if ($rootScope.month != today.month()) {
-            reference_date.month($rootScope.month);
-            reference_date = reference_date.endOf('month');
-        }
+        reference_date = moment().month($rootScope.month);
+        reference_date = reference_date.endOf('month');
 
         months = [reference_date];
         for (var i=0; i<2; i++) {
@@ -40,11 +34,6 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
 
             $scope.renevues = parseFloat(httpResult.data[this_month].renevues);
             $scope.expenses = parseFloat(httpResult.data[this_month].expenses);
-
-            options.subtitle = {
-                text: gettext('Data up to day %s.').replace('%s', reference_date.date())
-            };
-
 
             return result.options;
         });
