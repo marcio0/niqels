@@ -222,13 +222,11 @@ angular.module('webapp')
     })
 
     .directive('datepicker', ['$locale', function ($locale) {
-        var mobile = false,
+        var mobile = true,
             template, linkFn;
 
         if (mobile) {
-            template = '<input type="date"></input>';
-            linkFn = function (scope, element, attrs) {
-            };
+            template = '<input type="date" ng-model="date"></input>';
         }
         else {
             template = '<div></div>';
