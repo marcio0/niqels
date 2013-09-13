@@ -7002,9 +7002,6 @@ a > i[class^="icon"] {
 form.transaction-form hr {
   margin: 10px 0;
 }
-form.transaction-form #id_value {
-  font-weight: bold;
-}
 .category-table tbody tr {
   cursor: pointer;
 }
