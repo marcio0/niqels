@@ -26,12 +26,6 @@
             ng-model="formData.category"
             ex-categoryfield
 
-            {% comment %}
-            bs-tooltip
-            title="{% trans "Example: &quot;Groceries&quot;, &quot;Lunch&quot;" %}"
-            data-placement="right"
-            {% endcomment %}
-
             autocomplete="off"
 
             placeholder="{% trans "Example: &quot;Light&quot;, &quot;Groceries&quot;" %}"
@@ -49,17 +43,10 @@
         <input
             id="id_value"
             name="value"
-            type="tel"
             class="form-control"
 
             ng-model="formData.value"
-            ex-valuefield
-
-            {% comment %}
-            bs-tooltip
-            title="{% trans "Use a &quot;+&quot; sign to indicate positive values." %}"
-            data-placement="right"
-            {% endcomment %}
+            value-field
 
             autocomplete="off"
             placeholder="{% trans "Tip: use &quot;+&quot; for positive values" %}"
@@ -83,8 +70,17 @@
             />
     </div>
 
-    <label class="form-label">{% trans "Date" %}</label>
-    <div ex-datepicker="formData.date"></div>
+    <div class="form-group">
+        <label for="id_date" class="form-label">{% trans "Date" %}</label>
+        <div
+            datepicker
+            datepicker-model="formData.date"
+            class="form-control"
+            id="id_date"
+            name="date"
+
+        ></div>
+    </div>
 
     <hr/>
 

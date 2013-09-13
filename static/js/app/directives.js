@@ -221,13 +221,19 @@ angular.module('webapp')
         };
     })
 
-    .directive('exDatepicker', ['$locale', function ($locale) {
-        return {
-            restrict: 'A',
-            scope: {
-                date: '=exDatepicker'
-            },
-            link: function (scope, element, attrs) {
+    .directive('datepicker', ['$locale', function ($locale) {
+        var mobile = false,
+            template, linkFn;
+
+        if (mobile) {
+            template = '<input type="date"></input>';
+            linkFn = function (scope, element, attrs) {
+            };
+        }
+        else {
+            template = '<div></div>';
+            linkFn = function linkFn (scope, element, attrs) {
+                element.removeClass('form-control');
                 var updateModel = function (ev) {
                     scope.$apply(function () {
                         scope.date = moment(ev.date).format('DD/MM/YYYY');
@@ -249,16 +255,31 @@ angular.module('webapp')
                         scope.date = today;
                     }
                 });
-            }
+            };
+        }
+
+        return {
+            restrict: 'A',
+            scope: {
+                date: '=datepickerModel'
+            },
+            replace: true,
+            template: template,
+            link: linkFn
         };
     }])
 
-    .directive('exValuefield', function () {
-        return {
-            require: '?ngModel',
-            restrict: 'A',
-            link: function (scope, element, attrs, controller) {
+    .directive('valueField', function () {
+        var mobile = true,
+            template, linkFn;
 
+        if (mobile) {
+            template = '<input type="number"></input>';
+            linkFn = function (){};
+        }
+        else {
+            template = '<input type="text">';
+            linkFn = function (scope, element, attrs, controller) {
                 var updateModel = function(ev) {
                     return scope.$apply(function () {
                         return controller.$setViewValue(element.val());
@@ -296,5 +317,12 @@ angular.module('webapp')
                     addon.css('color', color);
                 });
             }
+        }
+        return {
+            require: '?ngModel',
+            restrict: 'A',
+            replace: true,
+            template: template,
+            link: linkFn
         };
     });
