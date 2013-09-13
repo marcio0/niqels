@@ -5,7 +5,6 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
         var reference_date, day, months, this_month;
 
         reference_date = moment().month($rootScope.month);
-        reference_date = reference_date.endOf('month');
 
         months = [reference_date];
         for (var i=0; i<2; i++) {
@@ -19,13 +18,13 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
             months[i] = months[i].format('YYYY-MM');
         }
 
+        // saving the showing month for later
         this_month = months[months.length-1];
 
         months = angular.toJson(months);
 
         var params = {
-            months: months,
-            up_to_day:  reference_date.date()
+            months: months
         };
 
         var data = BalanceChart.fetchData(params).then(function setupScope (result) {
