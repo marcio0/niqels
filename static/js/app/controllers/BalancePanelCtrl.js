@@ -28,7 +28,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
             up_to_day:  reference_date.date()
         };
 
-        $scope.chartData = BalanceChart.fetchData(params).then(function setupScope (result) {
+        var data = BalanceChart.fetchData(params).then(function setupScope (result) {
             var options = result.options,
                 httpResult = result.result;
 
@@ -37,13 +37,20 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
 
             return result.options;
         });
+        if ($rootScope.device != 'phone') {
+            // don't create the chart if it's on a mobile
+            $scope.chartData = data;
+        }
     };
 
     $rootScope.$on('transactionCreated', $scope.updateBalance);
     $rootScope.$on('transactionRemoved', $scope.updateBalance);
     $rootScope.$watch('month', $scope.updateBalance);
-
-    //$('.side-panel').affix({offset: 40});
+    $rootScope.$on('devicechanged', function (e, device) {
+        if (device != 'phone') {
+            $scope.updateBalance();
+        }
+    });
 }
 
 BalancePanelCtrl.$inject = ['$scope', '$http', '$rootScope', '$filter', 'calculators', 'BalanceChart'];

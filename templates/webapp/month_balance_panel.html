@@ -2,7 +2,7 @@
 
 <h4 class="area-header">{% trans "Balance" %}</h4>
 
-<div class="panel panel-default">
+<div class="panel panel-default" id="balance-panel">
 <div ng-controller="BalancePanelCtrl" class="panel-body">
     <div class="balance-info">
         <div class="renevues">
@@ -31,8 +31,10 @@
         </div>
     </div>
 
-    <h4 class="chart-title">{% trans "Average" %}</h4>
+    <div id="balance-chart" class="hidden-xs">
+        <h4 class="chart-title">{% trans "Average" %}</h4>
 
-    <div value='chartData' type="area" height="300" chart></div>
+        <div value='chartData' type="area" height="300" chart></div>
+    </div>
 </div>
 </div>
