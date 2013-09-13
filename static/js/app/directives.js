@@ -221,8 +221,8 @@ angular.module('webapp')
         };
     })
 
-    .directive('datepicker', ['$locale', function ($locale) {
-        var mobile = true,
+    .directive('datepicker', ['$locale', '$rootScope', function ($locale, $rootScope) {
+        var mobile = $rootScope.mobile,
             template, linkFn;
 
         if (mobile) {
@@ -267,8 +267,8 @@ angular.module('webapp')
         };
     }])
 
-    .directive('valueField', function () {
-        var mobile = true,
+    .directive('valueField', ['$rootScope', function ($rootScope) {
+        var mobile = $rootScope.mobile,
             template, linkFn;
 
         if (mobile) {
@@ -323,4 +323,6 @@ angular.module('webapp')
             template: template,
             link: linkFn
         };
-    });
+    }])
+    
+    ;
