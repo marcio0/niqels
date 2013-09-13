@@ -272,12 +272,17 @@ angular.module('webapp')
             template, linkFn;
 
         if (mobile) {
-            template = '<input type="number"></input>';
-            linkFn = function (){};
+            template = '<input type="tel"></input>';
         }
         else {
-            template = '<input type="text">';
-            linkFn = function (scope, element, attrs, controller) {
+            template = '<input type="text"></input>';
+        }
+        return {
+            require: '?ngModel',
+            restrict: 'A',
+            replace: true,
+            template: template,
+            link: function (scope, element, attrs, controller) {
                 var updateModel = function(ev) {
                     return scope.$apply(function () {
                         return controller.$setViewValue(element.val());
@@ -315,13 +320,6 @@ angular.module('webapp')
                     addon.css('color', color);
                 });
             }
-        }
-        return {
-            require: '?ngModel',
-            restrict: 'A',
-            replace: true,
-            template: template,
-            link: linkFn
         };
     }])
     
