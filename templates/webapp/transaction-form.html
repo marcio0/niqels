@@ -16,21 +16,18 @@
     <div class="form-group input-icon">
         <label for="id_category" class="form-label">{% trans "Category" %}</label>
         <i class="icon-tag input-icon-prepend"></i>
-        <input
+        <select
             id="id_category"
-            maxlength="200"
             name="category"
-            type="text"
-            class="form-control"
 
             ng-model="formData.category"
-            ex-categoryfield
+            category-field
 
-            autocomplete="off"
-
-            placeholder="{% trans "Example: &quot;Light&quot;, &quot;Groceries&quot;" %}"
             required
-            />
+
+            ng-options="c as c.name for c in categories track by c.name"
+            >
+        </select>
         <i
             class="icon-exclamation icon-large input-icon-append input-error"
             ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"

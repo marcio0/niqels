@@ -15,6 +15,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     $scope.submit = function () {
         var transaction_data = $scope.formData,
             form = this.transactionForm;
+        transaction_data.category = transaction_data.category.name;
 
         if (form.$valid) {
             $scope.sending = true;

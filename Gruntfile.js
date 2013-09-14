@@ -68,6 +68,7 @@ module.exports = function(grunt) {
                         'static/js/lib/min/moment.min.js',
                         'static/js/lib/min/toastr.min.js',
                         'static/js/lib/min/highcharts.js',
+                        'static/js/lib/min/bootstrap-select.min.js',
                         'static/js/webapp-libs.min.js'
                     ],
 
