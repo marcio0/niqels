@@ -166,7 +166,7 @@ angular.module('webapp')
         };
     })
 
-    .directive('categoryField', ['Category', '$rootScope', '$cacheFactory', function (Category, $rootScope, $cacheFactory) {
+    .directive('categoryField', ['Category', '$rootScope', function (Category, $rootScope) {
         return {
             require: '?ngModel',
             restrict: 'A',
@@ -182,6 +182,12 @@ angular.module('webapp')
                         element.selectpicker('refresh');
                     });
                     $rootScope.categories = result.resource;
+                });
+
+                scope.$watch(attrs.ngModel, function (newValue, oldValue) {
+                    if (newValue == undefined) {
+                        element.selectpicker('render');
+                    }
                 });
             }
         };

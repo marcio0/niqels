@@ -13,15 +13,16 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     resetForm();
 
     $scope.submit = function () {
-        var transaction_data = $scope.formData,
+        var transaction_data = angular.copy($scope.formData),
             form = this.transactionForm;
-        transaction_data.category = transaction_data.category.name;
 
         if (form.$valid) {
             $scope.sending = true;
 
             var cls = null,
                 promise = null;
+
+            transaction_data.category = transaction_data.category.name;
 
             if ($scope.isRepeat) {
                 transaction_data.due_date = transaction_data.date;
