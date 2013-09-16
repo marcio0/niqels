@@ -2,7 +2,7 @@
 
 var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.state', 'charts'])
 
-    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
         $urlRouterProvider.otherwise("/transactions");
 
         $stateProvider
@@ -29,7 +29,9 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 templateUrl: "/partials/reminder-list/",
                 controller: "ReminderListCtrl"
             })
-    }])
+
+            $locationProvider.html5Mode(true);
+        }])
 
     .config(['$httpProvider', function ($httpProvider) {
         // sending csrf token on all requests
