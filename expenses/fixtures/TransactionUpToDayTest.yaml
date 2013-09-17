@@ -37,54 +37,54 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-01 00:00:00 -3
+        date: 2010-01-01
         value: -50
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 2
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-02 00:00:00 -3
+        date: 2010-01-02
         value: 110
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 3
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-03 00:00:00 -3
+        date: 2010-01-03
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 4
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-04 00:00:00 -3
+        date: 2010-01-04
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 5
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-11 00:00:00 -3
+        date: 2010-01-11
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 6
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-01-15 00:00:00 -3
+        date: 2010-01-15
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 # February
 -   model: expenses.Transaction
@@ -92,45 +92,45 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-01 00:00:00 -3
+        date: 2010-02-01
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 8
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-02 00:00:00 -3
+        date: 2010-02-02
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 9
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-03 00:00:00 -3
+        date: 2010-02-03
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 10
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-11 00:00:00 -3
+        date: 2010-02-11
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 11
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-02-15 00:00:00 -3
+        date: 2010-02-15
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 # March
 -   model: expenses.Transaction
@@ -138,33 +138,33 @@
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-03-01 00:00:00 -3
+        date: 2010-03-01
         value: 110
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 13
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-03-02 00:00:00 -3
+        date: 2010-03-02
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 14
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-03-11 00:00:00 -3
+        date: 2010-03-11
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 15
     fields:
         user: 1
         category: 1
-        date: !!timestamp 2010-03-15 00:00:00 -3
+        date: 2010-03-15
         value: 100
-        add_date: "2010-01-01 00:00:00"
+        add_date: "2010-01-01 00:00:00-03:00"

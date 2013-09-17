@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils import timezone
 
 
 class Category(models.Model):
@@ -93,7 +94,7 @@ class Transaction(models.Model):
 
     add_date = models.DateTimeField(_('add date'),
         help_text=_("Date when this transaction was added."),
-        auto_now_add=True)
+        default=timezone.now())
 
 
     objects = TransactionManager()
