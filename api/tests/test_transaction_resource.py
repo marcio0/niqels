@@ -22,7 +22,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.post_data = {
             'date': '03/03/2010',
             'value': '40',
-            'category': 'STUFF'
+            'category': {'resource_uri': '/api/v1/category/2', 'id': 2}
         }
 
         self.detail_url = '/api/v1/transaction/{0}'.format(self.transaction.id)
@@ -117,41 +117,30 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
-    def test_post_list_reactivating_category(self):
+    def test_post_list_inactive_category(self):
         '''
-        Creating a transaction in a inactive category will make it active again.
+        Creating a transaction with a inactive category results in a 400 Bad Request
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user, active=False).count(), 1)
 
         post_data = self.post_data.copy()
-        post_data['category'] = 'Inactive'
+        post_data['category'] = '/api/v1/category/4' # name: Inactive
         
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=post_data, authentication=self.get_credentials())
-        self.assertHttpCreated(resp)
+        self.assertHttpBadRequest(resp)
 
-        content = self.deserialize(resp)
-
-        self.assertEquals(content['category'], {
-            u'resource_uri': u'/api/v1/category/4',
-            u'id': 4,
-            u'name': u'Inactive',
-            u'color': u'#999999'
-        })
-
-        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
-        self.assertEqual(Category.objects.filter(user=self.user, active=False).count(), 0)
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
     def test_post_list_category_doesnt_exist(self):
         '''
-        If the category does not exists, the api must return a 403 Bad Request.
+        If the category does not exist, the api must return a 400 Bad Request.
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
-        data['category'] = 'new'
+        data['category'] = '/api/v1/category/10000'
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
         self.assertHttpBadRequest(resp)
@@ -208,23 +197,6 @@ class TransactionResourceTest(ResourceTestCase):
 
         data = self.post_data.copy()
         del data['date']
-
-        self.assertHttpBadRequest(self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials()))
-
-        # Verify a new one has been added.
-        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
-
-    def test_post_bad_data_missing_category(self):
-        '''
-        Unsuccessful POST to a list endpoint.
-        '''
-        # Check how many are there first.
-        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
-
-        data = self.post_data.copy()
-        del data['category']
 
         self.assertHttpBadRequest(self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials()))
 

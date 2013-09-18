@@ -200,31 +200,6 @@ class TransactionResource(ModelResource):
 
         return bundle
 
-    def hydrate_category(self, bundle):
-        # TODO: unnittest this
-        category_name = bundle.data.get('category', None)
-
-        if not category_name:
-            bundle.data['category'] = category_name
-            return bundle
-
-        category_name = category_name.strip()
-
-        try:
-            category = Category.objects.get(
-                name=category_name,
-                user=bundle.request.user)
-        except Category.DoesNotExist:
-            raise BadRequest(_('This category does not exist.'))
-
-        if not category.active:
-            category.active = True
-            category.save()
-
-        bundle.data['category'] = category
-
-        return bundle
-
 
 class ReminderResource(ModelResource):
     repeat = fields.CharField('repeat')
