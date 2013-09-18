@@ -25,7 +25,7 @@
 
             required
 
-            ng-options="c as c.name for c in categories track by c.name"
+            ng-options="c.resource_uri as c.name for c in categories"
             >
         </select>
         <i

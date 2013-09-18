@@ -22,8 +22,6 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             var cls = null,
                 promise = null;
 
-            transaction_data.category = transaction_data.category.name;
-
             if ($scope.isRepeat) {
                 transaction_data.due_date = transaction_data.date;
                 var reminder = new Reminder(transaction_data);
