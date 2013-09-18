@@ -15,6 +15,7 @@ from tastypie.exceptions import BadRequest
 from django.conf.urls import url
 from django.core.urlresolvers import NoReverseMatch
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from expenses.models import Transaction, Category
 from expenses.forms import CategoryForm
@@ -209,11 +210,12 @@ class TransactionResource(ModelResource):
 
         category_name = category_name.strip()
 
-        category, _ = Category.objects.get_or_create(
-            name=category_name,
-            user=bundle.request.user,
-            defaults={'color': random_color()}
-        )
+        try:
+            category = Category.objects.get(
+                name=category_name,
+                user=bundle.request.user)
+        except Category.DoesNotExist:
+            raise BadRequest(_('This category does not exist.'))
 
         if not category.active:
             category.active = True
