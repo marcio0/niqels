@@ -110,8 +110,8 @@ class Transaction(models.Model):
         help_text=_("The reminder that created this transaction, if it's repeatable.")
     )
 
-    add_date = models.DateTimeField(_('add date'),
-        help_text=_("Date when this transaction was added."),
+    created = models.DateTimeField(_('creation date'),
+        help_text=_("When this transaction was created."),
         default=timezone.now())
 
     objects = TransactionManager()
@@ -124,6 +124,6 @@ class Transaction(models.Model):
         )
 
     class Meta:
-        ordering = ['-date', '-add_date']
+        ordering = ['-date', '-created']
         verbose_name = _('Transaction')
         verbose_name_plural = _('Transactions')

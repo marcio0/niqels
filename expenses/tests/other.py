@@ -7,17 +7,7 @@ from django.test import TestCase
 
 from access.models import User
 from expenses.models import Category
-from expenses.templatetags.expenses_tags import to_json
 from expenses.context_processors import global_context
-
-
-class ExpensesTemplateTagsTest(TestCase):
-    def test_to_json(self):
-        value = [1, 2, 3]
-
-        expected = '[1, 2, 3]'
-
-        self.assertEquals(to_json(value), expected)
 
 
 class GlobalsContextProcessorTest(TestCase):

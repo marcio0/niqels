@@ -17,10 +17,6 @@
 
         <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}" />
 
-        <script type="text/javascript">
-            user_categories = {{ user_categories|to_json }};
-        </script>
-
         {% if is_debug %}
         <script src="{% static "js/lib/jquery-1.10.2.js" %}"></script>
         <script src="{% static "js/lib/bootstrap.js" %}"></script>

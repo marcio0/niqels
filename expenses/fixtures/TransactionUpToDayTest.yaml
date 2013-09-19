@@ -53,7 +53,7 @@
         category_config: 1
         date: 2010-01-01
         value: -50
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 2
@@ -62,7 +62,7 @@
         category_config: 1
         date: 2010-01-02
         value: 110
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 3
@@ -71,7 +71,7 @@
         category_config: 1
         date: 2010-01-03
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 4
@@ -80,7 +80,7 @@
         category_config: 1
         date: 2010-01-04
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 5
@@ -89,7 +89,7 @@
         category_config: 1
         date: 2010-01-11
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 6
@@ -98,7 +98,7 @@
         category_config: 1
         date: 2010-01-15
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 # February
 -   model: expenses.Transaction
@@ -108,7 +108,7 @@
         category_config: 1
         date: 2010-02-01
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 8
@@ -117,7 +117,7 @@
         category_config: 1
         date: 2010-02-02
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 9
@@ -126,7 +126,7 @@
         category_config: 1
         date: 2010-02-03
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 10
@@ -135,7 +135,7 @@
         category_config: 1
         date: 2010-02-11
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 11
@@ -144,7 +144,7 @@
         category_config: 1
         date: 2010-02-15
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 # March
 -   model: expenses.Transaction
@@ -154,7 +154,7 @@
         category_config: 1
         date: 2010-03-01
         value: 110
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 13
@@ -163,7 +163,7 @@
         category_config: 1
         date: 2010-03-02
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 14
@@ -172,7 +172,7 @@
         category_config: 1
         date: 2010-03-11
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"
 
 -   model: expenses.Transaction
     pk: 15
@@ -181,4 +181,4 @@
         category_config: 1
         date: 2010-03-15
         value: 100
-        add_date: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-03:00"

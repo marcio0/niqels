@@ -175,7 +175,7 @@ class TransactionResource(ModelResource):
     class Meta:
         queryset = Transaction.objects.all()
         always_return_data = True
-        excludes = ['add_date']
+        excludes = ['created']
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         validation = FormValidation(form_class=TransactionApiForm)
