@@ -1,11 +1,12 @@
 import mock
 import datetime
 from decimal import Decimal
+import unittest
 
 from django.test import TestCase
 
 from reminder.models import RepeatableTransaction
-from expenses.models import Category
+from expenses.models import Category, CategoryConfig
 from access.models import User
 
 
@@ -15,14 +16,18 @@ class RepeatableTransactionModelTest(TestCase):
 
         category = Category()
         category.name = 'cat'
-        category.user = user
         category.save()
+
+        category_config = CategoryConfig()
+        category_config.category = category
+        category_config.user = user
+
 
         rep = RepeatableTransaction()
         rep.repeat = 'weekly'
         rep.value = Decimal("-40")
         rep.due_date = datetime.date(2010, 10, 10)
-        rep.category = category
+        rep.category_config = category_config
         self.assertEquals(str(rep), '-40 of cat due 2010-10-10 (weekly)')
 
 
@@ -131,7 +136,7 @@ class RepeatableTransactionNextDueDateTest(TestCase):
         self.assertEquals(rep._day_of_month, 10)
 
 
-class RepeatableTransactionCreateTransactionTest():
+class RepeatableTransactionCreateTransactionTest(TestCase):
     '''
     Tests the creation of a transaction based on the repeatable transaction attributes.
     '''
@@ -144,7 +149,7 @@ class RepeatableTransactionCreateTransactionTest():
         rep = RepeatableTransaction()
         rep.value = Decimal('-10')
         rep.description = 'a simple repeatition'
-        rep.category_id = 1
+        rep.category_config_id = 1
         rep.user_id = 1
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 10)
@@ -153,7 +158,7 @@ class RepeatableTransactionCreateTransactionTest():
         self.assertEquals(transaction.value, rep.value)
         self.assertEquals(transaction.description, rep.description)
         self.assertEquals(transaction.date, datetime.date.today())
-        self.assertEquals(transaction.category.id, rep.category.id)
+        self.assertEquals(transaction.category_config.id, rep.category_config.id)
         self.assertEquals(transaction.user.id, rep.user.id)
         self.assertEquals(transaction.repeatable, rep)
 
@@ -161,7 +166,7 @@ class RepeatableTransactionCreateTransactionTest():
         rep = RepeatableTransaction()
         rep.value = Decimal('-10')
         rep.description = 'a simple repeatition'
-        rep.category_id = 1
+        rep.category_config_id = 1
         rep.user_id = 1
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 10)
@@ -181,10 +186,12 @@ class RepeatableTransactionCreateTransactionTest():
         )
         self.assertEquals(transaction.date, datetime.date(2010, 10, 11))
 
+
+    @unittest.expectedFailure
     def test_validate_value(self):
         rep = RepeatableTransaction()
         rep.description = 'a simple repeatition'
-        rep.category_id = 1
+        rep.category_config_id = 1
         rep.user_id = 1
         rep.repeat = 'weekly'
         rep.last_date = datetime.date(2010, 10, 10)

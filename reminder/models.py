@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.utils.translation import gettext_noop, ugettext_lazy as _
 
-from expenses.models import Transaction, Category
+from expenses.models import Transaction
 
 
 class RepeatableTransaction(models.Model):
@@ -21,9 +21,10 @@ class RepeatableTransaction(models.Model):
         blank=True,
         help_text=_('The description for this transaction. Ex.: "Lunch with friends". Optional.')
     )
-    category = models.ForeignKey('expenses.Category',
-        verbose_name=_('category'),
-        help_text=_('The category for this transaction.')
+    category_config = models.ForeignKey('expenses.CategoryConfig',
+        verbose_name=_('category config'),
+        help_text=_('The category for this transaction.'),
+        related_name="+"
     )
 
     repeat = models.CharField(_('repeat'),
@@ -71,7 +72,7 @@ class RepeatableTransaction(models.Model):
     
     def create_transaction(self, **kwargs):
         entry = Transaction()
-        entry.category = self.category
+        entry.category_config = self.category_config
         entry.user = self.user
 
         entry.date = kwargs.get('date', datetime.date.today())
@@ -89,7 +90,7 @@ class RepeatableTransaction(models.Model):
         desc = '%(value)d of %(category)s due %(date)s (%(repeat)s)'
         return desc % dict(
             value=self.value,
-            category=self.category.name,
+            category=self.category_config.category.name,
             date=self.due_date.isoformat(),
             repeat=self.repeat)
 

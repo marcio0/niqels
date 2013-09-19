@@ -13,16 +13,14 @@ class Category(models.Model):
         max_length=20,
         help_text=_('The category of a transaction. Ex.: "Groceries", "Medical".')
     )
-    color = models.CharField(_('color'),
-        max_length=7,
-        default="#999999",
-        help_text=_('The color of this category, to make it visually identifiable. Accepts HEX values only.')
+    custom = models.BooleanField(_('custom'),
+        help_text=_("Created by a user."),
+        default=False
     )
-    user = models.ForeignKey('access.User',
-        verbose_name=_("user"),
-        help_text=_('The owner of this category.')
+    default_active = models.BooleanField(_('active'),
+        help_text=_("If this category is enabled by default."),
+        default=True
     )
-    active = models.BooleanField(_('active'), default=True)
 
     def __unicode__(self):
         return "Category: %s" % self.name
@@ -30,6 +28,25 @@ class Category(models.Model):
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
+
+
+class CategoryConfig(models.Model):
+    category = models.ForeignKey(Category,
+        verbose_name=_('category'),
+        related_name="+"
+    )
+    user = models.ForeignKey('access.User',
+        verbose_name=_("user")
+    )
+    color = models.CharField(_('color'),
+        max_length=7,
+        default="#999999",
+        help_text=_('The color of this category, to make it visually identifiable. Accepts HEX values only.')
+    )
+    category_active = models.BooleanField(_('active'), default=True)
+
+    def __unicode__(self):
+        return _("Config for %(category_name)s" % dict(category_name=unicode(self.category)))
 
 
 class TransactionManager(models.Manager):
@@ -76,13 +93,14 @@ class Transaction(models.Model):
     date = models.DateField(_('date'),
         help_text=_('The date when this transaction happened. Ex.: 10/21/2010.')
     )
-    category = models.ForeignKey(Category,
-        verbose_name=_('category'),
-        help_text=_('The category for this transaction.')
-    )
     user = models.ForeignKey('access.User',
         verbose_name=_('user'),
         help_text=_('The owner of this transaction.')
+    )
+    category_config = models.ForeignKey(CategoryConfig,
+        verbose_name=_('category config'),
+        help_text=_('The category for this transaction.'),
+        related_name="+"
     )
 
     repeatable = models.ForeignKey('reminder.RepeatableTransaction',
@@ -96,13 +114,12 @@ class Transaction(models.Model):
         help_text=_("Date when this transaction was added."),
         default=timezone.now())
 
-
     objects = TransactionManager()
 
     def __unicode__(self):
         return 'Transaction: %d of %s on %s' % (
             self.value,
-            self.category,
+            self.category_config.category.name,
             self.date
         )
 

@@ -25,7 +25,4 @@ def global_context(request):
         "is_debug": settings.DEBUG and settings.TEMPLATE_DEBUG
     }
 
-    if request.user.is_authenticated:
-        context['user_categories'] = [c.name for c in Category.objects.filter(user_id=request.user.pk)]
-
     return context

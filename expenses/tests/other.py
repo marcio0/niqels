@@ -27,28 +27,6 @@ class GlobalsContextProcessorTest(TestCase):
             password='pass'
         )
 
-        dummy = User.objects.create_user(
-            email='dummy@bla.com',
-            password='pass'
-        )
-
-        self.c1 = Category(
-            name='one',
-            user=self.user
-        )
-        self.c1.save()
-
-        self.c2 = Category(
-            name='two',
-            user=self.user
-        )
-        self.c2.save()
-
-        Category(
-            name='three',
-            user=dummy
-        ).save()
-
     def test_global_context(self):
         request = mock.Mock()
         request.user = self.user
@@ -61,7 +39,6 @@ class GlobalsContextProcessorTest(TestCase):
             'js_date_format': u'MMM d, yyyy',
             'currency_symbol': u'$',
             'is_debug': False,
-            'user_categories': ['one', 'two'],
             'empty_value_fields': ['password', 'password1', 'password2']
         })
 
@@ -95,4 +72,3 @@ class GlobalsContextProcessorTest(TestCase):
 
         context = global_context(request)
         self.assertTrue(context['is_debug'])
-

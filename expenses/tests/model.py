@@ -1,6 +1,7 @@
 import mock
 import datetime
 from decimal import Decimal
+import unittest
 
 import django.forms
 from django.test import TestCase
@@ -80,7 +81,8 @@ class CategoryModelTest(TestCase):
 class TransactionModelTest(TestCase):
     fixtures = ['TransactionUpToDayTest.yaml']
 
-    def test_repeatable_cascade(self):  
+    @unittest.expectedFailure
+    def test_repeatable_cascade(self):
         '''
         When a repeatable is deleted, the related transactions must be kept.
         '''

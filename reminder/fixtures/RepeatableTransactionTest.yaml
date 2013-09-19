@@ -17,5 +17,15 @@
 -   model: expenses.category
     pk: 1
     fields:
-        user: 1
         name: Groceries
+
+
+###################
+# CATEGORY CONFIG #
+###################
+
+-   model: expenses.categoryconfig
+    pk: 1
+    fields:
+        user: 1
+        category: 1
