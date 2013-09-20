@@ -8,6 +8,11 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils import timezone
 
 
+class CategoryManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
 class Category(models.Model):
     name = models.CharField(_('name'),
         max_length=40,
@@ -22,6 +27,11 @@ class Category(models.Model):
         help_text=_("If this category is enabled by default."),
         default=True
     )
+
+    objects = CategoryManager()
+
+    def natural_key(self):
+        return self.name
 
     def __unicode__(self):
         return "Category: %s" % self.name
