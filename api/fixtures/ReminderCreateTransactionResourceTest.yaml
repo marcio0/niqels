@@ -2,19 +2,23 @@
     pk: 1
     fields:
         name: groceries
-        user: 1
 
 -   model: expenses.Category
     pk: 2
     fields:
         name: STUFF
-        user: 2
+
+-   model: expenses.CategoryConfig
+    pk: 1
+    fields:
+        user: 1
+        category: 1
 
 -   model: reminder.RepeatableTransaction
     pk: 1
     fields:
         value: 50
-        category: 1
+        category_config: 1
         user: 1
         _due_date: '2010-01-03'
         _day_of_month: 03
@@ -25,7 +29,7 @@
     pk: 2
     fields:
         value: 0
-        category: 2
+        category_config: 2
         user: 2
         _due_date: '2010-01-03'
         _day_of_month: 03

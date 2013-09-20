@@ -2,32 +2,52 @@
     pk: 1
     fields:
         name: groceries
-        user: 1
 
 -   model: expenses.Category
     pk: 2
     fields:
         name: STUFF
-        user: 1
 
 -   model: expenses.Category
     pk: 4
     fields:
         name: Inactive
-        user: 1
-        active: false
 
 -   model: expenses.Category
     pk: 3
     fields:
         name: other
+
+-   model: expenses.CategoryConfig
+    pk: 1
+    fields:
+        category: 1
+        user: 1
+
+-   model: expenses.CategoryConfig
+    pk: 2
+    fields:
+        category: 2
+        user: 1
+
+-   model: expenses.CategoryConfig
+    pk: 4
+    fields:
+        category: 4
+        user: 1
+
+-   model: expenses.CategoryConfig
+    pk: 3
+    fields:
+        category: 3
         user: 2
+
 
 -   model: expenses.Transaction
     pk: 1
     fields:
         value: 5
-        category: 1
+        category_config: 1
         user: 1
         date: '2010-01-03'
         created: "2010-01-01 00:00:00-03:00"
@@ -36,7 +56,7 @@
     pk: 2
     fields:
         value: 0
-        category: 1
+        category_config: 1
         user: 1
         date: '2010-01-03'
         created: "2010-01-01 00:00:00-03:00"
@@ -45,7 +65,7 @@
     pk: 3
     fields:
         value: 0
-        category: 3
+        category_config: 3
         user: 2
         date: '2010-01-03'
         created: "2010-01-01 00:00:00-03:00"

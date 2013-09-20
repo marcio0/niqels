@@ -9,7 +9,7 @@ from tastypie.validation import FormValidation, CleanedDataFormValidation
 from tastypie import fields
 from tastypie import http
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
-from tastypie.authorization import Authorization
+from tastypie.authorization import Authorization, ReadOnlyAuthorization
 from tastypie.utils import trailing_slash, dict_strip_unicode_keys
 from tastypie.exceptions import BadRequest
 from django.conf.urls import url
@@ -123,19 +123,17 @@ class UserResource(ModelResource):
 
 class CategoryResource(ModelResource):
     class Meta:
-        queryset = Category.objects.filter(active=True)
-        excludes = ['active']
+        queryset = Category.objects.all()
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
-        authorization = UserObjectsOnlyAuthorization()
-        validation = FormValidation(form_class=CategoryForm)
+        authorization = ReadOnlyAuthorization()
         always_return_data = True
-        list_allowed_methods = ['get', 'post']
-        detail_allowed_methods = ['get', 'put', 'delete']
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
         filtering = {
             'name': ALL
         }
 
-    def obj_delete(self, bundle, **kwargs):
+    def _obj_delete(self, bundle, **kwargs):
         """
         When deletion of a category is requested, it's active attribute is set to False.
         """
@@ -149,7 +147,7 @@ class CategoryResource(ModelResource):
         bundle.obj.active = False
         bundle.obj.save()
 
-    def obj_create(self, bundle, **kwargs):
+    def _obj_create(self, bundle, **kwargs):
         """
         Creating a inactive category will reactivate it.
         """
@@ -170,7 +168,7 @@ class CategoryResource(ModelResource):
 
 
 class TransactionResource(ModelResource):
-    category = fields.ForeignKey(CategoryResource, 'category', full=True)
+    #category = fields.ForeignKey(CategoryResource, 'category', full=True)
 
     class Meta:
         queryset = Transaction.objects.all()
@@ -201,9 +199,10 @@ class TransactionResource(ModelResource):
         return bundle
 
 
-class ReminderResource(ModelResource):
+#class ReminderResource(ModelResource):
+class ReminderResource():
     repeat = fields.CharField('repeat')
-    category = fields.ForeignKey(CategoryResource, 'category', full=True)
+    #category = fields.ForeignKey(CategoryResource, 'category', full=True)
     due_date = fields.CharField('_due_date')
 
     class Meta:
@@ -310,26 +309,6 @@ class ReminderResource(ModelResource):
 
         if value:
             bundle.data['value'] = parse_decimal(value, locale=bundle.request.locale)
-
-        return bundle
-
-    def hydrate_category(self, bundle):
-        # TODO: unnittest this
-        category_name = bundle.data.get('category', None)
-
-        if not category_name:
-            bundle.data['category'] = category_name
-            return bundle
-
-        category_name = category_name.strip()
-
-        category, _ = Category.objects.get_or_create(
-            name=category_name,
-            user=bundle.request.user,
-            defaults={'color': random_color()}
-        )
-
-        bundle.data['category'] = category
 
         return bundle
 

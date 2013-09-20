@@ -1,25 +1,19 @@
 -   model: expenses.Category
     fields:
         name: Groceries
-        user: 1
-        color: "#ababab"
     pk: 1
 
 -   model: expenses.Category
     fields:
         name: Lunch
-        user: 1
     pk: 2
 
 -   model: expenses.Category
     fields:
         name: Inactive
-        user: 1
-        active: false
     pk: 4
 
 -   model: expenses.Category
     fields:
         name: Lunch
-        user: 2
     pk: 3

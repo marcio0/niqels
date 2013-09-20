@@ -21,13 +21,6 @@ class CategoryResourceTest(ResourceTestCase):
         # DRY, baby. DRY.
         self.detail_url = '/api/v1/category/{0}'.format(self.category.pk)
 
-        # The data we'll send on POST requests. Again, because we'll use it
-        # frequently (enough).
-        self.post_data = {
-            'color': '#fefefe',
-            'name': 'new'
-        }
-
     def get_credentials(self):
         '''
         Get the credentials for basic http authentication.
@@ -60,31 +53,37 @@ class CategoryResourceTest(ResourceTestCase):
 
     def test_get_list(self):
         '''
-        GET to a list.
-        Must only return objects related to the user.
+        GET to a list endpoint.
+        Must return all objects.
         '''
         resp = self.api_client.get('/api/v1/category/', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
         # Scope out the data for correctness.
-        self.assertEqual(len(self.deserialize(resp)['objects']), 2)
+        self.assertEqual(len(self.deserialize(resp)['objects']), 4)
 
         # Here, we're checking an entire structure for the expected data.
         self.assertEqual(self.deserialize(resp)['objects'][0], {
             u'id': self.category.pk,
             u'name': self.category.name,
-            u'color': self.category.color,
+            u'custom': False,
+            u'default_active': True,
             u'resource_uri': u'/api/v1/category/%d' % self.category.id
         })
 
     # List tests: POST
-    def test_post_list_unauthorized(self):
+    def test_unauthorized_methods(self):
         '''
-        Must be authenticated to POST a category.
+        POST, PUT and DELETE to both detail and list enpoints are not aloowed.
         '''
-        self.assertHttpUnauthorized(self.api_client.post('/api/v1/category/', format='json'))
+        self.assertHttpMethodNotAllowed(self.api_client.post('/api/v1/category/', format='json', authentication=self.get_credentials()))
+        self.assertHttpMethodNotAllowed(self.api_client.put('/api/v1/category/', format='json', authentication=self.get_credentials()))
+        self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/category/', format='json', authentication=self.get_credentials()))
+        self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json', authentication=self.get_credentials()))
+        self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/category/1/', format='json', authentication=self.get_credentials()))
+        self.assertHttpMethodNotAllowed(self.api_client.put(self.detail_url, format='json', data={}, authentication=self.get_credentials()))
 
-    def test_post_list(self):
+    def _test_post_list(self):
         '''
         A valid post to list endpoint.
         '''
@@ -98,22 +97,7 @@ class CategoryResourceTest(ResourceTestCase):
 
         # TODO increment this, check values
 
-    def test_post_name_conflict(self):
-        '''
-        Bug where reactivating categories that also exists for another user would break the api.
-        '''
-        user = User.objects.create_user(email="b@b.com")
-        Category.objects.create(name="existing", user=user)
-        Category.objects.create(name="existing", user=self.user)
-
-        post_data = {
-            'color': '#fefefe',
-            'name': 'existing'
-        }
-
-        self.assertHttpCreated(self.api_client.post('/api/v1/category/', format='json', data=post_data, authentication=self.get_credentials()))
-
-    def test_post_list_reactivate(self):
+    def _test_post_list_reactivate(self):
         '''
         When creating a category, finds if it exists and is deactivated.
         Reactivates it if it finds one.
@@ -130,7 +114,7 @@ class CategoryResourceTest(ResourceTestCase):
         # Verify a new one has been added.
         self.assertEqual(Category.objects.filter(active=False, user=self.user).count(), 0)
 
-    def test_post_list_missing_name(self):
+    def _test_post_list_missing_name(self):
         '''
         Invalid post; a name is required. Must return bad request.
         '''
@@ -145,22 +129,8 @@ class CategoryResourceTest(ResourceTestCase):
         # Verify a new one has been added.
         self.assertEqual(Category.objects.filter(active=True, user=self.user).count(), 2)
 
-    def test_put_list_not_allowed(self):
-        '''
-        Cannot PUT to a list.
-        '''
-        self.assertHttpMethodNotAllowed(self.api_client.put('/api/v1/category/', format='json', authentication=self.get_credentials()))
-
-    # List tests: DELETE
-    def test_delete_list_unauthorzied(self):
-        '''
-        Cannot DELETE to a list.
-        '''
-        self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/category/', format='json', authentication=self.get_credentials()))
-
-
     # Detail tests: GET.
-    def test_only_own_objects(self):
+    def _test_only_own_objects(self):
         '''
         Can only retrieve own objects.
         '''
@@ -168,7 +138,7 @@ class CategoryResourceTest(ResourceTestCase):
 
     def test_get_detail_unauthorized(self):
         '''
-        Must be authenticated to GET a category.
+        Must be authenticated to GET to a detailt endpoint.
         '''
         self.assertHttpUnauthorized(self.api_client.get(self.detail_url, format='json'))
 
@@ -180,31 +150,17 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertValidJSONResponse(resp)
 
         # We use ``assertKeys`` here to just verify the keys, not all the data.
-        self.assertKeys(self.deserialize(resp), ['name', 'color', 'id', 'resource_uri'])
+        self.assertKeys(self.deserialize(resp), ['name', 'id', 'resource_uri', 'default_active', 'custom'])
         self.assertEqual(self.deserialize(resp)['name'], 'Groceries')
 
-    def test_only_own_objects(self):
+    def _test_only_own_objects(self):
         '''
         Can only retrieve active categories.
         '''
         category = Category.objects.get(name="Inactive")
         self.assertHttpNotFound(self.api_client.get('/api/v1/category/%d' % category.id, format='json', authentication=self.get_credentials()))
 
-    # Detail tests: POST
-    def test_post_detail_not_allowed(self):
-        '''
-        Cannot POST to detail.
-        '''
-        self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json', authentication=self.get_credentials()))
-
-    # Detail tests: DELETE
-    def test_delete_detail_unauthorized(self):
-        '''
-        Must be authenticated to DELETE a detail.
-        '''
-        self.assertHttpUnauthorized(self.api_client.delete('/api/v1/category/1/', format='json'))
-
-    def test_delete_detail_deactivate(self):
+    def _test_delete_detail_deactivate(self):
         '''
         Deleting a category must set active to False instead of removing the object.
         '''
@@ -216,14 +172,7 @@ class CategoryResourceTest(ResourceTestCase):
         category = Category.objects.get(name="Groceries")
         self.assertFalse(category.active)
 
-    # Detail tests: PUT
-    def test_put_detail_unauthenticated(self):
-        '''
-        Must be authenticated.
-        '''
-        self.assertHttpUnauthorized(self.api_client.put(self.detail_url, format='json', data={}))
-
-    def test_put_detail(self):
+    def _test_put_detail(self):
         '''
         Sending a successful PUT to a detail endpoint.
         '''
@@ -241,7 +190,7 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertEqual(updated.name, 'new name')
         self.assertEqual(updated.color, '#000')
 
-    def test_put_detail_inactive_wont_find(self):
+    def _test_put_detail_inactive_wont_find(self):
         '''
         Trying to update a inactive category will reactivate it, while updating the data.
         '''
@@ -255,7 +204,7 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertTrue(category_after.active)
         self.assertEquals(category_after.name, 'New name')
 
-    def test_put_detail_missing_name(self):
+    def _test_put_detail_missing_name(self):
         '''
         Name is required, must (should) return bad request.
         Object is not changed.

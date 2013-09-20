@@ -22,7 +22,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.post_data = {
             'date': '03/03/2010',
             'value': '40',
-            'category': {'resource_uri': '/api/v1/category/2', 'id': 2}
+            'category_config': 2 
         }
 
         self.detail_url = '/api/v1/transaction/{0}'.format(self.transaction.id)
@@ -74,12 +74,6 @@ class TransactionResourceTest(ResourceTestCase):
             u'description': u'',
             u'value': unicode(self.transaction.value),
             u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
-            u'category': {
-                u'name': self.transaction.category.name,
-                u'id': self.transaction.category.id,
-                u'resource_uri': u'/api/v1/category/%d' % self.transaction.category.id,
-                u'color': self.transaction.category.color
-            }
         })
 
     # List tests: POST
@@ -102,12 +96,7 @@ class TransactionResourceTest(ResourceTestCase):
         content = self.deserialize(resp)
 
         self.assertEquals(content, {
-            u'category': {
-                u'resource_uri': u'/api/v1/category/2',
-                u'id': 2,
-                u'name': u'STUFF',
-                u'color': u'#999999'
-            },
+            u'category_config': 2,
             u'description': u'',
             u'value': u'40.0',
             u'date': u'2010-03-03',
@@ -117,21 +106,6 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
-    def test_post_list_inactive_category(self):
-        '''
-        Creating a transaction with a inactive category results in a 400 Bad Request
-        '''
-        # Check how many are there first.
-        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-
-        post_data = self.post_data.copy()
-        post_data['category'] = '/api/v1/category/4' # name: Inactive
-        
-        resp = self.api_client.post('/api/v1/transaction/', format='json', data=post_data, authentication=self.get_credentials())
-        self.assertHttpBadRequest(resp)
-
-        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-
     def test_post_list_category_doesnt_exist(self):
         '''
         If the category does not exist, the api must return a 400 Bad Request.
@@ -140,7 +114,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
-        data['category'] = '/api/v1/category/10000'
+        data['category_config'] = 10000
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
         self.assertHttpBadRequest(resp)
@@ -154,7 +128,6 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         data['value'] = '4.840,00'
@@ -164,7 +137,6 @@ class TransactionResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
     def test_post_value_default(self):
         '''
@@ -172,7 +144,6 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         del data['value']
@@ -185,7 +156,6 @@ class TransactionResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
     def test_post_bad_data_missing_date(self):
         '''
@@ -193,7 +163,6 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
 
         data = self.post_data.copy()
         del data['date']
@@ -202,8 +171,6 @@ class TransactionResourceTest(ResourceTestCase):
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
-        self.assertEqual(Category.objects.filter(user=self.user, active=True).count(), 2)
-
 
     # List tests: PUT
     def test_put_list_not_allowed(self):
@@ -240,13 +207,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': unicode(self.transaction.date),
             u'description': u'',
             u'value': unicode(self.transaction.value),
-            u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
-            u'category': {
-                u'name': self.transaction.category.name,
-                u'id': self.transaction.category.id,
-                u'resource_uri': u'/api/v1/category/%d' % self.transaction.category.id,
-                u'color': self.transaction.category.color
-            }
+            u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id
         })
 
     def test_get_detail_own_obj_only(self):
