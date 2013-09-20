@@ -1,74 +1,108 @@
+# encoding: utf-8
+
 from django.core.management.base import BaseCommand, CommandError
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext as _
 
 from expenses.models import Category
 
 categories = [
-    {_('General'): [
-        {'name': _('Groceries')},
-    ]},
+    {
+        'name':_('Geral'),
+        'categories': [
+            {'name': _('Mercado')},
+        ]
+    },
 
-    {_('Housing'): [
-        {'name': ('Rent')},
-        {'name': ('Mortgage')},
-        #{'name': ('Condominio')},
-    ]},
+    {
+        'name': _('Housing'),
+        'categories': [
+            {'name': _('Aluguel')},
+            {'name': _('Financiamento Imobiliário')},
+            {'name': _('Condominio')},
+        ]
+    },
 
-    {_('Utility Bills'): [
-        {'name': ('Phone')},
-        {'name': ('Cable TV')},
-        {'name': ('Water')},
-        {'name': ('Light')},
-        {'name': ('Gas')},
-        {'name': ('Internet')},
-    ]},
+    {
+        'name': _('Consumo'),
+        'categories': [
+            {'name': _('Telefone')},
+            {'name': _('TV a Cabo')},
+            {'name': _('Água')},
+            {'name': _('Luz')},
+            {'name': _('Gás')},
+            {'name': _('Internet')},
+        ]
+    },
 
-    {_('Car'): [
-        {'name': _('Financing')},
-        {'name': _('Maintenance')},
-        {'name': _('Fuel')},
-        {'name': _('Parking')},
-        {'name': _('Taxes')},
-    ]},
+    {
+        'name': _('Car'),
+        'categories': [
+            {'name': _('Financiamento')},
+            {'name': _('Manutenção')},
+            {'name': _('Combustível')},
+            {'name': _('Estacionamento')},
+            {'name': _('Impostos')},
+        ]
+    },
 
-    {_('Entertainment'): [
-        {'name': _('Restaurant')},
-        {'name': _('Cinema')},
-        {'name': _('Teatre')},
-    ]},
+    {
+        'name': _('Entretenimento'),
+        'categories': [
+            {'name': _('Restaurante')},
+            {'name': _('Cinema')},
+            {'name': _('Teatro')},
+        ]
+    },
 
-    {_('Appearance'): [
-        {'name': _('Clothing')},
-        {'name': _('Shoes')},
-    ]},
+    {
+        'name': _('Aparência'),
+        'categories': [
+            {'name': _('Roupas')},
+            {'name': _('Sapatos/Tênis')},
+        ]
+    },
 
-    {_('Loan'): [
-        {'name': _('Credit Card')},
-        {'name': _('Overdraft')},
-        {'name': _('Personal Loans')},
-    ]},
+    {
+        'name': _('Empréstimos'),
+        'categories': [
+            {'name': _('Cartão de Crédito')},
+            {'name': _('Cheque Especial')},
+            {'name': _('Crédito Pessoal')},
+        ]
+    },
 
-    {_('Education'): [
-        {'name': _('School/College')},
-        #{'name': _('Curso')},
-    ]},
+    {
+        'name': _('Educação'),
+        'categories': [
+            {'name': _('Escola')},
+            {'name': _('Faculdade')},
+            {'name': _('Curso')},
+        ]
+    },
 
-    {_('Education'): [
-        {'name': _('School/College')},
-        #{'name': _('Curso')},
-    ]},
+    {
+        'name': _('Despesas Médicas'),
+        'categories': [
+            {'name': _('Plano de Saúde')},
+            {'name': _('Hospital')},
+            {'name': _('Exames')},
+        ]
+    },
 
-    {_('Medical Expenses'): [
-        {'name': _('Health Care')},
-        {'name': _('Hospital')},
-        {'name': _('Examination')},
-    ]},
+    {
+        'name': _('Receitas'),
+        'categories': [
+            {'name': _('Salário')},
+            {'name': _('Hora Extra')},
+            {'name': _('Restituição de Imposto')},
+        ]
+    },
 
-    {_('Income'): [
-        {'name': _('Salary')},
-        {'name': _('Overwork')},
-        {'name': _('Taxes Refunds')},
-    ]}
+    {
+        'name':_('Customizado'),
+        'categories': [
+        ]
+    }
 ]
 
 
@@ -76,5 +110,11 @@ class Command(BaseCommand):
     help = 'Sets up all categories, creating the new ones and updating existing ones.'
 
     def handle(self, *args, **options):
-        pass
-        
+        for group in categories:
+            self.stdout.write('Creating group %s' % group['name'])
+            # TODO create groups
+
+            for category in group['categories']:
+                self.stdout.write('Creating category %s' % category['name'])
+
+                Category.objects.create(**category)
