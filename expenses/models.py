@@ -10,8 +10,9 @@ from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(_('name'),
-        max_length=20,
-        help_text=_('The category of a transaction. Ex.: "Groceries", "Medical".')
+        max_length=40,
+        help_text=_('The category of a transaction. Ex.: "Groceries", "Medical".'),
+        unique=True
     )
     custom = models.BooleanField(_('custom'),
         help_text=_("Created by a user."),
