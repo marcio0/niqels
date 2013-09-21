@@ -111,10 +111,18 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for group in categories:
-            self.stdout.write('Creating group %s' % group['name'])
+            self.stdout.write('\nCreating group %s' % group['name'])
             # TODO create groups
 
             for category in group['categories']:
-                self.stdout.write('Creating category %s' % category['name'])
+                category_obj, created = Category.objects.get_or_create(name=category['name'])
 
-                Category.objects.create(**category)
+                self.stdout.write('\t%(action)s category %(name)s' % {
+                    'action': 'Creating' if created else 'Updating',
+                    'name': category['name']
+                })
+
+                for k, v in category.items():
+                    setattr(category_obj, k, v)
+
+                category_obj.save()
