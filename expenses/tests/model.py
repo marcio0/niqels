@@ -75,7 +75,7 @@ class TransactionUpToDayTest(TestCase):
 class CategoryModelTest(TestCase):
     def test_unicode(self):
         cat = Category(name='test')
-        self.assertEquals(str(cat), 'Category: test')
+        self.assertEquals(str(cat), 'test')
 
 
 class TransactionModelTest(TestCase):

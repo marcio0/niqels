@@ -34,7 +34,7 @@ class Category(models.Model):
         return self.name
 
     def __unicode__(self):
-        return "Category: %s" % self.name
+        return self.name
 
     class Meta:
         verbose_name = _('Category')
