@@ -47,7 +47,7 @@ class BalanceResourceTest(ResourceTestCase):
         '''
         self.assertHttpUnauthorized(self.api_client.get('/api/v1/data/balance/', format='json'))
 
-    @mock.patch('api.resources.BalanceQuery')
+    @mock.patch('api.resources.balance_resource.BalanceQuery')
     def test_get_list_json(self, calculator_cls):
         '''
         Successful GET to a list endpoint.
@@ -64,7 +64,7 @@ class BalanceResourceTest(ResourceTestCase):
         self.assertTrue(calculator_cls().calculate.called)
         calculator_cls().calculate.assert_called_with(user=self.user)
 
-    @mock.patch('api.resources.BalanceQuery')
+    @mock.patch('api.resources.balance_resource.BalanceQuery')
     def test_get_one_month(self, calculator_cls):
         '''
         Successful GET to a list endpoint.
@@ -82,7 +82,7 @@ class BalanceResourceTest(ResourceTestCase):
         calculator_cls.assert_called_with(months=['2010-10'], day=None)
         calculator_cls().calculate.assert_called_with(user=self.user)
 
-    @mock.patch('api.resources.BalanceQuery')
+    @mock.patch('api.resources.balance_resource.BalanceQuery')
     def test_get_one_month_and_day(self, calculator_cls):
         '''
         Successful GET to a list endpoint.
@@ -98,7 +98,7 @@ class BalanceResourceTest(ResourceTestCase):
         calculator_cls.assert_called_with(months=['2010-10'], day=10)
         calculator_cls().calculate.assert_called_with(user=self.user)
 
-    @mock.patch('api.resources.BalanceQuery')
+    @mock.patch('api.resources.balance_resource.BalanceQuery')
     def test_get_months_bad_format(self, calculator_cls):
         '''
         A bad formatted date must return bad request.

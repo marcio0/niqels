@@ -1,202 +1,22 @@
-import datetime
-import calendar
-import json
-
 import django
-from tastypie.constants import ALL, ALL_WITH_RELATIONS
-from tastypie.resources import ModelResource, Resource
-from tastypie.validation import FormValidation, CleanedDataFormValidation
+from tastypie.constants import ALL
+from tastypie.resources import ModelResource
+from tastypie.validation import FormValidation
 from tastypie import fields
 from tastypie import http
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
-from tastypie.authorization import Authorization, ReadOnlyAuthorization
+from tastypie.authorization import ReadOnlyAuthorization
 from tastypie.utils import trailing_slash, dict_strip_unicode_keys
 from tastypie.exceptions import BadRequest
 from django.conf.urls import url
-from django.core.urlresolvers import NoReverseMatch
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from expenses.models import Transaction, Category
-from expenses.forms import CategoryForm
-from access.forms import UserCreationForm
-from access.models import User
 from api.authorization import UserObjectsOnlyAuthorization
-from api.validation import TransactionApiForm, RepeatableTransactionApiForm
-from expenses import random_color
-from expenses.calculator import AverageCalculator, BalanceQuery
+from api.validation import RepeatableTransactionApiForm
 from reminder.models import RepeatableTransaction
 
 from babel.numbers import parse_decimal
-
-
-class ReturnData(object):
-    pass
-
-
-class BalanceResource(Resource):
-    class Meta:
-        object_class = ReturnData
-        include_resource_uri = False
-        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
-        resource_name = 'data/balance'
-
-    def get_months(self, GET=None):
-        if not GET or not GET.get('months'):
-            today = datetime.date.today()
-            return [today.strftime('%Y-%m')]
-
-        try:
-            months = json.loads(GET['months'])
-
-            if not isinstance(months, list):
-                raise ValueError
-
-        except ValueError:
-            raise ValueError('Invalid month format.')
-            
-        return months
-
-    def get_day(self, GET=None):
-        if not GET or not GET.get('up_to_day'):
-            return None
-
-        try:
-            day = int(GET['up_to_day'])
-        except ValueError:
-            raise ValueError('Invalid day format.')
-
-        return day
-
-    def obj_get(self, bundle, **kwargs):
-        try:
-            months = self.get_months(bundle.request.GET)
-            day = self.get_day(bundle.request.GET)
-        except ValueError, e:
-            raise BadRequest(e)
-        
-        obj = ReturnData()
-        obj.balance = BalanceQuery(
-            months=months,
-            day=day
-        ).calculate(user=bundle.request.user)
-
-        return obj
-
-    def full_dehydrate(self, bundle, for_list=False):
-        bundle = super(BalanceResource, self).full_dehydrate(bundle, for_list)
-        bundle.data = bundle.obj.balance
-        return bundle
-
-    def dispatch_list(self, request, **kwargs):
-        return self.dispatch_detail(request, **kwargs)
-
-
-class UserResource(ModelResource):
-    class Meta:
-        queryset = User.objects.all()
-        fields = ['email', 'name']
-        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
-        authorization = Authorization()
-        list_allowed_methods = []
-        detail_allowed_methods = ['get']
-        include_resource_uri = False
-
-    def dispatch_list(self, request, **kwargs):
-        return self.dispatch_detail(request, **kwargs)
-
-    def obj_get(self, bundle, **kwargs):
-        '''
-        Always returns the logged in user.
-        '''
-        return bundle.request.user
-
-    def get_resource_uri(self, bundle_or_obj=None, url_name='api_dispatch_list'):
-        bundle_or_obj = None
-        try:
-            return self._build_reverse_url(url_name, kwargs=self.resource_uri_kwargs(bundle_or_obj))
-        except NoReverseMatch:
-            return ''
-
-
-class CategoryResource(ModelResource):
-    class Meta:
-        queryset = Category.objects.all()
-        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
-        authorization = ReadOnlyAuthorization()
-        always_return_data = True
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
-        filtering = {
-            'name': ALL
-        }
-
-    def _obj_delete(self, bundle, **kwargs):
-        """
-        When deletion of a category is requested, it's active attribute is set to False.
-        """
-        if not hasattr(bundle.obj, 'delete'):
-            try:
-                bundle.obj = self.obj_get(bundle=bundle, **kwargs)
-            except ObjectDoesNotExist:
-                raise NotFound("A model instance matching the provided arguments could not be found.")
-
-        self.authorized_delete_detail(self.get_object_list(bundle.request), bundle)
-        bundle.obj.active = False
-        bundle.obj.save()
-
-    def _obj_create(self, bundle, **kwargs):
-        """
-        Creating a inactive category will reactivate it.
-        """
-        try:
-            bundle.obj = self._meta.object_class.objects.get(name=bundle.data.get('name'), user=bundle.request.user)
-        except self._meta.object_class.DoesNotExist:
-            bundle.obj = self._meta.object_class()
-
-        bundle.obj.active = True
-        bundle.obj.user = bundle.request.user
-
-        for key, value in kwargs.items():
-            setattr(bundle.obj, key, value)
-
-        self.authorized_create_detail(self.get_object_list(bundle.request), bundle)
-        bundle = self.full_hydrate(bundle)
-        return self.save(bundle)
-
-
-class TransactionResource(ModelResource):
-    #category = fields.ForeignKey(CategoryResource, 'category', full=True)
-
-    class Meta:
-        queryset = Transaction.objects.all()
-        always_return_data = True
-        excludes = ['created']
-        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
-        authorization = UserObjectsOnlyAuthorization()
-        validation = FormValidation(form_class=TransactionApiForm)
-        list_allowed_methods = ['get', 'post']
-        detail_allowed_methods = ['get', 'put', 'delete']
-        filtering = {
-            'date': ALL
-        }
-
-
-    def obj_create(self, bundle, **kwargs):
-        return super(TransactionResource, self).obj_create(bundle, user=bundle.request.user)
-
-    def put_detail(self, *args, **kwargs):
-        return http.HttpNotImplemented()
-
-    def hydrate_value(self, bundle):
-        value = bundle.data.get('value', None)
-
-        if value:
-            bundle.data['value'] = parse_decimal(value, locale=bundle.request.locale)
-
-        return bundle
 
 
 #class ReminderResource(ModelResource):
