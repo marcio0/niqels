@@ -9,7 +9,7 @@ categories = [
     {
         'name':_('Geral'),
         'categories': [
-            {'name': _('Mercado')},
+            {'name': _('Mercado'), 'default_active': True},
         ]
     },
 

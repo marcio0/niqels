@@ -10,4 +10,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
     readonly_fields = Category._meta.get_all_field_names()
 
+    search_fields = ['name']
+
 admin.site.register(Category, CategoryAdmin)
