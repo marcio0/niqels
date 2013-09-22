@@ -15,5 +15,5 @@
 
 -   model: expenses.Category
     fields:
-        name: Lunch
+        name: Dinner
     pk: 3
