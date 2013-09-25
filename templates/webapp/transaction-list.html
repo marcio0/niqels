@@ -40,8 +40,12 @@
                     ng-repeat="transaction in day.transactions"
                     >
 
+                    {% comment %}
                     <td class="category-column">
                         <span ex-category="transaction.category"></span>
+                    </td>
+                    {% endcomment %}
+                    <td class="category-column" ng-bind="transaction.category.name" style="font-weight: bold">
                     </td>
 
                     <td class="description-column" ng-bind="transaction.description"></td>

@@ -17,15 +17,19 @@
 <table class="table table-striped category-table">
     <thead>
         <tr>
+            {% comment %}
             <th>{% trans "Color" %}</th>
+            {% endcomment %}
             <th>{% trans "Name" %}</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="category in categories | filter:search" ng-click="editCategory(category)">
+        <tr ng-repeat="category in categories | filter:search" xng-click="editCategory(category)">
+            {% comment %}
             <td>
                 <span class="category-label" ng-style="{backgroundColor: category.color}">&nbsp;&nbsp;&nbsp;</span>
             </td>
+            {% endcomment %}
 
             <td class="category-name" ng-bind="category.name" width="99%"></td>
         </tr>
