@@ -1,3 +1,4 @@
+from django import forms
 from tastypie.constants import ALL
 from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation
@@ -11,14 +12,31 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from expenses.models import Transaction, Category
 from api.authorization import UserObjectsOnlyAuthorization
-from api.validation import TransactionApiForm
 from api.resources import CategoryResource
 
 from babel.numbers import parse_decimal
 
 
+class TransactionApiForm(forms.ModelForm):
+    def full_clean(self):
+        '''
+        Converting Tastypie's uri to the model pk.
+        '''
+        category = self.data.get('category')
+
+        if category and isinstance(category, basestring):
+            self.data['category'] = CategoryResource().get_via_uri(category).pk
+
+        super(TransactionApiForm, self).full_clean()
+
+
+    class Meta:
+        model = Transaction
+        exclude = ('user',)
+
+
 class TransactionResource(ModelResource):
-    #category = fields.ForeignKey(CategoryResource, 'category', full=True)
+    category = fields.ForeignKey(CategoryResource, 'category', full=True)
 
     class Meta:
         queryset = Transaction.objects.all()
@@ -33,7 +51,6 @@ class TransactionResource(ModelResource):
             'date': ALL
         }
 
-
     def obj_create(self, bundle, **kwargs):
         return super(TransactionResource, self).obj_create(bundle, user=bundle.request.user)
 
@@ -47,4 +64,3 @@ class TransactionResource(ModelResource):
             bundle.data['value'] = parse_decimal(value, locale=bundle.request.locale)
 
         return bundle
-

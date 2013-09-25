@@ -8,6 +8,43 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'CategoryConfig'
+        db.create_table(u'expenses_categoryconfig', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('category', self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', to=orm['expenses.Category'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['access.User'])),
+            ('color', self.gf('django.db.models.fields.CharField')(default='#999999', max_length=7)),
+            ('category_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+        ))
+        db.send_create_signal(u'expenses', ['CategoryConfig'])
+
+        # Deleting field 'Transaction.add_date'
+        db.delete_column(u'expenses_transaction', 'add_date')
+
+        # Adding field 'Transaction.created'
+        db.add_column(u'expenses_transaction', 'created',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 9, 22, 0, 0)),
+                      keep_default=False)
+
+        # Deleting field 'Category.color'
+        db.delete_column(u'expenses_category', 'color')
+
+        # Deleting field 'Category.user'
+        db.delete_column(u'expenses_category', 'user_id')
+
+        # Deleting field 'Category.active'
+        db.delete_column(u'expenses_category', 'active')
+
+        # Adding field 'Category.custom'
+        db.add_column(u'expenses_category', 'custom',
+                      self.gf('django.db.models.fields.BooleanField')(default=False),
+                      keep_default=False)
+
+        # Adding field 'Category.default_active'
+        db.add_column(u'expenses_category', 'default_active',
+                      self.gf('django.db.models.fields.BooleanField')(default=True),
+                      keep_default=False)
+
 
         # Changing field 'Category.name'
         db.alter_column(u'expenses_category', 'name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=40))
@@ -18,6 +55,36 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Removing unique constraint on 'Category', fields ['name']
         db.delete_unique(u'expenses_category', ['name'])
+
+        # Deleting model 'CategoryConfig'
+        db.delete_table(u'expenses_categoryconfig')
+
+        # Adding field 'Transaction.add_date'
+        db.add_column(u'expenses_transaction', 'add_date',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 9, 18, 0, 0)),
+                      keep_default=False)
+
+        # Deleting field 'Transaction.created'
+        db.delete_column(u'expenses_transaction', 'created')
+
+        # Adding field 'Category.color'
+        db.add_column(u'expenses_category', 'color',
+                      self.gf('django.db.models.fields.CharField')(default='#999999', max_length=7),
+                      keep_default=False)
+
+
+        # User chose to not deal with backwards NULL issues for 'Category.user'
+        raise RuntimeError("Cannot reverse this migration. 'Category.user' and its values cannot be restored.")
+        # Adding field 'Category.active'
+        db.add_column(u'expenses_category', 'active',
+                      self.gf('django.db.models.fields.BooleanField')(default=True),
+                      keep_default=False)
+
+        # Deleting field 'Category.custom'
+        db.delete_column(u'expenses_category', 'custom')
+
+        # Deleting field 'Category.default_active'
+        db.delete_column(u'expenses_category', 'default_active')
 
 
         # Changing field 'Category.name'
@@ -75,8 +142,8 @@ class Migration(SchemaMigration):
         },
         u'expenses.transaction': {
             'Meta': {'ordering': "['-date', '-created']", 'object_name': 'Transaction'},
-            'category_config': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': u"orm['expenses.CategoryConfig']"}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 9, 19, 0, 0)'}),
+            'category': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': u"orm['expenses.Category']"}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 9, 22, 0, 0)'}),
             'date': ('django.db.models.fields.DateField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from expenses.models import Category
+from expenses.models import Category, Transaction
 
 class CategoryAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
@@ -13,3 +13,8 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 admin.site.register(Category, CategoryAdmin)
+
+class TransactionAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Transaction, TransactionAdmin)

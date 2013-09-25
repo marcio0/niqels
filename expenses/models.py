@@ -108,8 +108,8 @@ class Transaction(models.Model):
         verbose_name=_('user'),
         help_text=_('The owner of this transaction.')
     )
-    category_config = models.ForeignKey(CategoryConfig,
-        verbose_name=_('category config'),
+    category = models.ForeignKey(Category,
+        verbose_name=_('category'),
         help_text=_('The category for this transaction.'),
         related_name="+"
     )
@@ -130,7 +130,7 @@ class Transaction(models.Model):
     def __unicode__(self):
         return 'Transaction: %d of %s on %s' % (
             self.value,
-            self.category_config.category.name,
+            self.category.name,
             self.date
         )
 

@@ -22,7 +22,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.post_data = {
             'date': '03/03/2010',
             'value': '40',
-            'category_config': 2 
+            'category': '/api/v1/category/2'
         }
 
         self.detail_url = '/api/v1/transaction/{0}'.format(self.transaction.id)
@@ -74,6 +74,12 @@ class TransactionResourceTest(ResourceTestCase):
             u'description': u'',
             u'value': unicode(self.transaction.value),
             u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
+            u'category': {u'custom': False,
+                u'default_active': True,
+                u'id': 1,
+                u'name': u'groceries',
+                u'resource_uri': u'/api/v1/category/1'
+            }
         })
 
     # List tests: POST
@@ -96,12 +102,17 @@ class TransactionResourceTest(ResourceTestCase):
         content = self.deserialize(resp)
 
         self.assertEquals(content, {
-            u'category_config': 2,
             u'description': u'',
             u'value': u'40.0',
             u'date': u'2010-03-03',
             u'id': 4,
-            u'resource_uri': u'/api/v1/transaction/4'
+            u'resource_uri': u'/api/v1/transaction/4',
+            u'category': {u'custom': False,
+                u'default_active': True,
+                u'id': 2,
+                u'name': u'STUFF',
+                u'resource_uri': u'/api/v1/category/2'
+            }
         })
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
@@ -114,7 +125,7 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
-        data['category_config'] = 10000
+        data['category'] = 10000
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
         self.assertHttpBadRequest(resp)
@@ -207,7 +218,13 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': unicode(self.transaction.date),
             u'description': u'',
             u'value': unicode(self.transaction.value),
-            u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id
+            u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
+            u'category': {u'custom': False,
+                u'default_active': True,
+                u'id': 1,
+                u'name': u'groceries',
+                u'resource_uri': u'/api/v1/category/1'
+            }
         })
 
     def test_get_detail_own_obj_only(self):
