@@ -8,6 +8,21 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils import timezone
 
 
+class CategoryGroup(models.Model):
+    name = models.CharField(_('name'),
+        max_length=40,
+        unique=True
+    )
+    #icon
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Category group')
+        verbose_name_plural = _('Category groups')
+
+
 class CategoryManager(models.Manager):
     def get_by_natural_key(self, name):
         return self.get(name=name)
@@ -16,8 +31,7 @@ class CategoryManager(models.Manager):
 class Category(models.Model):
     name = models.CharField(_('name'),
         max_length=40,
-        help_text=_('The category of a transaction. Ex.: "Groceries", "Medical".'),
-        unique=True
+        help_text=_('The category of a transaction. Ex.: "Groceries", "Medical".')
     )
     custom = models.BooleanField(_('custom'),
         help_text=_("Created by a user."),
@@ -26,6 +40,12 @@ class Category(models.Model):
     default_active = models.BooleanField(_('active'),
         help_text=_("If this category is enabled by default."),
         default=True
+    )
+
+    group = models.ForeignKey(CategoryGroup,
+        verbose_name=_('category group'),
+        help_text=_('The group this category belongs.'),
+        related_name="categories"
     )
 
     objects = CategoryManager()

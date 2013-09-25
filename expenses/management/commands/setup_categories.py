@@ -3,7 +3,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.translation import gettext as _
 
-from expenses.models import Category
+from expenses.models import Category, CategoryGroup
 
 categories = [
     {
@@ -111,11 +111,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for group in categories:
-            self.stdout.write('\nCreating group %s' % group['name'])
-            # TODO create groups
+            group_obj, created = CategoryGroup.objects.get_or_create(name=group['name'])
+
+            self.stdout.write('%(action)s group %(name)s' % {
+                'action': 'Creating' if created else 'Updating',
+                'name': group['name']
+            })
 
             for category in group['categories']:
-                category_obj, created = Category.objects.get_or_create(name=category['name'])
+                category_obj, created = Category.objects.get_or_create(name=category['name'], group=group_obj)
 
                 self.stdout.write('\t%(action)s category %(name)s' % {
                     'action': 'Creating' if created else 'Updating',
