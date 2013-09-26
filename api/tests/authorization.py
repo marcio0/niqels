@@ -5,7 +5,7 @@ from mock import Mock
 
 from api.authorization import UserObjectsOnlyAuthorization
 from access.models import User
-from expenses.models import CategoryConfig, Category
+from expenses.models import CategoryConfig, Category, CategoryGroup
 
 
 class AuthorizationTest(TestCase):
@@ -14,7 +14,9 @@ class AuthorizationTest(TestCase):
     def setUp(self):
         self.user = User.objects.get(pk=1)
 
-        category = Category.objects.create(name='test')
+        CategoryGroup.objects.create(name='group')
+
+        category = Category.objects.create(name='test', group_id=1)
 
         for i in [1, 2]:
             [CategoryConfig(user_id=i, category=category).save() for j in [1, 2, 3, 4]]

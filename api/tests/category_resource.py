@@ -68,7 +68,8 @@ class CategoryResourceTest(ResourceTestCase):
             u'name': self.category.name,
             u'custom': False,
             u'default_active': True,
-            u'resource_uri': u'/api/v1/category/%d' % self.category.id
+            u'resource_uri': u'/api/v1/category/%d' % self.category.id,
+            u'group': u'group'
         })
 
     # List tests: POST
@@ -150,7 +151,7 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertValidJSONResponse(resp)
 
         # We use ``assertKeys`` here to just verify the keys, not all the data.
-        self.assertKeys(self.deserialize(resp), ['name', 'id', 'resource_uri', 'default_active', 'custom'])
+        self.assertKeys(self.deserialize(resp), ['name', 'id', 'resource_uri', 'default_active', 'custom', 'group'])
         self.assertEqual(self.deserialize(resp)['name'], 'Groceries')
 
     def _test_only_own_objects(self):

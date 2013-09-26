@@ -1,19 +1,29 @@
+-   model: expenses.CategoryGroup
+    pk: 1
+    fields:
+        name: group
+
+
 -   model: expenses.Category
     fields:
         name: Groceries
+        group: ['group']
     pk: 1
 
 -   model: expenses.Category
     fields:
         name: Lunch
+        group: ['group']
     pk: 2
 
 -   model: expenses.Category
     fields:
         name: Inactive
+        group: ['group']
     pk: 4
 
 -   model: expenses.Category
     fields:
         name: Dinner
+        group: ['group']
     pk: 3

@@ -1,12 +1,20 @@
+-   model: expenses.CategoryGroup
+    pk: 1
+    fields:
+        name: group
+
+
 -   model: expenses.Category
     pk: 1
     fields:
         name: groceries
+        group: ['group']
 
 -   model: expenses.Category
     pk: 2
     fields:
         name: STUFF
+        group: ['group']
 
 -   model: expenses.CategoryConfig
     pk: 1
