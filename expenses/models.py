@@ -8,12 +8,22 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils import timezone
 
 
+class CategoryGroupManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
 class CategoryGroup(models.Model):
     name = models.CharField(_('name'),
         max_length=40,
         unique=True
     )
     #icon
+
+    objects = CategoryGroupManager()
+
+    def natural_key(self):
+        return self.name
 
     def __unicode__(self):
         return self.name
@@ -24,8 +34,9 @@ class CategoryGroup(models.Model):
 
 
 class CategoryManager(models.Manager):
-    def get_by_natural_key(self, name):
-        return self.get(name=name)
+    def get_by_natural_key(self, key):
+        group, name = key
+        return self.get(name=name, group__name=group)
 
 
 class Category(models.Model):
@@ -51,7 +62,8 @@ class Category(models.Model):
     objects = CategoryManager()
 
     def natural_key(self):
-        return self.name
+        return self.group.name, self.name
+    natural_key.dependencies = ['expenses.CategoryGroup']
 
     def __unicode__(self):
         return self.name

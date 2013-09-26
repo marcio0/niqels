@@ -10,6 +10,16 @@
         date_joined: "2010-02-02 00:00:00-03:00"
 
 
+##################
+# CATEGORY GROUP #
+##################
+
+-   model: expenses.categorygroup
+    pk: 1
+    fields:
+        name: group
+
+
 ############
 # CATEGORY #
 ############
@@ -18,11 +28,13 @@
     pk: 1
     fields:
         name: Groceries
+        group: ['group']
 
 -   model: expenses.category
     pk: 2
     fields:
         name: Income
+        group: ['group']
 
 
 ###################
