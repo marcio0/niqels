@@ -6,7 +6,7 @@ import unittest
 from django.test import TestCase
 
 from reminder.models import RepeatableTransaction
-from expenses.models import Category, CategoryConfig
+from expenses.models import Category, CategoryConfig, CategoryGroup
 from access.models import User
 
 
@@ -14,9 +14,8 @@ class RepeatableTransactionModelTest(TestCase):
     def test_unicode(self):
         user = User.objects.create_user('user@test.com', 'asd')
 
-        category = Category()
-        category.name = 'cat'
-        category.save()
+        CategoryGroup.objects.create(name='group')
+        category = Category.objects.create(name='cat', group_id=1)
 
         category_config = CategoryConfig()
         category_config.category = category
