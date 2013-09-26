@@ -113,6 +113,9 @@ module.exports = function(grunt) {
             },
             makemessagesJS: {
                 command: 'python manage.py makemessages -l pt_BR -d djangojs -i node_modules -i staticfiles'
+            },
+            testserver: {
+                command: 'python manage.py testserver --addrport 0:8002 testserver_data'
             }
         }
 
@@ -139,4 +142,5 @@ module.exports = function(grunt) {
      */
     grunt.registerTask('buildjs', ['uglify:webapp', 'concat:webapp', 'clean:buildjs']);
     grunt.registerTask('makemsgs', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
+    grunt.registerTask('testserver', ['exec:testserver']);
 };
