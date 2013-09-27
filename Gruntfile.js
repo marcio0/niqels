@@ -115,7 +115,12 @@ module.exports = function(grunt) {
                 command: 'python manage.py makemessages -l pt_BR -d djangojs -i node_modules -i staticfiles'
             },
             testserver: {
-                command: 'python manage.py testserver --addrport 0:8002 testserver_data'
+                cmd: function runTestServer () {
+                    var command = 'python manage.py testserver --addrport 0:{{port}} testserver_data --settings=core.dev_settings.siesta_test';
+                    var port = this.option('port') || 8001;
+
+                    return command.replace('{{port}}', port);
+                }
             }
         }
 
