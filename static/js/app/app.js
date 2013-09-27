@@ -28,7 +28,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 url: "/reminders",
                 templateUrl: "/partials/reminder-list/",
                 controller: "ReminderListCtrl"
-            })
+            });
 
             $locationProvider.html5Mode(true);
         }])

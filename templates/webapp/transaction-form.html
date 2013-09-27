@@ -25,7 +25,7 @@
 
             required
 
-            ng-options="c.resource_uri as c.name for c in categories"
+            ng-options="c.resource_uri as c.name group by c.group for c in categories"
             >
         </select>
         <i
