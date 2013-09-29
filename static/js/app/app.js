@@ -30,7 +30,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 controller: "ReminderListCtrl"
             });
 
-            $locationProvider.html5Mode(true);
+            $locationProvider.html5Mode(false);
         }])
 
     .config(['$httpProvider', function ($httpProvider) {
