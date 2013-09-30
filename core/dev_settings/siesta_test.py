@@ -26,7 +26,7 @@ INSTALLED_APPS += (
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-TEST_SUITE_NAME = 'testvision'
+TEST_SUITE_NAME = 'test-niqels'
 
 TEST_SUITE_DIR = os.path.realpath(os.path.join(BASE_DIR, '..', TEST_SUITE_NAME))
 
