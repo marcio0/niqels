@@ -14,30 +14,31 @@ module.exports = function(grunt) {
                      * webapp-libs.tmp.min.js
                      *
                      * Libs used by the webapp.
+                     * This file is temporary.
                      */
-                    'static/js/webapp-libs.min.js': [
+                    'static/dist/js/webapp-libs.min.tmp.js': [
                         // libs
-                        'static/js/lib/bootstrap-datepicker.js',
-                        'static/js/lib/jquery.maskMoney.js',
-                        'static/js/lib/spectrum.js',
-                        'static/js/lib/bootstrap-typeahead.js',
+                        'static/src/js/lib/bootstrap-datepicker.js',
+                        'static/src/js/lib/jquery.maskMoney.js',
+                        'static/src/js/lib/spectrum.js',
+                        'static/src/js/lib/bootstrap-typeahead.js',
 
                         // i18n code
-                        'static/js/locales/*.js'
+                        'static/src/js/locales/*.js'
                     ],
 
                     /*
                      * webapp-scripts.min.js
                      *
                      * Webapp source code.
+                     * This file is temporary.
                      */
-                    'static/js/webapp-scripts.min.js': [
-                        //webapp code
-                        'static/js/app/app.js',
-                        'static/js/app/directives.js',
-                        'static/js/app/services.js',
-                        'static/js/app/controllers/*.js',
-                        'static/js/app/modules/*.js'
+                    'static/dist/js/webapp-scripts.min.tmp.js': [
+                        'static/src/js/app/app.js',
+                        'static/src/js/app/directives.js',
+                        'static/src/js/app/services.js',
+                        'static/src/js/app/controllers/*',
+                        'static/src/js/app/modules/*'
                     ]
                 }
             }
@@ -52,24 +53,26 @@ module.exports = function(grunt) {
                      *
                      * Base scripts used in the entire site.
                      */
-                    'static/js/script.min.js': [
-                        'static/js/lib/min/jquery-1.10.2.min.js',
-                        'static/js/lib/min/bootstrap.min.js'
+                    'static/dist/js/script.min.js': [
+                        'static/src/js/lib/min/jquery-1.10.2.min.js',
+                        'static/src/js/lib/min/bootstrap.min.js'
                     ],
 
                     /*
                      * webapp-libs.min.js
                      *
                      * Webapp dependencies.
+                     * This file is temporary.
                      */
-                    'static/js/webapp-libs.min.js': [
-                        'static/js/lib/min/angular-strap.min.js',
-                        'static/js/lib/min/angular-ui-router.min.js',
-                        'static/js/lib/min/moment.min.js',
-                        'static/js/lib/min/toastr.min.js',
-                        'static/js/lib/min/highcharts.js',
-                        'static/js/lib/min/bootstrap-select.min.js',
-                        'static/js/webapp-libs.min.js'
+                    'static/dist/js/webapp-libs.min.tmp.js': [
+                        'static/src/js/lib/min/angular-strap.min.js',
+                        'static/src/js/lib/min/angular-ui-router.min.js',
+                        'static/src/js/lib/min/moment.min.js',
+                        'static/src/js/lib/min/toastr.min.js',
+                        'static/src/js/lib/min/highcharts.js',
+                        'static/src/js/lib/min/bootstrap-select.min.js',
+
+                        'static/dist/js/webapp-libs.min.tmp.js'
                     ],
 
                     /*
@@ -77,16 +80,20 @@ module.exports = function(grunt) {
                      *
                      * Webapp source code + dependencies.
                      */
-                    'static/js/webapp.min.js': [
-                        'static/js/webapp-libs.min.js',
-                        'static/js/webapp-scripts.min.js'
+                    'static/dist/js/webapp.min.js': [
+                        'static/dist/js/webapp-libs.min.tmp.js',
+                        'static/dist/js/webapp-scripts.min.tmp.js'
                     ]
                 }
             }
         },
 
         clean: {
-            buildjs: ['static/js/webapp-libs.tmp.min.js']
+            dist: ['static/dist/*'],
+            buildjs: [
+                'static/dist/js/webapp-libs.min.tmp.js',
+                'static/dist/js/webapp-scripts.min.tmp.js'
+            ]
         },
 
         less: {
@@ -94,7 +101,7 @@ module.exports = function(grunt) {
                 options: {
                 },
                 files: {
-                    "static/css/styles.css": [
+                    "static/src/css/styles.css": [
                         "static/less/styles.less",
                         "static/less/toastr-override.less"
                     ]
@@ -121,31 +128,42 @@ module.exports = function(grunt) {
 
                     return command.replace('{{port}}', port);
                 }
+            },
+            runforeman: {
+                command: 'python manage.py collectstatic --noinput; foreman start --port 8001'
+            },
+        },
+
+        copy: {
+            webapp: {
+                files: [
+                    {src: 'img/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
+                    {src: 'css/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
+                    {src: 'font/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
+                ]
             }
         }
 
     });
 
-    // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-exec');
 
     /*
      * Task: buildjs
      *
-     * Builds the whole javascript used in both development and production.
+     * Builds the whole javascript used in production.
      *
      * Artifacts:
      * script.min.js            : the scripts for all pages (including the webapp).
-     * webapp-libs.min.js       : the libs used in the webapp. 
-     * webapp-scripts.min.js    : the webapp source code.
-     * webapp.min.js            : the entire webapp scripts, minus global scripts.
+     * webapp.min.js            : the entire webapp scripts, except global scripts.
      */
-    grunt.registerTask('buildjs', ['uglify:webapp', 'concat:webapp', 'clean:buildjs']);
+    grunt.registerTask('buildjs', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp']);
     grunt.registerTask('makemsgs', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
     grunt.registerTask('testserver', ['exec:testserver']);
 };
