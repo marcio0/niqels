@@ -163,7 +163,7 @@ module.exports = function(grunt) {
      * script.min.js            : the scripts for all pages (including the webapp).
      * webapp.min.js            : the entire webapp scripts, except global scripts.
      */
-    grunt.registerTask('buildjs', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp']);
-    grunt.registerTask('makemsgs', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
+    grunt.registerTask('build-webapp', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp']);
+    grunt.registerTask('makemessages', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
     grunt.registerTask('testserver', ['exec:testserver']);
 };
