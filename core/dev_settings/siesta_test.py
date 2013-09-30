@@ -3,7 +3,7 @@ import sys
 
 from core.settings import *
 
-BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
+BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', '..')
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -28,6 +28,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEST_SUITE_NAME = 'testvision'
 
-TEST_SUITE_DIR = os.path.join(BASE_DIR, '..', '..', TEST_SUITE_NAME)
+TEST_SUITE_DIR = os.path.realpath(os.path.join(BASE_DIR, '..', TEST_SUITE_NAME))
 
 STATICFILES_DIRS += (TEST_SUITE_DIR, )
