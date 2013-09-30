@@ -1,0 +1,29 @@
+@import "variables.less";
+
+.datepicker {
+    border: 1px solid @input-border;
+	border-radius: @border-radius-base !important;
+
+    td, th, .active, .today, tr > td > span {
+        border-radius: @border-radius-base !important;
+    }
+
+    background-color: @input-bg;
+
+    &:before {
+        visibility: hidden;
+    }
+
+    td.active {
+        background-color: @brand-primary !important;
+        background-image: none !important;
+
+        &:hover {
+            background-color: darken(@brand-primary, 10%) !important;
+        }
+    }
+
+    thead th.datepicker-switch {
+        font-style: normal !important;
+    }
+}
