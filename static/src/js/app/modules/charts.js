@@ -137,7 +137,7 @@ angular.module('charts', [])
                     // our original renderTo will be the same
                     var deepCopy = true;
                     var newSettings = {};
-                    $.extend(deepCopy, newSettings, chartsDefaults, scope.chartData);
+                    $.extend(deepCopy, newSettings, chartsDefaults, value.options);
                     var chart = new Highcharts.Chart(newSettings);
                 });
             }

@@ -34,7 +34,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
             $scope.renevues = parseFloat(httpResult.data[this_month].renevues);
             $scope.expenses = parseFloat(httpResult.data[this_month].expenses);
 
-            return result.options;
+            return result;
         });
         if ($rootScope.device != 'phone') {
             // don't create the chart if it's on a mobile
