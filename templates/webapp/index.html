@@ -18,6 +18,7 @@
 <ul class="nav navbar-nav">
     <li ng-class="{active: $state.includes('transactions')}"><a href="#/transactions">{% trans "Transactions" %}</a></li>
     <li ng-class="{active: $state.includes('settings')}"><a href="#/settings">{% trans "Settings" %}</a></li>
+    <li ng-class="{active: $state.includes('reports')}"><a href="#/reports">{% trans "Reports" %}</a></li>
 </ul>
 {% endblock webapp-menu %}
 
@@ -33,6 +34,10 @@
 
 <script type="text/ng-template" id="settings.html">
 {% include "webapp/settings/settings.html" %}
+</script>
+
+<script type="text/ng-template" id="reports.html">
+{% include "webapp/reports/reports.html" %}
 </script>
 
 {% endblock body %}
@@ -79,6 +84,7 @@
         <script src="{{controllers}}CategoryListCtrl.js"></script>
         <script src="{{controllers}}CategoryEditCtrl.js"></script>
         <script src="{{controllers}}ReminderListCtrl.js"></script>
+        <script src="{{controllers}}ReportsCtrl.js"></script>
 
         <script src="{{app}}services.js"></script>
         <script src="{{app}}modules/charts.js"></script>
