@@ -119,6 +119,25 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
+    def test_post_with_int_as_value(self):
+        '''
+        The resource should also accept integer as a value.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['value'] = 5
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content['value'], u'5.0')
+
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+
     def test_post_list_category_doesnt_exist(self):
         '''
         If the category does not exist, the api must return a 400 Bad Request.
