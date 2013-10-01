@@ -1,6 +1,9 @@
 'use strict';
 
 function ReportsCtrl ($scope, BalanceChart) {
+    $scope.options = {
+    };
+
     $scope.updateBalance = function () {
         var reference_date, day, months, this_month;
 
