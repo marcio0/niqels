@@ -142,6 +142,20 @@ module.exports = function(grunt) {
                     {src: 'font/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
                 ]
             }
+        },
+
+        jshint: {
+            options: {
+                globals: {
+                    gettext: false,
+                    toastr: false,
+                    angular: false,
+                    $: false,
+                    Highcharts: false,
+                    moment: false
+                }
+            },
+            all: ['static/src/js/app/**']
         }
 
     });
@@ -153,6 +167,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     /*
      * Task: buildjs

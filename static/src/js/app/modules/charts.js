@@ -1,3 +1,4 @@
+(function () {
 'use strict';
 
 angular.module('charts', [])
@@ -28,7 +29,7 @@ angular.module('charts', [])
 
                         data.renevues = parseFloat(result.data[k].renevues);
                         data.renevues_text = $filter('currency')(data.renevues);
-                        data.expenses = parseFloat(result.data[k].expenses)
+                        data.expenses = parseFloat(result.data[k].expenses);
                         data.expenses_text = $filter('currency')(data.expenses);
 
                         data.y = data.renevues + data.expenses;
@@ -123,7 +124,7 @@ angular.module('charts', [])
                     deferred = $q.defer();
 
                 $http.get('/api/v1/categories/', {params: params}).then(function (result) {
-                    deferred.resolve({options: options, result: result});
+                    //deferred.resolve({options: options, result: result});
                 }, 
                 function failure (result) {
                     deferred.reject(result);
@@ -170,3 +171,4 @@ angular.module('charts', [])
         };
     }])
     ;
+})();

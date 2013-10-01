@@ -1,3 +1,4 @@
+(function () {
 'use strict';
 
 angular.module('webapp')
@@ -118,16 +119,16 @@ angular.module('webapp')
                 scope.$watch('rawValue', function (newValue, oldValue) {
                     scope.value = $filter('number')(scope.rawValue * 100, 2);
 
-                    if (newValue == 0) {
+                    if (newValue === 0) {
                         scope.color = "";
                     }
                     else if (newValue > 0) {
                         scope.color = 'success';
-                        scope.icon = 'icon-caret-up'
+                        scope.icon = 'icon-caret-up';
                     }
                     else if (newValue < 0) {
                         scope.color = 'error';
-                        scope.icon = 'icon-caret-down'
+                        scope.icon = 'icon-caret-down';
                     }
                 });
             }
@@ -185,7 +186,7 @@ angular.module('webapp')
                 });
 
                 scope.$watch(attrs.ngModel, function (newValue, oldValue) {
-                    if (newValue == undefined) {
+                    if (newValue === undefined) {
                         element.selectpicker('render');
                     }
                 });
@@ -236,7 +237,7 @@ angular.module('webapp')
                 }).on('changeDate', updateModel);
 
                 scope.$watch('date', function (newValue, oldValue) {
-                    if (newValue == undefined) {
+                    if (newValue === undefined) {
                         var today = moment().format('YYYY-MM-DD');
                         element.data('datepicker').update(today);
                         scope.date = today;
@@ -313,3 +314,4 @@ angular.module('webapp')
     }])
     
     ;
+})();

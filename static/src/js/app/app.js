@@ -1,3 +1,4 @@
+(function () {
 'use strict';
 
 var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.state', 'charts'])
@@ -143,3 +144,4 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
     }])
 
     ;
+})();

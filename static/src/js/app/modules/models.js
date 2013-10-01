@@ -1,3 +1,4 @@
+(function () {
 'use strict';
 
 var tastypieDataTransformer = function ($http) {
@@ -10,7 +11,7 @@ var tastypieDataTransformer = function ($http) {
             }
             return data;
         }
-    ])
+    ]);
 };
 
 angular.module('models', ['ngResource'])
@@ -143,3 +144,4 @@ angular.module('models', ['ngResource'])
 
         return Category;
     }]);
+})();
