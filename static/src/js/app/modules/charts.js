@@ -2,6 +2,9 @@
 
 angular.module('charts', [])
 
+    /*
+     * BalanceChart
+     */
     .factory('BalanceChart', ['$http', '$filter', '$q', function ($http, $filter, $q) {
         return {
             fetchData: function (params) {
@@ -62,11 +65,13 @@ angular.module('charts', [])
 
                 return deferred.promise;
             },
+
             chartOptions: {
                 chart: {
                     type: 'column',
                     spacingLeft: 3,
-                    spacingRight: 3
+                    spacingRight: 3,
+                    backgroundColor: '#e7e6e6'
                 },
                 title: {
                     text: null
@@ -104,6 +109,27 @@ angular.module('charts', [])
                         borderWidth: 0
                     }
                 }
+            }
+        };
+    }])
+
+    /*
+     * Top 10 Categories chart
+     */
+    .factory('Top10', ['$http', '$filter', '$q', function ($http, $filter, $q) {
+        return {
+            fetchData: function (params) {
+                var me = this,
+                    deferred = $q.defer();
+
+                $http.get('/api/v1/categories/', {params: params}).then(function (result) {
+                    deferred.resolve({options: options, result: result});
+                }, 
+                function failure (result) {
+                    deferred.reject(result);
+                });
+
+                return deferred.promise;
             }
         };
     }])
