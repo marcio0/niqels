@@ -6,10 +6,22 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
+from django.http import HttpResponse
+
 from password_reset import views as pr_views
 
 from access.forms import UserCreationForm, PasswordRecoveryForm, PasswordResetForm
 from access.models import User
+
+
+def test_login(request):
+    email = request.GET.get('email')
+    user = get_object_or_404(User, email=email)
+
+    user.backend='django.contrib.auth.backends.ModelBackend'
+    login(request, user)
+
+    return HttpResponse('ok')
 
 
 def notify(func):
@@ -77,8 +89,8 @@ def register(request):
             user = authenticate(email=email, password=password)
             login(request, user)
 
-            messages.success(request,
-                _('Welcome to %(site_name)s, %(user_name)s!') % {'site_name': settings.SITE_NAME, 'user_name': user.name})
+            #messages.success(request,
+            #    _('Welcome to %(site_name)s, %(user_name)s!') % {'site_name': settings.SITE_NAME, 'user_name': user.name})
 
             return redirect('index')
     else:
