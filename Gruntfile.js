@@ -132,6 +132,14 @@ module.exports = function(grunt) {
             runforeman: {
                 command: 'python manage.py collectstatic --noinput; foreman start --port 8001'
             },
+            karma: {
+                cmd: function runKarmaE2EServer () {
+                    var command = './static/test/scripts/e2e-test.sh --port {{port}}';
+                    var port = this.option('port') || 8001;
+
+                    return command.replace('{{port}}', port);
+                }
+            }
         },
 
         copy: {

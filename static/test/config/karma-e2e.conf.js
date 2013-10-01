@@ -6,7 +6,8 @@ module.exports = function(config){
         basePath : '../',
 
         files : [
-            'e2e/**/*.js'
+            'e2e/**/*.js',
+            'lib/angular-scenario-waitFor.js'
         ],
 
         autoWatch : false,
@@ -15,7 +16,7 @@ module.exports = function(config){
 
         frameworks: ['ng-scenario'],
 
-        singleRun : true,
+        singleRun : false,
 
         proxies : {
             '/': 'http://localhost:8000/'
