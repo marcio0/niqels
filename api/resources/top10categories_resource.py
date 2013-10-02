@@ -35,7 +35,7 @@ class Top10CategoriesResource(Resource):
             .annotate(total=Count('transaction'), sum=Sum('transaction__value'))\
             .values('name', 'sum', 'total')
 
-        return self.create_response(request, categories)
+        return self.create_response(request, list(categories))
 
     def _dispatch_list(self, request, **kwargs):
         return self.dispatch_detail(request, **kwargs)

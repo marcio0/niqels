@@ -66,27 +66,23 @@ class Top10CategoriesResourceTest(ResourceTestCase):
             {
                 u'name': u'groceries',
                 'total': 3,
-                'sum': u'600'
+                'sum': u'600.00'
             },
             {
                 'name': u'stuff',
                 'total': 3,
-                'sum': u'900'
+                'sum': u'900.00'
             },
             {
                 'name': u'income',
                 'total': 3,
-                'sum': u'1400'
+                'sum': u'1400.00'
             },
             {
                 'name': u'other',
                 'total': 3,
-                'sum': u'-500'
+                'sum': u'-500.00'
             }
         ]
-        from pprint import pprint
-        pprint(self.deserialize(resp))
-        pprint(expected)
 
-        self.assertEqual(self.deserialize(resp), expected)
-
+        self.assertItemsEqual(self.deserialize(resp), expected)
