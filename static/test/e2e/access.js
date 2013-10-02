@@ -1,5 +1,7 @@
 'use strict';
 
+var existing = 'existing@test.com';
+
 describe('access', function() {
 
     beforeEach(function() {
@@ -56,6 +58,19 @@ describe('access', function() {
 
             sleep(1);
             expect(browser().window().hash()).toBe('/transactions');
+
+            browser().navigateTo('/logout');
+
+        });
+
+        it('should log out', function () {
+            browser().navigateTo('/test_login?email=existing@test.com');
+
+            element('div.navbar .dropdown[name="user-menu"] > a').click();
+            element('div.navbar .dropdown[name="user-menu"] > .dropdown-menu a[name="logout"]').click();
+
+            sleep(1);
+            expect(browser().window().path()).toBe('/');
         });
     });
 });

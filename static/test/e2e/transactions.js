@@ -2,7 +2,8 @@
 
 describe('transactions', function () {
     beforeEach(function() {
-        browser().navigateTo('#/transactions');
+        browser().navigateTo('/test_login?email=existing@test.com');
+        //browser().navigateTo('#/transactions');
     });
 
     describe('transaction creation', function () {

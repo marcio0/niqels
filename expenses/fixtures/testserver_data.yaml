@@ -1,1 +1,147 @@
-[{"pk": 1, "model": "expenses.categorygroup", "fields": {"name": "Geral"}}, {"pk": 2, "model": "expenses.categorygroup", "fields": {"name": "Housing"}}, {"pk": 3, "model": "expenses.categorygroup", "fields": {"name": "Consumo"}}, {"pk": 4, "model": "expenses.categorygroup", "fields": {"name": "Car"}}, {"pk": 5, "model": "expenses.categorygroup", "fields": {"name": "Entretenimento"}}, {"pk": 6, "model": "expenses.categorygroup", "fields": {"name": "Apar\u00eancia"}}, {"pk": 7, "model": "expenses.categorygroup", "fields": {"name": "Empr\u00e9stimos"}}, {"pk": 8, "model": "expenses.categorygroup", "fields": {"name": "Educa\u00e7\u00e3o"}}, {"pk": 9, "model": "expenses.categorygroup", "fields": {"name": "Despesas M\u00e9dicas"}}, {"pk": 10, "model": "expenses.categorygroup", "fields": {"name": "Receitas"}}, {"pk": 11, "model": "expenses.categorygroup", "fields": {"name": "Customizado"}}, {"pk": 1, "model": "expenses.category", "fields": {"group": 1, "name": "Mercado", "default_active": true, "custom": false}}, {"pk": 2, "model": "expenses.category", "fields": {"group": 2, "name": "Aluguel", "default_active": true, "custom": false}}, {"pk": 3, "model": "expenses.category", "fields": {"group": 2, "name": "Financiamento Imobili\u00e1rio", "default_active": true, "custom": false}}, {"pk": 4, "model": "expenses.category", "fields": {"group": 2, "name": "Condominio", "default_active": true, "custom": false}}, {"pk": 5, "model": "expenses.category", "fields": {"group": 3, "name": "Telefone", "default_active": true, "custom": false}}, {"pk": 6, "model": "expenses.category", "fields": {"group": 3, "name": "TV a Cabo", "default_active": true, "custom": false}}, {"pk": 7, "model": "expenses.category", "fields": {"group": 3, "name": "\u00c1gua", "default_active": true, "custom": false}}, {"pk": 8, "model": "expenses.category", "fields": {"group": 3, "name": "Luz", "default_active": true, "custom": false}}, {"pk": 9, "model": "expenses.category", "fields": {"group": 3, "name": "G\u00e1s", "default_active": true, "custom": false}}, {"pk": 10, "model": "expenses.category", "fields": {"group": 3, "name": "Internet", "default_active": true, "custom": false}}, {"pk": 11, "model": "expenses.category", "fields": {"group": 4, "name": "Financiamento", "default_active": true, "custom": false}}, {"pk": 12, "model": "expenses.category", "fields": {"group": 4, "name": "Manuten\u00e7\u00e3o", "default_active": true, "custom": false}}, {"pk": 13, "model": "expenses.category", "fields": {"group": 4, "name": "Combust\u00edvel", "default_active": true, "custom": false}}, {"pk": 14, "model": "expenses.category", "fields": {"group": 4, "name": "Estacionamento", "default_active": true, "custom": false}}, {"pk": 15, "model": "expenses.category", "fields": {"group": 4, "name": "Impostos", "default_active": true, "custom": false}}, {"pk": 16, "model": "expenses.category", "fields": {"group": 5, "name": "Restaurante", "default_active": true, "custom": false}}, {"pk": 17, "model": "expenses.category", "fields": {"group": 5, "name": "Cinema", "default_active": true, "custom": false}}, {"pk": 18, "model": "expenses.category", "fields": {"group": 5, "name": "Teatro", "default_active": true, "custom": false}}, {"pk": 19, "model": "expenses.category", "fields": {"group": 6, "name": "Roupas", "default_active": true, "custom": false}}, {"pk": 20, "model": "expenses.category", "fields": {"group": 6, "name": "Sapatos/T\u00eanis", "default_active": true, "custom": false}}, {"pk": 21, "model": "expenses.category", "fields": {"group": 7, "name": "Cart\u00e3o de Cr\u00e9dito", "default_active": true, "custom": false}}, {"pk": 22, "model": "expenses.category", "fields": {"group": 7, "name": "Cheque Especial", "default_active": true, "custom": false}}, {"pk": 23, "model": "expenses.category", "fields": {"group": 7, "name": "Cr\u00e9dito Pessoal", "default_active": true, "custom": false}}, {"pk": 24, "model": "expenses.category", "fields": {"group": 8, "name": "Escola", "default_active": true, "custom": false}}, {"pk": 25, "model": "expenses.category", "fields": {"group": 8, "name": "Faculdade", "default_active": true, "custom": false}}, {"pk": 26, "model": "expenses.category", "fields": {"group": 8, "name": "Curso", "default_active": true, "custom": false}}, {"pk": 27, "model": "expenses.category", "fields": {"group": 9, "name": "Plano de Sa\u00fade", "default_active": true, "custom": false}}, {"pk": 28, "model": "expenses.category", "fields": {"group": 9, "name": "Hospital", "default_active": true, "custom": false}}, {"pk": 29, "model": "expenses.category", "fields": {"group": 9, "name": "Exames", "default_active": true, "custom": false}}, {"pk": 30, "model": "expenses.category", "fields": {"group": 10, "name": "Sal\u00e1rio", "default_active": true, "custom": false}}, {"pk": 31, "model": "expenses.category", "fields": {"group": 10, "name": "Hora Extra", "default_active": true, "custom": false}}, {"pk": 32, "model": "expenses.category", "fields": {"group": 10, "name": "Restitui\u00e7\u00e3o de Imposto", "default_active": true, "custom": false}}]
+-   fields:
+        date_joined: 2013-10-02 16:25:04.439132+00:00
+        email: existing@test.com
+        groups: []
+        is_active: true
+        is_admin: false
+        is_superuser: false
+        last_login: 2013-10-02 16:25:04.348296+00:00
+        name: null
+        password: pbkdf2_sha256$10000$wEWMMW4tIqBu$8dfnhoNCKfXnJyS8Ri/CrhJMQMY//mwXi/ujb1vHY/w=
+        user_permissions: []
+    model: access.user
+    pk: 1
+-   fields: {name: Geral}
+    model: expenses.categorygroup
+    pk: 1
+-   fields: {name: Housing}
+    model: expenses.categorygroup
+    pk: 2
+-   fields: {name: Consumo}
+    model: expenses.categorygroup
+    pk: 3
+-   fields: {name: Car}
+    model: expenses.categorygroup
+    pk: 4
+-   fields: {name: Entretenimento}
+    model: expenses.categorygroup
+    pk: 5
+-   fields: {name: "Apar\xEAncia"}
+    model: expenses.categorygroup
+    pk: 6
+-   fields: {name: "Empr\xE9stimos"}
+    model: expenses.categorygroup
+    pk: 7
+-   fields: {name: "Educa\xE7\xE3o"}
+    model: expenses.categorygroup
+    pk: 8
+-   fields: {name: "Despesas M\xE9dicas"}
+    model: expenses.categorygroup
+    pk: 9
+-   fields: {name: Receitas}
+    model: expenses.categorygroup
+    pk: 10
+-   fields: {name: Customizado}
+    model: expenses.categorygroup
+    pk: 11
+-   fields: {custom: false, default_active: true, group: 1, name: Mercado}
+    model: expenses.category
+    pk: 1
+-   fields: {custom: false, default_active: true, group: 2, name: Aluguel}
+    model: expenses.category
+    pk: 2
+-   fields: {custom: false, default_active: true, group: 2, name: "Financiamento Imobili\xE1\
+            rio"}
+    model: expenses.category
+    pk: 3
+-   fields: {custom: false, default_active: true, group: 2, name: Condominio}
+    model: expenses.category
+    pk: 4
+-   fields: {custom: false, default_active: true, group: 3, name: Telefone}
+    model: expenses.category
+    pk: 5
+-   fields: {custom: false, default_active: true, group: 3, name: TV a Cabo}
+    model: expenses.category
+    pk: 6
+-   fields: {custom: false, default_active: true, group: 3, name: "\xC1gua"}
+    model: expenses.category
+    pk: 7
+-   fields: {custom: false, default_active: true, group: 3, name: Luz}
+    model: expenses.category
+    pk: 8
+-   fields: {custom: false, default_active: true, group: 3, name: "G\xE1s"}
+    model: expenses.category
+    pk: 9
+-   fields: {custom: false, default_active: true, group: 3, name: Internet}
+    model: expenses.category
+    pk: 10
+-   fields: {custom: false, default_active: true, group: 4, name: Financiamento}
+    model: expenses.category
+    pk: 11
+-   fields: {custom: false, default_active: true, group: 4, name: "Manuten\xE7\xE3\
+            o"}
+    model: expenses.category
+    pk: 12
+-   fields: {custom: false, default_active: true, group: 4, name: "Combust\xEDvel"}
+    model: expenses.category
+    pk: 13
+-   fields: {custom: false, default_active: true, group: 4, name: Estacionamento}
+    model: expenses.category
+    pk: 14
+-   fields: {custom: false, default_active: true, group: 4, name: Impostos}
+    model: expenses.category
+    pk: 15
+-   fields: {custom: false, default_active: true, group: 5, name: Restaurante}
+    model: expenses.category
+    pk: 16
+-   fields: {custom: false, default_active: true, group: 5, name: Cinema}
+    model: expenses.category
+    pk: 17
+-   fields: {custom: false, default_active: true, group: 5, name: Teatro}
+    model: expenses.category
+    pk: 18
+-   fields: {custom: false, default_active: true, group: 6, name: Roupas}
+    model: expenses.category
+    pk: 19
+-   fields: {custom: false, default_active: true, group: 6, name: "Sapatos/T\xEAnis"}
+    model: expenses.category
+    pk: 20
+-   fields: {custom: false, default_active: true, group: 7, name: "Cart\xE3o de Cr\xE9\
+            dito"}
+    model: expenses.category
+    pk: 21
+-   fields: {custom: false, default_active: true, group: 7, name: Cheque Especial}
+    model: expenses.category
+    pk: 22
+-   fields: {custom: false, default_active: true, group: 7, name: "Cr\xE9dito Pessoal"}
+    model: expenses.category
+    pk: 23
+-   fields: {custom: false, default_active: true, group: 8, name: Escola}
+    model: expenses.category
+    pk: 24
+-   fields: {custom: false, default_active: true, group: 8, name: Faculdade}
+    model: expenses.category
+    pk: 25
+-   fields: {custom: false, default_active: true, group: 8, name: Curso}
+    model: expenses.category
+    pk: 26
+-   fields: {custom: false, default_active: true, group: 9, name: "Plano de Sa\xFA\
+            de"}
+    model: expenses.category
+    pk: 27
+-   fields: {custom: false, default_active: true, group: 9, name: Hospital}
+    model: expenses.category
+    pk: 28
+-   fields: {custom: false, default_active: true, group: 9, name: Exames}
+    model: expenses.category
+    pk: 29
+-   fields: {custom: false, default_active: true, group: 10, name: "Sal\xE1rio"}
+    model: expenses.category
+    pk: 30
+-   fields: {custom: false, default_active: true, group: 10, name: Hora Extra}
+    model: expenses.category
+    pk: 31
+-   fields: {custom: false, default_active: true, group: 10, name: "Restitui\xE7\xE3\
+            o de Imposto"}
+    model: expenses.category
+    pk: 32

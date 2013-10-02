@@ -6,7 +6,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 from password_reset import views as pr_views
 
@@ -21,7 +21,7 @@ def test_login(request):
     user.backend='django.contrib.auth.backends.ModelBackend'
     login(request, user)
 
-    return HttpResponse('ok')
+    return HttpResponseRedirect('/')
 
 
 def notify(func):
