@@ -34,8 +34,7 @@ class CategoryGroup(models.Model):
 
 
 class CategoryManager(models.Manager):
-    def get_by_natural_key(self, key):
-        group, name = key
+    def get_by_natural_key(self, group, name):
         return self.get(name=name, group__name=group)
 
 
@@ -142,8 +141,7 @@ class Transaction(models.Model):
     )
     category = models.ForeignKey(Category,
         verbose_name=_('category'),
-        help_text=_('The category for this transaction.'),
-        related_name="+"
+        help_text=_('The category for this transaction.')
     )
 
     repeatable = models.ForeignKey('reminder.RepeatableTransaction',

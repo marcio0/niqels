@@ -1,9 +1,10 @@
 from django.contrib import admin
+from django.conf import settings
 
 from expenses.models import Category, Transaction, CategoryGroup
 
 class CategoryAdmin(admin.ModelAdmin):
-    readonly_fields = Category._meta.get_all_field_names()
+    readonly_fields = ['custom', 'default_active', 'group', u'id', 'name', 'transaction_set']
     search_fields = ['name']
     actions = None
     list_display = ('name', 'group')
@@ -13,6 +14,12 @@ class CategoryAdmin(admin.ModelAdmin):
         return False
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def get_actions(self, request):
+        actions = super(CategoryAdmin, self).get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
 admin.site.register(Category, CategoryAdmin)
 
 
@@ -21,6 +28,12 @@ class CategoryGroupAdmin(admin.ModelAdmin):
         return False
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def get_actions(self, request):
+        actions = super(CategoryGroupAdmin, self).get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
 
     readonly_fields = ['name']
     search_fields = ['name']
@@ -32,4 +45,5 @@ admin.site.register(CategoryGroup, CategoryGroupAdmin)
 class TransactionAdmin(admin.ModelAdmin):
     pass
 
-#admin.site.register(Transaction, TransactionAdmin)
+if settings.DEBUG:
+    admin.site.register(Transaction, TransactionAdmin)

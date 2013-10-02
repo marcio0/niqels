@@ -96,7 +96,7 @@ class CategoryModelTest(TestCase):
         expected_key = ('group', 'cat')
 
         self.assertEquals(cat.natural_key(), expected_key)
-        self.assertEquals(Category.objects.get_by_natural_key(expected_key), cat)
+        self.assertEquals(Category.objects.get_by_natural_key(*expected_key), cat)
 
 
 class TransactionModelTest(TestCase):
