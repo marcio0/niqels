@@ -27,23 +27,6 @@ class Top10CategoriesResourceTest(ResourceTestCase):
         '''
         return self.create_basic(username=self.email, password=self.password)
 
-    # General tests.
-    def test_basic_auth_ok(self):
-        '''
-        Testing auth with basic HTTP authentication.
-        '''
-        resp = self.api_client.get(self.url, format='json', authentication=self.get_credentials())
-        self.assertValidJSONResponse(resp)
-
-    def test_session_auth_ok(self):
-        '''
-        Testing auth with django's session authentication.
-        User is alread logged in, so there's no need for auth data on requisition.
-        '''
-        self.assertTrue(self.api_client.client.login(email=self.email, password=self.password))
-        resp = self.api_client.get(self.url, format='json')
-        self.assertValidJSONResponse(resp)
-
     # List tests: GET.
     def test_get_list_unauthorized(self):
         '''
@@ -53,7 +36,7 @@ class Top10CategoriesResourceTest(ResourceTestCase):
 
     def test_get_list_json(self):
         '''
-        Successful GET to a list endpoint.
+        Successful GET to the endpoint.
         '''
         data = {
             'date_start': '2010-08-01',
@@ -86,3 +69,21 @@ class Top10CategoriesResourceTest(ResourceTestCase):
         ]
 
         self.assertItemsEqual(self.deserialize(resp), expected)
+
+    def test_get_months_missing(self):
+        '''
+        The `start_date` and `end_date` params are obrigatory.
+        '''
+
+        data = {
+            'date_start': '2010-08-01'
+        }
+        resp = self.api_client.get(self.url, format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+        data = {
+
+            'date_end': '2010-08-01'
+        }
+        resp = self.api_client.get(self.url, format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
