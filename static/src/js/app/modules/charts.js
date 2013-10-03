@@ -131,7 +131,13 @@ angular.module('charts', [])
 
                     for (var i in result.data) {
                         var category = result.data[i];
-                        series.push([category.name, parseFloat(category.sum)]);
+                        var value = parseFloat(category.sum);
+                        console.log(value);
+                        if (value < 0) {
+                            //this chart shows only expenses
+                            value = value * -1;
+                            series.push([category.name, value]);
+                        }
                     }
 
                     options.series = [{data: series}];
@@ -152,7 +158,11 @@ angular.module('charts', [])
                     text: gettext('Top 10 Categories')
                 },
                 tooltip: {
-                    pointFormat: 'Total: <b>{point.percentage:.1f}%</b>'
+                    formatter: function () {
+                        var value = $filter('currency')(this.y);
+                        var percentage = this.percentage;
+                        return '<b>' + value + ' (' + percentage + '%)</b>';
+                    }
                 },
                 plotOptions: {
                     pie: {
@@ -164,23 +174,6 @@ angular.module('charts', [])
                         showInLegend: false
                     }
                 }
-                /*
-                series: [{
-                    data: [
-                        ['Firefox',   45.0],
-                        ['IE',       26.8],
-                        {
-                            name: 'Chrome',
-                            y: 12.8,
-                            sliced: true,
-                            selected: true
-                        },
-                        ['Safari',    8.5],
-                        ['Opera',     6.2],
-                        ['Others',   0.7]
-                    ]
-                }]
-                */
             }
         };
     }])
