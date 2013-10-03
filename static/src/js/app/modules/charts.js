@@ -123,14 +123,65 @@ angular.module('charts', [])
                 var me = this,
                     deferred = $q.defer();
 
-                $http.get('/api/v1/categories/', {params: params}).then(function (result) {
-                    //deferred.resolve({options: options, result: result});
+                $http.get('/api/v1/data/top10categories', {params: params}).then(function (result) {
+                    var options = {},
+                        series = [];
+
+                    $.extend(true, options, me.chartOptions);
+
+                    for (var i in result.data) {
+                        var category = result.data[i];
+                        series.push([category.name, parseFloat(category.sum)]);
+                    }
+                    console.log(series);
+
+                    options.series = [{data: series}];
+
+                    deferred.resolve({options: options, result: result});
                 }, 
                 function failure (result) {
                     deferred.reject(result);
                 });
 
                 return deferred.promise;
+            },
+            chartOptions: {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: gettext('Top 10 Categories')
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: false,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true
+                        },
+                        showInLegend: false
+                    }
+                }
+                /*
+                series: [{
+                    data: [
+                        ['Firefox',   45.0],
+                        ['IE',       26.8],
+                        {
+                            name: 'Chrome',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        },
+                        ['Safari',    8.5],
+                        ['Opera',     6.2],
+                        ['Others',   0.7]
+                    ]
+                }]
+                */
             }
         };
     }])

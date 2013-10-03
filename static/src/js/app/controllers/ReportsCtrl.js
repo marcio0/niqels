@@ -1,9 +1,6 @@
 'use strict';
 
-function ReportsCtrl ($scope, BalanceChart) {
-    $scope.options = {
-    };
-
+function ReportsCtrl ($scope, BalanceChart, Top10) {
     $scope.updateBalance = function () {
         var reference_date, day, months, this_month;
 
@@ -32,7 +29,19 @@ function ReportsCtrl ($scope, BalanceChart) {
         $scope.balanceData = data;
     };
 
+    $scope.updateTop10 = function () {
+        var params = {
+            date_start: '2010-08-01',
+            date_end: '2010-10-30'
+        };
+
+        var data = Top10.fetchData(params);
+
+        $scope.top10Data = data;
+    };
+
     $scope.updateBalance();
+    $scope.updateTop10();
 }
 
-ReportsCtrl.$inject = ['$scope', 'BalanceChart'];
+ReportsCtrl.$inject = ['$scope', 'BalanceChart', 'Top10'];
