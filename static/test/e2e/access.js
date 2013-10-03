@@ -22,8 +22,7 @@ describe('access', function() {
             element(form + 'input[name="password2"]').val('different password');
             element(form + 'button[type="submit"]').click();
 
-            sleep(1);
-            expect(element(form + 'div.form-group.has-error input[name="password2"] + span.help-block').count()).toBeTruthy();
+            expect(waitFor('form#register-form div.form-group.has-error').count()).toBe(1);
         });
 
         it('should create a account', function () {
@@ -48,8 +47,7 @@ describe('access', function() {
             element(form + 'input[name="password"]').val('wrong password');
             element(form + 'button.btn-primary').click();
 
-            sleep(1);
-            expect(element('form#signin-form div.alert-error').count()).toBeTruthy();
+            expect(waitFor('form#signin-form div.alert-error').count()).toBe(1);
         });
 
         it('should log in', function () {

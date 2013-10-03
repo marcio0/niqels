@@ -12,7 +12,6 @@ function type (value) {
 describe('transactions', function () {
     beforeEach(function() {
         browser().navigateTo('/test_login?email=existing@test.com');
-        //browser().navigateTo('#/transactions');
     });
 
     describe('transaction creation', function () {
