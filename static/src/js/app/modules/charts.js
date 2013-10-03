@@ -133,7 +133,6 @@ angular.module('charts', [])
                         var category = result.data[i];
                         series.push([category.name, parseFloat(category.sum)]);
                     }
-                    console.log(series);
 
                     options.series = [{data: series}];
 

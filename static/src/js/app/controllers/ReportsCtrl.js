@@ -24,7 +24,10 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
             months: months
         };
 
-        var data = BalanceChart.fetchData(params);
+        var data = BalanceChart.fetchData(params).then(function (result) {
+            result.options.chart.backgroundColor = '#f5f5f5';
+            return result;
+        });
 
         $scope.balanceData = data;
     };
@@ -35,7 +38,10 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
             date_end: '2010-10-30'
         };
 
-        var data = Top10.fetchData(params);
+        var data = Top10.fetchData(params).then(function (result) {
+            result.options.chart.backgroundColor = '#f5f5f5';
+            return result;
+        });
 
         $scope.top10Data = data;
     };
