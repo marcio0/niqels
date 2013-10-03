@@ -145,14 +145,15 @@
             }
             this.label = label;
             this.addFutureAction("wait for element '" + label + "'", function ($window, $document, done) {
-                var interval = $window.setInterval(function () {
-                    var length = $document.find(selector).length;
+                var interval = window.setInterval(function () {
+                    var length = $window.document.querySelectorAll(selector).length;
                     if (length) {
-                        $window.clearInterval(interval);
+                        window.clearInterval(interval);
                         self.dsl.using(selector, label);
                         done(null, length);
                     } else if (attempts > timeout) {
-                        $window.clearInterval(interval);
+                        return;
+                        window.clearInterval(interval);
                         done("Timed out after " + timeout + " seconds. Element for '" + selector + "' was not found.");
                     }
                     attempts += 0.01;
