@@ -9,17 +9,12 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from expenses.calculator import BalanceQuery
 
 
-class ReturnData(object):
-    pass
-
-
 class BalanceResource(Resource):
     class Meta:
-        object_class = ReturnData
         include_resource_uri = False
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
+        detail_allowed_methods = []
         resource_name = 'data/balance'
 
     def get_months(self, GET=None):
@@ -49,25 +44,16 @@ class BalanceResource(Resource):
 
         return day
 
-    def obj_get(self, bundle, **kwargs):
+    def get_list(self, request, **kwargs):
         try:
-            months = self.get_months(bundle.request.GET)
-            day = self.get_day(bundle.request.GET)
+            months = self.get_months(request.GET)
+            day = self.get_day(request.GET)
         except ValueError, e:
             raise BadRequest(e)
         
-        obj = ReturnData()
-        obj.balance = BalanceQuery(
+        balance = BalanceQuery(
             months=months,
             day=day
-        ).calculate(user=bundle.request.user)
+        ).calculate(user=request.user)
 
-        return obj
-
-    def full_dehydrate(self, bundle, for_list=False):
-        bundle = super(BalanceResource, self).full_dehydrate(bundle, for_list)
-        bundle.data = bundle.obj.balance
-        return bundle
-
-    def dispatch_list(self, request, **kwargs):
-        return self.dispatch_detail(request, **kwargs)
+        return self.create_response(request, dict(balance))
