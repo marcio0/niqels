@@ -123,7 +123,7 @@ module.exports = function(grunt) {
             },
             testserver: {
                 cmd: function runTestServer () {
-                    var command = 'python manage.py testserver --addrport 0:{{port}} testserver_data --settings=core.dev_settings.siesta_test';
+                    var command = 'python manage.py testserver --addrport 0:{{port}} testserver_data.yaml';
                     var port = this.option('port') || 8001;
 
                     return command.replace('{{port}}', port);
