@@ -11,13 +11,8 @@ from django.db.models import Sum, Count
 from expenses.models import Category
 
 
-class ReturnData(object):
-    pass
-
-
 class Top10CategoriesResource(Resource):
     class Meta:
-        #object_class = ReturnData
         include_resource_uri = False
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         list_allowed_methods = ['get']
@@ -38,6 +33,7 @@ class Top10CategoriesResource(Resource):
         categories = Category.objects\
             .filter(transaction__user=user, transaction__date__range=(date_start, date_end))\
             .annotate(total=Count('transaction'), sum=Sum('transaction__value'))\
+            .order_by('-sum')\
             .values('name', 'sum', 'total')
 
         return self.create_response(request, list(categories))

@@ -47,9 +47,9 @@ class Top10CategoriesResourceTest(ResourceTestCase):
 
         expected = [
             {
-                u'name': u'groceries',
+                'name': u'income',
                 'total': 3,
-                'sum': u'600.00'
+                'sum': u'1400.00'
             },
             {
                 'name': u'stuff',
@@ -57,9 +57,9 @@ class Top10CategoriesResourceTest(ResourceTestCase):
                 'sum': u'900.00'
             },
             {
-                'name': u'income',
+                u'name': u'groceries',
                 'total': 3,
-                'sum': u'1400.00'
+                'sum': u'600.00'
             },
             {
                 'name': u'other',
@@ -68,7 +68,7 @@ class Top10CategoriesResourceTest(ResourceTestCase):
             }
         ]
 
-        self.assertItemsEqual(self.deserialize(resp), expected)
+        self.assertEquals(self.deserialize(resp), expected)
 
     def test_get_months_missing(self):
         '''
