@@ -25,6 +25,9 @@ class BalanceQuery(object):
     def calculate(self, **kwargs):
         result = []
 
+        if self.period is 'month':
+            self.date_start = self.date_start.replace(day=1)
+
         for month in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start, until=self.date_end, bymonthday=(1, -1), bysetpos=1):
             month_end = calendar.monthrange(month.year, month.month)[1]
             month_end = month.replace(day=self.day or month_end)
