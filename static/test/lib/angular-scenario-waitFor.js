@@ -140,7 +140,7 @@
             var attempts = 0,
                 self = this;
             if (isNaN(timeout)) {
-                timeout = 10;
+                timeout = 5;
                 label = label || selector; // in case they forgot to pass the label, make it still work.
             }
             this.label = label;
@@ -152,7 +152,6 @@
                         self.dsl.using(selector, label);
                         done(null, length);
                     } else if (attempts > timeout) {
-                        return;
                         window.clearInterval(interval);
                         done("Timed out after " + timeout + " seconds. Element for '" + selector + "' was not found.");
                     }
