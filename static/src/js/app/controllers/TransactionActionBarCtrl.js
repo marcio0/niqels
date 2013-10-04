@@ -10,7 +10,7 @@ function TransactionActionBarCtrl ($scope, Transaction, $rootScope) {
                     //removing the transaction from the day
                     day.transactions.splice(day.transactions.indexOf($scope.transaction), 1);
 
-                    if (day.transactions.length == 0) {
+                    if (day.transactions.length === 0) {
                         //if there are no transactions left on the day, remove the day
                         $scope.days.splice($scope.days.indexOf(day), 1);
                     }

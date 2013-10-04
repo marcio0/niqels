@@ -81,7 +81,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     });
 
     $scope.isEmpty = function isEmpty () {
-        return ($scope.days.length == 0) && !$scope.loading;
+        return ($scope.days.length === 0) && !$scope.loading;
     };
 }
 
