@@ -24746,18 +24746,28 @@ angular.scenario.Application.prototype.executeAction = function(action) {
     return action.call(this, $window, _jQuery($window.document));
   }
   angularInit($window.document, function(element) {
-    var $injector = $window.angular.element(element).injector();
-    var $element = _jQuery(element);
+    var attempts = 0;
+    var interval = $window.setInterval(function () {
+      var $injector = $window.angular.element(element).injector();
+      var $element = _jQuery(element);
 
-    $element.injector = function() {
-      return $injector;
-    };
+      if ($injector) {
+        $window.clearInterval(interval);
+        $element.injector = function() {
+          return $injector;
+        };
 
-    $injector.invoke(function($browser){
-      $browser.notifyWhenNoOutstandingRequests(function() {
-        action.call(self, $window, $element);
-      });
-    });
+        $injector.invoke(function($browser){
+          $browser.notifyWhenNoOutstandingRequests(function() {
+            action.call(self, $window, $element);
+          });
+        });
+      }
+      else if (attempts > 5) {
+        $window.clearInterval(interval);
+      }
+      attempts += 0.01;
+    }, 10);
   });
 };
 
