@@ -2,37 +2,22 @@
 
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, BalanceChart) {
     $scope.updateBalance = function () {
-        var reference_date, day, months, this_month;
+        var reference_date, date_start, date_end;
 
-        reference_date = moment().month($rootScope.month);
-
-        months = [reference_date];
-        for (var i=0; i<2; i++) {
-            var actual_date = months[i].clone().subtract('month', 1);
-            months.push(actual_date);
-        }
-
-        months.reverse();
-
-        for (var i in months) {
-            months[i] = months[i].format('YYYY-MM');
-        }
-
-        // saving the showing month for later
-        this_month = months[months.length-1];
-
-        months = angular.toJson(months);
+        date_end = moment().month($rootScope.month);
+        date_start = date_end.clone().subtract(2, 'months');
 
         var params = {
-            months: months
+            date_start: date_start.format('YYYY-MM-DD'),
+            date_end: date_end.format('YYYY-MM-DD')
         };
 
         var data = BalanceChart.fetchData(params).then(function setupScope (result) {
-            var options = result.options,
-                httpResult = result.result;
+            var httpResult = result.result,
+                this_month = httpResult.data[httpResult.data.length -1];
 
-            $scope.renevues = parseFloat(httpResult.data[this_month].renevues);
-            $scope.expenses = parseFloat(httpResult.data[this_month].expenses);
+            $scope.renevues = parseFloat(this_month.renevues);
+            $scope.expenses = parseFloat(this_month.expenses);
 
             return result;
         });

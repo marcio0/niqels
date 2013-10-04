@@ -20,23 +20,24 @@ angular.module('charts', [])
 
                     $.extend(true, options, me.chartOptions);
 
-                    for(var k in result.data) {
+                    for(var i in result.data) {
                         var data = {},
+                            month = result.data[i],
                             category;
 
-                        category = moment(k, 'YYYY-MM').format('MMM YYYY');
+                        category = moment(month.period, 'YYYY-MM-DD').format('MMM YYYY');
                         categories.push(category);
 
-                        data.renevues = parseFloat(result.data[k].renevues);
+                        data.renevues = parseFloat(month.renevues);
                         data.renevues_text = $filter('currency')(data.renevues);
-                        data.expenses = parseFloat(result.data[k].expenses);
+                        data.expenses = parseFloat(month.expenses);
                         data.expenses_text = $filter('currency')(data.expenses);
 
                         data.y = data.renevues + data.expenses;
                         data.y_text = $filter('currency')(data.y);
                         data.color = data.y < 0 ? '#9d261d' : '#049cdb';
 
-                        data.id = k;
+                        data.id = month.period;
 
                         values.push(data);
 
