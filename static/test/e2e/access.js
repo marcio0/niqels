@@ -34,7 +34,7 @@ describe('access', function() {
             element(form + 'input[name="password2"]').val('password');
             element(form + 'button[type="submit"]').click();
 
-            sleep(2);
+            expect(waitFor('div[role="transactions"]').count()).toBeTruthy();
             expect(browser().window().hash()).toBe('/transactions');
         });
     });
@@ -55,7 +55,7 @@ describe('access', function() {
             element(form + 'input[name="password"]').val('password');
             element(form + 'button.btn-primary').click();
 
-            sleep(1);
+            expect(waitFor('div[role="transactions"]').count()).toBeTruthy();
             expect(browser().window().hash()).toBe('/transactions');
         });
 
@@ -65,7 +65,6 @@ describe('access', function() {
             element('div.navbar .dropdown[name="user-menu"] > a').click();
             element('div.navbar .dropdown[name="user-menu"] > .dropdown-menu a[name="logout"]').click();
 
-            sleep(1);
             expect(browser().window().path()).toBe('/');
         });
     });
