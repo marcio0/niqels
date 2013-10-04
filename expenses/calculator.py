@@ -1,34 +1,40 @@
 from decimal import Decimal, InvalidOperation
+import datetime
+import calendar
 
+from dateutil import rrule
 from django.db.models import Sum
 
 from expenses.models import Transaction 
 from access.models import User
 
-import datetime
-
 
 class BalanceQuery(object):
     """
-    Returns renevues and expenses for the informed months.
+    Returns renevues and expenses for the informed period.
     Optionally filters the queries up to the specified day.
     """
-    def __init__(self, months=None, day=None):
-        if not months or not isinstance(months, list):
-            raise TypeError
+    periods = ['month']
 
-        self.months = months
+    def __init__(self, date_start, date_end, day=None, period='month'):
+        self.date_start = date_start
+        self.date_end = date_end
         self.day = day
+        self.period = period
 
     def calculate(self, **kwargs):
-        groups = Transaction.objects.up_to_day(months=self.months, day=self.day, **kwargs)
-        result = {}
+        result = []
 
-        for month in groups:
-            renevues = groups[month].filter(value__gte=0).aggregate(Sum('value'))['value__sum'] or 0
-            expenses = groups[month].filter(value__lte=0).aggregate(Sum('value'))['value__sum'] or 0
+        for month in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start, until=self.date_end, bymonthday=(1, -1), bysetpos=1):
+            month_end = calendar.monthrange(month.year, month.month)[1]
+            month_end = month.replace(day=self.day or month_end)
 
-            result[month] = dict(renevues=renevues, expenses=expenses)
+            qs = Transaction.objects.filter(date__range=(month, month_end), **kwargs)
+            renevues = qs.filter(value__gte=0).aggregate(Sum('value'))['value__sum'] or 0
+            expenses = qs.filter(value__lte=0).aggregate(Sum('value'))['value__sum'] or 0
+            month_str = month.strftime('%Y-%m')
+
+            result.append(dict(period=month_str, renevues=renevues, expenses=expenses))
 
         return result
  

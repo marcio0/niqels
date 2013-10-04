@@ -17,43 +17,34 @@ class BalanceResource(Resource):
         detail_allowed_methods = []
         resource_name = 'data/balance'
 
-    def get_months(self, GET=None):
-        if not GET or not GET.get('months'):
-            today = datetime.date.today()
-            return [today.strftime('%Y-%m')]
-
-        try:
-            months = json.loads(GET['months'])
-
-            if not isinstance(months, list):
-                raise ValueError
-
-        except ValueError:
-            raise ValueError('Invalid month format.')
-            
-        return months
-
-    def get_day(self, GET=None):
-        if not GET or not GET.get('up_to_day'):
-            return None
-
-        try:
-            day = int(GET['up_to_day'])
-        except ValueError:
-            raise ValueError('Invalid day format.')
-
-        return day
-
     def get_list(self, request, **kwargs):
         try:
-            months = self.get_months(request.GET)
-            day = self.get_day(request.GET)
-        except ValueError, e:
-            raise BadRequest(e)
+            date_start = request.GET.get('date_start')
+            date_start = datetime.datetime.strptime(date_start, '%Y-%m-%d')
+        except TypeError:
+            raise BadRequest(_("The 'date_start' parameter is required."))
+        except ValueError:
+            raise BadRequest(_("The 'date_start' parameter has an invalid format. Must be on YYYY-MM-DD format."))
+
+        try:
+            date_end = request.GET.get('date_end')
+            date_end = datetime.datetime.strptime(date_end, '%Y-%m-%d')
+        except TypeError:
+            raise BadRequest(_("The 'date_end' parameter is required."))
+        except ValueError:
+            raise BadRequest(_("The 'date_end' parameter has an invalid format. Must be on YYYY-MM-DD format."))
+
+        try:
+            day = int(request.GET.get('day'))
+        except ValueError:
+            raise BadRequest(_("The `day` parameter must be an integer."))
+        except TypeError:
+            day = None
         
         balance = BalanceQuery(
-            months=months,
+            date_start=date_start,
+            date_end=date_end,
             day=day
         ).calculate(user=request.user)
 
-        return self.create_response(request, dict(balance))
+        return self.create_response(request, list(balance))
