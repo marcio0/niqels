@@ -17,16 +17,22 @@ describe('transactions', function () {
     describe('transaction creation', function () {
         var form = 'form.transaction-form ';
 
-        it('should create a transaction', function () {
+        iit('should create a transaction', function () {
+            // creating a transaction
             element(form + 'button[data-id="id_category"]').click();
             element(form + 'div.bootstrap-select > div.dropdown-menu li[rel=1] > a').click();
-            element(form + 'input#id_value').val('100.00');
-            element(form + 'input#id_description').val('a transaction');
+            input('formData.value').enter('-100');
+            input('formData.description').enter('a transaction');
             element(form + 'button.btn-primary').click();
-            
-            expect(element('.toast.toast-success', 'toast').count()).toBeTruthy();
+
+            expect(element('.toast.toast-success').count()).toBeTruthy();
 
             expect(element('table.transaction-table tr.transaction-row').count()).toBe(1);
+            //expect(repeater('table.transaction-table tr.transaction-row').row(0)).toBe([-100, 'a transaction', 'Mercado']);
+
+            expect(element('div#balance-panel .balance-info .renevues > .value').text()).toBe('R$0,00');
+            expect(element('div#balance-panel .balance-info .expenses > .value').text()).toBe('- R$100,00');
+            expect(element('div#balance-panel .balance-info .total > .value').text()).toBe('- R$100,00');
         });
     });
 });
