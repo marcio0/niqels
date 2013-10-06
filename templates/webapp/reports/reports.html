@@ -1,13 +1,13 @@
 {% load i18n %}
 
-<div ng-controller="ReportsCtrl">
+<div ng-controller="ReportsCtrl" id="reports">
     <h4 class="area-header">{% trans "Reports" %}</h4>
 
     <div class="month-selector">
         {% trans "Period" %}: 
-        <button class="btn btn-link actual-month" ex-month-selector="options.dateStart"></button>
+        <button class="btn btn-link actual-month" id="date-start" ex-month-selector="options.dateStart"></button>
         /
-        <button class="btn btn-link actual-month" ex-month-selector="options.dateEnd"></button>
+        <button class="btn btn-link actual-month" id="date-end" ex-month-selector="options.dateEnd"></button>
         <button class="btn btn-small btn-primary" ng-click="updateAll()">{% trans "Update" %}</button>
     </div>
 
