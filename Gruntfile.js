@@ -154,6 +154,7 @@ module.exports = function(grunt) {
 
         jshint: {
             options: {
+               '-W065': true,
                 globals: {
                     gettext: false,
                     toastr: false,

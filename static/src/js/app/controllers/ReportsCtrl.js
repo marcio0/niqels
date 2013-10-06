@@ -1,6 +1,6 @@
-'use strict';
-
 function ReportsCtrl ($scope, BalanceChart, Top10) {
+    'use strict';
+
     $scope.options = {};
 
     function getParams () {
@@ -8,7 +8,7 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
             date_start: $scope.options.dateStart.format('YYYY-MM-DD'),
             date_end: $scope.options.dateEnd.format('YYYY-MM-DD')
         };
-    };
+    }
 
     $scope.updateBalance = function () {
         var data = BalanceChart.fetchData(getParams()).then(function setupScope (result) {

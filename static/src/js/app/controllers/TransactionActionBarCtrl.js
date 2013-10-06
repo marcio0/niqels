@@ -1,6 +1,6 @@
-'use strict';
-
 function TransactionActionBarCtrl ($scope, Transaction, $rootScope) {
+    'use strict';
+
     $scope.removeTransaction = function () {
         //finish this
         Transaction.delete({id: $scope.transaction.id}).$then(function () {

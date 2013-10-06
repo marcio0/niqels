@@ -1,3 +1,5 @@
+(function () {
+'use strict';
 
 angular.module('webapp')
     .factory('calculators', function () {
@@ -19,3 +21,4 @@ angular.module('interceptor', []).
             });
         };
     }]); 
+})();

@@ -1,6 +1,6 @@
-'use strict';
-
 function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
+    'use strict';
+
     $scope.days = [];
     $rootScope.filterDate = moment();
     $scope.loading = true;

@@ -1,6 +1,6 @@
-'use strict';
-
 function CategoryListCtrl ($scope, Category, $modal, $q) {
+    'use strict';
+
     $scope.loadCategories = function loadCategories () {
         Category.query().$then(function (result) {
             var categories = result.resource;

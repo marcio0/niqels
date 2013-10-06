@@ -1,6 +1,6 @@
-'use strict';
-
 function CategoryEditCtrl ($scope) {
+    'use strict';
+
     $scope.removeCategory = function removeCategory (category) {
         category.$delete();
         this.hide();

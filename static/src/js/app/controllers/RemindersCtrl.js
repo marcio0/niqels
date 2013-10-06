@@ -1,6 +1,6 @@
-'use strict';
-
 function RemindersCtrl ($scope, $rootScope, Reminder, $filter) {
+    'use strict';
+
     $scope.reminders = [];
 
     function loadReminders () {

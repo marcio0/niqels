@@ -1,6 +1,6 @@
-'use strict';
-
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Reminder) {
+    'use strict';
+
     $scope.repeatOptions = ['daily', 'weekly', 'biweekly', 'monthly'];
 
     var resetForm = function resetForm () {

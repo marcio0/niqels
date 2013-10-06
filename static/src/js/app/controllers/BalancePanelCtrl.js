@@ -1,6 +1,6 @@
-'use strict';
-
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, BalanceChart) {
+    'use strict';
+
     $scope.updateBalance = function () {
         var reference_date, date_start, date_end;
 
