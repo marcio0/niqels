@@ -57,10 +57,10 @@ angular.module('webapp')
 
                 var update = function (value) {
                     // updates the element text and the datepicker when the month is changed outside, ex: a controller
+                    value = value.toDate();
                     setElementText(value);
                     element.data('datepicker').update(value);
                 };
-
                 scope.$watch('date', update);
 
                 var changeDate = function (ev) {
@@ -71,7 +71,7 @@ angular.module('webapp')
                     datepicker.hide();
 
                     scope.$apply(function () {
-                        scope.date = ev.date;
+                        scope.date = moment(ev.date);
                     });
                 };
 

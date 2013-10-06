@@ -2,8 +2,7 @@
 
 function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     $scope.days = [];
-    $rootScope.month = moment().month();
-    $rootScope.filterDate = new Date();
+    $rootScope.filterDate = moment();
     $scope.loading = true;
 
     var filterTransactions = function (value) {
@@ -46,18 +45,14 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
         }).always(function () {$scope.loading = false;});
     };
 
-    $scope.$watch('filterDate', function (newValue) {
-        var date = moment(newValue);
-        $rootScope.month = date.month();
-        filterTransactions(date);
-    });
+    $rootScope.$watch('filterDate', filterTransactions);
 
     $scope.moveMonth = function moveMonth (dir) {
-        $scope.filterDate = moment($scope.filterDate)[dir]('month', 1).toDate();
+        $rootScope.filterDate = $rootScope.filterDate.clone()[dir]('month', 1);
     };
 
     $rootScope.$on('transactionCreated', function (event, data) {
-        var showingMonth = $rootScope.month + 1;
+        var showingMonth = $rootScope.filterDate.month() + 1;
         var transactionMonth = parseInt(data.date.split('-')[1]);
 
         if (showingMonth !== transactionMonth) {

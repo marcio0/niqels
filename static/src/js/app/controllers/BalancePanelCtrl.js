@@ -4,7 +4,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
     $scope.updateBalance = function () {
         var reference_date, date_start, date_end;
 
-        date_end = moment().month($rootScope.month);
+        date_end = $rootScope.filterDate;
         date_start = date_end.clone().subtract(2, 'months');
 
         var params = {
@@ -29,7 +29,7 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
 
     $rootScope.$on('transactionCreated', $scope.updateBalance);
     $rootScope.$on('transactionRemoved', $scope.updateBalance);
-    $rootScope.$watch('month', $scope.updateBalance);
+    $rootScope.$watch('filterDate', $scope.updateBalance);
     $rootScope.$on('devicechanged', function (e, device) {
         if (device != 'phone') {
             $scope.updateBalance();
