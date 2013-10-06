@@ -133,7 +133,6 @@ angular.module('charts', [])
                     for (var i in result.data) {
                         var category = result.data[i];
                         var value = parseFloat(category.sum);
-                        console.log(value);
                         if (value < 0) {
                             //this chart shows only expenses
                             value = value * -1;

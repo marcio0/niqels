@@ -3,7 +3,12 @@
 <div ng-controller="ReportsCtrl">
     <h4 class="area-header">{% trans "Reports" %}</h4>
 
-    <div class="row report-options">
+    <div class="month-selector">
+        {% trans "Period" %}: 
+        <button class="btn btn-link actual-month" ex-month-selector="options.dateStart"></button>
+        /
+        <button class="btn btn-link actual-month" ex-month-selector="options.dateEnd"></button>
+        <button class="btn btn-small btn-primary" ng-click="updateAll()">{% trans "Update" %}</button>
     </div>
 
     <div class="row">
