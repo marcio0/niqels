@@ -31,13 +31,14 @@
                     <th>{% trans "Actions" %}</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="day in days | orderBy: 'day':true">
+            <tbody ng-repeat="day in days | orderBy: 'day':true" rel="(($index))">
                 <tr class="transaction-list-day">
                     <td colspan="4" ng-bind="day.day | date:'fullDate'"></td>
                 </tr>
                 <tr
                     class="transaction-row"
                     ng-repeat="transaction in day.transactions"
+                    rel="(($index))"
                     >
 
                     {% comment %}
