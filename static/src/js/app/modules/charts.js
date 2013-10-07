@@ -73,7 +73,8 @@ angular.module('charts', [])
                     type: 'column',
                     spacingLeft: 3,
                     spacingRight: 3,
-                    backgroundColor: '#e7e6e6'
+                    backgroundColor: '#e7e6e6',
+                    marginBottom: 130
                 },
                 title: {
                     text: null
@@ -98,11 +99,16 @@ angular.module('charts', [])
                                     '<p class="expenses">expenses: <b>{point.expenses_text}</b></p>' +
                                     '<p class="total">Total: <b>{point.y_text}</b></p>',
                     borderRadius: 0,
+                    borderWidth: 0,
+                    shadow: false,
                     shared: true,
                     animation: false,
+                    backgroundColor: 'rgba(255, 255, 255, 0.25)',
                     useHTML: true,
-                    positioner: function (tooltipWidth, tooltipHeight) {
-                        return {x: 0, y: 0};
+                    positioner: function (tooltipWidth, tooltipHeight, point) {
+                        var y = this.chart.chartHeight - tooltipHeight;
+                        var x = (this.chart.chartWidth - tooltipWidth) / 2;
+                        return {x: x, y: y};
                     }
                 },
                 plotOptions: {
