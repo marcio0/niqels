@@ -10,7 +10,7 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
         };
     }
 
-    $scope.updateBalance = function () {
+    function updateBalance () {
         var data = BalanceChart.fetchData(getParams()).then(function setupScope (result) {
             result.options.chart.backgroundColor = '#f5f5f5';
             return result;
@@ -19,7 +19,7 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
         $scope.balanceData = data;
     };
 
-    $scope.updateTop10 = function () {
+    function updateTop10 () {
 
         var data = Top10.fetchData(getParams()).then(function (result) {
             result.options.chart.backgroundColor = '#f5f5f5';
@@ -35,8 +35,16 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
     $scope.options.dateEnd = today;
 
     $scope.updateAll = function updateAll () {
-        $scope.updateBalance();
-        $scope.updateTop10();
+        var dateStart = $scope.options.dateStart;
+        var dateEnd = $scope.options.dateEnd;
+
+        if (dateEnd.diff(dateStart, 'months') > 12) {
+            toastr.warning(gettext('The period must be 12 months or lower.'));
+            return;
+        }
+
+        updateBalance();
+        updateTop10();
     };
     $scope.updateAll();
 }

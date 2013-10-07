@@ -15,7 +15,31 @@ describe('reports section', function () {
             expect(element('div#reports button#date-end').text()).toBe(end);
         });
 
+        it('the maximun period allowed is 12 months', function () {
+            // seleting the first datepicker
+            element('div.month-selector button#date-start').click();
+
+            // checking if the month menu is visible
+            expect(element('div.datepicker .datepicker-months').attr('style')).toBe('display: block;');
+
+            element('div.datepicker .datepicker-months tbody td span').query(function (elements, done) {
+                elements[0].click();
+                done();
+            });
+
+            // selecting the second datepicker
+            element('div.month-selector button#date-end').click();
+            element('div.datepicker .datepicker-months tbody td span').query(function (elements, done) {
+                elements[1].click();
+                done();
+            });
+
+            element('div.month-selector button.btn-primary').click();
+            expect(element('.toast.toast-warning').count()).toBe(1);
+        });
+
         it('should filter by the selected period', function () {
+            
         });
     });
 });
