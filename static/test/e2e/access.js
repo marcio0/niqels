@@ -34,7 +34,7 @@ describe('access', function() {
             element(form + 'input[name="password2"]').val('password');
             element(form + 'button[type="submit"]').click();
 
-            expect(waitFor('div[role="transactions"]').count()).toBeTruthy();
+            expect(waitFor('form.transaction-form').count()).toBeTruthy();
             expect(browser().window().hash()).toBe('/transactions');
         });
     });
@@ -55,7 +55,7 @@ describe('access', function() {
             element(form + 'input[name="password"]').val('password');
             element(form + 'button.btn-primary').click();
 
-            expect(waitFor('div[role="transactions"]').count()).toBeTruthy();
+            expect(waitFor('form.transaction-form').count()).toBeTruthy();
             expect(browser().window().hash()).toBe('/transactions');
         });
 
@@ -66,6 +66,25 @@ describe('access', function() {
             element('div.navbar .dropdown[name="user-menu"] > .dropdown-menu a[name="logout"]').click();
 
             expect(browser().window().path()).toBe('/');
+        });
+    });
+
+    describe('password reset', function () {
+        it('the user should be able to reset the password', function () {
+            browser().navigateTo('/test_login?email=existing@test.com');
+
+            element('div.navbar ul.nav > li[name="user-menu"] > a.dropdown-toggle').click();
+            expect(element('div.navbar ul.nav > li[name="user-menu"].open').count()).toBe(1);
+            element('div.navbar ul.nav > li[name="user-menu"] ul.dropdown-menu li > a[name="change-password"]').click();
+
+            var form = 'div.change-password-panel ';
+            expect(waitFor(form).count()).toBeTruthy();
+            element(form + 'input#id_old_password').val('password');
+            element(form + 'input#id_new_password1').val('new password');
+            element(form + 'input#id_new_password2').val('new password');
+            element(form + 'button.btn-primary').click();
+
+            //todo: implementar mensagem de troca de senha
         });
     });
 });
