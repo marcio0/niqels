@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 
 from tastypie.test import ResourceTestCase
 
@@ -296,3 +297,91 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertHttpAccepted(self.api_client.delete(self.detail_url, format='json', authentication=self.get_credentials()))
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
+
+class GroupedTransactionResourceTest(ResourceTestCase):
+    fixtures = ['GroupedTransactionResourceTest']
+
+    def setUp(self):
+        super(GroupedTransactionResourceTest, self).setUp()
+
+        # Create a user.
+        self.email = 'user@example.com'
+        self.password = 'password'
+        self.user = User.objects.create_user(self.email, self.password)
+
+        self.transaction = Transaction.objects.get(pk=1)
+
+    def get_credentials(self):
+        '''
+        Get the credentials for basic http authentication.
+        '''
+        return self.create_basic(username=self.email, password=self.password)
+
+    # General tests.
+    def test_basic_auth_ok(self):
+        '''
+        Testing auth with basic HTTP authentication.
+        '''
+        resp = self.api_client.get('/api/v1/transaction/?group_by=category__name', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+    def test_session_auth_ok(self):
+        '''
+        Testing auth with django's session authentication.
+        User is alread logged in, so there's no need for auth data on requisition.
+        '''
+        self.assertTrue(self.api_client.client.login(email=self.email, password=self.password))
+        resp = self.api_client.get('/api/v1/transaction/?group_by=category__name', format='json')
+        self.assertValidJSONResponse(resp)
+
+    def test_group_by_category_name(self):
+        resp = self.api_client.get('/api/v1/transaction/?group_by=category__name', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        # Here, we're checking an entire structure for the expected data.
+        self.assertEqual(self.deserialize(resp), [
+            {'category__name': u'group1', 'sum': '-120.00', 'total': 3},
+            {'category__name': u'group2', 'sum': '260.00', 'total': 5},
+            {'category__name': u'group3', 'sum': '330.00', 'total': 5},
+            {'category__name': u'group4', 'sum': '-50.00', 'total': 5}])
+
+    def test_group_by_date_month(self):
+        resp = self.api_client.get('/api/v1/transaction/?group_by=date__month', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        # Here, we're checking an entire structure for the expected data.
+        self.assertEqual(self.deserialize(resp), [
+            {'sum': '150.00', 'total': 6, 'date__month': u'2010-01-01 00:00:00'},
+            {'sum': '120.00', 'total': 6, 'date__month': u'2010-02-01 00:00:00'},
+            {'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01 00:00:00'}
+        ])
+
+    def test_group_by_date_day(self):
+        resp = self.api_client.get('/api/v1/transaction/?group_by=date__day', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        # Here, we're checking an entire structure for the expected data.
+        self.assertEqual(self.deserialize(resp), [
+            {'date__day': u'2010-01-01 00:00:00', 'sum': '-100.00', 'total': 1},
+            {'date__day': u'2010-01-02 00:00:00', 'sum': '-100.00', 'total': 1},
+            {'date__day': u'2010-01-03 00:00:00', 'sum': '-100.00', 'total': 1},
+            {'date__day': u'2010-01-04 00:00:00', 'sum': '150.00', 'total': 1},
+            {'date__day': u'2010-01-11 00:00:00', 'sum': '150.00', 'total': 1},
+            {'date__day': u'2010-01-15 00:00:00', 'sum': '150.00', 'total': 1},
+            {'date__day': u'2010-02-01 00:00:00', 'sum': '40.00', 'total': 2},
+            {'date__day': u'2010-02-02 00:00:00', 'sum': '-120.00', 'total': 1},
+            {'date__day': u'2010-02-03 00:00:00', 'sum': '-120.00', 'total': 1},
+            {'date__day': u'2010-02-11 00:00:00', 'sum': '160.00', 'total': 1},
+            {'date__day': u'2010-02-15 00:00:00', 'sum': '160.00', 'total': 1},
+            {'date__day': u'2010-03-02 00:00:00', 'sum': '50.00', 'total': 2},
+            {'date__day': u'2010-03-11 00:00:00', 'sum': '50.00', 'total': 2},
+            {'date__day': u'2010-03-15 00:00:00', 'sum': '50.00', 'total': 2}
+        ])
+
+    def test_group_by_date_year(self):
+        resp = self.api_client.get('/api/v1/transaction/?group_by=date__year', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        # Here, we're checking an entire structure for the expected data.
+        self.assertEqual(self.deserialize(resp),
+            [{'sum': '420.00', 'total': 18, 'date__year': u'2010-01-01 00:00:00'}])

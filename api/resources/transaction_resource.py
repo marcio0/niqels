@@ -1,6 +1,6 @@
 from django import forms
 from tastypie.constants import ALL
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, Resource
 from tastypie.validation import FormValidation
 from tastypie import fields
 from tastypie import http
@@ -9,6 +9,8 @@ from tastypie.authorization import Authorization
 from tastypie.exceptions import BadRequest
 from django.conf.urls import url
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.db.models import Count, Sum
+from django.db import connections
 
 from expenses.models import Transaction, Category
 from api.authorization import UserObjectsOnlyAuthorization
@@ -51,6 +53,11 @@ class TransactionResource(ModelResource):
             'date': ALL
         }
 
+    def dispatch_list(self, request, **kwargs):
+        if hasattr(request, 'GET') and request.GET.get('group_by'):
+            return GroupedTransactionResource().dispatch_list(request, **kwargs)
+        return super(TransactionResource, self).dispatch_list(request, **kwargs)
+
     def obj_create(self, bundle, **kwargs):
         return super(TransactionResource, self).obj_create(bundle, user=bundle.request.user)
 
@@ -64,3 +71,40 @@ class TransactionResource(ModelResource):
             bundle.data['value'] = parse_decimal(str(value), locale=bundle.request.locale)
 
         return bundle
+
+class GroupedTransactionResource(Resource):
+    class Meta:
+        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
+        list_allowed_methods = ['get']
+        detail_allowed_methods = []
+        filtering = {
+            'date': ALL
+        }
+
+    def get_list(self, request, **kwargs):
+        groups = request.GET.get('group_by')
+
+        user = request.user
+
+        if isinstance(groups, unicode):
+            groups = [groups]
+
+        values = []
+
+        qs = Transaction.objects.all()
+
+        for group in groups:
+            if group.startswith('date'):
+                try:
+                    attr = group.split('__')[1]
+                except:
+                    attr = 'month'
+
+                truncate_date = connections[Transaction.objects.db].ops.date_trunc_sql(attr, 'date')
+                qs = qs.extra({group: truncate_date})
+
+            values.append(group)
+
+        qs = qs.values(*values).annotate(total=Count('pk'), sum=Sum('value')).order_by(*values)
+
+        return self.create_response(request, list(qs))

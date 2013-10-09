@@ -1,0 +1,235 @@
+########
+# USER #
+########
+
+-   model: access.user
+    pk: 1
+    fields:
+        email: user1@expenses.com
+        password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
+        date_joined: "2010-02-02 00:00:00-03:00"
+
+
+##################
+# CATEGORY GROUP #
+##################
+
+-   model: expenses.categorygroup
+    pk: 1
+    fields:
+        name: group
+
+
+############
+# CATEGORY #
+############
+
+-   model: expenses.category
+    pk: 1
+    fields:
+        name: group1
+        group: ['group']
+
+-   model: expenses.category
+    pk: 2
+    fields:
+        name: group2
+        group: ['group']
+
+-   model: expenses.category
+    pk: 3
+    fields:
+        name: group3
+        group: ['group']
+
+-   model: expenses.category
+    pk: 4
+    fields:
+        name: group4
+        group: ['group']
+
+
+###################
+# CATEGORY CONFIG #
+###################
+-   model: expenses.categoryconfig
+    pk: 1
+    fields:
+        user: 1
+        category: 1
+
+-   model: expenses.categoryconfig
+    pk: 2
+    fields:
+        user: 1
+        category: 2
+
+
+###############
+# Transaction #
+###############
+
+# January
+-   model: expenses.Transaction
+    pk: 1
+    fields:
+        user: 1
+        category: 2
+        date: 2010-01-01
+        value: -100
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 2
+    fields:
+        user: 1
+        category: 3
+        date: 2010-01-02
+        value: -100
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 3
+    fields:
+        user: 1
+        category: 4
+        date: 2010-01-03
+        value: -100
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 4
+    fields:
+        user: 1
+        category: 1
+        date: 2010-01-04
+        value: 150
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 5
+    fields:
+        user: 1
+        category: 3
+        date: 2010-01-11
+        value: 150
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 6
+    fields:
+        user: 1
+        category: 2
+        date: 2010-01-15
+        value: 150
+        created: "2010-01-01 00:00:00-03:00"
+
+# February
+-   model: expenses.Transaction
+    pk: 7
+    fields:
+        user: 1
+        category: 4
+        date: 2010-02-01
+        value: -120
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 8
+    fields:
+        user: 1
+        category: 3
+        date: 2010-02-02
+        value: -120
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 9
+    fields:
+        user: 1
+        category: 1
+        date: 2010-02-03
+        value: -120
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 10
+    fields:
+        user: 1
+        category: 4
+        date: 2010-02-11
+        value: 160
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 11
+    fields:
+        user: 1
+        category: 4
+        date: 2010-02-15
+        value: 160
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 12
+    fields:
+        user: 1
+        category: 2
+        date: 2010-02-01
+        value: 160
+        created: "2010-01-01 00:00:00-03:00"
+
+# March
+-   model: expenses.Transaction
+    pk: 13
+    fields:
+        user: 1
+        category: 4
+        date: 2010-03-02
+        value: -150
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 14
+    fields:
+        user: 1
+        category: 2
+        date: 2010-03-11
+        value: -150
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 15
+    fields:
+        user: 1
+        category: 1
+        date: 2010-03-15
+        value: -150
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 16
+    fields:
+        user: 1
+        category: 3
+        date: 2010-03-02
+        value: 200
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 17
+    fields:
+        user: 1
+        category: 2
+        date: 2010-03-11
+        value: 200
+        created: "2010-01-01 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 18
+    fields:
+        user: 1
+        category: 3
+        date: 2010-03-15
+        value: 200
+        created: "2010-01-01 00:00:00-03:00"
