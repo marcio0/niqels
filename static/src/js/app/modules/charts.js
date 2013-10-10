@@ -124,13 +124,18 @@ angular.module('charts', [])
     /*
      * Top 10 Categories chart
      */
-    .factory('Top10', ['$http', '$filter', '$q', function ($http, $filter, $q) {
+    .factory('Top10', ['$http', '$filter', '$q', 'Transaction', function ($http, $filter, $q, Transaction) {
         return {
             fetchData: function (params) {
                 var me = this,
                     deferred = $q.defer();
 
-                $http.get('/api/v1/data/top10categories', {params: params}).then(function (result) {
+                params = params || {};
+                params.group_by = ['category__name']
+                params.date__gte = params.date_start
+                params.date__lte = params.date_end
+
+                Transaction.query(params).$then(function (result) {
                     var options = {},
                         series = [];
 
@@ -142,7 +147,7 @@ angular.module('charts', [])
                         if (value < 0) {
                             //this chart shows only expenses
                             value = value * -1;
-                            series.push([category.name, value]);
+                            series.push([category.category__name, value]);
                         }
                     }
 
