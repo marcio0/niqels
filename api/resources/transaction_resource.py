@@ -72,7 +72,7 @@ class TransactionResource(ModelResource):
 
         return bundle
 
-class GroupedTransactionResource(Resource):
+class GroupedTransactionResource(ModelResource):
     class Meta:
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         list_allowed_methods = ['get']
@@ -80,31 +80,49 @@ class GroupedTransactionResource(Resource):
         filtering = {
             'date': ALL
         }
+        grouping = [
+            'category__name',
+            'date__month',
+            'date__day',
+            'date__year'
+        ]
+        queryset = Transaction.objects.all()
+        limit = 100
+        annotations = {
+            'total': Count('pk'),
+            'sum': Sum('value')
+        }
 
     def get_list(self, request, **kwargs):
         groups = request.GET.get('group_by')
 
-        user = request.user
+        base_bundle = self.build_bundle(request=request)
+        objects = self.obj_get_list(bundle=base_bundle, **self.remove_api_resource_names(kwargs))
+        objects = objects.filter(user=request.user)
 
         if isinstance(groups, unicode):
-            groups = [groups]
+            groups = groups.split(',')
 
         values = []
 
-        qs = Transaction.objects.all()
-
         for group in groups:
-            if group.startswith('date'):
-                try:
-                    attr = group.split('__')[1]
-                except:
-                    attr = 'month'
+            if group not in self._meta.grouping:
+                raise BadRequest(_("This resource does not allow grouping by %s.") % group)
 
-                truncate_date = connections[Transaction.objects.db].ops.date_trunc_sql(attr, 'date')
-                qs = qs.extra({group: truncate_date})
+            if group.startswith('date'):
+                attr = group.split('__')[1]
+
+                truncate_date = connections[objects.model.objects.db].ops.date_trunc_sql(attr, 'date')
+                objects = objects.extra({group: truncate_date})
 
             values.append(group)
 
-        qs = qs.values(*values).annotate(total=Count('pk'), sum=Sum('value')).order_by(*values)
+        objects = objects.values(*values).annotate(**self._meta.annotations).order_by(*values)
 
-        return self.create_response(request, list(qs))
+        sorted_objects = self.apply_sorting(objects, options=request.GET)
+        paginator = self._meta.paginator_class(request.GET, sorted_objects, resource_uri=self.get_resource_uri(), limit=self._meta.limit, max_limit=self._meta.max_limit, collection_name=self._meta.collection_name)
+        to_be_serialized = paginator.page()
+
+        to_be_serialized[self._meta.collection_name] = list(objects)
+
+        return self.create_response(request, to_be_serialized)

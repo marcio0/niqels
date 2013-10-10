@@ -298,6 +298,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 1)
 
+
 class GroupedTransactionResourceTest(ResourceTestCase):
     fixtures = ['GroupedTransactionResourceTest']
 
@@ -305,11 +306,8 @@ class GroupedTransactionResourceTest(ResourceTestCase):
         super(GroupedTransactionResourceTest, self).setUp()
 
         # Create a user.
-        self.email = 'user@example.com'
+        self.email = 'user1@expenses.com'
         self.password = 'password'
-        self.user = User.objects.create_user(self.email, self.password)
-
-        self.transaction = Transaction.objects.get(pk=1)
 
     def get_credentials(self):
         '''
@@ -338,50 +336,130 @@ class GroupedTransactionResourceTest(ResourceTestCase):
         resp = self.api_client.get('/api/v1/transaction/?group_by=category__name', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
-        # Here, we're checking an entire structure for the expected data.
-        self.assertEqual(self.deserialize(resp), [
-            {'category__name': u'group1', 'sum': '-120.00', 'total': 3},
-            {'category__name': u'group2', 'sum': '260.00', 'total': 5},
-            {'category__name': u'group3', 'sum': '330.00', 'total': 5},
-            {'category__name': u'group4', 'sum': '-50.00', 'total': 5}])
+        self.assertEqual(self.deserialize(resp), {
+            'meta': {
+                'limit': 100,
+                'next': None,
+                'previous': None,
+                'offset': 0,
+                'total_count': 4
+            },
+            'objects': [
+                {'category__name': u'group1', 'sum': '-120.00', 'total': 3},
+                {'category__name': u'group2', 'sum': '260.00', 'total': 5},
+                {'category__name': u'group3', 'sum': '330.00', 'total': 5},
+                {'category__name': u'group4', 'sum': '-50.00', 'total': 5}
+            ]
+        })
 
     def test_group_by_date_month(self):
         resp = self.api_client.get('/api/v1/transaction/?group_by=date__month', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
-        # Here, we're checking an entire structure for the expected data.
-        self.assertEqual(self.deserialize(resp), [
-            {'sum': '150.00', 'total': 6, 'date__month': u'2010-01-01 00:00:00'},
-            {'sum': '120.00', 'total': 6, 'date__month': u'2010-02-01 00:00:00'},
-            {'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01 00:00:00'}
-        ])
+        self.assertEqual(self.deserialize(resp), {
+            'meta': {
+                'limit': 100,
+                'next': None,
+                'previous': None,
+                'offset': 0,
+                'total_count': 3
+            },
+            'objects': [
+                {'sum': '150.00', 'total': 6, 'date__month': u'2010-01-01 00:00:00'},
+                {'sum': '120.00', 'total': 6, 'date__month': u'2010-02-01 00:00:00'},
+                {'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01 00:00:00'}
+            ]
+        })
 
     def test_group_by_date_day(self):
         resp = self.api_client.get('/api/v1/transaction/?group_by=date__day', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
-        # Here, we're checking an entire structure for the expected data.
-        self.assertEqual(self.deserialize(resp), [
-            {'date__day': u'2010-01-01 00:00:00', 'sum': '-100.00', 'total': 1},
-            {'date__day': u'2010-01-02 00:00:00', 'sum': '-100.00', 'total': 1},
-            {'date__day': u'2010-01-03 00:00:00', 'sum': '-100.00', 'total': 1},
-            {'date__day': u'2010-01-04 00:00:00', 'sum': '150.00', 'total': 1},
-            {'date__day': u'2010-01-11 00:00:00', 'sum': '150.00', 'total': 1},
-            {'date__day': u'2010-01-15 00:00:00', 'sum': '150.00', 'total': 1},
-            {'date__day': u'2010-02-01 00:00:00', 'sum': '40.00', 'total': 2},
-            {'date__day': u'2010-02-02 00:00:00', 'sum': '-120.00', 'total': 1},
-            {'date__day': u'2010-02-03 00:00:00', 'sum': '-120.00', 'total': 1},
-            {'date__day': u'2010-02-11 00:00:00', 'sum': '160.00', 'total': 1},
-            {'date__day': u'2010-02-15 00:00:00', 'sum': '160.00', 'total': 1},
-            {'date__day': u'2010-03-02 00:00:00', 'sum': '50.00', 'total': 2},
-            {'date__day': u'2010-03-11 00:00:00', 'sum': '50.00', 'total': 2},
-            {'date__day': u'2010-03-15 00:00:00', 'sum': '50.00', 'total': 2}
-        ])
+        self.assertEqual(self.deserialize(resp), {
+            'meta': {
+                'limit': 100,
+                'next': None,
+                'previous': None,
+                'offset': 0,
+                'total_count': 14
+            },
+            'objects': [
+                {'date__day': u'2010-01-01 00:00:00', 'sum': '-100.00', 'total': 1},
+                {'date__day': u'2010-01-02 00:00:00', 'sum': '-100.00', 'total': 1},
+                {'date__day': u'2010-01-03 00:00:00', 'sum': '-100.00', 'total': 1},
+                {'date__day': u'2010-01-04 00:00:00', 'sum': '150.00', 'total': 1},
+                {'date__day': u'2010-01-11 00:00:00', 'sum': '150.00', 'total': 1},
+                {'date__day': u'2010-01-15 00:00:00', 'sum': '150.00', 'total': 1},
+                {'date__day': u'2010-02-01 00:00:00', 'sum': '40.00', 'total': 2},
+                {'date__day': u'2010-02-02 00:00:00', 'sum': '-120.00', 'total': 1},
+                {'date__day': u'2010-02-03 00:00:00', 'sum': '-120.00', 'total': 1},
+                {'date__day': u'2010-02-11 00:00:00', 'sum': '160.00', 'total': 1},
+                {'date__day': u'2010-02-15 00:00:00', 'sum': '160.00', 'total': 1},
+                {'date__day': u'2010-03-02 00:00:00', 'sum': '50.00', 'total': 2},
+                {'date__day': u'2010-03-11 00:00:00', 'sum': '50.00', 'total': 2},
+                {'date__day': u'2010-03-15 00:00:00', 'sum': '50.00', 'total': 2}
+            ]
+        })
 
     def test_group_by_date_year(self):
+        self.maxDiff = None
         resp = self.api_client.get('/api/v1/transaction/?group_by=date__year', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
-        # Here, we're checking an entire structure for the expected data.
-        self.assertEqual(self.deserialize(resp),
-            [{'sum': '420.00', 'total': 18, 'date__year': u'2010-01-01 00:00:00'}])
+        self.assertEqual(self.deserialize(resp), {
+            'meta': {
+                'limit': 100,
+                'next': None,
+                'previous': None,
+                'offset': 0,
+                'total_count': 1
+            },
+            'objects': [{'sum': '420.00', 'total': 18, 'date__year': u'2010-01-01 00:00:00'}]
+        })
+
+    def test_two_groups(self):
+        resp = self.api_client.get('/api/v1/transaction/?group_by=date__month,category__name', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        self.assertEqual(self.deserialize(resp), {
+            'meta': {
+                'limit': 100,
+                'next': None,
+                'previous': None,
+                'offset': 0,
+                'total_count': 12
+            },
+            'objects': [
+                {'category__name': u'group1', 'sum': '150.00', 'total': 1, 'date__month': u'2010-01-01 00:00:00'},
+                {'category__name': u'group2', 'sum': '50.00', 'total': 2, 'date__month': u'2010-01-01 00:00:00'},
+                {'category__name': u'group3', 'sum': '50.00', 'total': 2, 'date__month': u'2010-01-01 00:00:00'},
+                {'category__name': u'group4', 'sum': '-100.00', 'total': 1, 'date__month': u'2010-01-01 00:00:00'},
+                {'category__name': u'group1', 'sum': '-120.00', 'total': 1, 'date__month': u'2010-02-01 00:00:00'},
+                {'category__name': u'group2', 'sum': '160.00', 'total': 1, 'date__month': u'2010-02-01 00:00:00'},
+                {'category__name': u'group3', 'sum': '-120.00', 'total': 1, 'date__month': u'2010-02-01 00:00:00'},
+                {'category__name': u'group4', 'sum': '200.00', 'total': 3, 'date__month': u'2010-02-01 00:00:00'},
+                {'category__name': u'group1', 'sum': '-150.00', 'total': 1, 'date__month': u'2010-03-01 00:00:00'},
+                {'category__name': u'group2', 'sum': '50.00', 'total': 2, 'date__month': u'2010-03-01 00:00:00'},
+                {'category__name': u'group3', 'sum': '400.00', 'total': 2, 'date__month': u'2010-03-01 00:00:00'},
+                {'category__name': u'group4', 'sum': '-150.00', 'total': 1, 'date__month': u'2010-03-01 00:00:00'}
+            ]
+        })
+
+    def test_grouping_not_allowed(self):
+        resp = self.api_client.get('/api/v1/transaction/?group_by=category__group__name', format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+    def test_aditional_filters(self):
+        resp = self.api_client.get('/api/v1/transaction/?group_by=date__month&date__gte=2010-03-01', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        self.assertEqual(self.deserialize(resp), {
+            'meta': {
+                'limit': 100,
+                'next': None,
+                'previous': None,
+                'offset': 0,
+                'total_count': 1
+            },
+            'objects': [{'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01 00:00:00'}]
+        })

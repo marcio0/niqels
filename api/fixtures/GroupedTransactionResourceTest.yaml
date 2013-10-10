@@ -6,6 +6,13 @@
     pk: 1
     fields:
         email: user1@expenses.com
+        password: pbkdf2_sha256$10000$kxCCCpLUaVH5$l3NCdR6GrKu1lSHyYg8d1sI4v1xqQfzVKQsjQbrNf0E=
+        date_joined: "2010-02-02 00:00:00-03:00"
+
+-   model: access.user
+    pk: 2
+    fields:
+        email: user2@expenses.com
         password: pbkdf2_sha256$10000$exbEFO2A8SBp$qwvZv5jc5a4nvzM5KlKwf2q/ii5PYCgUStrExqYz6eQ=
         date_joined: "2010-02-02 00:00:00-03:00"
 
@@ -64,12 +71,27 @@
         user: 1
         category: 2
 
+-   model: expenses.categoryconfig
+    pk: 3
+    fields:
+        user: 2
+        category: 2
+
 
 ###############
 # Transaction #
 ###############
 
 # January
+-   model: expenses.Transaction
+    pk: 19
+    fields:
+        user: 2
+        category: 2
+        date: 2010-01-01
+        value: -10000
+        created: "2010-01-01 00:00:00-03:00"
+
 -   model: expenses.Transaction
     pk: 1
     fields:
