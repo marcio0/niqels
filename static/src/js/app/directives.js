@@ -82,7 +82,7 @@ angular.module('webapp')
                     startView: 1,
                     minViewMode: 1,
                     todayBtn: "linked",
-                    todayHighlight: true,
+                    todayHighlight: true
                 }).on('changeDate', changeDate);
             }
         };
