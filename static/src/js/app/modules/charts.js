@@ -124,7 +124,7 @@ angular.module('charts', [])
     /*
      * Top 10 Categories chart
      */
-    .factory('Top10', ['$http', '$filter', '$q', 'Transaction', function ($http, $filter, $q, Transaction) {
+    .factory('Top10', ['$q', 'Transaction', function ($q, Transaction) {
         return {
             fetchData: function (params) {
                 var me = this,
@@ -185,6 +185,99 @@ angular.module('charts', [])
                         showInLegend: false
                     }
                 }
+            }
+        };
+    }])
+
+
+    /*
+     * Category Comparison
+     */
+    .factory('CategoryComparison', ['$q', 'Transaction', function ($q, Transaction) {
+        return {
+            fetchData: function (params) {
+                var me = this,
+                    deferred = $q.defer();
+
+                params = params || {};
+                params.group_by = ['category__name']
+                params.date__gte = params.date_start
+                params.date__lte = params.date_end
+
+                Transaction.query(params).$then(function (result) {
+                    var options = {},
+                        series = [];
+
+                    $.extend(true, options, me.chartOptions);
+
+                    for (var i in result.data) {
+                        var category = result.data[i];
+                        var value = parseFloat(category.sum);
+                        if (value < 0) {
+                            //this chart shows only expenses
+                            value = value * -1;
+                            series.push([category.category__name, value]);
+                        }
+                    }
+
+                    //options.series = [{data: series}];
+
+                    deferred.resolve({options: options, result: result});
+                }, 
+                function failure (result) {
+                    deferred.reject(result);
+                });
+
+                return deferred.promise;
+            },
+            chartOptions: {
+                chart: {
+                    type: 'area'
+                },
+                title: {
+                    text: 'Comparação'
+                },
+                xAxis: {
+                    categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    tickmarkPlacement: 'on',
+                    title: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Valor'
+                    },
+                    labels: {
+                        formatter: function() {
+                            return this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    formatter: function () {
+                        var t = '';
+                        for (var i=0; i<this.points.length; i++) {
+                            var point = this.points[i];
+                            t += '<p><strong>' + point.series.name + '</strong>' + point.y + '</p>';
+                        }
+                        return t;
+                    }
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineWidth: 1
+                    }
+                },
+                series: [{
+                    name: 'Total',
+                    data: [1200, 1330, 1210, 1100, 1150, 1350]
+                }, {
+                    name: 'Mercado',
+                    data: [130, 153, 134, 195, 150, 140]
+                }]
             }
         };
     }])

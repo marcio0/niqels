@@ -1,4 +1,4 @@
-function ReportsCtrl ($scope, BalanceChart, Top10) {
+function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
     'use strict';
 
     $scope.options = {};
@@ -29,6 +29,16 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
         $scope.top10Data = data;
     };
 
+    function updateCategoryComparison() {
+
+        var data = CategoryComparison.fetchData(getParams()).then(function (result) {
+            result.options.chart.backgroundColor = '#f5f5f5';
+            return result;
+        });
+
+        $scope.categoryComparisonData = data;
+    };
+
     var today = moment();
 
     $scope.options.dateStart = today.clone().subtract(12, 'months');
@@ -45,8 +55,9 @@ function ReportsCtrl ($scope, BalanceChart, Top10) {
 
         updateBalance();
         updateTop10();
+        updateCategoryComparison();
     };
     $scope.updateAll();
 }
 
-ReportsCtrl.$inject = ['$scope', 'BalanceChart', 'Top10'];
+ReportsCtrl.$inject = ['$scope', 'BalanceChart', 'Top10', 'CategoryComparison'];
