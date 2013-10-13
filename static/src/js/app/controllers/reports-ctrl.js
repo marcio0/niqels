@@ -1,7 +1,36 @@
-function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
+function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryComparison, Category) {
     'use strict';
 
     $scope.options = {};
+
+    function createAdditionalCategories (categories) {
+        var renevuesCategory = {
+            name: gettext('Renevues'),
+            sum: 0,
+            group: gettext('Balance data')
+        };
+        var expensesCategory = {
+            name: gettext('Expenses'),
+            sum: 0,
+            group: gettext('Balance data')
+        };
+        for (var i in categories) {
+            var category = $scope.categories[i];
+
+            //removing previous "balance data" items
+            if (category.group == gettext('Balance data')) {
+                categories.splice(i, 1);
+            }
+
+            if (category.sum > 0) {
+                renevuesCategory.sum += category.sum;
+            }
+            else {
+                expensesCategory.sum += category.sum;
+            }
+        }
+        categories.push(renevuesCategory, expensesCategory);
+    };
 
     function getParams () {
         return {
@@ -33,8 +62,15 @@ function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
 
         var data = CategoryComparison.fetchData(getParams()).then(function (result) {
             result.options.chart.backgroundColor = '#f5f5f5';
+
+
+            Category.query().$then(function (result) {
+                $scope.categories = result.resource;
+                createAdditionalCategories($scope.categories);
+            });
             return result;
         });
+
 
         $scope.categoryComparisonData = data;
     }
@@ -60,4 +96,4 @@ function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
     $scope.updateAll();
 }
 
-ReportsCtrl.$inject = ['$scope', 'BalanceChart', 'Top10', 'CategoryComparison'];
+ReportsCtrl.$inject = ['$scope', '$rootScope', 'BalanceChart', 'Top10', 'CategoryComparison', 'Category'];

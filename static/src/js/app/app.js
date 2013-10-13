@@ -58,7 +58,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
     }])
 
     // configuring global vars and scope
-    .run(['$rootScope', '$state', '$window', function ($rootScope, $state, $window) {
+    .run(['$rootScope', '$state', '$window', 'Category', function ($rootScope, $state, $window, Category) {
         $rootScope.gettext = function ngGettext (string) {
             return gettext(string);
         };
@@ -66,6 +66,10 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
         $rootScope.interpolate = function ngInterpolate (fmt, obj, named) {
             return interpolate(fmt, obj, named);
         };
+
+        Category.query().$then(function (result) {
+            $rootScope.categories = result.resource;
+        });
 
         $rootScope.$state = $state;
 

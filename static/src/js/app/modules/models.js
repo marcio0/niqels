@@ -109,39 +109,6 @@ angular.module('models', ['ngResource'])
             update: {method: 'PUT'}
         });
 
-        $rootScope.$on('categoryUpdated', function (e, category, opts) {
-            opts = opts || {};
-            if (opts && !opts.silent) {
-                toastr.notifyUpdateSuccess(gettext('Category'));
-            }
-            cache.remove('/api/v1/category?limit=100');
-        });
-
-        $rootScope.$on('categoryCreated', function (e, category, opts) {
-            opts = opts || {};
-            if (opts && !opts.silent) {
-                toastr.notifyCreationSuccess(gettext('Category'));
-            }
-            cache.remove('/api/v1/category?limit=100');
-        });
-
-        $rootScope.$on('categoryRemoved', function (e, category, opts) {
-            opts = opts || {};
-            if (opts && !opts.silent) {
-                toastr.notifyRemovalSuccess(gettext('Category'));
-            }
-            cache.remove('/api/v1/category?limit=100');
-        });
-
-        $rootScope.$on('transactionCreated', function (e, transaction) {
-            var cache = $cacheFactory.get('Category'),
-                cache_result = cache.get('/api/v1/category?limit=100'),
-                id = transaction.category.id;
-
-            if (cache_result.indexOf('"id": %d,'.replace('%d', id)) == -1) {
-            }
-        });
-
         return Category;
     }]);
 })();
