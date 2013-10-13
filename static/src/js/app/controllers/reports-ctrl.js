@@ -5,8 +5,8 @@ function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
 
     function getParams () {
         return {
-            date_start: $scope.options.dateStart.format('YYYY-MM-DD'),
-            date_end: $scope.options.dateEnd.format('YYYY-MM-DD')
+            date_start: $scope.options.dateStart.startOf('month').format('YYYY-MM-DD'),
+            date_end: $scope.options.dateEnd.endOf('month').format('YYYY-MM-DD')
         };
     }
 
@@ -17,7 +17,7 @@ function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
         });
 
         $scope.balanceData = data;
-    };
+    }
 
     function updateTop10 () {
 
@@ -27,7 +27,7 @@ function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
         });
 
         $scope.top10Data = data;
-    };
+    }
 
     function updateCategoryComparison() {
 
@@ -37,7 +37,7 @@ function ReportsCtrl ($scope, BalanceChart, Top10, CategoryComparison) {
         });
 
         $scope.categoryComparisonData = data;
-    };
+    }
 
     var today = moment();
 

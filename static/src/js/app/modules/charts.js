@@ -124,16 +124,16 @@ angular.module('charts', [])
     /*
      * Top 10 Categories chart
      */
-    .factory('Top10', ['$q', 'Transaction', function ($q, Transaction) {
+    .factory('Top10', ['$q', '$filter', 'Transaction', function ($q, $filter, Transaction) {
         return {
             fetchData: function (params) {
                 var me = this,
                     deferred = $q.defer();
 
                 params = params || {};
-                params.group_by = ['category__name']
-                params.date__gte = params.date_start
-                params.date__lte = params.date_end
+                params.group_by = ['category__name'];
+                params.date__gte = params.date_start;
+                params.date__lte = params.date_end;
 
                 Transaction.query(params).$then(function (result) {
                     var options = {},
@@ -200,9 +200,9 @@ angular.module('charts', [])
                     deferred = $q.defer();
 
                 params = params || {};
-                params.group_by = ['category__name']
-                params.date__gte = params.date_start
-                params.date__lte = params.date_end
+                params.group_by = ['category__name'];
+                params.date__gte = params.date_start;
+                params.date__lte = params.date_end;
 
                 Transaction.query(params).$then(function (result) {
                     var options = {},
