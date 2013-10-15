@@ -1,11 +1,11 @@
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction) {
     'use strict';
+    $scope.formData = {};
 
     var resetForm = function resetForm () {
-        $scope.formData = {};
         $scope.sending = false;
-
-        $scope.isRepeat = false;
+        $scope.formData.description = '';
+        $scope.formData.value = '';
     };
 
     resetForm();
