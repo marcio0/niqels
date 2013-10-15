@@ -1,10 +1,8 @@
-function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Reminder) {
+function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction) {
     'use strict';
 
-    $scope.repeatOptions = ['daily', 'weekly', 'biweekly', 'monthly'];
-
     var resetForm = function resetForm () {
-        $scope.formData = {repeat: 'monthly'};
+        $scope.formData = {};
         $scope.sending = false;
 
         $scope.isRepeat = false;
@@ -22,33 +20,15 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             var cls = null,
                 promise = null;
 
-            if ($scope.isRepeat) {
-                transaction_data.due_date = transaction_data.date;
-                var reminder = new Reminder(transaction_data);
-
-                promise = reminder.createReminder()
-                    .then(function (value) {
-                        resetForm();
-                        return value;
-                    })
-                    .then(function (value) {
-                        $rootScope.$emit('reminderCreated', value.resource);
-                        return value;
-                    });
-
-                $scope.isRepeat = false;
-            }
-            else {
-                promise = Transaction.save(transaction_data)
-                    .$then(function (value) {
-                        resetForm();
-                        return value;
-                    })
-                    .then(function (value) {
-                        $rootScope.$emit('transactionCreated', value.resource);
-                        return value;
-                    });
-            }
+            promise = Transaction.save(transaction_data)
+                .$then(function (value) {
+                    resetForm();
+                    return value;
+                })
+                .then(function (value) {
+                    $rootScope.$emit('transactionCreated', value.resource);
+                    return value;
+                });
 
             promise.always(function () {
                 form.$setPristine();
@@ -63,4 +43,4 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     };
 }
 
-TransactionFormCtrl.$inject = ['$scope', '$element', '$http', '$rootScope', 'Transaction', 'Reminder'];
+TransactionFormCtrl.$inject = ['$scope', '$element', '$http', '$rootScope', 'Transaction'];

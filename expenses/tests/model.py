@@ -10,7 +10,6 @@ import expenses.models
 from expenses.models import Category, Transaction, CategoryGroup
 from expenses import forms
 from access.models import User
-from reminder.models import RepeatableTransaction
 
 
 class TransactionUpToDayTest(TestCase):
@@ -97,27 +96,3 @@ class CategoryModelTest(TestCase):
 
         self.assertEquals(cat.natural_key(), expected_key)
         self.assertEquals(Category.objects.get_by_natural_key(*expected_key), cat)
-
-
-class TransactionModelTest(TestCase):
-    fixtures = ['TransactionUpToDayTest.yaml']
-
-    @unittest.expectedFailure
-    def test_repeatable_cascade(self):
-        '''
-        When a repeatable is deleted, the related transactions must be kept.
-        '''
-        repeatable = RepeatableTransaction()
-        repeatable.value = Decimal(40)
-        repeatable.due_date = datetime.date(2010, 10, 10)
-        repeatable.category_id = 1
-        repeatable.user_id = 1
-        repeatable.save()
-
-        transaction = repeatable.create_transaction()
-        transaction.save()
-
-        repeatable.delete()
-        self.assertTrue(Transaction.objects.filter(pk=transaction.id).exists())
-
-

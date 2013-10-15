@@ -144,13 +144,6 @@ class Transaction(models.Model):
         help_text=_('The category for this transaction.')
     )
 
-    repeatable = models.ForeignKey('reminder.RepeatableTransaction',
-        blank=True, null=True,
-        on_delete=models.SET_NULL,
-        verbose_name=_("repeatable"),
-        help_text=_("The reminder that created this transaction, if it's repeatable.")
-    )
-
     created = models.DateTimeField(_('creation date'),
         help_text=_("When this transaction was created."),
         default=timezone.now())

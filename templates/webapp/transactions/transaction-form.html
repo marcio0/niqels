@@ -79,22 +79,6 @@
         ></div>
     </div>
 
-    <hr/>
-
-    {% comment %}
-    <label class="checkbox" ng-show="false">
-        <input type="checkbox" ng-model="isRepeat">{% trans "Repeat this transaction" %}</input>
-    </label>
-
-    <div class="control-group" ng-class="{error: errors.repeat}">
-        <div class="controls">
-            <label class="control-label" for="repeat">{% trans "Create a reminder that repeats:" %}</label>
-            <select name="repeat" ng-model="formData.repeat" ng-options="label for label in repeatOptions" ng-required="isRepeat"></select>
-            <span class="help-block" ng-show="errors.repeat">{% trans "Required" %}</span>
-        </div>
-    </div>
-    {% endcomment %}
-
     <button ng-click="submit()" class="btn btn-block btn-primary" ng-disabled="sending">
     {% trans "Submit" %}
     <i ng-show="sending" class="icon-spinner icon-spin icon-large"></i>

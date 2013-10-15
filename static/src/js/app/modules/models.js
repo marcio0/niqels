@@ -16,68 +16,6 @@ var tastypieDataTransformer = function ($http) {
 
 angular.module('models', ['ngResource'])
 
-    .factory('Reminder', ['$resource', '$http', 'Transaction', '$q', '$rootScope', function($resource, $http, Transaction, $q, $rootScope){
-        var Reminder = $resource('/api/v1/reminder/:id', {id: '@id'}, {
-            query: {
-                method: 'GET',
-                isArray: true,
-                transformResponse: tastypieDataTransformer($http)
-            }
-        });
-
-        Reminder.prototype.remainingDays = function () {
-            var dueDate = moment(this.due_date);
-            return dueDate.fromNow();
-        };
-
-        Reminder.prototype.createReminder = function () {
-            var deferred = $q.defer();
-            var me = this;
-
-            this.$save({},
-                function success (reminder) {
-                    var promise = reminder.createTransaction()
-                        .then(function (transaction) {
-                            $rootScope.$broadcast('transactionCreated', transaction, {silent: true});
-                            return reminder;
-                        });
-
-                    deferred.resolve(promise);
-                },
-                function failure (result) {
-                    deferred.reject(result);
-                }
-            );
-
-            return deferred.promise;
-        };
-
-        Reminder.prototype.skip = function () {
-            return $http.post(this.resource_uri + '/skip', {});
-        };
-
-        Reminder.prototype.createTransaction = function () {
-            var deferred = $q.defer();
-
-            $http.post(this.resource_uri + '/transaction', {}).success(function (result) {
-                deferred.resolve(new Transaction(result));
-            }).error(function (result) {
-                deferred.reject(result);
-            });
-
-            return deferred.promise;
-        };
-
-        $rootScope.$on('reminderCreated', function (e, value, opts) {
-            opts = opts || {};
-            if (opts && !opts.silent) {
-                toastr.notifyCreationSuccess(gettext('Reminder'));
-            }
-        });
-
-        return Reminder;
-    }])
-
     .factory('Transaction', ['$resource', '$http', '$rootScope', function($resource, $http, $rootScope){
         var Transaction = $resource('/api/v1/transaction/:id', {}, {
             query: {
