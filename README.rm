@@ -8,7 +8,7 @@ Installation instructions for development:
 
 - Install Grunt: 
 
-    `npm install -g grunt`
+    `npm install -g grunt-cli`
 
 
 - Install the node dependencies:
@@ -33,7 +33,7 @@ Simulating the prodution enviroment:
 
 - Run foreman:
 
-    `foreman start .p 8001`
+    `foreman start -p 8001`
 
 ___
 Deploy process:
