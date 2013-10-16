@@ -200,9 +200,18 @@ angular.module('charts', [])
                     deferred = $q.defer();
 
                 params = params || {};
-                params.group_by = ['category__name'];
+                params.group_by = 'date__month,category__name';
                 params.date__gte = params.date_start;
                 params.date__lte = params.date_end;
+
+                var categories = [];
+                var start = moment(params.date_start);
+                var end = moment(params.date_end);
+
+                do {
+                    categories.push(start.format('MMM YYYY'));
+                    start.add('months', 1);
+                } while (start < end)
 
                 Transaction.query(params).$then(function (result) {
                     var options = {},
@@ -210,17 +219,27 @@ angular.module('charts', [])
 
                     $.extend(true, options, me.chartOptions);
 
+                    //TODO colorir serie de acordo com valor
+                    /*
                     for (var i in result.data) {
                         var category = result.data[i];
                         var value = parseFloat(category.sum);
                         if (value < 0) {
-                            //this chart shows only expenses
                             value = value * -1;
-                            series.push([category.category__name, value]);
                         }
+                        series.push([category.category__name, value]);
                     }
+                    */
+                    series = [{
+                        name: 'Total',
+                        data: [1200, 1330, 1210, 1100, 1150, 1350]
+                    }, {
+                        name: 'Mercado',
+                        data: [130, 153, 134, 195, 150, 140]
+                    }];
 
-                    //options.series = [{data: series}];
+                    options.series = series;
+                    //options.xAxis.categories = categories;
 
                     deferred.resolve({options: options, result: result});
                 }, 
@@ -235,10 +254,9 @@ angular.module('charts', [])
                     type: 'area'
                 },
                 title: {
-                    text: 'Comparação'
+                    text: gettext('Comparação')
                 },
                 xAxis: {
-                    categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
                     tickmarkPlacement: 'on',
                     title: {
                         enabled: false
@@ -246,7 +264,7 @@ angular.module('charts', [])
                 },
                 yAxis: {
                     title: {
-                        text: 'Valor'
+                        text: ''
                     },
                     labels: {
                         formatter: function() {
@@ -270,14 +288,7 @@ angular.module('charts', [])
                         stacking: 'normal',
                         lineWidth: 1
                     }
-                },
-                series: [{
-                    name: 'Total',
-                    data: [1200, 1330, 1210, 1100, 1150, 1350]
-                }, {
-                    name: 'Mercado',
-                    data: [130, 153, 134, 195, 150, 140]
-                }]
+                }
             }
         };
     }])

@@ -29,7 +29,9 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
                 expensesCategory.sum += category.sum;
             }
         }
-        categories.push(renevuesCategory, expensesCategory);
+        categories.unshift(renevuesCategory, expensesCategory);
+        $scope.category1 = renevuesCategory;
+        $scope.category2 = expensesCategory;
     };
 
     function getParams () {
@@ -63,17 +65,35 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
         var data = CategoryComparison.fetchData(getParams()).then(function (result) {
             result.options.chart.backgroundColor = '#f5f5f5';
 
-
             Category.query().$then(function (result) {
                 $scope.categories = result.resource;
+
                 createAdditionalCategories($scope.categories);
+
+                // organizing the categories to find them easily later
+                $scope.categoriesDict = {};
+                for (var i in $scope.categories) {
+                    var c = $scope.categories[i];
+                    $scope.categoriesDict[c.name] = c;
+                }
             });
             return result;
         });
 
-
         $scope.categoryComparisonData = data;
     }
+
+    function selectCategory (category) {
+        if (!category) return;
+
+        var c1 = $scope.categoriesDict[$scope.category1.name],
+            c2 = $scope.categoriesDict[$scope.category2.name];
+        console.log(c1, c2);
+        $scope.categoryComparisonData.series = [c1, c2];
+    }
+
+    $scope.$watch('category1', selectCategory);
+    $scope.$watch('category2', selectCategory);
 
     var today = moment();
 

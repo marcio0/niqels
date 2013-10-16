@@ -181,7 +181,9 @@ angular.module('webapp')
                 Category.query().$then(function (result) {
                     scope.$watch('categories', function () {
                         // disabling the default option
-                        element.find('option[value=0]').attr('disabled', 'disabled');
+                        // removing this for now, it's breaking the reports section
+                        //element.find('option[value=0]').attr('disabled', 'disabled');
+                         
                         element.selectpicker('refresh');
                     });
                     // adding a default option so angular won't freak out
