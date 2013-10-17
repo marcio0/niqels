@@ -257,7 +257,6 @@ angular.module('charts', [])
                         }
                         series.push(dict[group]);
                     }
-                    console.log(series);
 
                     $.extend(true, options, me.chartOptions);
                     options.series = series;
@@ -338,6 +337,7 @@ angular.module('charts', [])
                 //Update when charts data changes
                 scope.$watch('chartData', function(value) {
                     if(!value) return;
+                    console.log('mudou');
 
                     // We need deep copy in order to NOT override original chart object.
                     // This allows us to override chart data member and still the keep

@@ -1,9 +1,12 @@
-function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryComparison, Category) {
+function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryComparison, Category, $q) {
     'use strict';
 
     $scope.options = {};
 
-    function createAdditionalCategories (categories) {
+    Category.query().$then(function (result) {
+        var categories = result.resource;
+
+        // adding balance data as categories
         var renevuesCategory = {
             name: gettext('Renevues'),
             group: gettext('Balance data')
@@ -12,18 +15,13 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
             name: gettext('Expenses'),
             group: gettext('Balance data')
         };
-        for (var i in categories) {
-            var category = $scope.categories[i];
 
-            //removing previous "balance data" items
-            if (category.group == gettext('Balance data')) {
-                categories.splice(i, 1);
-            }
-        }
         categories.unshift(renevuesCategory, expensesCategory);
+        $scope.categories = categories;
+
         $scope.category1 = renevuesCategory;
         $scope.category2 = expensesCategory;
-    }
+    });
 
     function getParams () {
         return {
@@ -51,16 +49,20 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
         $scope.top10Data = data;
     }
 
+    var allSeries = {};
     function updateCategoryComparison() {
-        Category.query().$then(function (result) {
-            $scope.categories = result.resource;
-
-            createAdditionalCategories($scope.categories);
-        });
 
         var data = CategoryComparison.fetchData(getParams()).then(function (result) {
             result.options.chart.backgroundColor = '#f5f5f5';
-            // save result and use only 2 of them
+            var c1 = gettext('Renevues');
+            var c2 = gettext('Expenses');
+
+            for (var i in result.options.series) {
+                var group = result.options.series[i];
+                allSeries[group.name] = group;
+            }
+
+            result.options.series = [allSeries[c1], allSeries[c2]];
 
             return result;
         });
@@ -70,7 +72,17 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
 
     function selectCategory (category) {
         if (!category) return;
-        //override series
+
+        var c1 = allSeries[$scope.category1.name];
+        var c2 = allSeries[$scope.category2.name];
+
+        c1 = c1 || {name: $scope.category1.name, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
+        c2 = c2 || {name: $scope.category2.name, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
+
+        $scope.categoryComparisonData.then(function (data) {
+            data.options.series = [c1, c2];
+            $scope.categoryComparisonData = $q.when(data);
+        });
     }
 
     $scope.$watch('category1', selectCategory);
@@ -97,4 +109,4 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
     $scope.updateAll();
 }
 
-ReportsCtrl.$inject = ['$scope', '$rootScope', 'BalanceChart', 'Top10', 'CategoryComparison', 'Category'];
+ReportsCtrl.$inject = ['$scope', '$rootScope', 'BalanceChart', 'Top10', 'CategoryComparison', 'Category', '$q'];
