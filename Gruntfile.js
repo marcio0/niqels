@@ -164,7 +164,7 @@ module.exports = function(grunt) {
                     moment: false
                 }
             },
-            all: ['static/src/js/app/**']
+            all: ['static/src/js/app/**/*.js']
         }
 
     });

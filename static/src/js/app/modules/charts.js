@@ -211,7 +211,7 @@ angular.module('charts', [])
                 do {
                     categories.push(start.format('MMM YYYY'));
                     start.add('months', 1);
-                } while (start < end)
+                } while (start < end);
 
                 Transaction.query(params).$then(function (result) {
                     var options = {},
@@ -231,7 +231,7 @@ angular.module('charts', [])
                         var category = transactionGroup.category__name;
                         var value = parseFloat(transactionGroup.sum);
 
-                        dict[category] = dict[category] || {name: '', data: []}
+                        dict[category] = dict[category] || {name: '', data: []};
 
                         var idx = categories.indexOf(month);
                         dict[category].data[idx] = Math.abs(value);
@@ -250,9 +250,9 @@ angular.module('charts', [])
                     }
 
                     for (var group in dict) {
-                        for (var i=0; i<dict[group].data.length; i++) {
-                            if (dict[group].data[i] === undefined) {
-                                dict[group].data[i] = 0;
+                        for (var j=0; j<dict[group].data.length; j++) {
+                            if (dict[group].data[j] === undefined) {
+                                dict[group].data[j] = 0;
                             }
                         }
                         series.push(dict[group]);

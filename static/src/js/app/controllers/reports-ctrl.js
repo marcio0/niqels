@@ -23,7 +23,7 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
         categories.unshift(renevuesCategory, expensesCategory);
         $scope.category1 = renevuesCategory;
         $scope.category2 = expensesCategory;
-    };
+    }
 
     function getParams () {
         return {
