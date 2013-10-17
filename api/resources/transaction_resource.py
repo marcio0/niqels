@@ -123,6 +123,6 @@ class GroupedTransactionResource(ModelResource):
         paginator = self._meta.paginator_class(request.GET, sorted_objects, resource_uri=self.get_resource_uri(), limit=self._meta.limit, max_limit=self._meta.max_limit, collection_name=self._meta.collection_name)
         to_be_serialized = paginator.page()
 
-        to_be_serialized[self._meta.collection_name] = list(objects)
+        to_be_serialized[self._meta.collection_name] = list(sorted_objects)
 
         return self.create_response(request, to_be_serialized)
