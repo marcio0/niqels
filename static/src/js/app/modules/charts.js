@@ -204,10 +204,10 @@ angular.module('charts', [])
                 params.date__gte = params.date_start;
                 params.date__lte = params.date_end;
 
+                // creating xAxis categories
                 var categories = [];
                 var start = moment(params.date_start);
                 var end = moment(params.date_end);
-
                 do {
                     categories.push(start.format('MMM YYYY'));
                     start.add('months', 1);
@@ -215,31 +215,53 @@ angular.module('charts', [])
 
                 Transaction.query(params).$then(function (result) {
                     var options = {},
-                        series = [];
+                        series = [],
+                        expenses = gettext('Expenses'),
+                        renevues = gettext('Renevues');
+
+                    // organizing data into series
+                    var dict = {};
+                    dict[expenses] = {name: expenses, data: [], type: 'area'};
+                    dict[renevues] = {name: renevues, data: [], type: 'area'};
+
+                    for (var i=0; i<result.data.length; i++) {
+                        var transactionGroup = result.data[i];
+
+                        var month = moment(transactionGroup.date__month).format('MMM YYYY');
+                        var category = transactionGroup.category__name;
+                        var value = parseFloat(transactionGroup.sum);
+
+                        dict[category] = dict[category] || {name: '', data: []}
+
+                        var idx = categories.indexOf(month);
+                        dict[category].data[idx] = Math.abs(value);
+
+                        dict[category].name = transactionGroup.category__name;
+
+                        // balance data
+                        if (value > 0) {
+                            dict[renevues].data[idx] = dict[renevues].data[idx] || 0;
+                            dict[renevues].data[idx] += value;
+                        }
+                        else {
+                            dict[expenses].data[idx] = dict[expenses].data[idx] || 0;
+                            dict[expenses].data[idx] += Math.abs(value);
+                        }
+                    }
+
+                    for (var group in dict) {
+                        for (var i=0; i<dict[group].data.length; i++) {
+                            if (dict[group].data[i] === undefined) {
+                                dict[group].data[i] = 0;
+                            }
+                        }
+                        series.push(dict[group]);
+                    }
+                    console.log(series);
 
                     $.extend(true, options, me.chartOptions);
-
-                    //TODO colorir serie de acordo com valor
-                    /*
-                    for (var i in result.data) {
-                        var category = result.data[i];
-                        var value = parseFloat(category.sum);
-                        if (value < 0) {
-                            value = value * -1;
-                        }
-                        series.push([category.category__name, value]);
-                    }
-                    */
-                    series = [{
-                        name: 'Total',
-                        data: [1200, 1330, 1210, 1100, 1150, 1350]
-                    }, {
-                        name: 'Mercado',
-                        data: [130, 153, 134, 195, 150, 140]
-                    }];
-
                     options.series = series;
-                    //options.xAxis.categories = categories;
+                    options.xAxis.categories = categories;
 
                     deferred.resolve({options: options, result: result});
                 }, 
@@ -251,7 +273,7 @@ angular.module('charts', [])
             },
             chartOptions: {
                 chart: {
-                    type: 'area'
+                    type: 'line'
                 },
                 title: {
                     text: gettext('Comparação')

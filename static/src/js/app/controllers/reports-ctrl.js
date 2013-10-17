@@ -6,12 +6,10 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
     function createAdditionalCategories (categories) {
         var renevuesCategory = {
             name: gettext('Renevues'),
-            sum: 0,
             group: gettext('Balance data')
         };
         var expensesCategory = {
             name: gettext('Expenses'),
-            sum: 0,
             group: gettext('Balance data')
         };
         for (var i in categories) {
@@ -20,13 +18,6 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
             //removing previous "balance data" items
             if (category.group == gettext('Balance data')) {
                 categories.splice(i, 1);
-            }
-
-            if (category.sum > 0) {
-                renevuesCategory.sum += category.sum;
-            }
-            else {
-                expensesCategory.sum += category.sum;
             }
         }
         categories.unshift(renevuesCategory, expensesCategory);
@@ -61,22 +52,16 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
     }
 
     function updateCategoryComparison() {
+        Category.query().$then(function (result) {
+            $scope.categories = result.resource;
+
+            createAdditionalCategories($scope.categories);
+        });
 
         var data = CategoryComparison.fetchData(getParams()).then(function (result) {
             result.options.chart.backgroundColor = '#f5f5f5';
+            // save result and use only 2 of them
 
-            Category.query().$then(function (result) {
-                $scope.categories = result.resource;
-
-                createAdditionalCategories($scope.categories);
-
-                // organizing the categories to find them easily later
-                $scope.categoriesDict = {};
-                for (var i in $scope.categories) {
-                    var c = $scope.categories[i];
-                    $scope.categoriesDict[c.name] = c;
-                }
-            });
             return result;
         });
 
@@ -85,11 +70,7 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
 
     function selectCategory (category) {
         if (!category) return;
-
-        var c1 = $scope.categoriesDict[$scope.category1.name],
-            c2 = $scope.categoriesDict[$scope.category2.name];
-        console.log(c1, c2);
-        $scope.categoryComparisonData.series = [c1, c2];
+        //override series
     }
 
     $scope.$watch('category1', selectCategory);
@@ -97,7 +78,7 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
 
     var today = moment();
 
-    $scope.options.dateStart = today.clone().subtract(12, 'months');
+    $scope.options.dateStart = today.clone().subtract(11, 'months');
     $scope.options.dateEnd = today;
 
     $scope.updateAll = function updateAll () {
