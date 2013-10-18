@@ -4,10 +4,13 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
     $scope.options = {};
 
     function getParams () {
-        return {
+        var params = {
             date_start: $scope.options.dateStart.startOf('month').format('YYYY-MM-DD'),
             date_end: $scope.options.dateEnd.endOf('month').format('YYYY-MM-DD')
         };
+        params.date__gte = params.date_start;
+        params.date__lte = params.date_end;
+        return params;
     }
 
     function updateBalance () {
@@ -31,7 +34,6 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
 
     var allSeries = {};
     function updateCategoryComparison() {
-
         var data = CategoryComparison.fetchData(getParams()).then(function (result) {
             result.options.chart.backgroundColor = '#f5f5f5';
             var c1 = gettext('Renevues');
@@ -60,16 +62,23 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
         var c1 = allSeries[$scope.category1.name];
         var c2 = allSeries[$scope.category2.name];
 
+        //TODO: fix this for different periods
         c1 = c1 || {name: $scope.category1.name, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
         c2 = c2 || {name: $scope.category2.name, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
 
+        for (var i=0; i<$scope.options.dateStart.diff($scope.options.dateEnd, 'months'); i++) {
+            c1.data.push(0);
+            c2.data.push(0);
+        }
+
+        // after the chart data promise delivers, set up series
         $scope.categoryComparisonData.then(function (data) {
             data.options.series = [c1, c2];
             $scope.categoryComparisonData = $q.when(data);
         });
     }
 
-    var categoriesPromise = Category.query().$then(function (result) {
+    Category.query().$then(function (result) {
         var categories = result.resource;
 
         // adding balance data as categories

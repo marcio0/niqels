@@ -207,8 +207,6 @@ angular.module('charts', [])
 
                 params = params || {};
                 params.group_by = 'date__month,category__name';
-                params.date__gte = params.date_start;
-                params.date__lte = params.date_end;
 
                 // creating xAxis categories
                 var categories = [];
@@ -218,6 +216,7 @@ angular.module('charts', [])
                     categories.push(start.format('MMM YYYY'));
                     start.add('months', 1);
                 } while (start < end);
+                var period = categories.length;
 
                 Transaction.query(params).$then(function (result) {
                     var options = {},
@@ -227,8 +226,8 @@ angular.module('charts', [])
 
                     // organizing data into series
                     var dict = {};
-                    dict[expenses] = {name: expenses, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], type: 'area'};
-                    dict[renevues] = {name: renevues, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], type: 'area'};
+                    dict[expenses] = {name: expenses, data: [], type: 'area'};
+                    dict[renevues] = {name: renevues, data: [], type: 'area'};
 
                     for (var i=0; i<result.data.length; i++) {
                         var transactionGroup = result.data[i];
@@ -241,7 +240,6 @@ angular.module('charts', [])
 
                         var idx = categories.indexOf(month);
                         dict[category].data[idx] = Math.abs(value);
-
                         dict[category].name = transactionGroup.category__name;
 
                         // balance data
