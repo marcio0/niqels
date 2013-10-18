@@ -3,26 +3,6 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
 
     $scope.options = {};
 
-    Category.query().$then(function (result) {
-        var categories = result.resource;
-
-        // adding balance data as categories
-        var renevuesCategory = {
-            name: gettext('Renevues'),
-            group: gettext('Balance data')
-        };
-        var expensesCategory = {
-            name: gettext('Expenses'),
-            group: gettext('Balance data')
-        };
-
-        categories.unshift(renevuesCategory, expensesCategory);
-        $scope.categories = categories;
-
-        $scope.category1 = renevuesCategory;
-        $scope.category2 = expensesCategory;
-    });
-
     function getParams () {
         return {
             date_start: $scope.options.dateStart.startOf('month').format('YYYY-MM-DD'),
@@ -64,11 +44,15 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
 
             result.options.series = [allSeries[c1], allSeries[c2]];
 
+            $scope.$watch('category1', selectCategory);
+            $scope.$watch('category2', selectCategory);
+
             return result;
         });
 
         $scope.categoryComparisonData = data;
     }
+
 
     function selectCategory (category) {
         if (!category) return;
@@ -85,8 +69,28 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
         });
     }
 
-    $scope.$watch('category1', selectCategory);
-    $scope.$watch('category2', selectCategory);
+    var categoriesPromise = Category.query().$then(function (result) {
+        var categories = result.resource;
+
+        // adding balance data as categories
+        var renevuesCategory = {
+            name: gettext('Renevues'),
+            group: gettext('Balance data')
+        };
+        var expensesCategory = {
+            name: gettext('Expenses'),
+            group: gettext('Balance data')
+        };
+
+        categories.unshift(renevuesCategory, expensesCategory);
+        $scope.categories = categories;
+
+        $scope.category1 = renevuesCategory;
+        $scope.category2 = expensesCategory;
+
+        selectCategory();
+    });
+
 
     var today = moment();
 

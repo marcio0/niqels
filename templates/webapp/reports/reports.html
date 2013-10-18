@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div ng-controller="ReportsCtrl" id="reports">
-    <h4 class="area-header">{% trans "Reports" %}</h4>
+    <h3 class="area-header">{% trans "Reports" %}</h3>
 
     <div class="month-selector">
         {% trans "Period" %}: 
@@ -13,16 +13,21 @@
 
     <div class="row">
         <div class="col-md-12 well">
+            <h4 class="area-header">{% trans "Balance" %}</h4>
+
             <div value='balanceData' type="area" height="400" chart class=""></div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-4 well">
+            <h4 class="area-header">{% trans "Top 10 Categories" %}</h4>
+
             <div value='top10Data' type="area" height="300" chart></div>
         </div>
 
         <div class="col-md-8 well">
+            <h4 class="area-header">{% trans "Category Comparison" %}</h4>
 
             <div class="row">
                 <div class="col-md-6 category1 input-icon">

@@ -94,6 +94,7 @@ angular.module('charts', [])
                     }]
                 },
                 tooltip: {
+                    enabled: false,
                     headerFormat: '<div class="title">{point.key}</div>',
                     pointFormat:    '<p class="renevues">renevues: <b>{point.renevues_text}</b></p>' +
                                     '<p class="expenses">expenses: <b>{point.expenses_text}</b></p>' +
@@ -114,7 +115,10 @@ angular.module('charts', [])
                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
-                        borderWidth: 0
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true
+                        }
                     }
                 }
             }
@@ -166,9 +170,10 @@ angular.module('charts', [])
                     type: 'pie'
                 },
                 title: {
-                    text: gettext('Top 10 Categories')
+                    text: ''
                 },
                 tooltip: {
+                    enabled: false,
                     formatter: function () {
                         var value = $filter('currency')(this.y);
                         var percentage = this.percentage;
@@ -180,7 +185,8 @@ angular.module('charts', [])
                         allowPointSelect: false,
                         cursor: 'pointer',
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
                         },
                         showInLegend: false
                     }
@@ -221,8 +227,8 @@ angular.module('charts', [])
 
                     // organizing data into series
                     var dict = {};
-                    dict[expenses] = {name: expenses, data: [], type: 'area'};
-                    dict[renevues] = {name: renevues, data: [], type: 'area'};
+                    dict[expenses] = {name: expenses, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], type: 'area'};
+                    dict[renevues] = {name: renevues, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], type: 'area'};
 
                     for (var i=0; i<result.data.length; i++) {
                         var transactionGroup = result.data[i];
@@ -275,7 +281,7 @@ angular.module('charts', [])
                     type: 'line'
                 },
                 title: {
-                    text: gettext('Comparação')
+                    text: ''
                 },
                 xAxis: {
                     tickmarkPlacement: 'on',
@@ -294,6 +300,7 @@ angular.module('charts', [])
                     }
                 },
                 tooltip: {
+                    enabled: false,
                     shared: true,
                     formatter: function () {
                         var t = '';
@@ -306,8 +313,13 @@ angular.module('charts', [])
                 },
                 plotOptions: {
                     area: {
-                        stacking: 'normal',
+                        fillOpacity: 0.1,
                         lineWidth: 1
+                    },
+                    series: {
+                        dataLabels: {
+                            enabled: true
+                        }
                     }
                 }
             }
@@ -337,7 +349,6 @@ angular.module('charts', [])
                 //Update when charts data changes
                 scope.$watch('chartData', function(value) {
                     if(!value) return;
-                    console.log('mudou');
 
                     // We need deep copy in order to NOT override original chart object.
                     // This allows us to override chart data member and still the keep
