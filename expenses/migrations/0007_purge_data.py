@@ -9,11 +9,9 @@ class Migration(DataMigration):
     def forwards(self, orm):
         previous_user_count = orm['access.User'].objects.all().count()
 
-        orm['reminder.RepeatableTransaction'].objects.all().delete()
         orm['expenses.Transaction'].objects.all().delete()
         orm['expenses.Category'].objects.all().delete()
 
-        assert(orm['reminder.RepeatableTransaction'].objects.all().count() == 0)
         assert(orm['expenses.Transaction'].objects.all().count() == 0)
         assert(orm['expenses.Category'].objects.all().count() == 0)
 

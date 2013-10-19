@@ -6,11 +6,9 @@ from django.db import models
 
 
 class Migration(SchemaMigration):
-    depends_on = (
-        ("reminder", "0001_initial"),
-    )
 
     def forwards(self, orm):
+        return
         # Adding field 'Entry.repeatable'
         db.add_column(u'expenses_entry', 'repeatable',
                       self.gf('django.db.models.fields.related.ForeignKey')(to=orm['reminder.RepeatableTransaction'], null=True, on_delete=models.SET_NULL, blank=True),
@@ -18,6 +16,7 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        return
         # Deleting field 'Entry.repeatable'
         db.delete_column(u'expenses_entry', 'repeatable_id')
 
