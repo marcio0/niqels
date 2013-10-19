@@ -1,8 +1,5 @@
 from core.settings import *
 
-DEBUG = True
-TEMPLATE_DEBUG = True
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -14,14 +11,5 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-
-INSTALLED_APPS += (
-    'django_coverage',
-)
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static", 'src'),
-    os.path.join(BASE_DIR, "static", 'test'),
-)
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
