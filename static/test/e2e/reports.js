@@ -9,7 +9,7 @@ describe('reports section', function () {
 
     describe('date selection', function () {
         it('the default period should be a year', function () {
-            var start = moment().subtract('month', 12).format('MMMM - YYYY');
+            var start = moment().subtract('month', 11).format('MMMM - YYYY');
             var end = moment().format('MMMM - YYYY');
             expect(element('div#reports button#date-start').text()).toBe(start);
             expect(element('div#reports button#date-end').text()).toBe(end);

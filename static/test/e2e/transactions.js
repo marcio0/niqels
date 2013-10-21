@@ -22,7 +22,7 @@ describe('transactions section', function () {
             expect(element('table.transaction-table tr.transaction-row').count()).toBe(1);
 
             var row = 'table.transaction-table tbody[rel=0] tr.transaction-row[rel=0] ';
-            expect(element(row + 'td.value-column span').text()).toBe('- R$100,00');
+            expect(element(row + 'td.value-column span').text()).toBe('-100,00');
             expect(element(row + 'td.category-column').text()).toBe('Mercado');
             expect(element(row + 'td.description-column').text()).toBe('a negative transaction');
 
@@ -44,7 +44,7 @@ describe('transactions section', function () {
             expect(element('table.transaction-table tr.transaction-row').count()).toBe(2);
 
             var row = 'table.transaction-table tbody[rel=0] tr.transaction-row[rel=0] ';
-            expect(element(row + 'td.value-column span').text()).toBe('R$200,00');
+            expect(element(row + 'td.value-column span').text()).toBe('200,00');
             expect(element(row + 'td.category-column').text()).toBe('Mercado');
             expect(element(row + 'td.description-column').text()).toBe('a positive transaction');
 
