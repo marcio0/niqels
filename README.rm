@@ -6,10 +6,17 @@ Niqels
 Installation instructions for development:
 --
 
+- Install the Heroku Toolbelt:
+    `wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh`
+    `heroku login`
+
+- Install nvm and update Node.JS [(Complete instructions)](https://github.com/creationix/nvm): 
+    `curl https://raw.github.com/creationix/nvm/master/install.sh | sh`
+    `source ~/.nvm/nvm.sh`
+
 - Install Grunt: 
 
     `npm install -g grunt-cli`
-
 
 - Install the node dependencies:
 
@@ -18,6 +25,9 @@ Installation instructions for development:
 - Install the Django project:
 
     `pip install -r requirements.txt`
+
+- Test your installation:
+    `python manage.py test`
 
 ___
 Simulating the prodution enviroment:
