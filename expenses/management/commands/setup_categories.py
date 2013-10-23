@@ -7,100 +7,34 @@ from expenses.models import Category, CategoryGroup
 
 categories = [
     {
-        'name':_('Geral'),
+        'name':_('Receitas'),
         'categories': [
+            {'name': _(u'Salário'), 'default_active': True},
+            {'name': _(u'Extras'), 'default_active': True}
+        ]
+    },
+    {
+        'name':_('Contas fixas'),
+        'categories': [
+            {'name': _(u'Moradia'), 'default_active': True},
+            {'name': _(u'Água'), 'default_active': True},
+            {'name': _(u'Luz'), 'default_active': True},
+            {'name': _(u'Gás'), 'default_active': True},
+            {'name': _(u'Telefone/Internet/TV'), 'default_active': True},
+        ]
+    },
+    {
+        'name':_('Despesas'),
+        'categories': [
+            {'name': _('Alimentação'), 'default_active': True},
+            {'name': _('Transporte'), 'default_active': True},
+            {'name': _('Lazer'), 'default_active': True},
+            {'name': _('Vestuário'), 'default_active': True},
+            {'name': _('Educação'), 'default_active': True},
+            {'name': _('Saúde'), 'default_active': True},
             {'name': _('Mercado'), 'default_active': True},
-        ]
-    },
-
-    {
-        'name': _('Housing'),
-        'categories': [
-            {'name': _('Aluguel')},
-            {'name': _('Financiamento Imobiliário')},
-            {'name': _('Condominio')},
-        ]
-    },
-
-    {
-        'name': _('Consumo'),
-        'categories': [
-            {'name': _('Telefone')},
-            {'name': _('TV a Cabo')},
-            {'name': _('Água')},
-            {'name': _('Luz')},
-            {'name': _('Gás')},
-            {'name': _('Internet')},
-        ]
-    },
-
-    {
-        'name': _('Car'),
-        'categories': [
-            {'name': _('Financiamento')},
-            {'name': _('Manutenção')},
-            {'name': _('Combustível')},
-            {'name': _('Estacionamento')},
-            {'name': _('Impostos')},
-        ]
-    },
-
-    {
-        'name': _('Entretenimento'),
-        'categories': [
-            {'name': _('Restaurante')},
-            {'name': _('Cinema')},
-            {'name': _('Teatro')},
-        ]
-    },
-
-    {
-        'name': _('Aparência'),
-        'categories': [
-            {'name': _('Roupas')},
-            {'name': _('Sapatos/Tênis')},
-        ]
-    },
-
-    {
-        'name': _('Empréstimos'),
-        'categories': [
-            {'name': _('Cartão de Crédito')},
-            {'name': _('Cheque Especial')},
-            {'name': _('Crédito Pessoal')},
-        ]
-    },
-
-    {
-        'name': _('Educação'),
-        'categories': [
-            {'name': _('Escola')},
-            {'name': _('Faculdade')},
-            {'name': _('Curso')},
-        ]
-    },
-
-    {
-        'name': _('Despesas Médicas'),
-        'categories': [
-            {'name': _('Plano de Saúde')},
-            {'name': _('Hospital')},
-            {'name': _('Exames')},
-        ]
-    },
-
-    {
-        'name': _('Receitas'),
-        'categories': [
-            {'name': _('Salário')},
-            {'name': _('Hora Extra')},
-            {'name': _('Restituição de Imposto')},
-        ]
-    },
-
-    {
-        'name':_('Customizado'),
-        'categories': [
+            {'name': _('Utensílios domésticos'), 'default_active': True},
+            {'name': _('Outros'), 'default_active': True},
         ]
     }
 ]
