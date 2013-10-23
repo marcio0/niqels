@@ -26,10 +26,7 @@ class GlobalsContextProcessorTest(TestCase):
 
         self.assertEquals(context, {
             'SITE_NAME': 'Niqels',
-            'js_date_format': u'MMM d, yyyy',
-            'currency_symbol': u'$',
-            'is_debug': False,
-            'empty_value_fields': ['password', 'password1', 'password2']
+            'is_debug': False
         })
 
     def test_template_debug_conditions(self):
