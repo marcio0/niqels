@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-19 19:19-0300\n"
+"POT-Creation-Date: 2013-10-24 10:25-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,6 @@ msgid "Your password was successfuly changed."
 msgstr "Sua senha foi alterada."
 
 #: api/resources/balance_resource.py:25
-#: api/resources/top10categories_resource.py:27
 msgid "The 'date_start' parameter is required."
 msgstr "A data de início é obrigatória."
 
@@ -110,7 +109,6 @@ msgid ""
 msgstr "A data de início deve estar no formato AAAA-MM-DD"
 
 #: api/resources/balance_resource.py:33
-#: api/resources/top10categories_resource.py:31
 msgid "The 'date_end' parameter is required."
 msgstr "A data final é obrigatória"
 
@@ -137,14 +135,12 @@ msgid "Portuguese"
 msgstr "Português"
 
 #: expenses/models.py:32
-#, fuzzy
 msgid "Category group"
-msgstr "Categoria"
+msgstr "Grupo de categoria"
 
 #: expenses/models.py:33
-#, fuzzy
 msgid "Category groups"
-msgstr "Categoria"
+msgstr "Grupos de categoria"
 
 #: expenses/models.py:44
 msgid "The category of a transaction. Ex.: \"Groceries\", \"Medical\"."
@@ -155,11 +151,10 @@ msgid "custom"
 msgstr "customizado"
 
 #: expenses/models.py:47
-#, fuzzy
 msgid "Created by a user."
-msgstr "Já é usuário?"
+msgstr "Criado por um usuário."
 
-#: expenses/models.py:50 expenses/models.py:88
+#: expenses/models.py:50 expenses/models.py:93
 msgid "active"
 msgstr "ativo"
 
@@ -167,40 +162,46 @@ msgstr "ativo"
 msgid "If this category is enabled by default."
 msgstr "Se esta categoria é habilitada por padrão"
 
-#: expenses/models.py:56
-#, fuzzy
+#: expenses/models.py:54
+msgid "is negative"
+msgstr "é negativo"
+
+#: expenses/models.py:55
+msgid "If transactions on this category has negative values by default."
+msgstr "Se transações desta categoria tem valor negativo por padrão."
+
+#: expenses/models.py:61
 msgid "category group"
 msgstr "categoria"
 
-#: expenses/models.py:57
-#, fuzzy
+#: expenses/models.py:62
 msgid "The group this category belongs."
-msgstr "O dono desta categoria."
+msgstr "O grupo ao qual esta categoria pertence."
 
-#: expenses/models.py:71
+#: expenses/models.py:76
 #: templates/webapp/transactions/transaction-form.html:17
 #: templates/webapp/transactions/transaction-list.html:24
 msgid "Category"
 msgstr "Categoria"
 
-#: expenses/models.py:72 templates/webapp/settings/category-list.html:3
+#: expenses/models.py:77 templates/webapp/settings/category-list.html:3
 #: templates/webapp/settings/settings.html:9
 msgid "Categories"
 msgstr "Categorias"
 
-#: expenses/models.py:77 expenses/models.py:143
+#: expenses/models.py:82 expenses/models.py:148
 msgid "category"
 msgstr "categoria"
 
-#: expenses/models.py:81 expenses/models.py:139
+#: expenses/models.py:86 expenses/models.py:144
 msgid "user"
 msgstr "usuário"
 
-#: expenses/models.py:83
+#: expenses/models.py:88
 msgid "color"
 msgstr "cor"
 
-#: expenses/models.py:86
+#: expenses/models.py:91
 msgid ""
 "The color of this category, to make it visually identifiable. Accepts HEX "
 "values only."
@@ -208,231 +209,134 @@ msgstr ""
 "A cor desta categoria, para torná-la visualmente identificável. Aceita "
 "apenas valores hexadecimais."
 
-#: expenses/models.py:91
+#: expenses/models.py:96
 #, python-format
 msgid "Config for %(category_name)s"
 msgstr "Configuração para %(category_name)s"
 
-#: expenses/models.py:124
+#: expenses/models.py:129
 msgid "value"
 msgstr "valor"
 
-#: expenses/models.py:128
+#: expenses/models.py:133
 msgid "The monetary value of this transaction. Accepts decimal values."
 msgstr "O valor monetário desta movimentação. Aceita apenas valores decimais."
 
-#: expenses/models.py:130
+#: expenses/models.py:135
 msgid "description"
 msgstr "descrição"
 
-#: expenses/models.py:133
+#: expenses/models.py:138
 msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
 msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
 
-#: expenses/models.py:135
+#: expenses/models.py:140
 msgid "date"
 msgstr "data"
 
-#: expenses/models.py:136
+#: expenses/models.py:141
 msgid "The date when this transaction happened. Ex.: 10/21/2010."
 msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
-#: expenses/models.py:140
+#: expenses/models.py:145
 msgid "The owner of this transaction."
 msgstr "O dono desta transação."
 
-#: expenses/models.py:144
+#: expenses/models.py:149
 msgid "The category for this transaction."
 msgstr "A categoria desta transação."
 
-#: expenses/models.py:147
+#: expenses/models.py:152
 msgid "creation date"
 msgstr "data de criação"
 
-#: expenses/models.py:148
-#, fuzzy
+#: expenses/models.py:153
 msgid "When this transaction was created."
-msgstr "Como esta movimentação se repete."
+msgstr "Quando esta transação foi criada."
 
-#: expenses/models.py:162
+#: expenses/models.py:167
 msgid "Transaction"
 msgstr "Movimentação"
 
-#: expenses/models.py:163 templates/webapp/index.html:18
+#: expenses/models.py:168 templates/webapp/index.html:18
 #: templates/webapp/transactions/transaction-list.html:11
 msgid "Transactions"
 msgstr "Movimentações"
 
 #: expenses/management/commands/setup_categories.py:10
-msgid "Geral"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:12
-msgid "Mercado"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:17
-msgid "Housing"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:19
-msgid "Aluguel"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:20
-msgid "Financiamento Imobiliário"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:21
-msgid "Condominio"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:26
-msgid "Consumo"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:28
-msgid "Telefone"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:29
-msgid "TV a Cabo"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:30
-msgid "Água"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:31
-msgid "Luz"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:32
-msgid "Gás"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:33
-msgid "Internet"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:38
-msgid "Car"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:40
-msgid "Financiamento"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:41
-msgid "Manutenção"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:42
-msgid "Combustível"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:43
-msgid "Estacionamento"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:44
-msgid "Impostos"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:49
-msgid "Entretenimento"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:51
-msgid "Restaurante"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:52
-msgid "Cinema"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:53
-msgid "Teatro"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:58
-msgid "Aparência"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:60
-msgid "Roupas"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:61
-msgid "Sapatos/Tênis"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:66
-msgid "Empréstimos"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:68
-msgid "Cartão de Crédito"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:69
-msgid "Cheque Especial"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:70
-msgid "Crédito Pessoal"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:75
-msgid "Educação"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:77
-msgid "Escola"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:78
-msgid "Faculdade"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:79
-msgid "Curso"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:84
-msgid "Despesas Médicas"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:86
-msgid "Plano de Saúde"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:87
-msgid "Hospital"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:88
-msgid "Exames"
-msgstr ""
-
-#: expenses/management/commands/setup_categories.py:93
 msgid "Receitas"
 msgstr ""
 
-#: expenses/management/commands/setup_categories.py:95
+#: expenses/management/commands/setup_categories.py:12
 msgid "Salário"
 msgstr ""
 
-#: expenses/management/commands/setup_categories.py:96
-msgid "Hora Extra"
+#: expenses/management/commands/setup_categories.py:13
+msgid "Extras"
 msgstr ""
 
-#: expenses/management/commands/setup_categories.py:97
-msgid "Restituição de Imposto"
+#: expenses/management/commands/setup_categories.py:17
+msgid "Contas fixas"
+msgstr "Contas fixas"
+
+#: expenses/management/commands/setup_categories.py:19
+msgid "Moradia"
 msgstr ""
 
-#: expenses/management/commands/setup_categories.py:102
-msgid "Customizado"
+#: expenses/management/commands/setup_categories.py:20
+msgid "Água"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:21
+msgid "Luz"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:22
+msgid "Gás"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:23
+msgid "Telefone/Internet/TV"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:27
+msgid "Despesas"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:29
+msgid "Alimentação"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:30
+msgid "Transporte"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:31
+msgid "Lazer"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:32
+msgid "Vestuário"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:33
+msgid "Educação"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:34
+msgid "Saúde"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:35
+msgid "Mercado"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:36
+msgid "Utensílios domésticos"
+msgstr ""
+
+#: expenses/management/commands/setup_categories.py:37
+msgid "Outros"
 msgstr ""
 
 #: templates/base.html:51
@@ -600,11 +504,7 @@ msgstr "Um email foi enviado para <strong>%(email)s</strong>."
 msgid "Follow the instructions on this email to set a new password."
 msgstr "Siga as instruções neste email para escolher uma nova senha."
 
-#: templates/webapp/index.html:19
-msgid "Settings"
-msgstr "Configurações"
-
-#: templates/webapp/index.html:20 templates/webapp/reports/reports.html:4
+#: templates/webapp/index.html:19 templates/webapp/reports/reports.html:4
 msgid "Reports"
 msgstr "Relatórios"
 
@@ -613,9 +513,8 @@ msgid "Period"
 msgstr "Período"
 
 #: templates/webapp/reports/reports.html:11
-#, fuzzy
 msgid "Update"
-msgstr "data"
+msgstr "Atualizar"
 
 #: templates/webapp/reports/reports.html:16
 #: templates/webapp/transactions/month_balance_panel.html:3
@@ -623,24 +522,20 @@ msgid "Balance"
 msgstr "Balanço"
 
 #: templates/webapp/reports/reports.html:24
-#, fuzzy
 msgid "Top 10 Categories"
-msgstr "Categorias"
+msgstr "Top 10 Categorias"
 
 #: templates/webapp/reports/reports.html:30
-#, fuzzy
 msgid "Category Comparison"
-msgstr "Categorias"
+msgstr "Comparação de categorias"
 
 #: templates/webapp/reports/reports.html:34
-#, fuzzy
 msgid "Category 1"
-msgstr "Categoria"
+msgstr "Categoria 1"
 
 #: templates/webapp/reports/reports.html:47
-#, fuzzy
 msgid "Category 2"
-msgstr "Categoria"
+msgstr "Categoria 2"
 
 #: templates/webapp/settings/category-edit.html:8
 msgid "Edit category"
@@ -707,24 +602,19 @@ msgstr "Nova movimentação"
 msgid "Value"
 msgstr "Valor"
 
-#: templates/webapp/transactions/transaction-form.html:51
-#, fuzzy
-msgid "Tip: use &quot;+&quot; for positive values"
-msgstr "Utilize o sinal &quot;+&quot; para indicar valores positivos."
-
-#: templates/webapp/transactions/transaction-form.html:56
+#: templates/webapp/transactions/transaction-form.html:55
 msgid "Description (optional)"
 msgstr "Descrição (opcional)"
 
-#: templates/webapp/transactions/transaction-form.html:67
+#: templates/webapp/transactions/transaction-form.html:66
 msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
-#: templates/webapp/transactions/transaction-form.html:73
+#: templates/webapp/transactions/transaction-form.html:72
 msgid "Date"
 msgstr "Data"
 
-#: templates/webapp/transactions/transaction-form.html:85
+#: templates/webapp/transactions/transaction-form.html:84
 msgid "Submit"
 msgstr "Enviar"
 
@@ -739,6 +629,12 @@ msgstr "Ações"
 #: templates/webapp/transactions/transaction-list.html:66
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Settings"
+#~ msgstr "Configurações"
+
+#~ msgid "Tip: use &quot;+&quot; for positive values"
+#~ msgstr "Utilize o sinal &quot;+&quot; para indicar valores positivos."
 
 #~ msgid "Welcome to %(site_name)s, %(user_name)s!"
 #~ msgstr "Bem vindo ao %(site_name)s, %(user_name)s!"

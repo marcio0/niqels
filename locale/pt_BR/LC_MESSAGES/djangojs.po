@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-19 19:19-0300\n"
+"POT-Creation-Date: 2013-10-24 10:25-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/dist/js/webapp.min.js:316 static/js/webapp-scripts.min.js:2
+#: static/dist/js/webapp.min.js:316
 #: static/src/js/app/controllers/category-edit-ctrl.js:26
 #: static/src/js/app/controllers/transaction-form-ctrl.js:41
 msgid "Please fill in the fields correctly."
@@ -49,32 +49,27 @@ msgstr "Balanço"
 msgid "The period must be 12 months or lower."
 msgstr "O período deve ser de 12 meses ou menos"
 
-#: static/dist/js/webapp.min.js:316 static/js/webapp-scripts.min.js:2
-#: static/src/js/app/app.js:80
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:80
 #, c-format
 msgid "%s sucessfuly created!"
 msgstr "%s criada com sucesso!"
 
-#: static/dist/js/webapp.min.js:316 static/js/webapp-scripts.min.js:2
-#: static/src/js/app/app.js:84
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:84
 #, c-format
 msgid "%s sucessfuly updated!"
 msgstr "%s atualizada com sucesso!"
 
-#: static/dist/js/webapp.min.js:316 static/js/webapp-scripts.min.js:2
-#: static/src/js/app/app.js:88
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:88
 #, c-format
 msgid "An error ocurred creating %s."
 msgstr "Um erro ocorreu ao criado %s."
 
-#: static/dist/js/webapp.min.js:316 static/js/webapp-scripts.min.js:2
-#: static/src/js/app/app.js:92
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:92
 #, c-format
 msgid "%s sucessfuly removed."
 msgstr "%s removida com sucesso."
 
-#: static/dist/js/webapp.min.js:316 static/js/webapp-scripts.min.js:2
-#: static/src/js/app/directives.js:142
+#: static/dist/js/webapp.min.js:316 static/src/js/app/directives.js:142
 msgid "Confirm action"
 msgstr "Confirmar ação"
 
@@ -86,23 +81,18 @@ msgstr "Selecione uma categoria"
 msgid "Oops! Something went wrong. Please try again later."
 msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
 
-#: static/dist/js/webapp.min.js:316 static/js/webapp-scripts.min.js:2
-#: static/src/js/app/modules/models.js:31
+#: static/dist/js/webapp.min.js:316 static/src/js/app/modules/models.js:31
 msgid "Transaction"
 msgstr "Transação"
 
-#: static/js/webapp-scripts.min.js:2
-#, c-format
-msgid "Data up to day %s."
-msgstr "Dados até o dia %s."
+#~ msgid "Data up to day %s."
+#~ msgstr "Dados até o dia %s."
 
-#: static/js/webapp-scripts.min.js:2
-msgid "Reminder"
-msgstr "Lembrete"
+#~ msgid "Reminder"
+#~ msgstr "Lembrete"
 
-#: static/js/webapp-scripts.min.js:2
-msgid "Category"
-msgstr "Categoria"
+#~ msgid "Category"
+#~ msgstr "Categoria"
 
 #~ msgid "Are you sure?"
 #~ msgstr "Tem certeza?"
