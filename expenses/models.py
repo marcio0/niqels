@@ -51,6 +51,11 @@ class Category(models.Model):
         help_text=_("If this category is enabled by default."),
         default=True
     )
+    is_negative = models.BooleanField(_('is negative'),
+        help_text=_("If transactions on this category has negative values by default."),
+        default=True
+    )
+
 
     group = models.ForeignKey(CategoryGroup,
         verbose_name=_('category group'),

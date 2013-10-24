@@ -9,8 +9,8 @@ categories = [
     {
         'name':_('Receitas'),
         'categories': [
-            {'name': _(u'Salário'), 'default_active': True},
-            {'name': _(u'Extras'), 'default_active': True}
+            {'name': _(u'Salário'), 'default_active': True, 'is_negative': False},
+            {'name': _(u'Extras'), 'default_active': True, 'is_negative': False}
         ]
     },
     {

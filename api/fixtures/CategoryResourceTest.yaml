@@ -8,6 +8,7 @@
     fields:
         name: Groceries
         group: ['group']
+        is_negative: false
     pk: 1
 
 -   model: expenses.Category

@@ -59,15 +59,14 @@ class CategoryResourceTest(ResourceTestCase):
         resp = self.api_client.get('/api/v1/category/', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
-        # Scope out the data for correctness.
         self.assertEqual(len(self.deserialize(resp)['objects']), 4)
 
-        # Here, we're checking an entire structure for the expected data.
         self.assertEqual(self.deserialize(resp)['objects'][0], {
             u'id': self.category.pk,
             u'name': self.category.name,
             u'custom': False,
             u'default_active': True,
+            u'is_negative': False,
             u'resource_uri': u'/api/v1/category/%d' % self.category.id,
             u'group': u'group'
         })
@@ -151,7 +150,7 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertValidJSONResponse(resp)
 
         # We use ``assertKeys`` here to just verify the keys, not all the data.
-        self.assertKeys(self.deserialize(resp), ['name', 'id', 'resource_uri', 'default_active', 'custom', 'group'])
+        self.assertKeys(self.deserialize(resp), ['name', 'id', 'resource_uri', 'default_active', 'custom', 'group', 'is_negative'])
         self.assertEqual(self.deserialize(resp)['name'], 'Groceries')
 
     def _test_only_own_objects(self):
