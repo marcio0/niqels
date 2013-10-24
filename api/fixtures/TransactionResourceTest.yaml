@@ -9,12 +9,14 @@
     fields:
         name: groceries
         group: ['group']
+        is_negative: true
 
 -   model: expenses.Category
     pk: 2
     fields:
         name: STUFF
         group: ['group']
+        is_negative: true
 
 -   model: expenses.Category
     pk: 4
@@ -27,6 +29,13 @@
     fields:
         name: other
         group: ['group']
+
+-   model: expenses.Category
+    pk: 5
+    fields:
+        name: positive 
+        group: ['group']
+        is_negative: false
 
 -   model: expenses.CategoryConfig
     pk: 1

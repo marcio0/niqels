@@ -72,6 +72,21 @@ class TransactionResource(ModelResource):
 
         return bundle
 
+    def full_hydrate(self, bundle):
+        bundle = super(TransactionResource, self).full_hydrate(bundle)
+
+        # this must happen after all hydrations because order isn't garanteed
+        value = bundle.data.get('value')
+        if value:
+            value = value.copy_abs()
+
+            if bundle.obj.category.is_negative:
+                value = value.copy_negate()
+
+            bundle.data['value'] = value
+
+        return bundle
+
 class GroupedTransactionResource(ModelResource):
     class Meta:
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())

@@ -92,9 +92,9 @@ class TransactionResourceTest(ResourceTestCase):
         '''
         self.assertHttpUnauthorized(self.api_client.post('/api/v1/transaction/', format='json'))
 
-    def test_post_list_success(self):
+    def test_post_negative_transaction(self):
         '''
-        Successful POST to a list endpoint.
+        If category.is_negative, the value must be negative.
         '''
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
@@ -106,7 +106,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'description': u'',
-            u'value': u'40.0',
+            u'value': u'-40',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
@@ -121,6 +121,74 @@ class TransactionResourceTest(ResourceTestCase):
         })
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(-40))
+
+    def test_post_positive_transaction(self):
+        '''
+        If not category.is_negative, the value must be positive.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['category'] = '/api/v1/category/5'
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'description': u'',
+            u'value': u'40',
+            u'date': u'2010-03-03',
+            u'id': 4,
+            u'resource_uri': u'/api/v1/transaction/4',
+            u'category': {u'custom': False,
+                u'default_active': True,
+                u'id': 5,
+                u'is_negative': False,
+                u'name': u'positive',
+                u'resource_uri': u'/api/v1/category/5',
+                u'group': u'group'
+            }
+        })
+
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(40))
+
+    def test_post_value_signal_irrelevant(self):
+        '''
+        Even if the value on request data is negative, use transaction to set it as positive/negative.
+        '''
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['category'] = '/api/v1/category/5'
+        data['value'] = '-40'
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'description': u'',
+            u'value': u'40',
+            u'date': u'2010-03-03',
+            u'id': 4,
+            u'resource_uri': u'/api/v1/transaction/4',
+            u'category': {u'custom': False,
+                u'default_active': True,
+                u'id': 5,
+                u'is_negative': False,
+                u'name': u'positive',
+                u'resource_uri': u'/api/v1/category/5',
+                u'group': u'group'
+            }
+        })
+
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(40))
 
     def test_post_with_int_as_value(self):
         '''
@@ -137,7 +205,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         content = self.deserialize(resp)
 
-        self.assertEquals(content['value'], u'5.0')
+        self.assertEquals(content['value'], u'-5')
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
@@ -169,6 +237,8 @@ class TransactionResourceTest(ResourceTestCase):
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
