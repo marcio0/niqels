@@ -1,6 +1,7 @@
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction) {
     'use strict';
     $scope.formData = {};
+    $scope.selected_category = null;
 
     var resetForm = function resetForm () {
         $scope.sending = false;
@@ -17,8 +18,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction) 
         if (form.$valid) {
             $scope.sending = true;
 
-            var cls = null,
-                promise = null;
+            var cls, promise;
 
             promise = Transaction.save(transaction_data)
                 .$then(function (value) {

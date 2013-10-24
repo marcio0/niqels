@@ -167,7 +167,7 @@ angular.module('webapp')
         };
     })
 
-    .directive('categoryField', ['Category', '$rootScope', function (Category, $rootScope) {
+    .directive('categoryField', ['Category', '$rootScope', '$parse', function (Category, $rootScope, $parse) {
         return {
             require: '?ngModel',
             restrict: 'A',
@@ -190,12 +190,11 @@ angular.module('webapp')
                     var c = {name: gettext('Select a category')};
                     result.resource.unshift(c);
                     $rootScope.categories = result.resource;
+                    $parse(attrs.ngModel).assign(scope, c);
                 });
 
                 scope.$watch(attrs.ngModel, function (newValue, oldValue) {
-                    if (newValue === undefined) {
-                        element.selectpicker('render');
-                    }
+                    element.selectpicker('render');
                 });
             }
         };
@@ -274,48 +273,27 @@ angular.module('webapp')
         else {
             template = '<input type="text"></input>';
         }
+
         return {
             require: '?ngModel',
             restrict: 'A',
             replace: true,
             template: template,
             link: function (scope, element, attrs, controller) {
-                var updateModel = function(ev) {
+                function updateModel () {
                     return scope.$apply(function () {
                         return controller.$setViewValue(element.val());
                     });
-                };
+                }
 
                 element.maskMoney({
-                    allowNegative: true,
+                    allowNegative: false,
                     allowZero: true,
                     thousands:'.',
-                    decimal:',',
-                    negativeDefault: true
+                    decimal:','
                 });
 
-                element.keyup(function(event) {
-                    var me = $(this),
-                        addon = me.siblings('span.add-on'),
-                        color = "";
-
-                    updateModel();
-
-                    if (me.val().charAt(0) === '-') {
-                        color = '#b94a48';
-                    }
-                    else if (parseInt(me.val().charAt(0))) {
-                        color = '#b94a48';
-                    }
-                    else if (me.val().charAt(0) === '+') {
-                        color = '#468847';
-                    }
-                    else {
-                        return;
-                    }
-                    me.css('color', color);
-                    addon.css('color', color);
-                });
+                element.keyup(updateModel);
             }
         };
     }])
