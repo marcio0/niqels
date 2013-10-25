@@ -178,19 +178,8 @@ angular.module('webapp')
                     noneSelectedText: ''
                 });
 
-                Category.query().$then(function (result) {
-                    scope.$watch('categories', function () {
-                        // disabling the default option
-                        // removing this for now, it's breaking the reports section
-                        //element.find('option[value=0]').attr('disabled', 'disabled');
-                         
-                        element.selectpicker('refresh');
-                    });
-                    // adding a default option so angular won't freak out
-                    var c = {name: gettext('Select a category')};
-                    result.resource.unshift(c);
-                    $rootScope.categories = result.resource;
-                    $parse(attrs.ngModel).assign(scope, c);
+                scope.$watch('categories', function () {
+                    element.selectpicker('refresh');
                 });
 
                 scope.$watch(attrs.ngModel, function (newValue, oldValue) {

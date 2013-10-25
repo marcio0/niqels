@@ -1,4 +1,4 @@
-function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction) {
+function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category) {
     'use strict';
     $scope.formData = {};
     $scope.selected_category = null;
@@ -7,7 +7,15 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction) 
         $scope.sending = false;
         $scope.formData.description = '';
         $scope.formData.value = '';
+        $scope.categories = '';
     };
+
+    Category.query().$then(function (result) {
+        // adding a default option so angular won't freak out
+        var c = {name: gettext('Select a category')};
+        result.resource.unshift(c);
+        $scope.categories = result.resource;
+    });
 
     resetForm();
 
@@ -43,4 +51,4 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction) 
     };
 }
 
-TransactionFormCtrl.$inject = ['$scope', '$element', '$http', '$rootScope', 'Transaction'];
+TransactionFormCtrl.$inject = ['$scope', '$element', '$http', '$rootScope', 'Transaction', 'Category'];
