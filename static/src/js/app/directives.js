@@ -175,7 +175,7 @@ angular.module('webapp')
                 element.addClass('selectpicker');
 
                 element.selectpicker({
-                    noneSelectedText: ''
+                    noneSelectedText: gettext('Selecione uma categoria')
                 });
 
                 scope.$watch('categories', function () {
