@@ -7,7 +7,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
         $scope.sending = false;
         $scope.formData.description = '';
         $scope.formData.value = '';
-        $scope.categories = '';
+        $scope.category = '';
     };
 
     Category.query().$then(function (result) {
