@@ -26,137 +26,68 @@
     model: access.user
     pk: 2
 
--   fields: {name: Geral}
-    model: expenses.categorygroup
-    pk: 1
--   fields: {name: Housing}
-    model: expenses.categorygroup
-    pk: 2
--   fields: {name: Consumo}
-    model: expenses.categorygroup
-    pk: 3
--   fields: {name: Car}
-    model: expenses.categorygroup
-    pk: 4
--   fields: {name: Entretenimento}
-    model: expenses.categorygroup
-    pk: 5
--   fields: {name: "Apar\xEAncia"}
-    model: expenses.categorygroup
-    pk: 6
--   fields: {name: "Empr\xE9stimos"}
-    model: expenses.categorygroup
-    pk: 7
--   fields: {name: "Educa\xE7\xE3o"}
-    model: expenses.categorygroup
-    pk: 8
--   fields: {name: "Despesas M\xE9dicas"}
-    model: expenses.categorygroup
-    pk: 9
 -   fields: {name: Receitas}
     model: expenses.categorygroup
-    pk: 10
--   fields: {name: Customizado}
-    model: expenses.categorygroup
-    pk: 11
--   fields: {custom: false, default_active: true, group: 1, name: Mercado}
-    model: expenses.category
     pk: 1
--   fields: {custom: false, default_active: true, group: 2, name: Aluguel}
-    model: expenses.category
+-   fields: {name: Contas fixas}
+    model: expenses.categorygroup
     pk: 2
--   fields: {custom: false, default_active: true, group: 2, name: "Financiamento Imobili\xE1\
+-   fields: {name: Despesas}
+    model: expenses.categorygroup
+    pk: 3
+-   fields: {custom: false, default_active: true, group: 1, is_negative: false, name: "Sal\xE1\
             rio"}
     model: expenses.category
+    pk: 1
+-   fields: {custom: false, default_active: true, group: 1, is_negative: false, name: Extras}
+    model: expenses.category
+    pk: 2
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Moradia}
+    model: expenses.category
     pk: 3
--   fields: {custom: false, default_active: true, group: 2, name: Condominio}
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: "\xC1\
+            gua"}
     model: expenses.category
     pk: 4
--   fields: {custom: false, default_active: true, group: 3, name: Telefone}
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Luz}
     model: expenses.category
     pk: 5
--   fields: {custom: false, default_active: true, group: 3, name: TV a Cabo}
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: "G\xE1\
+            s"}
     model: expenses.category
     pk: 6
--   fields: {custom: false, default_active: true, group: 3, name: "\xC1gua"}
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Telefone/Internet/TV}
     model: expenses.category
     pk: 7
--   fields: {custom: false, default_active: true, group: 3, name: Luz}
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Alimenta\xE7\
+            \xE3o"}
     model: expenses.category
     pk: 8
--   fields: {custom: false, default_active: true, group: 3, name: "G\xE1s"}
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Transporte}
     model: expenses.category
     pk: 9
--   fields: {custom: false, default_active: true, group: 3, name: Internet}
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Lazer}
     model: expenses.category
     pk: 10
--   fields: {custom: false, default_active: true, group: 4, name: Financiamento}
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Vestu\xE1\
+            rio"}
     model: expenses.category
     pk: 11
--   fields: {custom: false, default_active: true, group: 4, name: "Manuten\xE7\xE3\
-            o"}
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Educa\xE7\
+            \xE3o"}
     model: expenses.category
     pk: 12
--   fields: {custom: false, default_active: true, group: 4, name: "Combust\xEDvel"}
-    model: expenses.category
-    pk: 13
--   fields: {custom: false, default_active: true, group: 4, name: Estacionamento}
-    model: expenses.category
-    pk: 14
--   fields: {custom: false, default_active: true, group: 4, name: Impostos}
-    model: expenses.category
-    pk: 15
--   fields: {custom: false, default_active: true, group: 5, name: Restaurante}
-    model: expenses.category
-    pk: 16
--   fields: {custom: false, default_active: true, group: 5, name: Cinema}
-    model: expenses.category
-    pk: 17
--   fields: {custom: false, default_active: true, group: 5, name: Teatro}
-    model: expenses.category
-    pk: 18
--   fields: {custom: false, default_active: true, group: 6, name: Roupas}
-    model: expenses.category
-    pk: 19
--   fields: {custom: false, default_active: true, group: 6, name: "Sapatos/T\xEAnis"}
-    model: expenses.category
-    pk: 20
--   fields: {custom: false, default_active: true, group: 7, name: "Cart\xE3o de Cr\xE9\
-            dito"}
-    model: expenses.category
-    pk: 21
--   fields: {custom: false, default_active: true, group: 7, name: Cheque Especial}
-    model: expenses.category
-    pk: 22
--   fields: {custom: false, default_active: true, group: 7, name: "Cr\xE9dito Pessoal"}
-    model: expenses.category
-    pk: 23
--   fields: {custom: false, default_active: true, group: 8, name: Escola}
-    model: expenses.category
-    pk: 24
--   fields: {custom: false, default_active: true, group: 8, name: Faculdade}
-    model: expenses.category
-    pk: 25
--   fields: {custom: false, default_active: true, group: 8, name: Curso}
-    model: expenses.category
-    pk: 26
--   fields: {custom: false, default_active: true, group: 9, name: "Plano de Sa\xFA\
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Sa\xFA\
             de"}
     model: expenses.category
-    pk: 27
--   fields: {custom: false, default_active: true, group: 9, name: Hospital}
+    pk: 13
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Mercado}
     model: expenses.category
-    pk: 28
--   fields: {custom: false, default_active: true, group: 9, name: Exames}
+    pk: 14
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Utens\xED\
+            lios dom\xE9sticos"}
     model: expenses.category
-    pk: 29
--   fields: {custom: false, default_active: true, group: 10, name: "Sal\xE1rio"}
+    pk: 15
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Outros}
     model: expenses.category
-    pk: 30
--   fields: {custom: false, default_active: true, group: 10, name: Hora Extra}
-    model: expenses.category
-    pk: 31
--   fields: {custom: false, default_active: true, group: 10, name: "Restitui\xE7\xE3\
-            o de Imposto"}
-    model: expenses.category
-    pk: 32
+    pk: 16
