@@ -2,7 +2,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     'use strict';
 
     $scope.days = [];
-    $rootScope.filterDate = moment();
+    $scope.filterDate = moment();
     $scope.loading = true;
 
     var filterTransactions = function (value) {
@@ -45,20 +45,14 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
         }).always(function () {$scope.loading = false;});
     };
 
-    $rootScope.$watch('filterDate', filterTransactions);
+    $scope.$watch('filterDate', filterTransactions);
 
     $scope.moveMonth = function moveMonth (dir) {
-        $rootScope.filterDate = $rootScope.filterDate.clone()[dir]('month', 1);
+        $scope.filterDate = $scope.filterDate.clone()[dir]('month', 1);
     };
 
     $rootScope.$on('transactionCreated', function (event, data) {
-        var showingMonth = $rootScope.filterDate.month() + 1;
-        var transactionMonth = parseInt(data.date.split('-')[1]);
-
-        if (showingMonth !== transactionMonth) {
-            // the transaction is not for this month, getting out
-            return;
-        }
+        if (!$scope.filterDate.isSame(moment(data.date))) return;
 
         // when a transaction is created, add it to the list
         // it's an alternative to loading everything again
@@ -78,6 +72,11 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     $scope.isEmpty = function isEmpty () {
         return ($scope.days.length === 0) && !$scope.loading;
     };
+
+    $scope.$on('transaction-list-date-changed', function (ev, date) {
+        if (date.isSame($scope.filterDate, 'month')) return;
+        $scope.filterDate = date;
+    });
 }
 
 TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter'];

@@ -218,8 +218,9 @@ angular.module('webapp')
             linkFn = function linkFn (scope, element, attrs) {
                 element.removeClass('form-control');
                 var updateModel = function (ev) {
+                    // comparar se a data é igual aqui
                     scope.$apply(function () {
-                        scope.date = moment(ev.date).format('DD/MM/YYYY');
+                        scope.date = moment(ev.date);
                     });
                 };
 
@@ -230,14 +231,6 @@ angular.module('webapp')
                     todayHighlight: true,
                     todayBtn: "linked"
                 }).on('changeDate', updateModel);
-
-                scope.$watch('date', function (newValue, oldValue) {
-                    if (newValue === undefined) {
-                        var today = moment().format('YYYY-MM-DD');
-                        element.data('datepicker').update(today);
-                        scope.date = today;
-                    }
-                });
             };
         }
 

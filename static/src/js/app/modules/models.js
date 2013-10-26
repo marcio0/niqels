@@ -25,7 +25,7 @@ angular.module('models', ['ngResource'])
             }
         });
 
-        $rootScope.$on('transactionCreated', function (e, value, opts) {
+        $rootScope.$on('transaction-created', function (e, value, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Transaction'));

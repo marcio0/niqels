@@ -1,6 +1,7 @@
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category) {
     'use strict';
     $scope.formData = {};
+    $scope.formData.date = moment();
     $scope.selected_category = null;
 
     var resetForm = function resetForm () {
@@ -23,6 +24,8 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
         var transaction_data = angular.copy($scope.formData),
             form = this.transactionForm;
 
+        transaction_data.date = transaction_data.date.format('YYYY-MM-DD');
+
         if (form.$valid) {
             $scope.sending = true;
 
@@ -34,7 +37,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                     return value;
                 })
                 .then(function (value) {
-                    $rootScope.$emit('transactionCreated', value.resource);
+                    $scope.$emit('transaction-created', value.resource);
                     return value;
                 });
 
@@ -49,6 +52,11 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             toastr.warning(gettext('Please fill in the fields correctly.'));
         }
     };
+
+    $scope.$watch('formData.date', function (date, oldDate) {
+        if (date === undefined) return;
+        $rootScope.$broadcast('transaction-list-date-changed', date);
+    });
 }
 
 TransactionFormCtrl.$inject = ['$scope', '$element', '$http', '$rootScope', 'Transaction', 'Category'];
