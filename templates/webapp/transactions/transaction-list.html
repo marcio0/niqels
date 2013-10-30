@@ -19,6 +19,41 @@
         </div>
 
         <table class="table transaction-table">
+
+            <thead>
+                <tr class="transaction-list-columns">
+                    <th>{% trans "Category" %}</th>
+                    <th class="value-column-header">{% trans "Total" %}</th>
+                </tr>
+            </thead>
+
+            <tbody ng-repeat="category in categories" rel="(($index))">
+                <tr class="transaction-list-category">
+                    <td colspan="4" ng-bind="category.name"></td>
+                </tr>
+                <tr class="transaction-row"
+                    ng-show="false"
+                    ng-repeat="transaction in category.transactions"
+                    rel="(($index))"
+                    >
+
+                    <td class="date-column" ng-bind="transaction.date | date:'mediumDate'" style="font-weight: bold">
+                    </td>
+
+                    <td class="description-column" ng-bind="transaction.description"></td>
+
+                    <td class="value-column" is-positive-class="transaction.value">
+                        <span ng-bind="transaction.value | number:2"></span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <hr/>
+
+        <!--
+        <table class="table transaction-table">
             <thead class="">
                 <tr class="transaction-list-columns">
                     <th>{% trans "Category" %}</th>
@@ -37,11 +72,6 @@
                     rel="(($index))"
                     >
 
-                    {% comment %}
-                    <td class="category-column">
-                        <span ex-category="transaction.category"></span>
-                    </td>
-                    {% endcomment %}
                     <td class="category-column" ng-bind="transaction.category.name" style="font-weight: bold">
                     </td>
 
@@ -60,6 +90,7 @@
                 </tr>
             </tbody>
         </table>
+        -->
 
         <div id="empty-msg" ng-show="isEmpty()">
             {% trans "No transacions for the period." %}

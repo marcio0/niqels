@@ -2,6 +2,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
     'use strict';
 
     $scope.days = [];
+    $scope.categories = [];
     $rootScope.filterDate = moment();
     $scope.loading = true;
 
@@ -21,10 +22,12 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
 
         Transaction.query(filter).$then(function (result) {
             $scope.days = [];
+            $scope.categories = [];
             var transactions = result.resource;
 
             // grouping the entries by day
             var days = {};
+            var categories = {};
             for (var i=0; i < transactions.length; i++) {
                 var transaction = transactions[i];
 
@@ -32,7 +35,12 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
                     days[transaction.date] = [];
                 }
 
+                if (!(transaction.category.name in categories)) {
+                    categories[transaction.category.name] = [];
+                }
+
                 days[transaction.date].push(transaction);
+                categories[transaction.category.name].push(transaction);
             }
 
             // trasforming the data into a list to be used in ang orderBy filter
@@ -40,6 +48,12 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
                 $scope.days.push({
                     day: day,
                     transactions: days[day]
+                });
+            }
+            for (var category in categories) {
+                $scope.categories.push({
+                    name: category,
+                    transactions: categories[category]
                 });
             }
         }).always(function () {$scope.loading = false;});
