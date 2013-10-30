@@ -2,6 +2,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     'use strict';
     $scope.formData = {};
     $scope.selected_category = null;
+    $scope.formData.date = moment();
 
     var resetForm = function resetForm () {
         $scope.sending = false;
@@ -25,6 +26,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
         if (form.$valid) {
             $scope.sending = true;
+            transaction_data.date = transaction_data.date.format('DD/MM/YYYY');
 
             var cls, promise;
 
