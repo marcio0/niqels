@@ -1,4 +1,4 @@
-function TransactionActionBarCtrl ($scope, Transaction) {
+function TransactionActionBarCtrl ($scope, Transaction, $rootScope) {
     'use strict';
 
     $scope.removeTransaction = function () {
@@ -16,10 +16,10 @@ function TransactionActionBarCtrl ($scope, Transaction) {
                     }
                 }
             }
-            $scope.$emit('transactionRemoved', $scope.transaction);
+            $rootScope.$emit('transactionRemoved', $scope.transaction);
 
         });
     };
 }
 
-TransactionActionBarCtrl.$inject = ['$scope', 'Transaction'];
+TransactionActionBarCtrl.$inject = ['$scope', 'Transaction', '$rootScope'];

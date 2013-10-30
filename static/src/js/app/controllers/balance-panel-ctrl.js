@@ -1,6 +1,5 @@
 function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, BalanceChart) {
     'use strict';
-    return;
 
     $scope.updateBalance = function () {
         var reference_date, date_start, date_end;
@@ -28,8 +27,8 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
         }
     };
 
-    $rootScope.$on('transaction-created', $scope.updateBalance);
-    $rootScope.$on('transaction-removed', $scope.updateBalance);
+    $rootScope.$on('transactionCreated', $scope.updateBalance);
+    $rootScope.$on('transactionRemoved', $scope.updateBalance);
     $rootScope.$watch('filterDate', $scope.updateBalance);
     $rootScope.$on('devicechanged', function (e, device) {
         if (device != 'phone') {
