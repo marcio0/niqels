@@ -1,4 +1,4 @@
-function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) {
+    function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) {
     'use strict';
 
     $scope.days = [];
@@ -9,9 +9,9 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
     $scope.allTransactions = [];
     $scope.transactionGroups = [];
 
-    function groupTransactions (grouper) {
+    function groupTransactions () {
         var transactionGroups = [];
-        var getter = $parse(grouper);
+        var getter = $parse($scope.groupBy);
         var allTransactions = $scope.allTransactions;
 
         var groupObj = {};
@@ -101,6 +101,10 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
     $scope.isEmpty = function isEmpty () {
         return ($scope.transactionGroups.length === 0) && !$scope.loading;
     };
+
+    $scope.$watch('groupBy', function regroup () {
+        $scope.transactionGroups = groupTransactions();
+    });
 }
 
 TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse'];

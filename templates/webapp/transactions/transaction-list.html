@@ -10,12 +10,31 @@
          
         <h4 class="area-header">{% trans "Transactions" %}</h4>
 
-        <div class="month-selector">
-        <div class="btn-group">
-            <button class="btn btn-link previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left icon-" ng-click="moveMonth('subtract')"></i></button>
-            <button class="btn btn-link actual-month" ng-class="{disabled: loading}" ex-month-selector="filterDate"></button>
-            <button class="btn btn-link next-month" ng-class="{disabled: loading}"><i class="icon-chevron-right icon-" ng-click="moveMonth('add')"></i></button>
-        </div>
+        <div id="transacion-list-options" class="well">
+            <div class="month-selector">
+            <div class="btn-group">
+                <button class="btn btn-link previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left icon-" ng-click="moveMonth('subtract')"></i></button>
+                <button class="btn btn-link actual-month" ng-class="{disabled: loading}" ex-month-selector="filterDate"></button>
+                <button class="btn btn-link next-month" ng-class="{disabled: loading}"><i class="icon-chevron-right icon-" ng-click="moveMonth('add')"></i></button>
+            </div>
+            </div>
+
+            <div id="group-options">
+                <p>{% trans "Group transactions by:" %}
+                   <div class="radio-inline">
+                       <label>
+                           <input type="radio" name="groupRadio" id="groupRadio1" value="date" ng-model="groupBy">
+                           {% trans "Date" %}
+                       </label>
+                   </div>
+                   <div class="radio-inline">
+                       <label>
+                           <input type="radio" name="groupRadio" id="groupRadio2" value="category.name" ng-model="groupBy">
+                           {% trans "Category" %}
+                       </label>
+                   </div>
+                </p>
+            </div>
         </div>
 
         <div class="panel-group" id="transactions-collapse">
