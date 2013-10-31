@@ -27,10 +27,15 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
         } 
 
         for (var groupName in groupObj) {
-            transactionGroups.push({
+            var group = {
                 name: groupName,
-                transactions: groupObj[groupName]
-            });
+                transactions: groupObj[groupName],
+                total: 0
+            };
+            for (var idx in group.transactions) {
+                group.total += group.transactions[idx].value;
+            }
+            transactionGroups.push(group);
         }
 
         return transactionGroups;
@@ -82,12 +87,14 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
             var group = $scope.transactionGroups[i];
             if (group.name == attr) {
                 group.transactions.unshift(transaction);
+                group.total += parseFloat(transaction.value);
                 return;
             }
         }
         $scope.transactionGroups.push({
             name: attr,
-            transactions: [transaction]
+            transactions: [transaction],
+            total: parseFloat(transaction.value)
         });
     });
 

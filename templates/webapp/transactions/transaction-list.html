@@ -22,7 +22,7 @@
             <div class="panel panel-default" ng-repeat="group in transactionGroups">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" href="#category(($index))" ng-bind="group.name"></a>
+                        <a class="accordion-toggle" data-toggle="collapse" href="#category(($index))" ng-bind="group.name"></a><span class="group-total pull-right" ng-bind="group.total | number:2"></span>
                     </h4>
                 </div>
                 <div id="category(($index))" class="panel-collapse collapse">

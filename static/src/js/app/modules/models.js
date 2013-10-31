@@ -21,7 +21,12 @@ angular.module('models', ['ngResource'])
             query: {
                 method: 'GET',
                 isArray: true,
-                transformResponse: tastypieDataTransformer($http)
+                transformResponse: tastypieDataTransformer($http).concat(function (data, headersGetter) {
+                    for (var idx in data) {
+                        data[idx].value = parseFloat(data[idx].value);
+                    }
+                    return data;
+                })
             }
         });
 
