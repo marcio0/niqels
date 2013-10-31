@@ -19,26 +19,24 @@
             </div>
             </div>
 
-            <div id="group-options">
-                <p>{% trans "Group transactions by:" %}
-                   <div class="radio-inline">
-                       <label>
-                           <input type="radio" name="groupRadio" id="groupRadio1" value="date" ng-model="groupBy">
-                           {% trans "Date" %}
-                       </label>
-                   </div>
-                   <div class="radio-inline">
-                       <label>
-                           <input type="radio" name="groupRadio" id="groupRadio2" value="category.name" ng-model="groupBy">
-                           {% trans "Category" %}
-                       </label>
-                   </div>
-                </p>
+            <div id="group-options" class="btn-group">
+                <input class="btn btn-default"
+                        type="button"
+                        value="{% trans "Group transactions by date" %}"
+                        ng-click="groupBy = 'date'"
+                        ng-class="{active: groupBy == 'date'}"
+                        >
+                <input class="btn btn-default"
+                        ng-class="{active: groupBy == 'category.name'}"
+                        type="button"
+                        value="{% trans "Group transactions by category" %}"
+                        ng-click="groupBy = 'category.name'"
+                        >
             </div>
         </div>
 
-        <div class="panel-group" id="transactions-collapse">
-            <div class="panel panel-default" ng-repeat="group in transactionGroups">
+        <div class="panel-group" ng-if="groupBy == 'category.name'">
+            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle" data-toggle="collapse" href="#category(($index))" ng-bind="group.name"></a><span class="group-total pull-right" ng-bind="group.total | number:2"></span>
@@ -78,7 +76,44 @@
             </div>
         </div>
 
-        <hr/>
+        <div class="panel-group" ng-if="groupBy == 'date'">
+            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="#category(($index))" ng-bind="group.name | date:'longDate'"></a>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead><tr>
+                            <td class="category-column-header">
+                                {% trans "Category" %}
+                            </td>
+                            <td class="description-column-header">
+                                {% trans "Description" %}
+                            </td>
+                            <td class="value-column-header">
+                                {% trans "Value" %}
+                            </td>
+                        </tr></thead>
+
+                        <tbody>
+                            <tr class="transaction-row"
+                                ng-repeat="transaction in group.transactions">
+
+                                <td class="category-column" ng-bind="transaction.category.name" style="font-weight: bold"></td>
+
+                                <td class="description-column" ng-bind="transaction.description"></td>
+
+                                <td class="value-column" is-positive-class="transaction.value">
+                                    <span ng-bind="transaction.value | number:2"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <!--
         <table class="table transaction-table">
