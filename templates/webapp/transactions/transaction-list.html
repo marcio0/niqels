@@ -18,37 +18,46 @@
         </div>
         </div>
 
-        <table class="table transaction-table">
+        <div class="panel-group" id="transactions-collapse">
+            <div class="panel panel-default" ng-repeat="group in transactionGroups">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#category(($index))" ng-bind="group.name"></a>
+                    </h4>
+                </div>
+                <div id="category(($index))" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead><tr>
+                                <td class="date-column-header">
+                                    {% trans "Date" %}
+                                </td>
+                                <td class="description-column-header">
+                                    {% trans "Description" %}
+                                </td>
+                                <td class="value-column-header">
+                                    {% trans "Value" %}
+                                </td>
+                            </tr></thead>
 
-            <thead>
-                <tr class="transaction-list-columns">
-                    <th>{% trans "Category" %}</th>
-                    <th class="value-column-header">{% trans "Total" %}</th>
-                </tr>
-            </thead>
+                            <tbody>
+                                <tr class="transaction-row" 
+                                    ng-repeat="transaction in group.transactions">
 
-            <tbody ng-repeat="category in categories" rel="(($index))">
-                <tr class="transaction-list-category">
-                    <td colspan="4" ng-bind="category.name"></td>
-                </tr>
-                <tr class="transaction-row"
-                    ng-show="false"
-                    ng-repeat="transaction in category.transactions"
-                    rel="(($index))"
-                    >
+                                    <td class="date-column" ng-bind="transaction.date | date:'dd/MM'" style="font-weight: bold"></td>
 
-                    <td class="date-column" ng-bind="transaction.date | date:'mediumDate'" style="font-weight: bold">
-                    </td>
+                                    <td class="description-column" ng-bind="transaction.description"></td>
 
-                    <td class="description-column" ng-bind="transaction.description"></td>
-
-                    <td class="value-column" is-positive-class="transaction.value">
-                        <span ng-bind="transaction.value | number:2"></span>
-                    </td>
-                </tr>
-            </tbody>
-
-        </table>
+                                    <td class="value-column" is-positive-class="transaction.value">
+                                        <span ng-bind="transaction.value | number:2"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <hr/>
 

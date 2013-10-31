@@ -1,10 +1,40 @@
-function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
+function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) {
     'use strict';
 
     $scope.days = [];
+    $scope.groupBy = 'category.name';
     $scope.categories = [];
     $rootScope.filterDate = moment();
     $scope.loading = true;
+    $scope.allTransactions = [];
+    $scope.transactionGroups = [];
+
+    function groupTransactions (grouper) {
+        var transactionGroups = [];
+        var getter = $parse(grouper);
+        var allTransactions = $scope.allTransactions;
+
+        var groupObj = {};
+        for (var i=0; i < allTransactions.length; i++) {
+            var transaction = allTransactions[i];
+            var attr = getter(transaction);
+
+            if (!(attr in groupObj)) {
+                groupObj[attr] = [];
+            }
+
+            groupObj[attr].push(transaction);
+        } 
+
+        for (var groupName in groupObj) {
+            transactionGroups.push({
+                name: groupName,
+                transactions: groupObj[groupName]
+            });
+        }
+
+        return transactionGroups;
+    }
 
     var filterTransactions = function (value) {
         var start, end, filter;
@@ -21,41 +51,10 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
         };
 
         Transaction.query(filter).$then(function (result) {
-            $scope.days = [];
-            $scope.categories = [];
-            var transactions = result.resource;
 
-            // grouping the entries by day
-            var days = {};
-            var categories = {};
-            for (var i=0; i < transactions.length; i++) {
-                var transaction = transactions[i];
+            $scope.allTransactions = result.resource;
+            $scope.transactionGroups = groupTransactions($scope.groupBy);
 
-                if (!(transaction.date in days)) {
-                    days[transaction.date] = [];
-                }
-
-                if (!(transaction.category.name in categories)) {
-                    categories[transaction.category.name] = [];
-                }
-
-                days[transaction.date].push(transaction);
-                categories[transaction.category.name].push(transaction);
-            }
-
-            // trasforming the data into a list to be used in ang orderBy filter
-            for (var day in days) {
-                $scope.days.push({
-                    day: day,
-                    transactions: days[day]
-                });
-            }
-            for (var category in categories) {
-                $scope.categories.push({
-                    name: category,
-                    transactions: categories[category]
-                });
-            }
         }).always(function () {$scope.loading = false;});
     };
 
@@ -65,33 +64,36 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter) {
         $rootScope.filterDate = $rootScope.filterDate.clone()[dir]('month', 1);
     };
 
-    $rootScope.$on('transactionCreated', function (event, data) {
+    $rootScope.$on('transactionCreated', function (event, transaction) {
         var showingMonth = $rootScope.filterDate.month() + 1;
-        var transactionMonth = parseInt(data.date.split('-')[1]);
+        var transactionMonth = parseInt(transaction.date.split('-')[1]);
 
         if (showingMonth !== transactionMonth) {
             // the transaction is not for this month, getting out
             return;
         }
 
+        $scope.allTransactions.push(transaction);
+
         // when a transaction is created, add it to the list
         // it's an alternative to loading everything again
-        for (var i in $scope.days) {
-            var day = $scope.days[i];
-            if (day.day == data.date) {
-                day.transactions.unshift(data);
+        var attr = $parse($scope.groupBy)(transaction);
+        for (var i in $scope.transactionGroups) {
+            var group = $scope.transactionGroups[i];
+            if (group.name == attr) {
+                group.transactions.unshift(transaction);
                 return;
             }
         }
-        $scope.days.push({
-            day: data.date,
-            transactions: [data]
+        $scope.transactionGroups.push({
+            name: attr,
+            transactions: [transaction]
         });
     });
 
     $scope.isEmpty = function isEmpty () {
-        return ($scope.days.length === 0) && !$scope.loading;
+        return ($scope.transactionGroups.length === 0) && !$scope.loading;
     };
 }
 
-TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter'];
+TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse'];
