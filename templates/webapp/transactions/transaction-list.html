@@ -36,7 +36,7 @@
         </div>
 
         <div class="panel-group" ng-if="groupBy == 'category.name'">
-            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups">
+            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:true">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle" data-toggle="collapse" href="#category(($index))" ng-bind="group.name"></a><span class="group-total pull-right" ng-bind="group.total | number:2"></span>

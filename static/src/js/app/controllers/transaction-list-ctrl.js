@@ -9,6 +9,10 @@
     $scope.allTransactions = [];
     $scope.transactionGroups = [];
 
+    $scope.getAbsTotal = function getAbsTotal (group) {
+        return Math.abs(group.total);
+    };
+
     function groupTransactions () {
         var transactionGroups = [];
         var getter = $parse($scope.groupBy);
