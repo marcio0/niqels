@@ -147,7 +147,7 @@ angular.module('charts', [])
 
                     for (var i in result.data) {
                         var category = result.data[i];
-                        var value = parseFloat(category.sum);
+                        var value = category.sum;
                         if (value < 0) {
                             //this chart shows only expenses
                             value = value * -1;
@@ -234,7 +234,7 @@ angular.module('charts', [])
 
                         var month = moment(transactionGroup.date__month).format('MMM YYYY');
                         var category = transactionGroup.category__name;
-                        var value = parseFloat(transactionGroup.sum);
+                        var value = transactionGroup.sum;
 
                         dict[category] = dict[category] || {name: '', data: []};
 

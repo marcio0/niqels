@@ -91,14 +91,14 @@
             var group = $scope.transactionGroups[i];
             if (group.name == attr) {
                 group.transactions.unshift(transaction);
-                group.total += parseFloat(transaction.value);
+                group.total += transaction.value;
                 return;
             }
         }
         $scope.transactionGroups.push({
             name: attr,
             transactions: [transaction],
-            total: parseFloat(transaction.value)
+            total: transaction.value
         });
     });
 

@@ -24,6 +24,10 @@ angular.module('models', ['ngResource'])
                 transformResponse: tastypieDataTransformer($http).concat(function (data, headersGetter) {
                     for (var idx in data) {
                         data[idx].value = parseFloat(data[idx].value);
+
+                        if (data[idx].sum !== undefined) {
+                            data[idx].sum = parseFloat(data[idx].sum);
+                        }
                     }
                     return data;
                 })
