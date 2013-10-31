@@ -7314,6 +7314,17 @@ thead tr th {
 hr {
   border-color: #807f88;
 }
+.value-column {
+  border-right-width: 3px;
+  border-right-style: solid;
+  border-right-color: #eeeeee;
+}
+.value-column-renevue {
+  border-right-color: #46a546;
+}
+.value-column-expense {
+  border-right-color: #9d261d;
+}
 #transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
   color: #d9534f;
 }
