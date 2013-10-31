@@ -48,6 +48,7 @@
     var filterTransactions = function (value) {
         var start, end, filter;
 
+        $scope.transactionGroups = [];
         $scope.loading = true;
 
         start = value.startOf('month');
@@ -73,7 +74,7 @@
         $rootScope.filterDate = $rootScope.filterDate.clone()[dir]('month', 1);
     };
 
-    $rootScope.$on('transactionCreated', function (event, transaction) {
+    $rootScope.$on('transaction-created', function (event, transaction) {
         var showingMonth = $rootScope.filterDate.month() + 1;
         var transactionMonth = parseInt(transaction.date.split('-')[1]);
 
@@ -100,6 +101,10 @@
             transactions: [transaction],
             total: parseFloat(transaction.value)
         });
+    });
+
+    $rootScope.$on('transaction-removed', function reloadAfterRemove () {
+        filterTransactions($scope.filterDate);
     });
 
     $scope.isEmpty = function isEmpty () {

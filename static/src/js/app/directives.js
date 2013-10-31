@@ -152,6 +152,11 @@ angular.module('webapp')
                         }
                     });
                 });
+                console.log(attrs);
+                if (attrs['toggle'] === 'tooltip') {
+                    // if the element has a tooltip configuration, initialize it
+                    element.tooltip();
+                }
             }
         };
     })

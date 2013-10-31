@@ -36,7 +36,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                     return value;
                 })
                 .then(function (value) {
-                    $rootScope.$emit('transactionCreated', value.resource);
+                    $rootScope.$emit('transaction-created', value.resource);
                     return value;
                 });
 

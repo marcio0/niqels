@@ -68,6 +68,18 @@
                                     <td class="value-column" is-positive-class="transaction.value">
                                         <span ng-bind="transaction.value | number:2"></span>
                                     </td>
+
+                                    <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+                                        <i
+                                            class="icon-trash delete-transaction"
+                                            ng-click="removeTransaction()"
+                                            confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                            data-toggle="tooltip"
+                                            data-placement="right"
+                                            data-container="body"
+                                            title="{% trans "Remove this transaction" %}"
+                                        ></i>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -107,6 +119,18 @@
 
                                 <td class="value-column" is-positive-class="transaction.value">
                                     <span ng-bind="transaction.value | number:2"></span>
+                                </td>
+
+                                <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+                                    <i
+                                        class="icon-trash delete-transaction"
+                                        ng-click="removeTransaction()"
+                                        confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                        data-toggle="tooltip"
+                                        data-placement="right"
+                                        data-container="body"
+                                        title="{% trans "Remove this transaction" %}"
+                                    ></i>
                                 </td>
                             </tr>
                         </tbody>

@@ -16,7 +16,7 @@ function TransactionActionBarCtrl ($scope, Transaction, $rootScope) {
                     }
                 }
             }
-            $rootScope.$emit('transactionRemoved', $scope.transaction);
+            $rootScope.$emit('transaction-removed', $scope.transaction);
 
         });
     };
