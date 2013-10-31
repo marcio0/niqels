@@ -139,46 +139,6 @@
             </div>
         </div>
 
-        <!--
-        <table class="table transaction-table">
-            <thead class="">
-                <tr class="transaction-list-columns">
-                    <th>{% trans "Category" %}</th>
-                    <th class="description-column-header">{% trans "Description" %}</th>
-                    <th class="value-column-header">{% trans "Value" %}</th>
-                    <th>{% trans "Actions" %}</th>
-                </tr>
-            </thead>
-            <tbody ng-repeat="day in days | orderBy: 'day':true" rel="(($index))">
-                <tr class="transaction-list-day">
-                    <td colspan="4" ng-bind="day.day | date:'fullDate'"></td>
-                </tr>
-                <tr
-                    class="transaction-row"
-                    ng-repeat="transaction in day.transactions"
-                    rel="(($index))"
-                    >
-
-                    <td class="category-column" ng-bind="transaction.category.name" style="font-weight: bold">
-                    </td>
-
-                    <td class="description-column" ng-bind="transaction.description"></td>
-
-                    <td class="value-column" is-positive-class="transaction.value">
-                        <span ng-bind="transaction.value | number:2"></span>
-                    </td>
-
-                    <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
-                        <i
-                            class="icon-trash delete-transaction"
-                            ng-click="removeTransaction()"
-                        ></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        -->
-
         <div id="empty-msg" ng-show="isEmpty()">
             {% trans "No transacions for the period." %}
         </div>
