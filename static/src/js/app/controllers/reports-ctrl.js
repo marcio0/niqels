@@ -15,7 +15,6 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
 
     function updateBalance () {
         var data = BalanceChart.fetchData(getParams()).then(function setupScope (result) {
-            result.options.chart.backgroundColor = '#f5f5f5';
             return result;
         });
 
@@ -25,7 +24,6 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
     function updateTop10 () {
 
         var data = Top10.fetchData(getParams()).then(function (result) {
-            result.options.chart.backgroundColor = '#f5f5f5';
             return result;
         });
 
@@ -35,7 +33,6 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
     var allSeries = {};
     function updateCategoryComparison() {
         var data = CategoryComparison.fetchData(getParams()).then(function (result) {
-            result.options.chart.backgroundColor = '#f5f5f5';
             var c1 = gettext('Renevues');
             var c2 = gettext('Expenses');
 
