@@ -13,51 +13,38 @@ angular.module('charts', [])
                     deferred = $q.defer();
 
                 $http.get('/api/v1/data/balance/', {params: params}).then(function (result) {
-                    var categories = [],
-                        values = [],
+                    var series = [],
                         options = {},
-                        avg = 0;
+                        renevuesSeries = {data: [], name: gettext('Renevues'), color: '#049cdb'},
+                        expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d'};
+
+                    var monthNames = [];
 
                     $.extend(true, options, me.chartOptions);
 
-                    for(var i in result.data) {
+                    for (var i in result.data) {
                         var data = {},
                             month = result.data[i],
-                            category;
+                            monthName;
 
-                        category = moment(month.period, 'YYYY-MM-DD').format('MMM YYYY');
-                        categories.push(category);
+                        monthName = moment(month.period, 'YYYY-MM-DD').format('MMM YYYY');
+                        monthNames.push(monthName);
 
+                        renevuesSeries.data.push(parseFloat(month.renevues));
+                        expensesSeries.data.push(Math.abs(parseFloat(month.expenses)));
+
+                        /*
+                        // used in tooltip
                         data.renevues = parseFloat(month.renevues);
                         data.renevues_text = $filter('currency')(data.renevues);
                         data.expenses = parseFloat(month.expenses);
                         data.expenses_text = $filter('currency')(data.expenses);
+                        */
 
-                        data.y = data.renevues + data.expenses;
-                        data.y_text = $filter('currency')(data.y);
-                        data.color = data.y < 0 ? '#9d261d' : '#049cdb';
-
-                        data.id = month.period;
-
-                        values.push(data);
-
-                        avg += data.y;
                     }
 
-                    avg = avg / values.length;
-
-                    options.xAxis.categories = categories;
-                    options.yAxis.plotLines.push({
-                        value: avg,
-                        color: 'red',
-                        width: 1,
-                        zIndex: 4,
-                        label: {
-                            align: 'right',
-                            text: $filter('currency')(avg)
-                        }
-                    });
-                    options.series = [{data: values}];
+                    options.xAxis.categories = monthNames;
+                    options.series = [renevuesSeries, expensesSeries];
 
                     deferred.resolve({options: options, result: result});
                 }, 
@@ -73,7 +60,7 @@ angular.module('charts', [])
                     type: 'column',
                     spacingLeft: 3,
                     spacingRight: 3,
-                    backgroundColor: '#e7e6e6',
+                    backgroundColor: 'rgba(255, 255, 255, 0.002)',
                     marginBottom: 130
                 },
                 title: {
@@ -167,7 +154,8 @@ angular.module('charts', [])
             },
             chartOptions: {
                 chart: {
-                    type: 'pie'
+                    type: 'pie',
+                    backgroundColor: 'rgba(255, 255, 255, 0.002)',
                 },
                 title: {
                     text: ''
@@ -276,7 +264,8 @@ angular.module('charts', [])
             },
             chartOptions: {
                 chart: {
-                    type: 'line'
+                    type: 'line',
+                    backgroundColor: 'rgba(255, 255, 255, 0.002)',
                 },
                 title: {
                     text: ''

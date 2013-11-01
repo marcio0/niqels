@@ -34,19 +34,16 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
             .state('reports.balance', {
                 url: "/balance",
                 templateUrl: "balance.html"
-                //controller: "CategoryListCtrl"
             })
             // Reports view -> top categories report.
             .state('reports.top-categories', {
                 url: "/top-categories",
                 templateUrl: "top-categories.html"
-                //controller: "CategoryListCtrl"
             })
             // Reports view -> category comparison report.
             .state('reports.category-comparison', {
                 url: "/category-comparison",
                 templateUrl: "category-comparison.html"
-                //controller: "CategoryListCtrl"
             })
             ;
 
