@@ -1,6 +1,26 @@
 (function () {
 'use strict';
 
+function xAxisMonthParser (months) {
+    var monthNames = [];
+    var actualYear;
+
+    for (var i in months) {
+        var month = months[i];
+
+        if (month.year() != actualYear) {
+            actualYear = month.year();
+            var format = 'MMM YYYY';
+        }
+        else {
+            var format = 'MMM';
+        }
+
+        monthNames.push(month.format(format));
+    }
+    return monthNames;
+}
+
 angular.module('charts', [])
 
     /*
@@ -15,10 +35,9 @@ angular.module('charts', [])
                 $http.get('/api/v1/data/balance/', {params: params}).then(function (result) {
                     var series = [],
                         options = {},
+                        months = [],
                         renevuesSeries = {data: [], name: gettext('Renevues'), color: '#049cdb'},
                         expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d'};
-
-                    var monthNames = [];
 
                     $.extend(true, options, me.chartOptions);
 
@@ -27,8 +46,7 @@ angular.module('charts', [])
                             month = result.data[i],
                             monthName;
 
-                        monthName = moment(month.period, 'YYYY-MM-DD').format('MMM YYYY');
-                        monthNames.push(monthName);
+                        months.push(moment(month.period, 'YYYY-MM-DD'));
 
                         renevuesSeries.data.push(parseFloat(month.renevues));
                         expensesSeries.data.push(Math.abs(parseFloat(month.expenses)));
@@ -43,7 +61,7 @@ angular.module('charts', [])
 
                     }
 
-                    options.xAxis.categories = monthNames;
+                    options.xAxis.categories = xAxisMonthParser(months);
                     options.series = [renevuesSeries, expensesSeries];
 
                     deferred.resolve({options: options, result: result});
@@ -209,8 +227,11 @@ angular.module('charts', [])
                 var categories = [];
                 var start = moment(params.date_start);
                 var end = moment(params.date_end);
+                var months = [];
+
                 do {
                     categories.push(start.format('MMM YYYY'));
+                    months.push(start.clone());
                     start.add('months', 1);
                 } while (start < end);
                 var period = categories.length;
@@ -261,7 +282,7 @@ angular.module('charts', [])
 
                     $.extend(true, options, me.chartOptions);
                     options.series = series;
-                    options.xAxis.categories = categories;
+                    options.xAxis.categories = xAxisMonthParser(months);
 
                     deferred.resolve({options: options, result: result});
                 }, 
