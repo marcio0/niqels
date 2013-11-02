@@ -148,6 +148,7 @@ angular.module('webapp')
                 element.bind('click', function () {
                     scope.$apply(function () {
                         if (window.confirm(msg)) {
+                            element.tooltip('destroy');
                             scope.$eval(clickAction);
                         }
                     });
