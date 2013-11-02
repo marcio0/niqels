@@ -5323,7 +5323,7 @@ a.thumbnail:focus {
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
-  background-color: #ffffff;
+  background-color: #e7e6e6;
   border: 1px solid #dddddd;
 }
 .list-group-item:first-child {
@@ -5350,7 +5350,7 @@ a.list-group-item .list-group-item-heading {
 a.list-group-item:hover,
 a.list-group-item:focus {
   text-decoration: none;
-  background-color: #f5f5f5;
+  background-color: #eeeeee;
 }
 .list-group-item.active,
 .list-group-item.active:hover,
@@ -6988,20 +6988,13 @@ p.expenses {
   color: #9d261d;
 }
 /*
- * Trying to set the tooltip outside the chart
-.highcharts-container {
-    overflow: visible !important;
-        margin-left: 150px;
-        left: -150px;
-        position: relative;
-
-    > svg {
-        margin-left: 150px;
-        left: -150px;
-        position: relative;
-    }
-}
-*/
+ * reports.less
+ * Styles for the reports section.
+ */
+/*
+ * charts.less
+* Global styles for the charts.
+ */
 .highcharts-tooltip p {
   margin-bottom: 3px;
 }

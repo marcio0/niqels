@@ -3,21 +3,31 @@
 <div ng-controller="ReportsCtrl" id="reports">
     <h3 class="area-header">{% trans "Reports" %}</h3>
 
-    <div class="month-selector">
-        {% trans "Period" %}: 
-        <button class="btn btn-link actual-month" id="date-start" ex-month-selector="options.dateStart"></button>
-        /
-        <button class="btn btn-link actual-month" id="date-end" ex-month-selector="options.dateEnd"></button>
-        <button class="btn btn-small btn-primary" ng-click="updateCharts()">{% trans "Update" %}</button>
-    </div>
-
     <div class="row">
-        <ul class="col-md-2 nav nav-pills nav-stacked">
-            <li ng-class="{active: $state.includes('reports.balance')}"><a href="#/reports/balance">{% trans "Balance" %}</a></li>
-            <li ng-class="{active: $state.includes('reports.top-categories')}"><a href="#/reports/top-categories">{% trans "Top categories" %}</a></li>
-            <li ng-class="{active: $state.includes('reports.category-comparison')}"><a href="#/reports/category-comparison">{% trans "Category comparison" %}</a></li>
-        </ul>
-        <div class="col-md-10" ui-view>
+
+        <div class="col-md-2 list-group" id="reports-menu">
+            <a class="list-group-item" ng-class="{active: $state.includes('reports.balance')}" href="#/reports/balance">
+                {% trans "Balance" %}
+            </a>
+            <a class="list-group-item" ng-class="{active: $state.includes('reports.top-categories')}" href="#/reports/top-categories">
+                {% trans "Top categories" %}
+            </a>
+            <a class="list-group-item" ng-class="{active: $state.includes('reports.category-comparison')}" href="#/reports/category-comparison">
+                {% trans "Category comparison" %}
+            </a>
+        </div>
+
+
+        <div class="col-md-10">
+            <div class="month-selector">
+                {% trans "Period" %}: 
+                <button class="btn btn-link actual-month" id="date-start" ex-month-selector="options.dateStart"></button>
+                /
+                <button class="btn btn-link actual-month" id="date-end" ex-month-selector="options.dateEnd"></button>
+                <button class="btn btn-small btn-primary" ng-click="updateCharts()">{% trans "Update" %}</button>
+            </div>
+
+            <div ui-view></div>
         </div>
     </div>
 </div>
