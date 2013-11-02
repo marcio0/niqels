@@ -104,7 +104,10 @@ angular.module('charts', [])
                         pointPadding: 0.2,
                         borderWidth: 0,
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            formatter: function () {
+                                return this.y !== 0 ? this.y : '';
+                            }
                         }
                     }
                 }
@@ -311,7 +314,10 @@ angular.module('charts', [])
                     },
                     series: {
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            formatter: function () {
+                                return this.y !== 0 ? this.y : '';
+                            }
                         }
                     }
                 }
