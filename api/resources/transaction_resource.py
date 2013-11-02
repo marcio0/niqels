@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django import forms
 from tastypie.constants import ALL
 from tastypie.resources import ModelResource, Resource
@@ -78,7 +80,7 @@ class TransactionResource(ModelResource):
         # this must happen after all hydrations because order isn't garanteed
         value = bundle.data.get('value')
         if value:
-            value = value.copy_abs()
+            value = Decimal(value).copy_abs()
 
             if bundle.obj.category.is_negative:
                 value = value.copy_negate()
