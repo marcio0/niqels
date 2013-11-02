@@ -115,7 +115,7 @@ angular.module('charts', [])
     /*
      * Top 10 Categories chart
      */
-    .factory('Top10', ['$q', '$filter', 'Transaction', function ($q, $filter, Transaction) {
+    .factory('TopCategories', ['$q', '$filter', 'Transaction', function ($q, $filter, Transaction) {
         return {
             fetchData: function (params) {
                 var me = this,

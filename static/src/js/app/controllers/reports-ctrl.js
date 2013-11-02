@@ -1,7 +1,12 @@
-function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryComparison, Category, $q) {
+function ReportsCtrl ($scope, $rootScope) {
     'use strict';
 
+    var today = moment();
+
     $scope.options = {};
+    $scope.options.dateStart = today.clone().subtract(11, 'months');
+    $scope.options.dateEnd = today;
+
 
     function getParams () {
         var params = {
@@ -12,27 +17,32 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
         params.date__lte = params.date_end;
         return params;
     }
+    $scope._getParams = getParams;
 
-    function updateBalance () {
-        var data = BalanceChart.fetchData(getParams()).then(function setupScope (result) {
-            return result;
-        });
+    $scope.updateCharts = function updateCharts () {
+        var dateStart = $scope.options.dateStart;
+        var dateEnd = $scope.options.dateEnd;
 
-        $scope.balanceData = data;
-    }
+        if (dateEnd.diff(dateStart, 'months') > 12) {
+            toastr.warning(gettext('The period must be 12 months or lower.'));
+            return;
+        }
 
-    function updateTop10 () {
+        // here I use $broadcast to warn all child scopes (the charts)
+        $scope.$broadcast('update-charts');
+    };
+}
+ReportsCtrl.$inject = ['$scope', '$rootScope'];
 
-        var data = Top10.fetchData(getParams()).then(function (result) {
-            return result;
-        });
 
-        $scope.top10Data = data;
-    }
+function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
+    'use strict';
 
     var allSeries = {};
-    function updateCategoryComparison() {
-        var data = CategoryComparison.fetchData(getParams()).then(function (result) {
+    function update () {
+
+        var params = $scope._getParams();
+        var data = CategoryComparison.fetchData(params).then(function (result) {
             var c1 = gettext('Renevues');
             var c2 = gettext('Expenses');
 
@@ -97,26 +107,43 @@ function ReportsCtrl ($scope, $rootScope, BalanceChart, Top10, CategoryCompariso
         selectCategory();
     });
 
+    // the parent scope will $broadcast this
+    $scope.$on('update-charts', update);
 
-    var today = moment();
-
-    $scope.options.dateStart = today.clone().subtract(11, 'months');
-    $scope.options.dateEnd = today;
-
-    $scope.updateAll = function updateAll () {
-        var dateStart = $scope.options.dateStart;
-        var dateEnd = $scope.options.dateEnd;
-
-        if (dateEnd.diff(dateStart, 'months') > 12) {
-            toastr.warning(gettext('The period must be 12 months or lower.'));
-            return;
-        }
-
-        updateBalance();
-        updateTop10();
-        updateCategoryComparison();
-    };
-    $scope.updateAll();
+    update();
 }
+CategoryComparisonCtrl.$inject = ['$scope', '$q', 'CategoryComparison', 'Category'];
 
-ReportsCtrl.$inject = ['$scope', '$rootScope', 'BalanceChart', 'Top10', 'CategoryComparison', 'Category', '$q'];
+
+function TopCategoriesChartCtrl ($scope, TopCategories) {
+    'use strict';
+
+    function update () {
+        var params = $scope._getParams();
+        var data = TopCategories.fetchData(params);
+        $scope.topCategoriesData = data;
+    }
+
+    // the parent scope will $broadcast this
+    $scope.$on('update-charts', update);
+
+    update();
+}
+TopCategoriesChartCtrl.$inject = ['$scope', 'TopCategories'];
+
+
+function BalanceChartCtrl ($scope, BalanceChart) {
+    'use strict';
+
+    function update () {
+        var params = $scope._getParams();
+        var data = BalanceChart.fetchData(params);
+        $scope.balanceData = data;
+    }
+
+    // the parent scope will $broadcast this
+    $scope.$on('update-charts', update);
+
+    update();
+}
+BalanceChartCtrl.$inject = ['$scope', 'BalanceChart'];
