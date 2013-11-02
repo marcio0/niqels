@@ -106,7 +106,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'description': u'',
-            u'value': u'-40',
+            u'value': u'-40.0',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
@@ -122,6 +122,41 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(-40))
+
+    def test_post_repeating_decimal(self):
+        '''
+        In [2]: Decimal(3232.32)
+        Out[2]: Decimal('3232.32000000000016370904631912708282470703125')
+        '''
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['value'] = "3232,32"
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content, {
+            u'description': u'',
+            u'value': u'-3232.32',
+            u'date': u'2010-03-03',
+            u'id': 4,
+            u'resource_uri': u'/api/v1/transaction/4',
+            u'category': {u'custom': False,
+                u'default_active': True,
+                u'id': 2,
+                u'is_negative': True,
+                u'name': u'STUFF',
+                u'resource_uri': u'/api/v1/category/2',
+                u'group': u'group'
+            }
+        })
+
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal("-3232.32"))
 
     def test_post_positive_transaction(self):
         '''
@@ -139,7 +174,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'description': u'',
-            u'value': u'40',
+            u'value': u'40.0',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
@@ -173,7 +208,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'description': u'',
-            u'value': u'40',
+            u'value': u'40.0',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
@@ -205,7 +240,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         content = self.deserialize(resp)
 
-        self.assertEquals(content['value'], u'-5')
+        self.assertEquals(content['value'], u'-5.0')
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 

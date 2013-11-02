@@ -80,7 +80,8 @@ class TransactionResource(ModelResource):
         # this must happen after all hydrations because order isn't garanteed
         value = bundle.data.get('value')
         if value:
-            value = Decimal(value).copy_abs()
+            # casting value to str to avoid repeating decimals
+            value = Decimal(str(value)).copy_abs()
 
             if bundle.obj.category.is_negative:
                 value = value.copy_negate()
