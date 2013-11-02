@@ -174,7 +174,13 @@ angular.module('charts', [])
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            //format: '<b>{point.name}</b>: <br/> {point.value} ({point.percentage:.1f}%)'
+                            formatter: function () {
+                                var value = $filter('currency')(this.point.y);
+                                var percentage = this.point.percentage.toFixed(2);
+                                var name = this.point.name;
+                                return '<b>{0}</b> <br/>{1} ({2}%)'.format(name, value, percentage);
+                            }
                         },
                         showInLegend: false
                     }
