@@ -36,8 +36,8 @@ angular.module('charts', [])
                     var series = [],
                         options = {},
                         months = [],
-                        renevuesSeries = {data: [], name: gettext('Renevues'), color: '#049cdb'},
-                        expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d'},
+                        renevuesSeries = {data: [], name: gettext('Renevues'), color: '#049cdb', codename: 'renevues'},
+                        expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d', codename: 'expenses'},
                         balanceSeries = {data: [], name: gettext('Total'), type: 'area'};
 
                     $.extend(true, options, me.chartOptions);
@@ -73,8 +73,7 @@ angular.module('charts', [])
                     type: 'column',
                     spacingLeft: 3,
                     spacingRight: 3,
-                    backgroundColor: 'rgba(255, 255, 255, 0.002)',
-                    marginBottom: 130
+                    backgroundColor: 'rgba(255, 255, 255, 0.002)'
                 },
                 title: {
                     text: null
@@ -94,23 +93,30 @@ angular.module('charts', [])
                     }]
                 },
                 tooltip: {
-                    enabled: false,
-                    headerFormat: '<div class="title">{point.key}</div>',
-                    pointFormat:    '<p class="renevues">renevues: <b>{point.renevues_text}</b></p>' +
-                                    '<p class="expenses">expenses: <b>{point.expenses_text}</b></p>' +
-                                    '<p class="total">Total: <b>{point.y_text}</b></p>',
+                    enabled: true,
+                    formatter: function () {
+                        var point1 = this.points[0],
+                            point2 = this.points[1],
+                            renevues = 0,
+                            expenses = 0;
+
+                        if (point1.series.codename === 'expenses') {
+                            renevues = point2.y;
+                            expenses = -point1.y;
+                        }
+                        else {
+                            renevues = point1.y;
+                            expenses = -point2.y;
+                        }
+                        return '<p class="total">Total: <b>{0}</b></p>'.format($filter('currency')(renevues + expenses));
+                    },
                     borderRadius: 0,
-                    borderWidth: 0,
+                    borderWidth: 1,
                     shadow: false,
                     shared: true,
                     animation: false,
-                    backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                    useHTML: true,
-                    positioner: function (tooltipWidth, tooltipHeight, point) {
-                        var y = this.chart.chartHeight - tooltipHeight;
-                        var x = (this.chart.chartWidth - tooltipWidth) / 2;
-                        return {x: x, y: y};
-                    }
+                    //backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                    useHTML: true
                 },
                 plotOptions: {
                     column: {
