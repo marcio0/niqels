@@ -37,28 +37,23 @@ angular.module('charts', [])
                         options = {},
                         months = [],
                         renevuesSeries = {data: [], name: gettext('Renevues'), color: '#049cdb'},
-                        expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d'};
+                        expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d'},
+                        balanceSeries = {data: [], name: gettext('Total'), type: 'area'};
 
                     $.extend(true, options, me.chartOptions);
 
                     for (var i in result.data) {
                         var data = {},
                             month = result.data[i],
-                            monthName;
+                            monthName,
+                            renevues = parseFloat(month.renevues),
+                            expenses = parseFloat(month.expenses);
 
                         months.push(moment(month.period, 'YYYY-MM-DD'));
 
-                        renevuesSeries.data.push(parseFloat(month.renevues));
-                        expensesSeries.data.push(Math.abs(parseFloat(month.expenses)));
-
-                        /*
-                        // used in tooltip
-                        data.renevues = parseFloat(month.renevues);
-                        data.renevues_text = $filter('currency')(data.renevues);
-                        data.expenses = parseFloat(month.expenses);
-                        data.expenses_text = $filter('currency')(data.expenses);
-                        */
-
+                        renevuesSeries.data.push(renevues);
+                        expensesSeries.data.push(Math.abs(expenses));
+                        balanceSeries.data.push(renevues + expenses);
                     }
 
                     options.xAxis.categories = xAxisMonthParser(months);
@@ -87,7 +82,7 @@ angular.module('charts', [])
                 xAxis: {
                 },
                 legend: {
-                    enabled: false
+                    enabled: 'true'
                 },
                 yAxis: {
                     title: null,
@@ -124,10 +119,22 @@ angular.module('charts', [])
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
-                                return this.y !== 0 ? this.y : '';
+                                return this.y !== 0 ? $filter('currency')(this.y) : '';
                             }
                         }
-                    }
+                    },
+                    area: {
+                        fillOpacity: 0.1,
+                        lineWidth: 1,
+                        lineColor: '#000',
+                        marker: {enabled: false},
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return this.y !== 0 ? $filter('currency')(this.y) : '';
+                            }
+                        }
+                    },
                 }
             }
         };
