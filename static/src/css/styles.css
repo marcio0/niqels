@@ -6892,40 +6892,6 @@ td.visible-print {
 .datepicker thead th.datepicker-switch {
   font-style: normal !important;
 }
-/*
-// Global values
-// --------------------------------------------------
-@white:                 #fdfdfd;
-
-// Charts colors
-@positive:                  #049cdb;
-@negative:                  #9d261d;
-@renevues:                  #46a546;
-@expenses:                  @negative;
-
-// used in inputs, panels, tables
-@component-border-color:    #ccc;
-@component-bg-color:     #e7e6e6;
-
-
-// Grays
-// -------------------------
-@gray-darker:            lighten(#000, 13.5%); // #222
-@gray-dark:              #585b6c;   // font colors
-@gray:                   #807f88;   // #555
-@gray-light:             #9a99a0;   // light bg's
-@gray-lighter:           #eeeeee;   // lighter-bg's
-
-
-// Brand colors
-// -------------------------
-
-@brand-primary:         #617992;
-@brand-success:         #5cb85c;
-@brand-warning:         #f0ad4e;
-@brand-danger:          #d9534f;
-@brand-info:            #5bc0de;
-*/
 .category-table tbody tr {
   cursor: pointer;
 }
@@ -7057,6 +7023,63 @@ form.transaction-form hr {
 .bootstrap-select .filter-option {
   font-weight: normal;
   margin-left: 20px !important;
+}
+/*
+ * transaction-list.less
+ * styles for the transaction list.
+ */
+thead tr th {
+  font-style: italic;
+  font-weight: normal;
+}
+#transaction-list-panel .transaction-group .panel-heading .panel-title .group-total {
+  font-family: "Oxygen", Helvetica, Arial, sans-serif;
+}
+#transaction-list-panel .transaction-group .panel-heading .panel-title .group-total.renevue {
+  color: #46a546;
+}
+#transaction-list-panel .transaction-group .panel-heading .panel-title .group-total.expense {
+  color: #9d261d;
+}
+#transaction-list-panel .transaction-group .panel-body {
+  background-color: #fdfdfd;
+}
+#transaction-list-panel .transaction-group .panel-body table thead .date-column-header {
+  width: 1%;
+}
+#transaction-list-panel .transaction-group .panel-body table thead .value-column-header {
+  text-align: right;
+  width: 1%;
+}
+#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header {
+  width: 1%;
+}
+#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column {
+  text-align: right;
+  white-space: nowrap;
+}
+#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column.renevue {
+  background-color: #dff1df;
+}
+#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column.expense {
+  background-color: #f8dcda;
+}
+#transaction-list-panel .transaction-group .panel-body table .transaction-row .action-bar .delete-transaction:hover {
+  color: #d9534f;
+}
+.month-selector {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.loading-spinner {
+  width: 100%;
+  text-align: center;
+}
+#empty-msg {
+  text-align: center;
+}
+#transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
+  color: #d9534f;
 }
 .left-column {
   position: relative;
@@ -7195,78 +7218,6 @@ span.category-label:empty {
 /*
  * /GLOBAL STYLES
  */
-/*
- * TRANSACTION LIST STYLES
- */
-.reminder {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 5px;
-}
-.reminder p {
-  margin-bottom: 10px;
-}
-.reminder .buttons {
-  float: right;
-  float: right !important;
-}
-.reminder .buttons a {
-  cursor: pointer;
-}
-thead tr th {
-  font-style: italic;
-  font-weight: normal;
-}
-.transaction-table.transaction-list-columns th.value-column-header {
-  text-align: right;
-}
-.transaction-table.transaction-list-columns th.description-column-header {
-  text-align: center;
-}
-.transaction-table tbody + tbody {
-  border-top: 0;
-}
-.transaction-table tr.transaction-list-day td {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-}
-.transaction-table .transaction-row td.action-bar {
-  width: 10%;
-}
-.transaction-table .transaction-row td.action-bar i {
-  display: none !important;
-  padding-right: 2px;
-  padding-left: 2px;
-  float: right;
-  float: right !important;
-}
-.transaction-table .transaction-row td.category-column {
-  width: 10%;
-}
-.transaction-table .transaction-row td.description-column {
-  width: 65%;
-}
-.transaction-table .transaction-row td.value-column {
-  width: 15%;
-  text-align: right;
-}
-.transaction-table .transaction-row.tr-hover .action-bar i {
-  display: block !important;
-}
-.month-selector {
-  margin-bottom: 20px;
-  text-align: center;
-}
-.loading-spinner {
-  width: 100%;
-  text-align: center;
-}
-#empty-msg {
-  text-align: center;
-}
 .area-header {
   text-align: center;
   margin-top: 25px;
@@ -7306,20 +7257,6 @@ thead tr th {
 }
 hr {
   border-color: #807f88;
-}
-.value-column {
-  border-right-width: 3px;
-  border-right-style: solid;
-  border-right-color: #eeeeee;
-}
-.value-column-renevue {
-  border-right-color: #46a546;
-}
-.value-column-expense {
-  border-right-color: #9d261d;
-}
-#transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
-  color: #d9534f;
 }
 
 /*
@@ -7459,40 +7396,6 @@ hr {
     width: 300px;
   }
 }
-/*
-// Global values
-// --------------------------------------------------
-@white:                 #fdfdfd;
-
-// Charts colors
-@positive:                  #049cdb;
-@negative:                  #9d261d;
-@renevues:                  #46a546;
-@expenses:                  @negative;
-
-// used in inputs, panels, tables
-@component-border-color:    #ccc;
-@component-bg-color:     #e7e6e6;
-
-
-// Grays
-// -------------------------
-@gray-darker:            lighten(#000, 13.5%); // #222
-@gray-dark:              #585b6c;   // font colors
-@gray:                   #807f88;   // #555
-@gray-light:             #9a99a0;   // light bg's
-@gray-lighter:           #eeeeee;   // lighter-bg's
-
-
-// Brand colors
-// -------------------------
-
-@brand-primary:         #617992;
-@brand-success:         #5cb85c;
-@brand-warning:         #f0ad4e;
-@brand-danger:          #d9534f;
-@brand-info:            #5bc0de;
-*/
 #toast-container > div {
   -moz-border-radius: 0px !important;
   -webkit-border-radius: 0px !important;

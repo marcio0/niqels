@@ -12,6 +12,7 @@
 @import "reports.less";
 @import "charts.less";
 @import "forms.less";
+@import "transaction-list.less";
 
 .left-column {
     .make-sm-column(5);
@@ -75,134 +76,6 @@ span.category-label {
  * /GLOBAL STYLES
  */
 
-
-
-/*
- * TRANSACTION LIST STYLES
- */
-
-.reminder {
-    //.alert();
-    //.alert-block();
-
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 5px;
-    
-    p {
-        margin-bottom: 10px;
-    }
-
-    .buttons {
-        .pull-right();
-
-        a {
-            cursor: pointer;
-        }
-
-        .ok {
-            //color: @green;
-        }
-
-        .edit {
-            //color: @blue;
-        }
-
-        .skip {
-            //color: @red;
-        }
-    }
-}
-
-thead tr th {
-    font-style: italic;
-    font-weight: normal;
-}
-
-#transaction-list-panel {
-}
-
-.transaction-table {
-    &.transaction-list-columns { 
-        th.value-column-header {
-            text-align: right;
-        }
-
-        th.description-column-header {
-            text-align: center;
-        }
-    }
-
-    tbody + tbody {
-        border-top: 0;
-    }
-
-    tr.transaction-list-day {
-        td {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
-        }
-    }
-
-    .transaction-row {
-        td {
-            // the delete icon
-            &.action-bar {
-                width: 10%;
-                i{
-                    .hide();
-                    padding-right: 2px;
-                    padding-left: 2px;
-                    .pull-right();
-                }
-            }
-
-            &.category-column {
-                width: 10%;
-            }
-            &.description-column {
-                width: 65%;
-            }
-            &.value-column {
-                width: 15%;
-                text-align: right;
-            }
-        }
-
-        &.tr-hover {
-            .action-bar i {
-                .show();
-            }
-        }
-    }
-}
-
-.month-selector {
-    margin-bottom: 20px;
-    text-align: center;
-
-    .previous-month {
-    }
-
-    .next-month {
-    }
-
-    .actual-month {
-    }
-}
-
-.loading-spinner {
-    width: 100%;
-    text-align: center;
-}
-
-#empty-msg {
-    text-align: center;
-}
-
 .area-header {
     text-align: center;
     margin-top: 25px;
@@ -257,22 +130,3 @@ thead tr th {
 hr {
     border-color: @gray;
 }
-
-.value-column {
-    border-right-width: 3px;
-    border-right-style: solid;
-    border-right-color: @gray-lighter;
-
-    &-renevue {
-        border-right-color: @renevues;
-    }
-
-    &-expense {
-        border-right-color: @expenses;
-    }
-}
-
-#transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
-    color: @brand-danger;
-}
-

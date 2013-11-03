@@ -37,11 +37,18 @@
 
         <div class="panel-group" ng-if="groupBy == 'category.name'">
             <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:true">
+
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" href="#category(($index))" ng-bind="group.name"></a><span class="group-total pull-right" ng-bind="group.total | number:2"></span>
+                        <a class="accordion-toggle"
+                            data-toggle="collapse"
+                            href="#category(($index))"
+                            ng-bind="group.name"></a>
+
+                            <span class="group-total pull-right" ng-bind="group.total | currency" is-positive-class="group.total"></span>
                     </h4>
                 </div>
+
                 <div id="category(($index))" class="panel-collapse collapse">
                     <div class="panel-body">
                         <table class="table">
@@ -55,6 +62,7 @@
                                 <td class="value-column-header">
                                     {% trans "Value" %}
                                 </td>
+                                <td class="action-bar-header"></td>
                             </tr></thead>
 
                             <tbody>
@@ -66,7 +74,7 @@
                                     <td class="description-column" ng-bind="transaction.description"></td>
 
                                     <td class="value-column" is-positive-class="transaction.value">
-                                        <span ng-bind="transaction.value | number:2"></span>
+                                        <span ng-bind="transaction.value | currency"></span>
                                     </td>
 
                                     <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">

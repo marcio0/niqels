@@ -98,10 +98,10 @@ angular.module('webapp')
                     cls = '';
 
                 if (value > 0) {
-                    cls = 'value-column-renevue';
+                    cls = 'renevue';
                 }
                 else if (value < 0) {
-                    cls = 'value-column-expense';
+                    cls = 'expense';
                 }
                 element.addClass(cls);
             }
