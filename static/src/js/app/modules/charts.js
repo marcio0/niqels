@@ -7,13 +7,11 @@ function xAxisMonthParser (months) {
 
     for (var i in months) {
         var month = months[i];
+        var format = 'MMM';
 
         if (month.year() != actualYear) {
             actualYear = month.year();
-            var format = 'MMM YYYY';
-        }
-        else {
-            var format = 'MMM';
+            format = 'MMM YYYY';
         }
 
         monthNames.push(month.format(format));
