@@ -44,10 +44,10 @@ angular.module('webapp')
         };
     }])
 
-    .directive('exMonthSelector', ['$locale', function ($locale) {
+    .directive('monthSelector', ['$locale', function ($locale) {
         return {
             scope: {
-                date: '=exMonthSelector'
+                date: '=monthSelector'
             },
             link: function linkFn (scope, element, attrs, controller) {
                 var setElementText = function (value) {

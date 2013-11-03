@@ -2,6 +2,8 @@ function BalancePanelCtrl ($scope, $http, $rootScope, $filter, calculators, Bala
     'use strict';
 
     $scope.updateBalance = function () {
+        if ($rootScope.filterDate === undefined) return;
+
         var reference_date, date_start, date_end;
 
         date_end = $rootScope.filterDate;

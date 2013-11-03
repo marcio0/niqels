@@ -1,10 +1,10 @@
-    function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) {
+function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) {
     'use strict';
 
     $scope.days = [];
     $scope.groupBy = 'category.name';
     $scope.categories = [];
-    $rootScope.filterDate = moment();
+    $scope.filterDate = moment();
     $scope.loading = true;
     $scope.allTransactions = [];
     $scope.transactionGroups = [];
@@ -48,6 +48,8 @@
     var filterTransactions = function (value) {
         var start, end, filter;
 
+        $rootScope.filterDate = value;
+
         $scope.transactionGroups = [];
         $scope.loading = true;
 
@@ -68,14 +70,12 @@
         }).always(function () {$scope.loading = false;});
     };
 
-    $rootScope.$watch('filterDate', filterTransactions);
-
     $scope.moveMonth = function moveMonth (dir) {
-        $rootScope.filterDate = $rootScope.filterDate.clone()[dir]('month', 1);
+        $scope.filterDate = $scope.filterDate.clone()[dir]('month', 1);
     };
 
     $rootScope.$on('transaction-created', function (event, transaction) {
-        var showingMonth = $rootScope.filterDate.month() + 1;
+        var showingMonth = $scope.filterDate.month() + 1;
         var transactionMonth = parseInt(transaction.date.split('-')[1]);
 
         if (showingMonth !== transactionMonth) {
@@ -103,6 +103,8 @@
         });
     });
 
+    // callbacks
+
     $rootScope.$on('transaction-removed', function reloadAfterRemove () {
         filterTransactions($scope.filterDate);
     });
@@ -110,6 +112,10 @@
     $scope.isEmpty = function isEmpty () {
         return ($scope.transactionGroups.length === 0) && !$scope.loading;
     };
+
+    // watchers
+
+    $scope.$watch('filterDate', filterTransactions);
 
     $scope.$watch('groupBy', function regroup () {
         $scope.transactionGroups = groupTransactions();
