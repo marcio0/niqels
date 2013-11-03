@@ -7044,15 +7044,14 @@ thead tr th {
 #transaction-list-panel .transaction-group .panel-body {
   background-color: #fdfdfd;
 }
-#transaction-list-panel .transaction-group .panel-body table thead .date-column-header {
+#transaction-list-panel .transaction-group .panel-body table thead .category-column-header,
+#transaction-list-panel .transaction-group .panel-body table thead .date-column-header,
+#transaction-list-panel .transaction-group .panel-body table thead .value-column-header,
+#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header {
   width: 1%;
 }
 #transaction-list-panel .transaction-group .panel-body table thead .value-column-header {
   text-align: right;
-  width: 1%;
-}
-#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header {
-  width: 1%;
 }
 #transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column {
   text-align: right;
