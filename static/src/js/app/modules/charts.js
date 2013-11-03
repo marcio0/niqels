@@ -73,6 +73,9 @@ angular.module('charts', [])
                     spacingRight: 3,
                     backgroundColor: 'rgba(255, 255, 255, 0.002)'
                 },
+                credits: {
+                    enabled: false
+                },
                 title: {
                     text: null
                 },
@@ -188,6 +191,9 @@ angular.module('charts', [])
                 chart: {
                     type: 'pie',
                     backgroundColor: 'rgba(255, 255, 255, 0.002)',
+                },
+                credits: {
+                    enabled: false
                 },
                 title: {
                     text: ''
@@ -307,6 +313,9 @@ angular.module('charts', [])
                 chart: {
                     type: 'line',
                     backgroundColor: 'rgba(255, 255, 255, 0.002)',
+                },
+                credits: {
+                    enabled: false
                 },
                 title: {
                     text: ''
