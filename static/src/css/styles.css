@@ -6892,6 +6892,9 @@ td.visible-print {
 .datepicker thead th.datepicker-switch {
   font-style: normal !important;
 }
+.datepicker.datepicker-dropdown {
+  width: 230px;
+}
 .category-table tbody tr {
   cursor: pointer;
 }
