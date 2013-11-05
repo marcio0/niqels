@@ -84,7 +84,7 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static", 'dist'),
 )
 
 # List of finder classes that know how to find static files in
@@ -148,7 +148,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'expenses',
     'access',
-    'reminder',
     'api',
     'password_reset',
     'babeldjango',

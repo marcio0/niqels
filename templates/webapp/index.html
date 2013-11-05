@@ -3,13 +3,12 @@
 {% load staticfiles %}
 {% load static %}
 {% load humanize %}
-{% load expenses_tags %}
 {% load i18n %}
 
 {% block extrahead %}
 
-<link href="{% static "css/datepicker.css" %}" rel="stylesheet" media="screen">
 <link href="{% static "css/spectrum.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "css/bootstrap-select.css" %}" rel="stylesheet" media="screen">
 
 {% endblock extrahead %}
 
@@ -17,22 +16,38 @@
 {% block webapp-menu %}
 <ul class="nav navbar-nav">
     <li ng-class="{active: $state.includes('transactions')}"><a href="#/transactions">{% trans "Transactions" %}</a></li>
-    <li ng-class="{active: $state.includes('settings')}"><a href="#/settings">{% trans "Settings" %}</a></li>
+    <li ng-class="{active: $state.includes('reports')}"><a href="#/reports">{% trans "Reports" %}</a></li>
 </ul>
 {% endblock webapp-menu %}
 
 
 {% block body %}
 
-<div class="row" ui-view>
+<div class="row" ui-view role="transactions">
 </div>
 
 <script type="text/ng-template" id="transaction-list.html">
-{% include "webapp/transaction-list.html" %}
+{% include "webapp/transactions/transaction-list.html" %}
 </script>
 
 <script type="text/ng-template" id="settings.html">
 {% include "webapp/settings/settings.html" %}
+</script>
+
+<script type="text/ng-template" id="reports.html">
+{% include "webapp/reports/reports.html" %}
+</script>
+
+<script type="text/ng-template" id="balance.html">
+{% include "webapp/reports/balance.html" %}
+</script>
+
+<script type="text/ng-template" id="top-categories.html">
+{% include "webapp/reports/top-categories.html" %}
+</script>
+
+<script type="text/ng-template" id="category-comparison.html">
+{% include "webapp/reports/category-comparison.html" %}
 </script>
 
 {% endblock body %}
@@ -43,13 +58,17 @@
 
 {% if is_debug %}
 
+    {% comment %}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
+    {% endcomment %}
 
     {% get_static_prefix as static_path %}
 
     {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" locales=static_path|add:"js/locales/" %}
 
+        <script src="{{lib}}min/angular.min.js"></script>
+        <script src="{{lib}}min/angular-resource.min.js"></script>
         <script src="{{lib}}angular-strap.js"></script>
         <script src="{{lib}}angular-ui-router.js"></script>
         <script src="{{lib}}highcharts.src.js"></script>
@@ -59,21 +78,20 @@
         <script src="{{lib}}toastr.js"></script>
         <script src="{{lib}}bootstrap-typeahead.js"></script>
         <script src="{{lib}}min/moment.min.js"></script>
+        <script src="{{lib}}bootstrap-select.js"></script>
 
         <script src="{{locales}}angular-locale_pt-br.js"></script>
         <script src="{{locales}}bootstrap-datepicker.pt-BR.js"></script>
         <script src="{{locales}}pt-br.js"></script>
 
         <script src="{{app}}app.js"></script>
-        <script src="{{controllers}}BalancePanelCtrl.js"></script>
-        <script src="{{controllers}}BalancePanelCtrl.js"></script>
-        <script src="{{controllers}}RemindersCtrl.js"></script>
-        <script src="{{controllers}}TransactionActionBarCtrl.js"></script>
-        <script src="{{controllers}}TransactionFormCtrl.js"></script>
-        <script src="{{controllers}}TransactionListCtrl.js"></script>
-        <script src="{{controllers}}CategoryListCtrl.js"></script>
-        <script src="{{controllers}}CategoryEditCtrl.js"></script>
-        <script src="{{controllers}}ReminderListCtrl.js"></script>
+        <script src="{{controllers}}balance-panel-ctrl.js"></script>
+        <script src="{{controllers}}transaction-action-bar-ctrl.js"></script>
+        <script src="{{controllers}}transaction-form-ctrl.js"></script>
+        <script src="{{controllers}}transaction-list-ctrl.js"></script>
+        <script src="{{controllers}}category-list-ctrl.js"></script>
+        <script src="{{controllers}}category-edit-ctrl.js"></script>
+        <script src="{{controllers}}reports-ctrl.js"></script>
 
         <script src="{{app}}services.js"></script>
         <script src="{{app}}modules/charts.js"></script>

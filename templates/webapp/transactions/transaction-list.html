@@ -1,0 +1,165 @@
+{% load i18n %}
+
+<div class="left-column">
+    {% include "webapp/transactions/transaction-form.html" %}
+</div>
+
+<div class="content-column-middle">
+
+    <div id="transaction-list-panel" ng-controller="TransactionListCtrl">
+         
+        <h4 class="area-header">{% trans "Transactions" %}</h4>
+
+        <div id="transacion-list-options" class="well">
+            <div class="month-selector">
+            <div class="btn-group">
+                <button class="btn btn-link previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left icon-" ng-click="moveMonth('subtract')"></i></button>
+                <button class="btn btn-link actual-month" ng-class="{disabled: loading}" month-selector="filterDate"></button>
+                <button class="btn btn-link next-month" ng-class="{disabled: loading}"><i class="icon-chevron-right icon-" ng-click="moveMonth('add')"></i></button>
+            </div>
+            </div>
+
+            <div id="group-options" class="btn-group">
+                <input class="btn btn-default"
+                        type="button"
+                        value="{% trans "Group transactions by date" %}"
+                        ng-click="groupBy = 'date'"
+                        ng-class="{active: groupBy == 'date'}"
+                        >
+                <input class="btn btn-default"
+                        ng-class="{active: groupBy == 'category.name'}"
+                        type="button"
+                        value="{% trans "Group transactions by category" %}"
+                        ng-click="groupBy = 'category.name'"
+                        >
+            </div>
+        </div>
+
+        <div class="panel-group" ng-if="groupBy == 'category.name'">
+            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:true">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle"
+                            data-toggle="collapse"
+                            href="#category(($index))"
+                            ng-bind="group.name"></a>
+
+                            <span class="group-total pull-right" ng-bind="group.total | currency" is-positive-class="group.total"></span>
+                    </h4>
+                </div>
+
+                <div id="category(($index))" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead><tr>
+                                <td class="date-column-header">
+                                    {% trans "Date" %}
+                                </td>
+                                <td class="description-column-header">
+                                    {% trans "Description" %}
+                                </td>
+                                <td class="value-column-header">
+                                    {% trans "Value" %}
+                                </td>
+                                <td class="action-bar-header"></td>
+                            </tr></thead>
+
+                            <tbody>
+                                <tr class="transaction-row" 
+                                    ng-repeat="transaction in group.transactions">
+
+                                    <td class="date-column" ng-bind="transaction.date | date:'dd/MM'" style="font-weight: bold"></td>
+
+                                    <td class="description-column" ng-bind="transaction.description"></td>
+
+                                    <td class="value-column" is-positive-class="transaction.value">
+                                        <span ng-bind="transaction.value | currency"></span>
+                                    </td>
+
+                                    <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+                                        <i
+                                            class="icon-trash delete-transaction"
+                                            ng-click="removeTransaction()"
+                                            confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                            data-toggle="tooltip"
+                                            data-placement="right"
+                                            data-container="body"
+                                            title="{% trans "Remove this transaction" %}"
+                                        ></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-group" ng-if="groupBy == 'date'">
+            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="#category(($index))" ng-bind="group.name | date:'longDate'"></a>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead><tr>
+                            <td class="category-column-header">
+                                {% trans "Category" %}
+                            </td>
+                            <td class="description-column-header">
+                                {% trans "Description" %}
+                            </td>
+                            <td class="value-column-header">
+                                {% trans "Value" %}
+                            </td>
+                            <td class="action-bar-header"></td>
+                        </tr></thead>
+
+                        <tbody>
+                            <tr class="transaction-row"
+                                ng-repeat="transaction in group.transactions">
+
+                                <td class="category-column" ng-bind="transaction.category.name" style="font-weight: bold"></td>
+
+                                <td class="description-column" ng-bind="transaction.description"></td>
+
+                                <td class="value-column" is-positive-class="transaction.value">
+                                    <span ng-bind="transaction.value | number:2"></span>
+                                </td>
+
+                                <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+                                    <i
+                                        class="icon-trash delete-transaction"
+                                        ng-click="removeTransaction()"
+                                        confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                        data-toggle="tooltip"
+                                        data-placement="right"
+                                        data-container="body"
+                                        title="{% trans "Remove this transaction" %}"
+                                    ></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="empty-msg" ng-show="isEmpty()">
+            {% trans "No transacions for the period." %}
+        </div>
+
+        <div class="loading-spinner" ng-show="loading">
+            <i class="icon-spinner icon-spin icon-3x"></i>
+        </div>
+
+    </div> <!-- panel -->
+
+</div>
+
+<div class="right-column">
+    {% include "webapp/transactions/month_balance_panel.html" %}
+</div>

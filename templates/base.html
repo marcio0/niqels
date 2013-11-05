@@ -3,7 +3,6 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load expenses_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -16,10 +15,6 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:900' rel='stylesheet' type='text/css'>
 
         <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}" />
-
-        <script type="text/javascript">
-            user_categories = {{ user_categories|to_json }};
-        </script>
 
         {% if is_debug %}
         <script src="{% static "js/lib/jquery-1.10.2.js" %}"></script>
@@ -81,7 +76,10 @@
 
         {% block bodyend %}{% endblock bodyend %}
         
-        {% include "ga.html" %}
+        
+        {% if not is_debug %}
+            {% include "ga.html" %}
+        {% endif %}
 
         {% csrf_token %}
     </body>

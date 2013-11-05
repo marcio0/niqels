@@ -1,0 +1,88 @@
+/*
+ * transaction-list.less
+ * styles for the transaction list.
+ */
+
+@import 'variables.less';
+
+thead tr th {
+    font-style: italic;
+    font-weight: normal;
+}
+
+#transaction-list-panel {
+    .transaction-group {
+        .panel-heading .panel-title .group-total {
+            font-family: @font-family-sans-serif;
+
+            &.renevue {
+                color: @renevues;
+            }
+
+            &.expense {
+                color: @expenses;
+            }
+        }
+
+        .panel-body {
+            background-color: @body-bg;
+
+            table {
+                thead {
+                    .category-column-header, .date-column-header, .value-column-header, .action-bar-header {
+                        width: 1%;
+                    }
+                    .value-column-header {
+                        text-align: right;
+                    }
+                }
+                .transaction-row {
+                    .value-column {
+                        text-align: right;
+                        white-space: nowrap;
+
+                        &.renevue {
+                            background-color: lighten(@renevues, 45%);
+                        }
+
+                        &.expense {
+                            background-color: lighten(@expenses, 55%);
+                        }
+                    }
+
+                    .action-bar .delete-transaction:hover {
+                        color: @brand-danger;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.month-selector {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .previous-month {
+    }
+
+    .next-month {
+    }
+
+    .actual-month {
+    }
+}
+
+.loading-spinner {
+    width: 100%;
+    text-align: center;
+}
+
+#empty-msg {
+    text-align: center;
+}
+
+#transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
+    color: @brand-danger;
+}
+

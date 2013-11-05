@@ -12,7 +12,6 @@ from django.contrib import messages
 
 from access.views import AutenticationRequiredMixin
 from access.forms import UserCreationForm
-from expenses.calculator import AverageCalculator
 from webapp.views import WebAppView
 
 

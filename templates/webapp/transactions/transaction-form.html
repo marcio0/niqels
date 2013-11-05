@@ -1,0 +1,93 @@
+{% load i18n %}
+
+<h4 class="area-header">{% trans "New transaction" %}</h4>
+
+<div class="panel panel-default">
+
+<div ng-controller="TransactionFormCtrl" class="panel-body">
+<form
+    class="transaction-form"
+    name="transactionForm"
+    method="post"
+
+    novalidate
+    >
+
+    <div class="form-group input-icon">
+        <label for="id_category" class="form-label">{% trans "Category" %}</label>
+        <i class="icon-tag input-icon-prepend"></i>
+        <select
+            id="id_category"
+            name="category"
+
+            ng-model="formData.category"
+            category-field
+
+            required
+
+            ng-options="c.resource_uri as c.name group by c.group for c in categories"
+            >
+        </select>
+        <i
+            class="icon-exclamation icon-large input-icon-append input-error"
+            ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"
+            ></i>
+    </div>
+
+    <div class="form-group input-icon">
+        <label for="id_value" class="form-label">{% trans "Value" %}</label>
+        <i class="icon-dollar input-icon-prepend"></i>
+        <input
+            id="id_value"
+            name="value"
+            class="form-control"
+
+            ng-model="formData.value"
+            value-field
+
+            required
+
+            autocomplete="off"
+            />
+    </div>
+
+    <div class="form-group input-icon">
+        <label for="id_description" class="form-label">{% trans "Description (optional)" %}</label>
+        <i class="icon-pencil input-icon-prepend"></i>
+        <input
+            id="id_description"
+            maxlength="200"
+            name="description"
+            type="text"
+            class="form-control"
+
+            ng-model="formData.description"
+
+            placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
+            autocomplete="off"
+            />
+    </div>
+
+    <div class="form-group">
+        <label for="id_date" class="form-label">{% trans "Date" %}</label>
+        <div
+            datepicker
+            datepicker-model="formData.date"
+            class="form-control"
+            id="id_date"
+            name="date"
+
+        ></div>
+    </div>
+
+    <button ng-click="submit()" class="btn btn-block btn-primary" ng-disabled="sending">
+    {% trans "Submit" %}
+    <i ng-show="sending" class="icon-spinner icon-spin icon-large"></i>
+    <i ng-hide="sending" class="icon-ok icon-large"></i>
+    </button>
+</form>
+
+
+</div>
+</div>
+</div>

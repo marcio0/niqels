@@ -1,25 +1,30 @@
+-   model: expenses.CategoryGroup
+    pk: 1
+    fields:
+        name: group
+
+
 -   model: expenses.Category
     fields:
         name: Groceries
-        user: 1
-        color: "#ababab"
+        group: ['group']
+        is_negative: false
     pk: 1
 
 -   model: expenses.Category
     fields:
         name: Lunch
-        user: 1
+        group: ['group']
     pk: 2
 
 -   model: expenses.Category
     fields:
         name: Inactive
-        user: 1
-        active: false
+        group: ['group']
     pk: 4
 
 -   model: expenses.Category
     fields:
-        name: Lunch
-        user: 2
+        name: Dinner
+        group: ['group']
     pk: 3

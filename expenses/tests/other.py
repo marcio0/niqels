@@ -7,17 +7,7 @@ from django.test import TestCase
 
 from access.models import User
 from expenses.models import Category
-from expenses.templatetags.expenses_tags import to_json
 from expenses.context_processors import global_context
-
-
-class ExpensesTemplateTagsTest(TestCase):
-    def test_to_json(self):
-        value = [1, 2, 3]
-
-        expected = '[1, 2, 3]'
-
-        self.assertEquals(to_json(value), expected)
 
 
 class GlobalsContextProcessorTest(TestCase):
@@ -26,28 +16,6 @@ class GlobalsContextProcessorTest(TestCase):
             email='foo@bla.com',
             password='pass'
         )
-
-        dummy = User.objects.create_user(
-            email='dummy@bla.com',
-            password='pass'
-        )
-
-        self.c1 = Category(
-            name='one',
-            user=self.user
-        )
-        self.c1.save()
-
-        self.c2 = Category(
-            name='two',
-            user=self.user
-        )
-        self.c2.save()
-
-        Category(
-            name='three',
-            user=dummy
-        ).save()
 
     def test_global_context(self):
         request = mock.Mock()
@@ -58,11 +26,7 @@ class GlobalsContextProcessorTest(TestCase):
 
         self.assertEquals(context, {
             'SITE_NAME': 'Niqels',
-            'js_date_format': u'MMM d, yyyy',
-            'currency_symbol': u'$',
-            'is_debug': False,
-            'user_categories': ['one', 'two'],
-            'empty_value_fields': ['password', 'password1', 'password2']
+            'is_debug': False
         })
 
     def test_template_debug_conditions(self):
@@ -95,4 +59,3 @@ class GlobalsContextProcessorTest(TestCase):
 
         context = global_context(request)
         self.assertTrue(context['is_debug'])
-

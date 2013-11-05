@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 from django.contrib.auth.views import password_change
 
 from access import views
@@ -21,3 +22,6 @@ urlpatterns = patterns('',
 
     url(r'^', include('password_reset.urls')),
 )
+
+if settings.DEBUG:
+    urlpatterns += (url(r'^test_login/$', views.test_login),)

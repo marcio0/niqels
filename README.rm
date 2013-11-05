@@ -1,22 +1,82 @@
-Retrieving static files project from Google App Engine:
-
-appcfg.py download_app -A <your_app_id> -V <your_app_version> <output-dir>
-
-Deploying static files:
-
-cd assets
-rm *
-cp <project>/static/* . -r
-appcfg.py update
 
 
-DEPLOY PROCESS
-Update translations;
-Compile less;
-Update static files on Google App Engine;
-Create migrations && commit;
-Tag w/ version number;
-Push master && tag to heroku;
-Run migrations;
-Check;
-Push master && tag to origin.
+Niqels
+==
+
+Installation instructions for development:
+--
+
+- Install the Heroku Toolbelt:
+    `wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh`
+    `heroku login`
+
+- Install nvm and update Node.JS [(Complete instructions)](https://github.com/creationix/nvm): 
+    `curl https://raw.github.com/creationix/nvm/master/install.sh | sh`
+    `source ~/.nvm/nvm.sh`
+
+- Install Grunt: 
+
+    `npm install -g grunt-cli`
+
+- Install the node dependencies:
+
+    `npm install`
+    
+- Install the Django project:
+
+    `pip install -r requirements.txt`
+
+- Test your installation:
+    `python manage.py test`
+
+___
+Simulating the prodution enviroment:
+--
+
+- Patch the settings file:
+
+    `cp core/dev_settings/sqlite.py core/local_settings.py`
+
+- Gather the static files:
+
+    `./manage.py collectstatic`
+
+- Run foreman:
+
+    `foreman start -p 8001`
+
+___
+Deploy process:
+--
+
+- Update translations:
+    
+    `grunt makemessages`
+
+    `#Update translations where necessary`
+    
+    `./manage.py compilemessages`
+
+- Compile less:
+    
+    `grunt less`
+
+- Build the webapp:
+
+    `grunt build-webapp`
+    
+- Check if there are no migrations to be created!
+- Tag the repository;
+- Test build on a Heroku fork;
+- Push master and tag to Heroku;
+- Run migrations on Heroku:
+
+    `heroky run python manage.py migrate`
+
+- Push master and tag to origin.
+
+___
+
+TO-DO
+--
+- Intructions to fork heroku app;

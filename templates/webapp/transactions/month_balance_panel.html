@@ -1,0 +1,37 @@
+{% load i18n %}
+
+<h4 class="area-header">{% trans "Balance" %}</h4>
+
+<div class="panel panel-default" id="balance-panel">
+<div ng-controller="BalancePanelCtrl" class="panel-body">
+    <div class="balance-info">
+        <div class="renevues">
+            <span class="description">
+                {% trans "renevues" %}
+            </span>
+            <span class="value" ng-bind="renevues | currency">
+            </span>
+        </div>
+
+        <div class="expenses">
+            <span class="description">
+                {% trans "expenses" %}
+            </span>
+            <span class="value" ng-bind="expenses | currency">
+            </span>
+        </div>
+
+        <div class="total" ng-class="{true: 'positive', false: 'negative'}[(renevues + expenses) >= 0]">
+            <span class="description">
+                {% trans "total" %}
+            </span>
+            <span class="value" ng-bind="(renevues + expenses) | currency">
+            </span>
+        </div>
+    </div>
+
+    <div id="balance-chart" class="hidden-xs">
+        <div value='chartData' type="area" height="400" chart></div>
+    </div>
+</div>
+</div>

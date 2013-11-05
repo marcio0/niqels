@@ -1,0 +1,93 @@
+-   fields:
+        date_joined: '2013-10-02 16:25:04'
+        email: existing@test.com
+        groups: []
+        is_active: true
+        is_admin: false
+        is_superuser: false
+        last_login: '2013-10-02 16:25:04'
+        name: existing
+        password: pbkdf2_sha256$10000$wEWMMW4tIqBu$8dfnhoNCKfXnJyS8Ri/CrhJMQMY//mwXi/ujb1vHY/w=
+        user_permissions: []
+    model: access.user
+    pk: 1
+
+-   fields:
+        date_joined: '2013-10-02 16:25:04'
+        email: admin@test.com
+        groups: []
+        is_active: true
+        is_admin: true 
+        is_superuser: false
+        last_login: '2013-10-02 16:25:04'
+        name: admin
+        password: pbkdf2_sha256$10000$wEWMMW4tIqBu$8dfnhoNCKfXnJyS8Ri/CrhJMQMY//mwXi/ujb1vHY/w=
+        user_permissions: []
+    model: access.user
+    pk: 2
+
+-   fields: {name: Receitas}
+    model: expenses.categorygroup
+    pk: 1
+-   fields: {name: Contas fixas}
+    model: expenses.categorygroup
+    pk: 2
+-   fields: {name: Despesas}
+    model: expenses.categorygroup
+    pk: 3
+-   fields: {custom: false, default_active: true, group: 1, is_negative: false, name: "Sal\xE1\
+            rio"}
+    model: expenses.category
+    pk: 1
+-   fields: {custom: false, default_active: true, group: 1, is_negative: false, name: Extras}
+    model: expenses.category
+    pk: 2
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Moradia}
+    model: expenses.category
+    pk: 3
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: "\xC1\
+            gua"}
+    model: expenses.category
+    pk: 4
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Luz}
+    model: expenses.category
+    pk: 5
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: "G\xE1\
+            s"}
+    model: expenses.category
+    pk: 6
+-   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Telefone/Internet/TV}
+    model: expenses.category
+    pk: 7
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Alimenta\xE7\
+            \xE3o"}
+    model: expenses.category
+    pk: 8
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Transporte}
+    model: expenses.category
+    pk: 9
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Lazer}
+    model: expenses.category
+    pk: 10
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Vestu\xE1\
+            rio"}
+    model: expenses.category
+    pk: 11
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Educa\xE7\
+            \xE3o"}
+    model: expenses.category
+    pk: 12
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Sa\xFA\
+            de"}
+    model: expenses.category
+    pk: 13
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Mercado}
+    model: expenses.category
+    pk: 14
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Utens\xED\
+            lios dom\xE9sticos"}
+    model: expenses.category
+    pk: 15
+-   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Outros}
+    model: expenses.category
+    pk: 16

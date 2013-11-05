@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-06 18:02-0300\n"
+"POT-Creation-Date: 2013-11-05 21:39-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,60 +18,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/app.js:79
+#: static/src/js/app/app.js:98
 #, c-format
 msgid "%s sucessfuly created!"
 msgstr "%s criada com sucesso!"
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/app.js:83
+#: static/src/js/app/app.js:102
 #, c-format
 msgid "%s sucessfuly updated!"
 msgstr "%s atualizada com sucesso!"
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/app.js:87
+#: static/src/js/app/app.js:106
 #, c-format
 msgid "An error ocurred creating %s."
 msgstr "Um erro ocorreu ao criado %s."
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/app.js:91
+#: static/src/js/app/app.js:110
 #, c-format
 msgid "%s sucessfuly removed."
 msgstr "%s removida com sucesso."
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/directives.js:146
+#: static/src/js/app/directives.js:142
 msgid "Confirm action"
 msgstr "Confirmar ação"
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/modules/models.js:87
-msgid "Reminder"
-msgstr "Lembrete"
+#: static/src/js/app/directives.js:183
+msgid "Select one"
+msgstr "Selecione uma categoria"
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/modules/models.js:106
+#: static/src/js/app/services.js:21
+msgid "Oops! Something went wrong. Please try again later."
+msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
+
+#: static/src/js/app/controllers/category-edit-ctrl.js:26
+#: static/src/js/app/controllers/transaction-form-ctrl.js:51
+msgid "Please fill in the fields correctly."
+msgstr "Por favor, preencha os campos corretamente."
+
+#: static/src/js/app/controllers/reports-ctrl.js:27
+msgid "The period must be 12 months or lower."
+msgstr "O período deve ser de 12 meses ou menos"
+
+#: static/src/js/app/controllers/reports-ctrl.js:46
+#: static/src/js/app/controllers/reports-ctrl.js:93
+#: static/src/js/app/modules/charts.js:37
+#: static/src/js/app/modules/charts.js:260
+msgid "Renevues"
+msgstr "Receitas"
+
+#: static/src/js/app/controllers/reports-ctrl.js:47
+#: static/src/js/app/controllers/reports-ctrl.js:97
+#: static/src/js/app/modules/charts.js:38
+#: static/src/js/app/modules/charts.js:259
+msgid "Expenses"
+msgstr "Despesas"
+
+#: static/src/js/app/controllers/reports-ctrl.js:94
+#: static/src/js/app/controllers/reports-ctrl.js:98
+msgid "Balance data"
+msgstr "Balanço"
+
+#: static/src/js/app/controllers/transaction-form-ctrl.js:16
+msgid "Select a category"
+msgstr "Selecione uma categoria"
+
+#: static/src/js/app/modules/charts.js:39
+msgid "Total"
+msgstr "Total"
+
+#: static/src/js/app/modules/models.js:40
 msgid "Transaction"
 msgstr "Transação"
 
-#: static/js/webapp-scripts.min.js:2 static/js/webapp.min.js:28
-#: static/js/app/modules/models.js:128 static/js/app/modules/models.js.c:136
-#: static/js/app/modules/models.js:145
-msgid "Category"
-msgstr "Categoria"
+#~ msgid "Selecione uma categoria"
+#~ msgstr "Selecione uma categoria"
 
-#: static/js/app/controllers/BalancePanelCtrl.js:45
-#, c-format
-msgid "Data up to day %s."
-msgstr "Dados até o dia %s."
+#~ msgid "Data up to day %s."
+#~ msgstr "Dados até o dia %s."
 
-#: static/js/app/controllers/CategoryEditCtrl.js:26
-#: static/js/app/controllers/TransactionFormCtrl.js:61
-msgid "Please fill in the fields correctly."
-msgstr "Por favor, preencha os campos corretamente."
+#~ msgid "Reminder"
+#~ msgstr "Lembrete"
+
+#~ msgid "Category"
+#~ msgstr "Categoria"
 
 #~ msgid "Are you sure?"
 #~ msgstr "Tem certeza?"

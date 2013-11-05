@@ -1,0 +1,213 @@
+
+##################
+# CATEGORY GROUP #
+##################
+
+-   model: expenses.CategoryGroup
+    pk: 1
+    fields:
+        name: group
+
+
+############
+# CATEGORY #
+############
+
+-   model: expenses.Category
+    pk: 1
+    fields:
+        name: groceries
+        group: ['group']
+
+-   model: expenses.Category
+    pk: 2
+    fields:
+        name: stuff
+        group: ['group']
+
+-   model: expenses.Category
+    pk: 4
+    fields:
+        name: income
+        group: ['group']
+
+-   model: expenses.Category
+    pk: 3
+    fields:
+        name: other
+        group: ['group']
+
+
+###################
+# CATEGORY CONFIG #
+###################
+
+-   model: expenses.CategoryConfig
+    pk: 1
+    fields:
+        category: 1
+        user: 1
+
+-   model: expenses.CategoryConfig
+    pk: 2
+    fields:
+        category: 2
+        user: 1
+
+-   model: expenses.CategoryConfig
+    pk: 4
+    fields:
+        category: 4
+        user: 1
+
+-   model: expenses.CategoryConfig
+    pk: 3
+    fields:
+        category: 3
+        user: 2
+
+
+###############
+# TRANSACTION #
+###############
+
+# this one is outside of the range
+-   model: expenses.Transaction
+    pk: 1
+    fields:
+        value: 10000
+        category: ['group', 'groceries']
+        user: 1
+        date: '2010-01-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+# groceries
+-   model: expenses.Transaction
+    pk: 2
+    fields:
+        value: 500
+        category: ['group', 'groceries']
+        user: 1
+        date: '2010-10-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 3
+    fields:
+        value: -100
+        category: ['group', 'groceries']
+        user: 1
+        date: '2010-09-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 4
+    fields:
+        value: 200
+        category: ['group', 'groceries']
+        user: 1
+        date: '2010-08-08'
+        created: "2010-10-10 00:00:00-03:00"
+
+# stuff
+-   model: expenses.Transaction
+    pk: 5
+    fields:
+        value: 600
+        category: ['group', 'stuff']
+        user: 1
+        date: '2010-08-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 6
+    fields:
+        value: 500
+        category: ['group', 'stuff']
+        user: 1
+        date: '2010-09-09'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 7
+    fields:
+        value: -200
+        category: ['group', 'stuff']
+        user: 1
+        date: '2010-10-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+# income
+-   model: expenses.Transaction
+    pk: 8
+    fields:
+        value: 500
+        category: ['group', 'income']
+        user: 1
+        date: '2010-08-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 9
+    fields:
+        value: 500
+        category: ['group', 'income']
+        user: 1
+        date: '2010-08-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 10
+    fields:
+        value: 400
+        category: ['group', 'income']
+        user: 1
+        date: '2010-10-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+# other
+-   model: expenses.Transaction
+    pk: 11
+    fields:
+        value: -100
+        category: ['group', 'other']
+        user: 1
+        date: '2010-09-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 12
+    fields:
+        value: 300
+        category: ['group', 'other']
+        user: 1
+        date: '2010-09-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 13
+    fields:
+        value: -700
+        category: ['group', 'other']
+        user: 1
+        date: '2010-09-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+# out of date range
+-   model: expenses.Transaction
+    pk: 14
+    fields:
+        value: 20000
+        category: ['group', 'groceries']
+        user: 1
+        date: '2010-11-10'
+        created: "2010-10-10 00:00:00-03:00"
+
+-   model: expenses.Transaction
+    pk: 15
+    fields:
+        value: 20000
+        category: ['group', 'groceries']
+        user: 2
+        date: '2010-10-10'
+        created: "2010-10-10 00:00:00-03:00"

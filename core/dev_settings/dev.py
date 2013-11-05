@@ -19,4 +19,9 @@ INSTALLED_APPS += (
     'django_coverage',
 )
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static", 'src'),
+    os.path.join(BASE_DIR, "static", 'test'),
+)
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

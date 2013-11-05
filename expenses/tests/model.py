@@ -1,15 +1,15 @@
 import mock
 import datetime
 from decimal import Decimal
+import unittest
 
 import django.forms
 from django.test import TestCase
 
 import expenses.models
-from expenses.models import Category, Transaction
+from expenses.models import Category, Transaction, CategoryGroup
 from expenses import forms
 from access.models import User
-from reminder.models import RepeatableTransaction
 
 
 class TransactionUpToDayTest(TestCase):
@@ -71,30 +71,28 @@ class TransactionUpToDayTest(TestCase):
         self.assertEquals(result['2010-01'].count(), 4)
 
 
+class CategoryGroupModelTest(TestCase):
+    def test_unicode(self):
+        group = CategoryGroup(name='test')
+        self.assertEquals(str(group), 'test')
+
+    def test_natural_key(self):
+        group = CategoryGroup.objects.create(name='group')
+
+        self.assertEquals(group.natural_key(), 'group')
+        self.assertEquals(CategoryGroup.objects.get_by_natural_key('group'), group)
+
+
 class CategoryModelTest(TestCase):
     def test_unicode(self):
         cat = Category(name='test')
-        self.assertEquals(str(cat), 'Category: test')
+        self.assertEquals(str(cat), 'test')
 
+    def test_natural_key(self):
+        CategoryGroup.objects.create(name='group')
+        cat = Category.objects.create(name='cat', group_id=1)
 
-class TransactionModelTest(TestCase):
-    fixtures = ['TransactionUpToDayTest.yaml']
+        expected_key = ('group', 'cat')
 
-    def test_repeatable_cascade(self):  
-        '''
-        When a repeatable is deleted, the related transactions must be kept.
-        '''
-        repeatable = RepeatableTransaction()
-        repeatable.value = Decimal(40)
-        repeatable.due_date = datetime.date(2010, 10, 10)
-        repeatable.category_id = 1
-        repeatable.user_id = 1
-        repeatable.save()
-
-        transaction = repeatable.create_transaction()
-        transaction.save()
-
-        repeatable.delete()
-        self.assertTrue(Transaction.objects.filter(pk=transaction.id).exists())
-
-
+        self.assertEquals(cat.natural_key(), expected_key)
+        self.assertEquals(Category.objects.get_by_natural_key(*expected_key), cat)
