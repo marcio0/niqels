@@ -180,7 +180,7 @@ angular.module('webapp')
                 element.addClass('selectpicker');
 
                 element.selectpicker({
-                    noneSelectedText: gettext('Selecione uma categoria')
+                    noneSelectedText: gettext('Select one')
                 });
 
                 scope.$watch('categories', function () {
