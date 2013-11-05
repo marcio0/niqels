@@ -117,10 +117,10 @@ module.exports = function(grunt) {
 
         exec: {
             makemessagesDjango: {
-                command: 'python manage.py makemessages -l pt_BR -i node_modules -i staticfiles'
+                command: 'python manage.py makemessages -l pt_BR -i node_modules -i staticfiles -i static/dist'
             },
             makemessagesJS: {
-                command: 'python manage.py makemessages -l pt_BR -d djangojs -i node_modules -i staticfiles'
+                command: 'python manage.py makemessages -l pt_BR -d djangojs -i node_modules -i staticfiles -i static/dist'
             },
             testserver: {
                 cmd: function runTestServer () {
