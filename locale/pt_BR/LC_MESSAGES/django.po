@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-05 20:44-0200\n"
+"POT-Creation-Date: 2013-11-05 21:39-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,7 +121,7 @@ msgstr "A data final deve estar no formato AAAA-MM-DD."
 msgid "The `day` parameter must be an integer."
 msgstr "O dia precisa ser um número inteiro"
 
-#: api/resources/transaction_resource.py:125
+#: api/resources/transaction_resource.py:128
 #, python-format
 msgid "This resource does not allow grouping by %s."
 msgstr "Este recurso não permite agrupamento por %s"
@@ -180,7 +180,7 @@ msgstr "O grupo ao qual esta categoria pertence."
 
 #: expenses/models.py:76
 #: templates/webapp/transactions/transaction-form.html:17
-#: templates/webapp/transactions/transaction-list.html:102
+#: templates/webapp/transactions/transaction-list.html:110
 msgid "Category"
 msgstr "Categoria"
 
@@ -555,8 +555,8 @@ msgid "Color"
 msgstr "Cor"
 
 #: templates/webapp/settings/category-edit.html:37
-#: templates/webapp/transactions/transaction-list.html:76
-#: templates/webapp/transactions/transaction-list.html:128
+#: templates/webapp/transactions/transaction-list.html:84
+#: templates/webapp/transactions/transaction-list.html:137
 msgid "Do you wish to remove this category?"
 msgstr "Deseja remover esta categoria?"
 
@@ -600,17 +600,13 @@ msgstr "gastos"
 msgid "total"
 msgstr "total"
 
-#: templates/webapp/transactions/month_balance_panel.html:34
-msgid "Average"
-msgstr "Média"
-
 #: templates/webapp/transactions/transaction-form.html:3
 msgid "New transaction"
 msgstr "Nova movimentação"
 
 #: templates/webapp/transactions/transaction-form.html:38
-#: templates/webapp/transactions/transaction-list.html:56
-#: templates/webapp/transactions/transaction-list.html:108
+#: templates/webapp/transactions/transaction-list.html:63
+#: templates/webapp/transactions/transaction-list.html:116
 msgid "Value"
 msgstr "Valor"
 
@@ -623,7 +619,7 @@ msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
 #: templates/webapp/transactions/transaction-form.html:72
-#: templates/webapp/transactions/transaction-list.html:50
+#: templates/webapp/transactions/transaction-list.html:57
 msgid "Date"
 msgstr "Data"
 
@@ -639,19 +635,22 @@ msgstr "Agrupar movimentações por data"
 msgid "Group transactions by category"
 msgstr "Agrupar movimentações por período"
 
-#: templates/webapp/transactions/transaction-list.html:53
-#: templates/webapp/transactions/transaction-list.html:105
+#: templates/webapp/transactions/transaction-list.html:60
+#: templates/webapp/transactions/transaction-list.html:113
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/webapp/transactions/transaction-list.html:80
-#: templates/webapp/transactions/transaction-list.html:132
+#: templates/webapp/transactions/transaction-list.html:88
+#: templates/webapp/transactions/transaction-list.html:141
 msgid "Remove this transaction"
 msgstr "Remover esta movimentação"
 
-#: templates/webapp/transactions/transaction-list.html:143
+#: templates/webapp/transactions/transaction-list.html:152
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Average"
+#~ msgstr "Média"
 
 #~ msgid "Actions"
 #~ msgstr "Ações"

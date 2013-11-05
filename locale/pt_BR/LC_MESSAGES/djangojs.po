@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-05 20:44-0200\n"
+"POT-Creation-Date: 2013-11-05 21:39-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,84 +18,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/dist/js/webapp.min.js:316
+#: static/src/js/app/app.js:98
+#, c-format
+msgid "%s sucessfuly created!"
+msgstr "%s criada com sucesso!"
+
+#: static/src/js/app/app.js:102
+#, c-format
+msgid "%s sucessfuly updated!"
+msgstr "%s atualizada com sucesso!"
+
+#: static/src/js/app/app.js:106
+#, c-format
+msgid "An error ocurred creating %s."
+msgstr "Um erro ocorreu ao criado %s."
+
+#: static/src/js/app/app.js:110
+#, c-format
+msgid "%s sucessfuly removed."
+msgstr "%s removida com sucesso."
+
+#: static/src/js/app/directives.js:142
+msgid "Confirm action"
+msgstr "Confirmar ação"
+
+#: static/src/js/app/directives.js:183
+msgid "Select one"
+msgstr "Selecione uma categoria"
+
+#: static/src/js/app/services.js:21
+msgid "Oops! Something went wrong. Please try again later."
+msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
+
 #: static/src/js/app/controllers/category-edit-ctrl.js:26
 #: static/src/js/app/controllers/transaction-form-ctrl.js:51
 msgid "Please fill in the fields correctly."
 msgstr "Por favor, preencha os campos corretamente."
 
-#: static/dist/js/webapp.min.js:316
 #: static/src/js/app/controllers/reports-ctrl.js:27
 msgid "The period must be 12 months or lower."
 msgstr "O período deve ser de 12 meses ou menos"
 
-#: static/dist/js/webapp.min.js:316
 #: static/src/js/app/controllers/reports-ctrl.js:46
 #: static/src/js/app/controllers/reports-ctrl.js:93
-#: static/src/js/app/modules/charts.js:18
-#: static/src/js/app/modules/charts.js:219
+#: static/src/js/app/modules/charts.js:37
+#: static/src/js/app/modules/charts.js:260
 msgid "Renevues"
 msgstr "Receitas"
 
-#: static/dist/js/webapp.min.js:316
 #: static/src/js/app/controllers/reports-ctrl.js:47
 #: static/src/js/app/controllers/reports-ctrl.js:97
-#: static/src/js/app/modules/charts.js:19
-#: static/src/js/app/modules/charts.js:218
+#: static/src/js/app/modules/charts.js:38
+#: static/src/js/app/modules/charts.js:259
 msgid "Expenses"
 msgstr "Despesas"
 
-#: static/dist/js/webapp.min.js:316
 #: static/src/js/app/controllers/reports-ctrl.js:94
 #: static/src/js/app/controllers/reports-ctrl.js:98
 msgid "Balance data"
 msgstr "Balanço"
 
-#: static/dist/js/webapp.min.js:316
 #: static/src/js/app/controllers/transaction-form-ctrl.js:16
 msgid "Select a category"
 msgstr "Selecione uma categoria"
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:98
-#, c-format
-msgid "%s sucessfuly created!"
-msgstr "%s criada com sucesso!"
+#: static/src/js/app/modules/charts.js:39
+msgid "Total"
+msgstr "Total"
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:102
-#, c-format
-msgid "%s sucessfuly updated!"
-msgstr "%s atualizada com sucesso!"
-
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:106
-#, c-format
-msgid "An error ocurred creating %s."
-msgstr "Um erro ocorreu ao criado %s."
-
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:110
-#, c-format
-msgid "%s sucessfuly removed."
-msgstr "%s removida com sucesso."
-
-#: static/dist/js/webapp.min.js:316 static/src/js/app/directives.js:142
-msgid "Confirm action"
-msgstr "Confirmar ação"
-
-#: static/dist/js/webapp.min.js:316
-#, fuzzy
-msgid "Selecione uma categoria"
-msgstr "Selecione uma categoria"
-
-#: static/dist/js/webapp.min.js:316 static/src/js/app/services.js:21
-msgid "Oops! Something went wrong. Please try again later."
-msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
-
-#: static/dist/js/webapp.min.js:316 static/src/js/app/modules/models.js:40
+#: static/src/js/app/modules/models.js:40
 msgid "Transaction"
 msgstr "Transação"
 
-#: static/src/js/app/directives.js:183
-msgid "Select one"
-msgstr "Selecione uma categoria"
+#~ msgid "Selecione uma categoria"
+#~ msgstr "Selecione uma categoria"
 
 #~ msgid "Data up to day %s."
 #~ msgstr "Dados até o dia %s."
