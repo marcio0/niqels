@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-24 10:25-0200\n"
+"POT-Creation-Date: 2013-11-05 20:44-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,7 +121,7 @@ msgstr "A data final deve estar no formato AAAA-MM-DD."
 msgid "The `day` parameter must be an integer."
 msgstr "O dia precisa ser um número inteiro"
 
-#: api/resources/transaction_resource.py:110
+#: api/resources/transaction_resource.py:125
 #, python-format
 msgid "This resource does not allow grouping by %s."
 msgstr "Este recurso não permite agrupamento por %s"
@@ -168,7 +168,7 @@ msgstr "é negativo"
 
 #: expenses/models.py:55
 msgid "If transactions on this category has negative values by default."
-msgstr "Se transações desta categoria tem valor negativo por padrão."
+msgstr "Se movimentações desta categoria tem valor negativo por padrão."
 
 #: expenses/models.py:61
 msgid "category group"
@@ -180,7 +180,7 @@ msgstr "O grupo ao qual esta categoria pertence."
 
 #: expenses/models.py:76
 #: templates/webapp/transactions/transaction-form.html:17
-#: templates/webapp/transactions/transaction-list.html:24
+#: templates/webapp/transactions/transaction-list.html:102
 msgid "Category"
 msgstr "Categoria"
 
@@ -240,11 +240,11 @@ msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
 #: expenses/models.py:145
 msgid "The owner of this transaction."
-msgstr "O dono desta transação."
+msgstr "O dono desta movimentação."
 
 #: expenses/models.py:149
 msgid "The category for this transaction."
-msgstr "A categoria desta transação."
+msgstr "A categoria desta movimentação."
 
 #: expenses/models.py:152
 msgid "creation date"
@@ -252,7 +252,7 @@ msgstr "data de criação"
 
 #: expenses/models.py:153
 msgid "When this transaction was created."
-msgstr "Quando esta transação foi criada."
+msgstr "Quando esta movimentação foi criada."
 
 #: expenses/models.py:167
 msgid "Transaction"
@@ -508,34 +508,43 @@ msgstr "Siga as instruções neste email para escolher uma nova senha."
 msgid "Reports"
 msgstr "Relatórios"
 
-#: templates/webapp/reports/reports.html:7
-msgid "Period"
-msgstr "Período"
-
-#: templates/webapp/reports/reports.html:11
-msgid "Update"
-msgstr "Atualizar"
-
-#: templates/webapp/reports/reports.html:16
+#: templates/webapp/reports/balance.html:3
+#: templates/webapp/reports/reports.html:10
 #: templates/webapp/transactions/month_balance_panel.html:3
 msgid "Balance"
 msgstr "Balanço"
 
-#: templates/webapp/reports/reports.html:24
-msgid "Top 10 Categories"
-msgstr "Top 10 Categorias"
-
-#: templates/webapp/reports/reports.html:30
+#: templates/webapp/reports/category-comparison.html:3
 msgid "Category Comparison"
 msgstr "Comparação de categorias"
 
-#: templates/webapp/reports/reports.html:34
+#: templates/webapp/reports/category-comparison.html:7
 msgid "Category 1"
 msgstr "Categoria 1"
 
-#: templates/webapp/reports/reports.html:47
+#: templates/webapp/reports/category-comparison.html:20
 msgid "Category 2"
 msgstr "Categoria 2"
+
+#: templates/webapp/reports/reports.html:13
+msgid "Top categories"
+msgstr "Principais categorias"
+
+#: templates/webapp/reports/reports.html:16
+msgid "Category comparison"
+msgstr "Comparação de categorias"
+
+#: templates/webapp/reports/reports.html:23
+msgid "Period"
+msgstr "Período"
+
+#: templates/webapp/reports/reports.html:27
+msgid "Update"
+msgstr "Atualizar"
+
+#: templates/webapp/reports/top-categories.html:3
+msgid "Top 10 Categories"
+msgstr "Top 10 Categorias"
 
 #: templates/webapp/settings/category-edit.html:8
 msgid "Edit category"
@@ -546,6 +555,8 @@ msgid "Color"
 msgstr "Cor"
 
 #: templates/webapp/settings/category-edit.html:37
+#: templates/webapp/transactions/transaction-list.html:76
+#: templates/webapp/transactions/transaction-list.html:128
 msgid "Do you wish to remove this category?"
 msgstr "Deseja remover esta categoria?"
 
@@ -598,7 +609,8 @@ msgid "New transaction"
 msgstr "Nova movimentação"
 
 #: templates/webapp/transactions/transaction-form.html:38
-#: templates/webapp/transactions/transaction-list.html:26
+#: templates/webapp/transactions/transaction-list.html:56
+#: templates/webapp/transactions/transaction-list.html:108
 msgid "Value"
 msgstr "Valor"
 
@@ -611,6 +623,7 @@ msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
 #: templates/webapp/transactions/transaction-form.html:72
+#: templates/webapp/transactions/transaction-list.html:50
 msgid "Date"
 msgstr "Data"
 
@@ -619,16 +632,29 @@ msgid "Submit"
 msgstr "Enviar"
 
 #: templates/webapp/transactions/transaction-list.html:25
+msgid "Group transactions by date"
+msgstr "Agrupar movimentações por data"
+
+#: templates/webapp/transactions/transaction-list.html:32
+msgid "Group transactions by category"
+msgstr "Agrupar movimentações por período"
+
+#: templates/webapp/transactions/transaction-list.html:53
+#: templates/webapp/transactions/transaction-list.html:105
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/webapp/transactions/transaction-list.html:27
-msgid "Actions"
-msgstr "Ações"
+#: templates/webapp/transactions/transaction-list.html:80
+#: templates/webapp/transactions/transaction-list.html:132
+msgid "Remove this transaction"
+msgstr "Remover esta movimentação"
 
-#: templates/webapp/transactions/transaction-list.html:66
+#: templates/webapp/transactions/transaction-list.html:143
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Actions"
+#~ msgstr "Ações"
 
 #~ msgid "Settings"
 #~ msgstr "Configurações"
@@ -716,9 +742,6 @@ msgstr "Nenhuma movimentação no período."
 
 #~ msgid "Required"
 #~ msgstr "Obrigatório"
-
-#~ msgid "Repeat this transaction"
-#~ msgstr "Repetir esta movimentação"
 
 #~ msgid "Create a reminder that repeats:"
 #~ msgstr "Criar um lembrete que se repete:"

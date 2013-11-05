@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-24 10:25-0200\n"
+"POT-Creation-Date: 2013-11-05 20:44-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,51 +20,58 @@ msgstr ""
 
 #: static/dist/js/webapp.min.js:316
 #: static/src/js/app/controllers/category-edit-ctrl.js:26
-#: static/src/js/app/controllers/transaction-form-ctrl.js:41
+#: static/src/js/app/controllers/transaction-form-ctrl.js:51
 msgid "Please fill in the fields correctly."
 msgstr "Por favor, preencha os campos corretamente."
 
 #: static/dist/js/webapp.min.js:316
-#: static/src/js/app/controllers/reports-ctrl.js:39
-#: static/src/js/app/controllers/reports-ctrl.js:86
-#: static/src/js/app/modules/charts.js:225
+#: static/src/js/app/controllers/reports-ctrl.js:27
+msgid "The period must be 12 months or lower."
+msgstr "O período deve ser de 12 meses ou menos"
+
+#: static/dist/js/webapp.min.js:316
+#: static/src/js/app/controllers/reports-ctrl.js:46
+#: static/src/js/app/controllers/reports-ctrl.js:93
+#: static/src/js/app/modules/charts.js:18
+#: static/src/js/app/modules/charts.js:219
 msgid "Renevues"
 msgstr "Receitas"
 
 #: static/dist/js/webapp.min.js:316
-#: static/src/js/app/controllers/reports-ctrl.js:40
-#: static/src/js/app/controllers/reports-ctrl.js:90
-#: static/src/js/app/modules/charts.js:224
+#: static/src/js/app/controllers/reports-ctrl.js:47
+#: static/src/js/app/controllers/reports-ctrl.js:97
+#: static/src/js/app/modules/charts.js:19
+#: static/src/js/app/modules/charts.js:218
 msgid "Expenses"
 msgstr "Despesas"
 
 #: static/dist/js/webapp.min.js:316
-#: static/src/js/app/controllers/reports-ctrl.js:87
-#: static/src/js/app/controllers/reports-ctrl.js:91
+#: static/src/js/app/controllers/reports-ctrl.js:94
+#: static/src/js/app/controllers/reports-ctrl.js:98
 msgid "Balance data"
 msgstr "Balanço"
 
 #: static/dist/js/webapp.min.js:316
-#: static/src/js/app/controllers/reports-ctrl.js:114
-msgid "The period must be 12 months or lower."
-msgstr "O período deve ser de 12 meses ou menos"
+#: static/src/js/app/controllers/transaction-form-ctrl.js:16
+msgid "Select a category"
+msgstr "Selecione uma categoria"
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:80
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:98
 #, c-format
 msgid "%s sucessfuly created!"
 msgstr "%s criada com sucesso!"
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:84
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:102
 #, c-format
 msgid "%s sucessfuly updated!"
 msgstr "%s atualizada com sucesso!"
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:88
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:106
 #, c-format
 msgid "An error ocurred creating %s."
 msgstr "Um erro ocorreu ao criado %s."
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:92
+#: static/dist/js/webapp.min.js:316 static/src/js/app/app.js:110
 #, c-format
 msgid "%s sucessfuly removed."
 msgstr "%s removida com sucesso."
@@ -73,17 +80,22 @@ msgstr "%s removida com sucesso."
 msgid "Confirm action"
 msgstr "Confirmar ação"
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/directives.js:190
-msgid "Select a category"
+#: static/dist/js/webapp.min.js:316
+#, fuzzy
+msgid "Selecione uma categoria"
 msgstr "Selecione uma categoria"
 
 #: static/dist/js/webapp.min.js:316 static/src/js/app/services.js:21
 msgid "Oops! Something went wrong. Please try again later."
 msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
 
-#: static/dist/js/webapp.min.js:316 static/src/js/app/modules/models.js:31
+#: static/dist/js/webapp.min.js:316 static/src/js/app/modules/models.js:40
 msgid "Transaction"
 msgstr "Transação"
+
+#: static/src/js/app/directives.js:183
+msgid "Select one"
+msgstr "Selecione uma categoria"
 
 #~ msgid "Data up to day %s."
 #~ msgstr "Dados até o dia %s."
