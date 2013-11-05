@@ -93,7 +93,8 @@ module.exports = function(grunt) {
             buildjs: [
                 'static/dist/js/webapp-libs.min.tmp.js',
                 'static/dist/js/webapp-scripts.min.tmp.js'
-            ]
+            ],
+            local_settings: ['core/local_settings.py', 'core/local_settings.pyc']
         },
 
         less: {
@@ -129,16 +130,8 @@ module.exports = function(grunt) {
                     return command.replace('{{port}}', port);
                 }
             },
-            runforeman: {
+            foreman: {
                 command: 'python manage.py collectstatic --noinput; foreman start --port 8001'
-            },
-            karma: {
-                cmd: function runKarmaE2EServer () {
-                    var command = './static/test/scripts/e2e-test.sh --port {{port}}';
-                    var port = this.option('port') || 8001;
-
-                    return command.replace('{{port}}', port);
-                }
             }
         },
 
@@ -148,6 +141,11 @@ module.exports = function(grunt) {
                     {src: 'img/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
                     {src: 'css/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
                     {src: 'font/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
+                ]
+            },
+            local_settings: {
+                files: [
+                    {src: 'core/dev_settings/<%= grunt.option("file") || "dev" %>.py', dest: 'core/local_settings.py'}
                 ]
             }
         },
@@ -181,13 +179,17 @@ module.exports = function(grunt) {
     /*
      * Task: buildjs
      *
-     * Builds the whole javascript used in production.
-     *
      * Artifacts:
      * script.min.js            : the scripts for all pages (including the webapp).
      * webapp.min.js            : the entire webapp scripts, except global scripts.
      */
-    grunt.registerTask('build-webapp', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp']);
-    grunt.registerTask('makemessages', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
-    grunt.registerTask('testserver', ['exec:testserver']);
+    grunt.registerTask('build-webapp', 'Builds the whole javascript used in production.', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp']);
+
+    grunt.registerTask('makemessages', 'Make message files for both django and djangojs.', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
+
+    grunt.registerTask('testserver', 'Runs the django testserver on port 8002 and loading the `testserver_data.yaml` fixture.', ['exec:testserver']);
+
+    grunt.registerTask('foreman', 'Colect static files and runs foreman on port 8001.', ['exec:foreman']);
+
+    grunt.registerTask('patch-settings', 'Patches the local settings file with a file in the `core/dev_settings` folder.', ['clean:local_settings', 'copy:local_settings']);
 };
