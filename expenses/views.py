@@ -30,7 +30,7 @@ class PresentationView(TemplateView):
         return context
 
 class LandingPage(TemplateView):
-    template_name = "index.html"
+    template_name = "landing.html"
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
