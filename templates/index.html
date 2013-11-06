@@ -112,81 +112,6 @@
                 </div><!-- .fadein.visible-lg -->
               </div> <!-- .panel-fadein -->
         </div> <!-- . jumbotron -->
-        <div id="bg-background-modal">
-            <div id="modal-custom-login">
-                <a class="hiddenanchor" id="tologin"></a>
-                <a class="hiddenanchor" id="toregister"></a>
-
-                <div id="wrapper-login" class="text-left">
-                    <div id="login" class="animate form">
-                        <div class="modal-header">
-                            <button type="button" class="close" onclick="hideDiv();">&times;</button>
-                            <h1 class="text-left">Entrar</h1>
-                        </div>
-                        <form action="mysuperscript.php" autocomplete="on">
-                            <p> 
-                                <label for="username" class="uname">Email ou usuário</label>
-                                <input id="username" name="username" class="form-control input-lg" required="required" type="text" placeholder="usuário ou meuemail@mail.com"/>
-                            </p>
-                            <p>
-                                <label for="password" class="youpasswd">Senha</label>
-                                <input id="password" name="password" class="form-control input-lg" required="required" type="password" placeholder="ex. X8df!90EO" />
-                            </p>
-                            <!-- <p class="keeplogin"> 
-                            <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
-                            <label for="loginkeeping">Manter conectado</label>
-                            </p> -->
-                            <div class="modal-footer">
-                                  <div class="pull-right">
-                                      <button type="reset" class="btn btn-primary btn-custom-login" onclick="hideDiv()">Cancelar</button>
-                                      <button class="btn btn-primary btn-custom-login">Login</button>
-                                  </div>
-                                  <p class="change_link text-left">
-                                  Ainda não se cadastrou?
-                                    <a href="#toregister" class="to_register">Cadastre-se</a>
-                                  </p>
-                            </div>
-                        </form>
-                    </div> <!-- #login -->
-
-                    <div id="register" class="animate form">
-                        <div class="modal-header">
-                            <button type="button" class="close" onclick="hideDiv()">&times;</button>
-                            <h1>Cadastro</h1>
-                        </div>
-                        <form action="mysuperscript.php" autocomplete="on"> 
-                            <p>
-                                <label for="usernamesignup" class="uname">Usuário</label>
-                                <input id="usernamesignup" class="form-control input-lg" name="usernamesignup" required="required" type="text" placeholder="usuário690" />
-                            </p>
-                            <p>
-                                <label for="emailsignup" class="youmail">Email</label>
-                                <input id="emailsignup" class="form-control input-lg" name="emailsignup" required="required" type="email" placeholder="meuemail@mail.com"/> 
-                            </p>
-                            <p>
-                                <label for="passwordsignup" class="youpasswd">Senha</label>
-                                <input id="passwordsignup" class="form-control input-lg" name="passwordsignup" required="required" type="password" placeholder="ex. X8df!90EO"/>
-                            </p>
-                            <p>
-                                <label for="passwordsignup_confirm" class="youpasswd">Confirme sua senha</label>
-                                <input id="passwordsignup_confirm" class="form-control input-lg" name="passwordsignup_confirm" required="required" type="password" placeholder="ex. X8df!90EO"/>
-                            </p>
-                            <div class="modal-footer">
-                                <div class="pull-right">
-                                  <button type="reset" class="btn btn-primary btn-custom-login" onclick="hideDiv()">Cancelar</button>
-                                  <button class="btn btn-primary btn-custom-login btn-custom-cadastro">Cadastrar</button>
-                                </div>
-                                <p class="change_link text-right">  
-                                Já é cadastrado?
-                                  <a href="#tologin" class="to_register">Faça seu login</a>
-                                </p>
-                            </div>
-                        </form>
-                    </div> <!-- #register -->
-                </div> <!-- #wrapper-login -->
-            </div><!-- #modal-custom-login -->
-        </div> <!-- #bg-background-modal -->
-
     
          <div class="slide" id="slide2" data-slide="2" data-stellar-background-ratio="0.5">
                <div class="container">
@@ -233,7 +158,6 @@
         Placed at the end of the document so the pages load faster -->
         <script src="/static/landing/js/jquery.js"></script>
         <script src="/static/landing/js/bootstrap.js"></script>
-        <script src="/static/landing/js/modal.js"></script>
         <script type="text/javascript" src="/static/landing/js/jquery.stellar.min.js"></script>
         <script type="text/javascript" src="/static/landing/js/waypoints.min.js"></script>
         <script type="text/javascript" src="/static/landing/js/jquery.easing.1.3.js"></script>
@@ -247,16 +171,6 @@
                      .end().appendTo('.fadein');}, 
                   5000);
             });
-
-            function showDiv() {
-               $('#bg-background-modal').css('display', 'block');
-            };
-
-
-            function hideDiv() {
-               $('#bg-background-modal').css('display', 'none');
-            };
-
         </script>
   </body>
 </html>
