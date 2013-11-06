@@ -28,3 +28,17 @@ class PresentationView(TemplateView):
         context = super(PresentationView, self).get_context_data()
         context['register_form'] = UserCreationForm()
         return context
+
+class LandingPage(TemplateView):
+    template_name = "index.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return WebAppView.as_view()(request)
+        else:
+            return super(LandingPage, self).get(request, *args, **kwargs)
+
+    def get_context_data(self):
+        context = super(LandingPage, self).get_context_data()
+        context['register_form'] = UserCreationForm()
+        return context
