@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
 
     $(window).stellar();
 
-    var links = $('.navigation').find('li');
+    var links = $('.navigation').find('li[data-slide]');
     slide = $('.slide');
     button = $('.button');
     mywindow = $(window);

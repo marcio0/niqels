@@ -43,7 +43,7 @@
             <div id="nav" class="container">
               <ul class="nav nav-pills pull-right navigation" >
                 <li data-slide="2"><a href="#">Sobre</a></li>
-                <li data-slide="3"><a href="#" onclick="showDiv()">Login</a></li>
+                <li><a href="{% url "login" %}">Login</a></li>
               </ul>
               <div class="background">
                   <h1 class="stretch"><a class="brand" href="#">Niqels</a></h1>
@@ -101,8 +101,8 @@
                                   </div><!-- .panel-body -->
                                 </div><!-- #collapseThree -->
                               </div><!-- .panel.panel-default -->
-                        <p><button onclick="showDiv()" class="btn btn-lg btn-primary btn-custom">Experimente agora 
-                        <span class="glyphicon glyphicon-chevron-right"></span></button></p>                      
+                        <p><a href="{% url "register" %}" class="btn btn-lg btn-primary btn-custom">Experimente agora 
+                        <span class="glyphicon glyphicon-chevron-right"></span></a></p>                      
                     </div> <!-- .panel-group-->
                 </div> <!-- .bg-panel -->
                 <div class="fadein">
