@@ -120,6 +120,15 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 });
             };
         }
+
+    }])
+
+    .run(['$rootScope', '$location', '$window', function setupGoogleAnalytics ($rootScope, $location, $window) {
+        if ($window._gaq) {
+            $rootScope.$on('$stateChangeSuccess', function () {
+                $window._gaq.push(['_trackPageview', $location.path()]);
+            });
+        }
     }])
 
     .run(['$rootScope', '$window', function ($rootScope, $window) {

@@ -172,5 +172,9 @@
                   5000);
             });
         </script>
+
+        {% if not is_debug %}
+            {% include "ga.html" %}
+        {% endif %}
   </body>
 </html>
