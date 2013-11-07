@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth import get_user_model, login, authenticate
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
@@ -15,6 +17,9 @@ from password_reset import views as pr_views
 
 from access.forms import UserCreationForm, PasswordRecoveryForm, PasswordResetForm
 from access.models import User
+
+
+logger = logging.getLogger('access')
 
 
 def test_login(request):
@@ -101,7 +106,10 @@ def register(request):
 
             subject, from_email, to = _('Welcome to Niqels!'), 'niqels@niqels.com.br', email
 
-            send_mail(subject, email_content, from_email, [to], fail_silently=False)
+            try:
+                send_mail(subject, email_content, from_email, [to], fail_silently=False)
+            except Exception, e:
+                logger.warning('Error sending email: ' + str(e))
 
             return redirect('index')
     else:
