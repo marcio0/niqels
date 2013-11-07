@@ -7,6 +7,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.template.loader import get_template
+from django.template import Context
+from django.core.mail import send_mail
 
 from password_reset import views as pr_views
 
@@ -91,6 +94,14 @@ def register(request):
 
             #messages.success(request,
             #    _('Welcome to %(site_name)s, %(user_name)s!') % {'site_name': settings.SITE_NAME, 'user_name': user.name})
+
+            text = get_template('access/welcome-email.txt')
+            context = Context({'username': user.name})
+            email_content = text.render(context)
+
+            subject, from_email, to = _('Welcome to Niqels!'), 'niqels@niqels.com.br', email
+
+            send_mail(subject, email_content, from_email, [to], fail_silently=False)
 
             return redirect('index')
     else:

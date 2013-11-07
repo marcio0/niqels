@@ -1,0 +1,14 @@
+{% load i18n %}
+
+Olá {{username}}! Seja bem-vindo ao Niqels!
+
+Seu cadastro está completo. Tudo que você precisa fazer agora é manter seu controle em dia.
+
+Nós sugerimos que você separe, diariamente, um horário fixo para que você se lembre de cadastrar os seus gastos. Em breve, traremos funcionalidades para você não esquecer. :)
+
+Enquanto você inclui suas despesas e receitas no sistema, estaremos trabalhando para que você comece a alcançar seus objetivos financeiros.
+
+Conte conosco para o que precisar.
+
+Sinceramente,
+Equipe Niqels
