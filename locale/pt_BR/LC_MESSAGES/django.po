@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-06 23:35-0200\n"
+"POT-Creation-Date: 2013-11-07 21:08-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,9 +94,13 @@ msgstr "Usuário"
 msgid "Users"
 msgstr "Usuários"
 
-#: access/views.py:32
+#: access/views.py:35
 msgid "Your password was successfuly changed."
 msgstr "Sua senha foi alterada."
+
+#: access/views.py:102
+msgid "Welcome to Niqels!"
+msgstr "Bem vindo ao Niqels!"
 
 #: api/resources/balance_resource.py:25
 msgid "The 'date_start' parameter is required."
@@ -339,19 +343,19 @@ msgstr ""
 msgid "Outros"
 msgstr ""
 
-#: templates/base.html:51
+#: templates/base.html:52
 msgid "Contact us"
 msgstr "Entre em contato"
 
-#: templates/base.html:54
+#: templates/base.html:55
 msgid "Like us on Facebook"
 msgstr "Curta nossa página no Facebook"
 
-#: templates/base.html:57
+#: templates/base.html:58
 msgid "Follow us on Twitter"
 msgstr "Siga-nos no Twitter"
 
-#: templates/base.html:60
+#: templates/base.html:61
 msgid "Email us"
 msgstr "Contate-nos por email"
 
