@@ -35,8 +35,8 @@
             </div>
         </div>
 
-        <div class="panel-group" ng-if="groupBy == 'category.name'">
-            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:true">
+        <div class="panel-group" id="transaction-groups" ng-if="groupBy == 'category.name'">
+            <div id="transaction-group-(($index))" class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:true">
 
                 <div class="panel-heading">
                     <h4 class="panel-title">
