@@ -113,6 +113,8 @@ def register(request):
 
             _send_welcome_email(email, user.name)
 
+            request.session['first_login'] = True
+
             return redirect('index')
     else:
         form = UserCreationForm()

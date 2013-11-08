@@ -50,8 +50,11 @@
 {% include "webapp/reports/category-comparison.html" %}
 </script>
 
-{% endblock body %}
+{% if FIRST_LOGIN and is_debug %}
+    {% include "ga_first_login_snippet.html" %}
+{% endif %}
 
+{% endblock body %}
 
 
 {% block bodyend %}
