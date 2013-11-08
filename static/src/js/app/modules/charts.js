@@ -231,7 +231,7 @@ angular.module('charts', [])
     /*
      * Category Comparison
      */
-    .factory('CategoryComparison', ['$q', 'Transaction', function ($q, Transaction) {
+    .factory('CategoryComparison', ['$q', '$filter', 'Transaction', function ($q, $filter, Transaction) {
         return {
             fetchData: function (params) {
                 var me = this,
@@ -357,7 +357,7 @@ angular.module('charts', [])
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
-                                return this.y !== 0 ? this.y : '';
+                                return this.y !== 0 ? $filter('currency')(this.y) : '';
                             }
                         }
                     }
