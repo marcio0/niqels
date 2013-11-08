@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 21:08-0200\n"
+"POT-Creation-Date: 2013-11-07 22:17-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,11 +94,11 @@ msgstr "Usuário"
 msgid "Users"
 msgstr "Usuários"
 
-#: access/views.py:35
+#: access/views.py:40
 msgid "Your password was successfuly changed."
 msgstr "Sua senha foi alterada."
 
-#: access/views.py:102
+#: access/views.py:104 access/tests/view.py:120
 msgid "Welcome to Niqels!"
 msgstr "Bem vindo ao Niqels!"
 
@@ -615,8 +615,10 @@ msgid "Value"
 msgstr "Valor"
 
 #: templates/webapp/transactions/transaction-form.html:55
-msgid "Description (optional)"
-msgstr "Descrição (opcional)"
+#: templates/webapp/transactions/transaction-list.html:60
+#: templates/webapp/transactions/transaction-list.html:113
+msgid "Description"
+msgstr "Descrição"
 
 #: templates/webapp/transactions/transaction-form.html:66
 msgid "Example: &quot;Lunch with friends&quot;"
@@ -639,11 +641,6 @@ msgstr "Agrupar movimentações por data"
 msgid "Group transactions by category"
 msgstr "Agrupar movimentações por categoria"
 
-#: templates/webapp/transactions/transaction-list.html:60
-#: templates/webapp/transactions/transaction-list.html:113
-msgid "Description"
-msgstr "Descrição"
-
 #: templates/webapp/transactions/transaction-list.html:88
 #: templates/webapp/transactions/transaction-list.html:141
 msgid "Remove this transaction"
@@ -652,6 +649,9 @@ msgstr "Remover esta movimentação"
 #: templates/webapp/transactions/transaction-list.html:152
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Description (optional)"
+#~ msgstr "Descrição (opcional)"
 
 #~ msgid "Average"
 #~ msgstr "Média"
