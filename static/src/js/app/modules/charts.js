@@ -34,7 +34,7 @@ angular.module('charts', [])
                     var series = [],
                         options = {},
                         months = [],
-                        renevuesSeries = {data: [], name: gettext('Renevues'), color: '#049cdb', codename: 'renevues'},
+                        renevuesSeries = {data: [], name: gettext('Renevues'), color: '#46a546', codename: 'renevues'},
                         expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d', codename: 'expenses'},
                         balanceSeries = {data: [], name: gettext('Total'), type: 'area'};
 
