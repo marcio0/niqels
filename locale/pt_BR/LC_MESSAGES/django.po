@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 22:33-0200\n"
+"POT-Creation-Date: 2013-11-07 22:44-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,7 +184,7 @@ msgstr "O grupo ao qual esta categoria pertence."
 
 #: expenses/models.py:76
 #: templates/webapp/transactions/transaction-form.html:17
-#: templates/webapp/transactions/transaction-list.html:110
+#: templates/webapp/transactions/transaction-list.html:115
 msgid "Category"
 msgstr "Categoria"
 
@@ -194,6 +194,7 @@ msgid "Categories"
 msgstr "Categorias"
 
 #: expenses/models.py:82 expenses/models.py:148
+#: templates/webapp/transactions/transaction-list.html:35
 msgid "category"
 msgstr "categoria"
 
@@ -235,6 +236,7 @@ msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
 msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
 
 #: expenses/models.py:140
+#: templates/webapp/transactions/transaction-list.html:28
 msgid "date"
 msgstr "data"
 
@@ -556,8 +558,8 @@ msgid "Color"
 msgstr "Cor"
 
 #: templates/webapp/settings/category-edit.html:37
-#: templates/webapp/transactions/transaction-list.html:84
-#: templates/webapp/transactions/transaction-list.html:137
+#: templates/webapp/transactions/transaction-list.html:89
+#: templates/webapp/transactions/transaction-list.html:142
 msgid "Do you wish to remove this category?"
 msgstr "Deseja remover esta categoria?"
 
@@ -606,14 +608,14 @@ msgid "New transaction"
 msgstr "Nova movimentação"
 
 #: templates/webapp/transactions/transaction-form.html:38
-#: templates/webapp/transactions/transaction-list.html:63
-#: templates/webapp/transactions/transaction-list.html:116
+#: templates/webapp/transactions/transaction-list.html:68
+#: templates/webapp/transactions/transaction-list.html:121
 msgid "Value"
 msgstr "Valor"
 
 #: templates/webapp/transactions/transaction-form.html:55
-#: templates/webapp/transactions/transaction-list.html:60
-#: templates/webapp/transactions/transaction-list.html:113
+#: templates/webapp/transactions/transaction-list.html:65
+#: templates/webapp/transactions/transaction-list.html:118
 msgid "Description"
 msgstr "Descrição"
 
@@ -622,7 +624,7 @@ msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
 #: templates/webapp/transactions/transaction-form.html:72
-#: templates/webapp/transactions/transaction-list.html:57
+#: templates/webapp/transactions/transaction-list.html:62
 msgid "Date"
 msgstr "Data"
 
@@ -630,22 +632,21 @@ msgstr "Data"
 msgid "Submit"
 msgstr "Enviar"
 
-#: templates/webapp/transactions/transaction-list.html:25
-msgid "Group transactions by date"
-msgstr "Agrupar movimentações por data"
+#: templates/webapp/transactions/transaction-list.html:23
+msgid "Group transactions by:"
+msgstr "Agrupar movimentações por:"
 
-#: templates/webapp/transactions/transaction-list.html:32
-msgid "Group transactions by category"
-msgstr "Agrupar movimentações por categoria"
-
-#: templates/webapp/transactions/transaction-list.html:88
-#: templates/webapp/transactions/transaction-list.html:141
+#: templates/webapp/transactions/transaction-list.html:93
+#: templates/webapp/transactions/transaction-list.html:146
 msgid "Remove this transaction"
 msgstr "Remover esta movimentação"
 
-#: templates/webapp/transactions/transaction-list.html:152
+#: templates/webapp/transactions/transaction-list.html:157
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Group transactions by category"
+#~ msgstr "Agrupar movimentações por categoria"
 
 #~ msgid "Top 10 Categories"
 #~ msgstr "Top 10 Categorias"
