@@ -1,7 +1,9 @@
 import mock
 import unittest
+import logging
 
 from django.test import TestCase, Client
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from access import views
 from access.models import User
@@ -96,4 +98,48 @@ class RegisterViewTest(TestCase):
             User.objects.filter(
                 email=data['email']
             ).exists()
+        )
+
+    @mock.patch('access.views.send_mail')
+    @mock.patch('access.views.get_template')
+    def test_send_mail(self, get_template, send_mail):
+        data = {
+            'name': 'foo',
+            'email': 'new@expenses.com',
+            'password1': 'asdasd',
+            'password2': 'asdasd'
+        }
+        client = Client()
+        ret = client.post('/register/', data)
+
+        get_template.return_value('email content')
+
+        self.assertEquals(ret.status_code, 302)
+
+        send_mail.asset_called_with(
+            _('Welcome to Niqels!'),
+            'email_content',
+            'niqels@niqels.com',
+            data['email']
+        )
+
+    @mock.patch('access.views.send_mail')
+    @mock.patch.object(logging.Logger, 'warning')
+    def test_send_mail_logs_exception(self, warning, send_mail):
+        data = {
+            'name': 'foo',
+            'email': 'new@expenses.com',
+            'password1': 'asdasd',
+            'password2': 'asdasd'
+        }
+        client = Client()
+
+        send_mail.side_effect = Exception('oh noes')
+
+        ret = client.post('/register/', data)
+
+        self.assertEquals(ret.status_code, 302)
+
+        warning.assert_called_with(
+            'Error sending email: oh noes'
         )

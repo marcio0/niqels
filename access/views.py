@@ -97,9 +97,6 @@ def register(request):
             user = authenticate(email=email, password=password)
             login(request, user)
 
-            #messages.success(request,
-            #    _('Welcome to %(site_name)s, %(user_name)s!') % {'site_name': settings.SITE_NAME, 'user_name': user.name})
-
             text = get_template('access/welcome-email.txt')
             context = Context({'username': user.name})
             email_content = text.render(context)
