@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 22:17-0200\n"
+"POT-Creation-Date: 2013-11-07 22:33-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -531,6 +531,7 @@ msgid "Category 2"
 msgstr "Categoria 2"
 
 #: templates/webapp/reports/reports.html:13
+#: templates/webapp/reports/top-categories.html:3
 msgid "Top categories"
 msgstr "Principais categorias"
 
@@ -545,10 +546,6 @@ msgstr "Período"
 #: templates/webapp/reports/reports.html:27
 msgid "Update"
 msgstr "Atualizar"
-
-#: templates/webapp/reports/top-categories.html:3
-msgid "Top 10 Categories"
-msgstr "Top 10 Categorias"
 
 #: templates/webapp/settings/category-edit.html:8
 msgid "Edit category"
@@ -649,6 +646,9 @@ msgstr "Remover esta movimentação"
 #: templates/webapp/transactions/transaction-list.html:152
 msgid "No transacions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Top 10 Categories"
+#~ msgstr "Top 10 Categorias"
 
 #~ msgid "Description (optional)"
 #~ msgstr "Descrição (opcional)"
