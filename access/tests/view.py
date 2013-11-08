@@ -100,9 +100,8 @@ class RegisterViewTest(TestCase):
             ).exists()
         )
 
-    @mock.patch('access.views.send_mail')
-    @mock.patch('access.views.get_template')
-    def test_send_mail(self, get_template, send_mail):
+    @mock.patch('access.views._send_welcome_email')
+    def test_send_welcome_mail(self, send_mail):
         data = {
             'name': 'foo',
             'email': 'new@expenses.com',
@@ -112,33 +111,38 @@ class RegisterViewTest(TestCase):
         client = Client()
         ret = client.post('/register/', data)
 
-        get_template.return_value('email content')
-
         self.assertEquals(ret.status_code, 302)
 
-        send_mail.asset_called_with(
+        send_mail.assert_called_with(
+            'new@expenses.com',
+            'foo'
+        )
+
+
+class SendWelcomeEmailTest(TestCase):
+
+    @mock.patch('access.views.send_mail')
+    @mock.patch('access.views.get_template')
+    def test_send_mail(self, get_template, send_mail):
+
+        get_template().render.return_value = 'email content'
+
+        views._send_welcome_email('email@bla.foo', 'john doe')
+
+        send_mail.assert_called_with(
             _('Welcome to Niqels!'),
-            'email_content',
-            'niqels@niqels.com',
-            data['email']
+            'email content',
+            'niqels@niqels.com.br',
+            ['email@bla.foo'],
+            fail_silently=False
         )
 
     @mock.patch('access.views.send_mail')
     @mock.patch.object(logging.Logger, 'warning')
     def test_send_mail_logs_exception(self, warning, send_mail):
-        data = {
-            'name': 'foo',
-            'email': 'new@expenses.com',
-            'password1': 'asdasd',
-            'password2': 'asdasd'
-        }
-        client = Client()
-
         send_mail.side_effect = Exception('oh noes')
 
-        ret = client.post('/register/', data)
-
-        self.assertEquals(ret.status_code, 302)
+        views._send_welcome_email('email@bla.foo', 'john doe')
 
         warning.assert_called_with(
             'Error sending email: oh noes'

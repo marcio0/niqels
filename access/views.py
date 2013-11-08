@@ -82,6 +82,20 @@ class Recover(pr_views.Recover):
     search_fields = ['email']
 
 
+def _send_welcome_email(email, name):
+    text = get_template('access/welcome-email.txt')
+    context = Context({'username': name})
+    email_content = text.render(context)
+
+    subject, from_email, to = _('Welcome to Niqels!'), 'niqels@niqels.com.br', email
+
+    try:
+        send_mail(subject, email_content, from_email, [to], fail_silently=False)
+    except Exception, e:
+        logger.warning('Error sending email: ' + str(e))
+    
+
+
 def register(request):
     if request.user.is_authenticated():
         return redirect('index')
@@ -97,16 +111,7 @@ def register(request):
             user = authenticate(email=email, password=password)
             login(request, user)
 
-            text = get_template('access/welcome-email.txt')
-            context = Context({'username': user.name})
-            email_content = text.render(context)
-
-            subject, from_email, to = _('Welcome to Niqels!'), 'niqels@niqels.com.br', email
-
-            try:
-                send_mail(subject, email_content, from_email, [to], fail_silently=False)
-            except Exception, e:
-                logger.warning('Error sending email: ' + str(e))
+            _send_welcome_email(email, user.name)
 
             return redirect('index')
     else:
