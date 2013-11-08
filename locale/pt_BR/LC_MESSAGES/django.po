@@ -637,7 +637,7 @@ msgstr "Agrupar movimentações por data"
 
 #: templates/webapp/transactions/transaction-list.html:32
 msgid "Group transactions by category"
-msgstr "Agrupar movimentações por período"
+msgstr "Agrupar movimentações por categoria"
 
 #: templates/webapp/transactions/transaction-list.html:60
 #: templates/webapp/transactions/transaction-list.html:113
