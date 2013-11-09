@@ -50,7 +50,7 @@
 {% include "webapp/reports/category-comparison.html" %}
 </script>
 
-{% if FIRST_LOGIN and is_debug %}
+{% if FIRST_LOGIN and not is_debug %}
     {% include "ga_first_login_snippet.html" %}
 {% endif %}
 
