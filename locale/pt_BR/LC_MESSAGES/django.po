@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 22:44-0200\n"
+"POT-Creation-Date: 2013-11-08 22:19-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr "Usuários"
 msgid "Your password was successfuly changed."
 msgstr "Sua senha foi alterada."
 
-#: access/views.py:104 access/tests/view.py:120
+#: access/views.py:90 access/tests/view.py:133
 msgid "Welcome to Niqels!"
 msgstr "Bem vindo ao Niqels!"
 
@@ -513,6 +513,10 @@ msgstr "Siga as instruções neste email para escolher uma nova senha."
 #: templates/webapp/index.html:19 templates/webapp/reports/reports.html:4
 msgid "Reports"
 msgstr "Relatórios"
+
+#: templates/webapp/index.html:121
+msgid "Welcome to Niqels, {0}!"
+msgstr "Bem vindo ao Niqels, {0}!"
 
 #: templates/webapp/reports/balance.html:3
 #: templates/webapp/reports/reports.html:10
