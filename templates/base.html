@@ -48,6 +48,10 @@
                 {% endblock webapp-menu %}
                     {% if user.is_authenticated %}
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="https://www.facebook.com/niqels" id="facebook-link" class="navbar-link" target="_blank"><i class="icon-facebook-sign icon-large" experiment='CyGtEktzQ8y-SVK3AjQHRQ'></i> {% trans "Like us on Facebook" %}</a>
+                        </li>
+                        {% comment %}
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown">{% trans "Contact us" %} <i class="icon-comments-alt icon-large"></i></a>
                             <ul class="dropdown-menu">
@@ -62,6 +66,7 @@
                                 </li>
                             </ul>
                         </li>
+                        {% endcomment %}
                         {% include "user-menu.html" %}
                     </ul>
                     {% endif %}
@@ -75,10 +80,7 @@
 
         {% block bodyend %}{% endblock bodyend %}
         
-        
-        {% if not is_debug %}
-            {% include "ga.html" %}
-        {% endif %}
+        {% include "ga.html" %}
 
         {% csrf_token %}
     </body>
