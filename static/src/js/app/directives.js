@@ -297,7 +297,6 @@ angular.module('webapp')
                 var action = vars.splice(0, 1)[0];
 
                 element.on(action, function () {
-                    console.log(vars);
                     _gaq.push(vars);
                 });
             }

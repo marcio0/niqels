@@ -28,12 +28,14 @@
                             value="{% trans "date" %}"
                             ng-click="groupBy = 'date'"
                             ng-class="{active: groupBy == 'date'}"
+                            track="click,Transacions,grouping,date"
                             >
                     <input class="btn btn-default"
                             ng-class="{active: groupBy == 'category.name'}"
                             type="button"
                             value="{% trans "category" %}"
                             ng-click="groupBy = 'category.name'"
+                            track="click,Transacions,grouping,category"
                             >
                 </div>
             </li>

@@ -107,10 +107,36 @@ function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
         selectCategory();
     });
 
+    function trackCategorySelection (category) {
+        _gaq.push(['Reports', 'comparison-category-selection', category]);
+    }
+
+    var c1Flag = false;
+    $scope.$watch('category1', function (category) {
+        if (!category) return;
+        if (!c1Flag) {
+            c1Flag = true;
+            return;
+        }
+        trackCategorySelection(category.name)
+    });
+
+    var c2Flag = false;
+    $scope.$watch('category2', function (category) {
+        if (!category) return;
+        if (!c2Flag) {
+            c2Flag = true;
+            return;
+        }
+        trackCategorySelection(category.name)
+    });
+
+
     // the parent scope will $broadcast this
     $scope.$on('update-charts', update);
 
     update();
+
 }
 CategoryComparisonCtrl.$inject = ['$scope', '$q', 'CategoryComparison', 'Category'];
 
