@@ -6985,7 +6985,8 @@ p.expenses {
 .input-icon i.input-icon-prepend {
   left: 10px;
 }
-.input-icon i.input-icon-prepend + input {
+.input-icon i.input-icon-prepend + input,
+.input-icon i.input-icon-prepend + select {
   text-indent: 20px;
 }
 .input-icon i.input-icon-append {
