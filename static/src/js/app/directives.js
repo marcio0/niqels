@@ -177,6 +177,9 @@ angular.module('webapp')
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
+                if ($rootScope.mobile) return; // don't use fancy datepicker on mobile screens
+
+                element.removeClass('form-control');
                 element.addClass('selectpicker');
 
                 element.selectpicker({
