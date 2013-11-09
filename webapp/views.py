@@ -8,5 +8,4 @@ class WebAppView(TemplateView):
         context = super(WebAppView, self).get_context_data(**kwargs)
         if self.request.session.get('first_login', False):
             context['FIRST_LOGIN'] = self.request.session.pop('first_login')
-            print context['FIRST_LOGIN']
         return context
