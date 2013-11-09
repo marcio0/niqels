@@ -177,7 +177,7 @@ angular.module('webapp')
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
-                if ($rootScope.mobile) return; // don't use fancy datepicker on mobile screens
+                if ($rootScope.mobile) return; // don't use fancy selectpicker on mobile screens
 
                 element.removeClass('form-control');
                 element.addClass('selectpicker');
@@ -219,15 +219,16 @@ angular.module('webapp')
             template, linkFn;
 
         if (mobile) {
-            template = '<input type="date" ng-model="date"></input>';
+            template = '<input type="date" ng-model="date" class="form-control"></input>';
         }
         else {
             template = '<div></div>';
             linkFn = function linkFn (scope, element, attrs) {
                 element.removeClass('form-control');
+
                 var updateModel = function (ev) {
                     scope.$apply(function () {
-                        scope.date = moment(ev.date);
+                        scope.date = ev.date;
                     });
                 };
 
