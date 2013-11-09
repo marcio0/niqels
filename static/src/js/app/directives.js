@@ -287,6 +287,22 @@ angular.module('webapp')
             }
         };
     }])
+
+    .directive('track', function () {
+        return {
+            retrict: 'A',
+            link: function (scope, element, attrs) {
+                var vars = attrs.track.split(',');
+
+                var action = vars.splice(0, 1)[0];
+
+                element.on(action, function () {
+                    console.log(vars);
+                    _gaq.push(vars);
+                });
+            }
+        };
+    });
     
     ;
 })();
