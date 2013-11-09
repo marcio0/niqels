@@ -113,4 +113,14 @@
 
 {% endif %}
 
+{% if FIRST_LOGIN %}
+    <script type="text/javascript">
+        $(function () {
+            toastr.options.positionClass = "toast-top-full-width";
+            toastr.info(gettext('Welcome to Niqels, {0}!').format('{{ user.name }}'));
+            toastr.options.positionClass = "toast-bottom-right";
+        });
+    </script>
+{% endif %}
+
 {% endblock bodyend %}
