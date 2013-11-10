@@ -108,7 +108,7 @@ function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
     });
 
     function trackCategorySelection (category) {
-        _gaq.push(['Reports', 'comparison-category-selection', category]);
+        _gaq.push(['_trackEvent', 'Reports', 'comparison-category-selection', category]);
     }
 
     var c1Flag = false;
