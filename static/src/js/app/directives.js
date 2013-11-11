@@ -220,8 +220,13 @@ angular.module('webapp')
 
         if (mobile) {
             template = '<input type="date" ng-model="inputDate" pattern="dd/mm/yyyy" class="form-control" required></input>';
+
             linkFn = function (scope, element) {
                 var format;
+                var icon = $('<i class="icon-calendar input-icon-prepend"></i>');
+
+                icon.insertBefore(element);
+
                 if (element.attr('type') === 'date') {
                     format = 'YYYY-MM-DD';
                     scope.inputDate = moment().format(format);
