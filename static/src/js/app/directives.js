@@ -214,12 +214,33 @@ angular.module('webapp')
         };
     })
 
-    .directive('datepicker', ['$locale', '$rootScope', function ($locale, $rootScope) {
+    .directive('dateField', ['$locale', '$rootScope', function ($locale, $rootScope) {
         var mobile = $rootScope.mobile,
             template, linkFn;
 
         if (mobile) {
-            template = '<input type="date" ng-model="date" class="form-control"></input>';
+            template = '<input type="date" ng-model="inputDate" pattern="dd/mm/yyyy" class="form-control" required></input>';
+            linkFn = function (scope, element) {
+                var format;
+                if (element.attr('type') === 'date') {
+                    format = 'YYYY-MM-DD';
+                    scope.inputDate = moment().format(format);
+
+                    scope.$watch('inputDate', function (newDate) {
+                        scope.date = moment(newDate, format);
+                    });
+                }
+                else if (element.attr('type') === 'text') {
+                    // looks like date inputs are not supported here
+                    format = 'DD/MM/YYYY';
+                    scope.inputDate = moment().format(format);
+
+                    scope.$watch('inputDate', function (newDate) {
+                        scope.date = moment(newDate, format);
+                    });
+                }
+
+            };
         }
         else {
             template = '<div></div>';
@@ -228,7 +249,7 @@ angular.module('webapp')
 
                 var updateModel = function (ev) {
                     scope.$apply(function () {
-                        scope.date = ev.date;
+                        scope.date = moment(ev.date);
                     });
                 };
 
@@ -245,7 +266,7 @@ angular.module('webapp')
         return {
             restrict: 'A',
             scope: {
-                date: '=datepickerModel'
+                date: '=dateFieldModel'
             },
             replace: true,
             template: template,
