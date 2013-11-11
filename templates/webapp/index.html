@@ -139,10 +139,15 @@
 
 {% if FIRST_LOGIN %}
     <script type="text/javascript">
+        window.isUserFirstLogin = true;
         $(function () {
             toastr.options.positionClass = "toast-top-full-width";
             toastr.info("{% trans "Welcome to Niqels, {0}!"%}".format('{{ user.name }}'));
             toastr.options.positionClass = "toast-bottom-right";
+        });
+
+        $(function () {
+            _gaq.push(['_trackEvent', 'Account', 'create']);
         });
     </script>
 {% endif %}
