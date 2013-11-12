@@ -227,7 +227,7 @@ angular.module('webapp')
 
                 icon.insertBefore(element);
 
-                if (element.attr('type') === 'date') {
+                if (Modernizr.inputtypes.date) {
                     format = 'YYYY-MM-DD';
                     scope.inputDate = moment().format(format);
 
@@ -235,7 +235,7 @@ angular.module('webapp')
                         scope.date = moment(newDate, format);
                     });
                 }
-                else if (element.attr('type') === 'text') {
+                else {
                     // looks like date inputs are not supported here
                     format = 'DD/MM/YYYY';
                     scope.inputDate = moment().format(format);
