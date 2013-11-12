@@ -18,7 +18,7 @@
   vertical-align: middle;
   cursor: pointer;
   border: 1px solid transparent;
-  // border-radius: @border-radius-base;
+  border-radius: @border-radius-base;
   white-space: nowrap;
   .user-select(none);
 
@@ -123,14 +123,12 @@
 
 .btn-lg {
   // line-height: ensure even-numbered height of button next to large input
-  .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large);
-  // .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @border-radius-large);
+  .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @border-radius-large);
 }
 .btn-sm,
 .btn-xs {
   // line-height: ensure proper height of button next to small input
-  .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small);
-  // .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+  .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
 }
 .btn-xs {
   padding: 1px 5px;
