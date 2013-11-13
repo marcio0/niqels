@@ -7252,11 +7252,44 @@ span.category-label:empty {
 .modal .modal-footer {
   background-color: #eeeeee;
 }
-.change-password-panel {
-  width: 40%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.center-panel {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 1200px) {
+  .center-panel {
+    float: left;
+    width: 33.33333333333333%;
+  }
+}
+@media (min-width: 1200px) {
+  .center-panel {
+    margin-left: 33.33333333333333%;
+  }
+}
+@media (min-width: 992px) {
+  .center-panel {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .center-panel {
+    margin-left: 25%;
+  }
+}
+@media (min-width: 768px) {
+  .center-panel {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 768px) {
+  .center-panel {
+    margin-left: 25%;
+  }
 }
 hr {
   border-color: #807f88;
