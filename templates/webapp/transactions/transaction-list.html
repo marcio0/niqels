@@ -89,6 +89,7 @@
                                             class="icon-trash delete-transaction"
                                             ng-click="removeTransaction()"
                                             confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                            track="click,Transacions,remove"
                                             data-toggle="tooltip"
                                             data-placement="right"
                                             data-container="body"
@@ -107,7 +108,7 @@
             <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a href="#category(($index))" ng-bind="group.name | date:'longDate'"></a>
+                        <a ng-bind="group.name | date:'longDate'"></a>
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -142,6 +143,7 @@
                                         class="icon-trash delete-transaction"
                                         ng-click="removeTransaction()"
                                         confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                        track="click,Transacions,remove"
                                         data-toggle="tooltip"
                                         data-placement="right"
                                         data-container="body"
