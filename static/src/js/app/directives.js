@@ -216,35 +216,29 @@ angular.module('webapp')
 
     .directive('dateField', ['$locale', '$rootScope', function ($locale, $rootScope) {
         var mobile = $rootScope.mobile,
-            template, linkFn;
+            template, linkFn, format;
 
         if (mobile) {
-            template = '<input type="date" ng-model="inputDate" pattern="dd/mm/yyyy" class="form-control" required></input>';
+            if (Modernizr.inputtypes.date) {
+                template = '<input type="date" ng-model="inputDate" pattern="dd/mm/yyyy" class="form-control" required></input>';
+                format = 'YYYY-MM-DD';
+            }
+            else {
+                // fallback for android 2.2 and windows phone 7
+                // they don't support type=date
+                template = '<input type="text" ng-model="inputDate" class="form-control" required></input>';
+                format = 'DD/MM/YYYY';
+            }
 
             linkFn = function (scope, element) {
-                var format;
                 var icon = $('<i class="icon-calendar input-icon-prepend"></i>');
-
                 icon.insertBefore(element);
 
-                if (Modernizr.inputtypes.date) {
-                    format = 'YYYY-MM-DD';
-                    scope.inputDate = moment().format(format);
+                scope.inputDate = moment().format(format);
 
-                    scope.$watch('inputDate', function (newDate) {
-                        scope.date = moment(newDate, format);
-                    });
-                }
-                else {
-                    // looks like date inputs are not supported here
-                    format = 'DD/MM/YYYY';
-                    scope.inputDate = moment().format(format);
-
-                    scope.$watch('inputDate', function (newDate) {
-                        scope.date = moment(newDate, format);
-                    });
-                }
-
+                scope.$watch('inputDate', function (newDate) {
+                    scope.date = moment(newDate, format);
+                });
             };
         }
         else {
