@@ -74,9 +74,10 @@
 {% include "webapp/reports/category-comparison.html" %}
 </script>
 
-{% if FIRST_LOGIN and not is_debug %}
-    <script type="text/javascript">window.FIRST_LOGIN = true;</script>
-    {% include "ga_first_login_snippet.html" %}
+{% if FIRST_LOGIN %}
+    {% if not is_debug and not is_test_instance %}
+        {% include "ga_first_login_snippet.html" %}
+    {% endif %}
 {% endif %}
 
 {% endblock body %}
@@ -147,10 +148,6 @@
             toastr.options.positionClass = "toast-top-full-width";
             toastr.info("{% trans "Welcome to Niqels, {0}!"%}".format('{{ user.name }}'));
             toastr.options.positionClass = "toast-bottom-right";
-        });
-
-        $(function () {
-            _gaq.push(['_trackEvent', 'Account', 'create']);
         });
     </script>
 {% endif %}
