@@ -117,8 +117,8 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
 
     $scope.$watch('filterDate', filterTransactions);
 
-    $scope.$watch('filterDate', function () {
-        _gaq.push(['_trackEvent', 'Transacions', 'change-period']);
+    $scope.$watch('filterDate', function (newValue) {
+        $rootScope.$emit('transacion-list-filter-date-changed', newValue);
     });
 
     $scope.$watch('groupBy', function regroup () {

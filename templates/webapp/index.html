@@ -75,6 +75,7 @@
 </script>
 
 {% if FIRST_LOGIN and not is_debug %}
+    <script type="text/javascript">window.FIRST_LOGIN = true;</script>
     {% include "ga_first_login_snippet.html" %}
 {% endif %}
 
@@ -124,6 +125,7 @@
         <script src="{{app}}services.js"></script>
         <script src="{{app}}modules/charts.js"></script>
         <script src="{{app}}modules/models.js"></script>
+        <script src="{{app}}modules/ga.js"></script>
 
         <script src="{{app}}directives.js"></script>
 

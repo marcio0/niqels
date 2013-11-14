@@ -35,7 +35,7 @@ function ReportsCtrl ($scope, $rootScope) {
 ReportsCtrl.$inject = ['$scope', '$rootScope'];
 
 
-function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
+function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Category) {
     'use strict';
 
     var allSeries = {};
@@ -107,10 +107,6 @@ function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
         selectCategory();
     });
 
-    function trackCategorySelection (category) {
-        _gaq.push(['_trackEvent', 'Reports', 'comparison-category-selection', category]);
-    }
-
     var c1Flag = false;
     $scope.$watch('category1', function (category) {
         if (!category) return;
@@ -118,7 +114,7 @@ function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
             c1Flag = true;
             return;
         }
-        trackCategorySelection(category.name)
+        $rootScope.$emit('category-comparison-category-selected', category);
     });
 
     var c2Flag = false;
@@ -128,7 +124,7 @@ function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
             c2Flag = true;
             return;
         }
-        trackCategorySelection(category.name)
+        $rootScope.$emit('category-comparison-category-selected', category);
     });
 
 
@@ -138,7 +134,7 @@ function CategoryComparisonCtrl ($scope, $q, CategoryComparison, Category) {
     update();
 
 }
-CategoryComparisonCtrl.$inject = ['$scope', '$q', 'CategoryComparison', 'Category'];
+CategoryComparisonCtrl.$inject = ['$scope', '$q', '$rootScope', 'CategoryComparison', 'Category'];
 
 
 function TopCategoriesChartCtrl ($scope, TopCategories) {

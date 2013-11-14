@@ -307,23 +307,5 @@ angular.module('webapp')
             }
         };
     }])
-
-    .directive('track', function () {
-        return {
-            retrict: 'A',
-            link: function (scope, element, attrs) {
-                var vars = attrs.track.split(',');
-
-                var action = vars.splice(0, 1)[0];
-
-                vars.unshift('_trackEvent');
-
-                element.on(action, function () {
-                    _gaq.push(vars);
-                });
-            }
-        };
-    });
-    
     ;
 })();

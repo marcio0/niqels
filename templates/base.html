@@ -54,7 +54,10 @@
 
         {% block bodyend %}{% endblock bodyend %}
         
-        {% include "ga.html" %}
+        {% if not is_debug %}
+            {% include "ga.html" %}
+        {% endif %}
+
 
         {% csrf_token %}
     </body>
