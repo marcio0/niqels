@@ -9,6 +9,8 @@ ADMINS = (
     ('Marcio', 'marc.cr@gmail.com'),
 )
 
+IS_TEST_INSTANCE = os.environ.get('TEST_INSTANCE', True)
+
 MANAGERS = ADMINS
 
 AUTH_USER_MODEL = 'access.User'

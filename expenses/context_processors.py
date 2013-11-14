@@ -10,7 +10,12 @@ def global_context(request):
         # Name of site, because it wasn't decided yet.
         'SITE_NAME': settings.SITE_NAME,
 
-        "is_debug": settings.DEBUG and settings.TEMPLATE_DEBUG
+        "is_debug": settings.DEBUG and settings.TEMPLATE_DEBUG,
+
+        # used to load the ga script only on the production instance
+        "test_instance": settings.IS_TEST_INSTANCE
     }
+
+    print 'test_instance', settings.IS_TEST_INSTANCE
 
     return context
