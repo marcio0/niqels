@@ -9,7 +9,7 @@ ADMINS = (
     ('Marcio', 'marc.cr@gmail.com'),
 )
 
-IS_TEST_INSTANCE = os.environ.get('TEST_INSTANCE', True)
+IS_TEST_INSTANCE = os.environ.get('TEST_INSTANCE', False)
 
 MANAGERS = ADMINS
 
