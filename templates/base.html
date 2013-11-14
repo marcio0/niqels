@@ -53,8 +53,11 @@
     </div>
 
         {% block bodyend %}{% endblock bodyend %}
-        
-        {% if not is_debug %}
+
+        {% comment %}
+            If i'm not debugging and i'm not in a test instance.
+        {% endcomment %}
+        {% if not is_debug and not is_test_instance %}
             {% include "ga.html" %}
         {% endif %}
 
