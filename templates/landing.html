@@ -186,7 +186,8 @@
                       5000);
                 });
             </script>
-        {% if not is_debug %}
+
+        {% if not is_debug and not is_test_instance %}
             {% include "ga.html" %}
         {% endif %}
       </body>
