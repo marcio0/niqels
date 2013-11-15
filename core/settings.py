@@ -9,8 +9,7 @@ ADMINS = (
     ('Marcio', 'marc.cr@gmail.com'),
 )
 
-print os.environ.get('USE_GA', False)
-USE_GA = os.environ.get('USE_GA', False) and DEBUG
+USE_GA = os.environ.get('USE_GA', False) and not DEBUG
 
 MANAGERS = ADMINS
 
