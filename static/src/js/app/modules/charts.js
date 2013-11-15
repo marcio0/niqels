@@ -21,6 +21,26 @@ function xAxisMonthParser (months) {
 
 angular.module('charts', [])
 
+    .config(function () {
+        Highcharts.setOptions({
+            chart: {
+                backgroundColor: 'rgba(255, 255, 255, 0.002)'
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        style: {
+                            textShadow: "1px 1px 0px #FFF, -1px 1px 0px #fff, 1px -1px 0px #fff, -1px -1px 0px #fff, 2px 2px 0px #FFF, -2px 2px 0px #fff, 2px -2px 0px #fff, -2px -2px 0px #fff"
+                        }
+                    }
+                }
+            }
+        });
+    })
+
     /*
      * BalanceChart
      */
@@ -70,11 +90,7 @@ angular.module('charts', [])
                 chart: {
                     type: 'column',
                     spacingLeft: 3,
-                    spacingRight: 3,
-                    backgroundColor: 'rgba(255, 255, 255, 0.002)'
-                },
-                credits: {
-                    enabled: false
+                    spacingRight: 3
                 },
                 title: {
                     text: null
@@ -116,7 +132,6 @@ angular.module('charts', [])
                     shadow: false,
                     shared: true,
                     animation: false,
-                    //backgroundColor: 'rgba(255, 255, 255, 0.25)',
                     useHTML: true
                 },
                 plotOptions: {
@@ -189,11 +204,7 @@ angular.module('charts', [])
             },
             chartOptions: {
                 chart: {
-                    type: 'pie',
-                    backgroundColor: 'rgba(255, 255, 255, 0.002)',
-                },
-                credits: {
-                    enabled: false
+                    type: 'pie'
                 },
                 title: {
                     text: ''
@@ -311,11 +322,7 @@ angular.module('charts', [])
             },
             chartOptions: {
                 chart: {
-                    type: 'line',
-                    backgroundColor: 'rgba(255, 255, 255, 0.002)',
-                },
-                credits: {
-                    enabled: false
+                    type: 'line'
                 },
                 title: {
                     text: ''
