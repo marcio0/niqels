@@ -26,7 +26,8 @@ class GlobalsContextProcessorTest(TestCase):
 
         self.assertEquals(context, {
             'SITE_NAME': 'Niqels',
-            'is_debug': False
+            'is_debug': False,
+            'USE_GA': False
         })
 
     def test_template_debug_conditions(self):

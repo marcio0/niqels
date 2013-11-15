@@ -187,8 +187,8 @@
                 });
             </script>
 
-        {% if not is_debug and not is_test_instance %}
-            {% include "ga.html" %}
-        {% endif %}
+            {% if USE_GA %}
+                {% include "ga.html" %}
+            {% endif %}
       </body>
 </html>

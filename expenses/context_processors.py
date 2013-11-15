@@ -13,9 +13,7 @@ def global_context(request):
         "is_debug": settings.DEBUG and settings.TEMPLATE_DEBUG,
 
         # used to load the ga script only on the production instance
-        "is_test_instance": settings.IS_TEST_INSTANCE
+        "USE_GA": settings.USE_GA
     }
-
-    print 'test_instance', settings.IS_TEST_INSTANCE
 
     return context

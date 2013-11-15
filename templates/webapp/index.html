@@ -75,7 +75,7 @@
 </script>
 
 {% if FIRST_LOGIN %}
-    {% if not is_debug and not is_test_instance %}
+    {% if USE_GA %}
         {% include "ga_first_login_snippet.html" %}
     {% endif %}
 {% endif %}

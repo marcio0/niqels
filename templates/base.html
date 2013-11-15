@@ -54,10 +54,8 @@
 
         {% block bodyend %}{% endblock bodyend %}
 
-        {% if not is_debug %}
-            {% if not is_test_instance %}
-                {% include "ga.html" %}
-            {% endif %}
+        {% if USE_GA %}
+            {% include "ga.html" %}
         {% endif %}
 
         {% csrf_token %}

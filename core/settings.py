@@ -9,7 +9,8 @@ ADMINS = (
     ('Marcio', 'marc.cr@gmail.com'),
 )
 
-IS_TEST_INSTANCE = os.environ.get('TEST_INSTANCE', False)
+print os.environ.get('USE_GA', False)
+USE_GA = os.environ.get('USE_GA', False) and DEBUG
 
 MANAGERS = ADMINS
 
