@@ -77,7 +77,7 @@ class Category(models.Model):
         verbose_name_plural = _('Categories')
 
 
-class CategoryConfig(models.Model):
+class CategoryConfig():
     category = models.ForeignKey(Category,
         verbose_name=_('category'),
         related_name="+"

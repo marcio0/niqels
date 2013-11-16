@@ -56,28 +56,6 @@
         group: ['group']
 
 
-###################
-# CATEGORY CONFIG #
-###################
--   model: expenses.categoryconfig
-    pk: 1
-    fields:
-        user: 1
-        category: 1
-
--   model: expenses.categoryconfig
-    pk: 2
-    fields:
-        user: 1
-        category: 2
-
--   model: expenses.categoryconfig
-    pk: 3
-    fields:
-        user: 2
-        category: 2
-
-
 ###############
 # Transaction #
 ###############
