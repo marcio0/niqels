@@ -1,17 +1,17 @@
 from django.contrib import admin
 from django.conf import settings
+from django.db import models
+from django.forms import Textarea
 
 from expenses.models import Category, Transaction, CategoryGroup
 
 class CategoryAdmin(admin.ModelAdmin):
-    readonly_fields = ['custom', 'default_active', 'group', u'id', 'name', 'transaction_set']
+    fields = ['group' ,'name', 'is_negative']
     search_fields = ['name']
     actions = None
     list_display = ('name', 'group')
     list_filter = ('default_active', 'custom', 'group')
 
-    def has_add_permission(self, request, obj=None):
-        return False
     def has_delete_permission(self, request, obj=None):
         return False
 
@@ -24,8 +24,6 @@ admin.site.register(Category, CategoryAdmin)
 
 
 class CategoryGroupAdmin(admin.ModelAdmin):
-    def has_add_permission(self, request, obj=None):
-        return False
     def has_delete_permission(self, request, obj=None):
         return False
 
@@ -35,7 +33,7 @@ class CategoryGroupAdmin(admin.ModelAdmin):
             del actions['delete_selected']
         return actions
 
-    readonly_fields = ['name']
+    fields = ['name']
     search_fields = ['name']
     actions = None
 
@@ -43,7 +41,14 @@ admin.site.register(CategoryGroup, CategoryGroupAdmin)
 
 
 class TransactionAdmin(admin.ModelAdmin):
-    pass
+    def has_add_permission(self, request, obj=None):
+        return False
 
-if settings.DEBUG:
-    admin.site.register(Transaction, TransactionAdmin)
+    fields = ['value', 'description', 'date', 'user', 'created']
+    search_fields = ['=value', '=user__email', 'description']
+    readonly_fields = ['user', 'created']
+    actions = None
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 40})},
+    }
+admin.site.register(Transaction, TransactionAdmin)
