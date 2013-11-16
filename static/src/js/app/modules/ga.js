@@ -58,9 +58,14 @@ angular.module('ga', [])
             }
         });
 
+        $rootScope.$on('transaction-removed', function () {
+            _gaq.push(['_trackEvent', 'Transactions', 'remove']);
+            
+        });
+
         var first = false;
-        $rootScope.$on('transacion-list-filter-date-changed', function (event, date) {
-            // when a user changes the date period on the transacion list
+        $rootScope.$on('transaction-list-filter-date-changed', function (event, date) {
+            // when a user changes the date period on the transaction list
             if (!first) {
                 // do not log the first hit, it's not user interaction
                 first = true;
