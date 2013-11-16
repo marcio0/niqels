@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
@@ -60,7 +60,7 @@ class UserAdmin(UserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('name', 'email', 'date_joined')
+    list_display = ('name', 'email', 'date_joined', 'last_login')
     list_filter = ('date_joined', 'last_login', 'is_active')
     readonly_fields = ['date_joined', 'last_login', 'is_admin']
     fieldsets = (
@@ -74,7 +74,7 @@ class UserAdmin(UserAdmin):
         ),
     )
     search_fields = ('email', 'name')
-    ordering = ('date_joined',)
+    ordering = ('-date_joined',)
     filter_horizontal = ()
     actions = None
 
