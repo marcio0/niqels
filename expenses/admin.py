@@ -8,11 +8,11 @@ from django.utils.translation import ugettext_lazy as _
 from expenses.models import Category, Transaction, CategoryGroup
 
 class CategoryAdmin(admin.ModelAdmin):
-    fields = ['group' ,'name', 'is_negative']
+    fields = ['group' ,'name', 'is_negative', 'is_active']
     search_fields = ['name']
     actions = None
     list_display = ('name', 'group')
-    list_filter = ('default_active', 'custom', 'group')
+    list_filter = ('is_active', 'group')
 
     def has_delete_permission(self, request, obj=None):
         return False
@@ -55,7 +55,7 @@ class CategoryListFilter(SimpleListFilter):
             return queryset
 
 class CategoryGroupListFilter(SimpleListFilter):
-    title = _('Category Group')
+    title = _('Category group')
     parameter_name = 'category_group'
 
     def lookups(self, request, model_admin):

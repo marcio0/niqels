@@ -18,7 +18,6 @@ class CategoryGroup(models.Model):
         max_length=40,
         unique=True
     )
-    #icon
 
     objects = CategoryGroupManager()
 
@@ -43,12 +42,8 @@ class Category(models.Model):
         max_length=40,
         help_text=_('The category of a transaction. Ex.: "Groceries", "Medical".')
     )
-    custom = models.BooleanField(_('custom'),
-        help_text=_("Created by a user."),
-        default=False
-    )
-    default_active = models.BooleanField(_('active'),
-        help_text=_("If this category is enabled by default."),
+    is_active = models.BooleanField(_('is active'),
+        help_text=_("If this category is enabled."),
         default=True
     )
     is_negative = models.BooleanField(_('is negative'),

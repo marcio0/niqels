@@ -35,59 +35,59 @@
 -   fields: {name: Despesas}
     model: expenses.categorygroup
     pk: 3
--   fields: {custom: false, default_active: true, group: 1, is_negative: false, name: "Sal\xE1\
+-   fields: {is_active: true, group: 1, is_negative: false, name: "Sal\xE1\
             rio"}
     model: expenses.category
     pk: 1
--   fields: {custom: false, default_active: true, group: 1, is_negative: false, name: Extras}
+-   fields: {is_active: true, group: 1, is_negative: false, name: Extras}
     model: expenses.category
     pk: 2
--   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Moradia}
+-   fields: {is_active: true, group: 2, is_negative: true, name: Moradia}
     model: expenses.category
     pk: 3
--   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: "\xC1\
+-   fields: {is_active: true, group: 2, is_negative: true, name: "\xC1\
             gua"}
     model: expenses.category
     pk: 4
--   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Luz}
+-   fields: {is_active: true, group: 2, is_negative: true, name: Luz}
     model: expenses.category
     pk: 5
--   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: "G\xE1\
+-   fields: {is_active: true, group: 2, is_negative: true, name: "G\xE1\
             s"}
     model: expenses.category
     pk: 6
--   fields: {custom: false, default_active: true, group: 2, is_negative: true, name: Telefone/Internet/TV}
+-   fields: {is_active: true, group: 2, is_negative: true, name: Telefone/Internet/TV}
     model: expenses.category
     pk: 7
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Alimenta\xE7\
+-   fields: {is_active: true, group: 3, is_negative: true, name: "Alimenta\xE7\
             \xE3o"}
     model: expenses.category
     pk: 8
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Transporte}
+-   fields: {is_active: true, group: 3, is_negative: true, name: Transporte}
     model: expenses.category
     pk: 9
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Lazer}
+-   fields: {is_active: true, group: 3, is_negative: true, name: Lazer}
     model: expenses.category
     pk: 10
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Vestu\xE1\
+-   fields: {is_active: true, group: 3, is_negative: true, name: "Vestu\xE1\
             rio"}
     model: expenses.category
     pk: 11
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Educa\xE7\
+-   fields: {is_active: true, group: 3, is_negative: true, name: "Educa\xE7\
             \xE3o"}
     model: expenses.category
     pk: 12
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Sa\xFA\
+-   fields: {is_active: true, group: 3, is_negative: true, name: "Sa\xFA\
             de"}
     model: expenses.category
     pk: 13
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Mercado}
+-   fields: {is_active: true, group: 3, is_negative: true, name: Mercado}
     model: expenses.category
     pk: 14
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: "Utens\xED\
+-   fields: {is_active: true, group: 3, is_negative: true, name: "Utens\xED\
             lios dom\xE9sticos"}
     model: expenses.category
     pk: 15
--   fields: {custom: false, default_active: true, group: 3, is_negative: true, name: Outros}
+-   fields: {is_active: true, group: 3, is_negative: true, name: Outros}
     model: expenses.category
     pk: 16

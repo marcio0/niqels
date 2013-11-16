@@ -64,8 +64,6 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertEqual(self.deserialize(resp)['objects'][0], {
             u'id': self.category.pk,
             u'name': self.category.name,
-            u'custom': False,
-            u'default_active': True,
             u'is_negative': False,
             u'resource_uri': u'/api/v1/category/%d' % self.category.id,
             u'group': u'group'
@@ -98,5 +96,5 @@ class CategoryResourceTest(ResourceTestCase):
         self.assertValidJSONResponse(resp)
 
         # We use ``assertKeys`` here to just verify the keys, not all the data.
-        self.assertKeys(self.deserialize(resp), ['name', 'id', 'resource_uri', 'default_active', 'custom', 'group', 'is_negative'])
+        self.assertKeys(self.deserialize(resp), ['name', 'id', 'resource_uri', 'group', 'is_negative'])
         self.assertEqual(self.deserialize(resp)['name'], 'Groceries')

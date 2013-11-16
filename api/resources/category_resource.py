@@ -26,10 +26,11 @@ class CategoryResource(ModelResource):
     group = fields.ForeignKey(CategoryGroupResource, 'group', full=True, readonly=True)
 
     class Meta:
-        queryset = Category.objects.all()
+        queryset = Category.objects.filter(is_active=True)
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = ReadOnlyAuthorization()
         always_return_data = True
+        excludes = ('is_active',)
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get']
         filtering = {

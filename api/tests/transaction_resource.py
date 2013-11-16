@@ -75,8 +75,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'description': u'',
             u'value': unicode(self.transaction.value),
             u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
-            u'category': {u'custom': False,
-                u'default_active': True,
+            u'category': {
                 u'id': 1,
                 u'is_negative': True,
                 u'name': u'groceries',
@@ -110,8 +109,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
-            u'category': {u'custom': False,
-                u'default_active': True,
+            u'category': {
                 u'id': 2,
                 u'is_negative': True,
                 u'name': u'STUFF',
@@ -145,8 +143,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
-            u'category': {u'custom': False,
-                u'default_active': True,
+            u'category': {
                 u'id': 2,
                 u'is_negative': True,
                 u'name': u'STUFF',
@@ -178,8 +175,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
-            u'category': {u'custom': False,
-                u'default_active': True,
+            u'category': {
                 u'id': 5,
                 u'is_negative': False,
                 u'name': u'positive',
@@ -212,8 +208,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
-            u'category': {u'custom': False,
-                u'default_active': True,
+            u'category': {
                 u'id': 5,
                 u'is_negative': False,
                 u'name': u'positive',
@@ -348,8 +343,7 @@ class TransactionResourceTest(ResourceTestCase):
             u'description': u'',
             u'value': unicode(self.transaction.value),
             u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
-            u'category': {u'custom': False,
-                u'default_active': True,
+            u'category': {
                 u'is_negative': True,
                 u'id': 1,
                 u'name': u'groceries',
