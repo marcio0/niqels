@@ -174,7 +174,7 @@ msgstr "Se movimentações desta categoria tem valor negativo por padrão."
 
 #: expenses/models.py:56
 msgid "category group"
-msgstr "groupo de categoria"
+msgstr "grupo de categoria"
 
 #: expenses/models.py:57
 msgid "The group this category belongs."
