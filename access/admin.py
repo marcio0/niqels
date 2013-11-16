@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
@@ -40,7 +40,7 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField()
+    #password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = User
@@ -60,22 +60,26 @@ class UserAdmin(UserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'is_admin')
-    list_filter = ('is_admin',)
+    list_display = ('name', 'email', 'date_joined', 'last_login')
+    list_filter = ('date_joined', 'last_login', 'is_active')
+    readonly_fields = ['date_joined', 'last_login', 'is_admin']
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Permissions', {'fields': ('is_admin',)}),
-        ('Important dates', {'fields': ('last_login',)}),
+        (None, {'fields': ('name', 'email', 'is_active' )}),
+        ('Important dates', {'fields': ('date_joined', 'last_login')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')}
+            'fields': ('name', 'email', 'password1', 'password2')}
         ),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ('email', 'name')
+    ordering = ('-date_joined',)
     filter_horizontal = ()
+    actions = None
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
