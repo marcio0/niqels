@@ -106,6 +106,9 @@ module.exports = function(grunt) {
                     "static/src/css/styles.css": [
                         "static/less/styles.less",
                         "static/less/toastr-override.less"
+                    ],
+                    "static/src/css/landing.css": [
+                        "static/less/landing.less"
                     ]
                 }
             }

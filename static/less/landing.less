@@ -1,0 +1,382 @@
+@import "lib/bootstrap/bootstrap.less";
+@import "landing-vars.less";
+
+body {background: @white;}
+
+.nav > li > a:hover, a:focus {
+    text-decoration: underline;
+    background-color: @white;
+}
+
+.navbar-collapse {
+    margin-top: 50px;
+}
+
+.lead-custom {
+    font-family: @font-family-custom-panel;
+}
+
+.header {
+    height: 100%;
+    .nav {
+        position:absolute;
+        z-index: 1000;
+        right:0;
+        margin-top:10px;
+        & a {
+            font-family:@font-family-custom-title;
+        }
+    }
+}
+
+.navbar {margin-bottom:0;}
+
+.navbar-default {
+    background: @white; 
+    border:transparent;
+}
+
+.background {
+    height:110px;
+    padding-left:(@padding-base-horizontal + 2px);
+    .stretch {
+        background-image: url('../img/niqels-experimento.png');
+        max-width:100%;
+        height:100%;
+        margin-top: -30px;
+        background-repeat:no-repeat;
+        .text-hide;
+    }
+}
+
+.bg-panel {
+    background:@gray-lighter;
+    margin-top: 2px;
+    .center-block();
+    padding:0 24px 37px 24px;
+    .panel {
+        & :hover {
+            background:@azul-escuro-lighter;
+            color:@white;
+            }
+        }
+        .panel-group {
+            margin-top: 1.5em;
+            .center-block();
+            .panel-title {
+                font-family:@font-family-custom-panel;
+                color:@gray-dark;
+                border-color:transparent!important;
+                & > a {
+                    text-decoration: none;
+                    &:hover {
+                        color:@white;
+                        }
+                    }
+                }
+                & > p > .btn {
+                    font-family: @font-family-custom-title;
+                }
+                .panel-body {
+                    line-height: 1.4em;
+                    font-size: @font-size-base;
+                    text-align: left;
+                }
+            }
+    }
+
+
+.img-responsive {
+    .img-responsive();
+}
+
+.jumbotron {
+    text-align:center;
+    background:@azul-claro;
+    height:650px;
+        .btn {
+            margin-top: 4.5em;
+            padding:(@modal-title-padding - 1) (@modal-inner-padding + 4) (@modal-title-padding + 2);
+            text-shadow: 1px 1px 1px #333!important;
+            background:@laranja;
+            background-repeat:none;
+            &:hover {
+                background:@laranja-dark;
+                border-color: @laranja-dark;
+            }
+        }
+        & > h1 {
+            color:@gray-dark;
+            font-family:@font-family-custom-title;
+            font-weight:100;
+            & > span {
+                color:#ffffff;
+                text-shadow: 1px 2px 2px #666666;
+                filter: dropshadow(color=#666666, offx=1, offy=2);
+            }
+        }
+    }
+
+i {padding-left: 1em;}
+
+hr {margin-left:0px;}
+
+.fadein {
+    & > img {
+        position:absolute;
+    }
+}
+
+    .marketing {
+        padding:@padding-base-vertical;
+        .clearfix();
+    }
+    
+    .panel-and-img-all {
+        .panel-and-img {
+            line-height:(@line-height-computed * 1.4);
+            & > h2 {
+                font-family:@font-family-title-textos-h2;
+                font-size: (@font-size-large * 2);
+                font-weight: 700;
+            }
+            & > p {
+                margin:0 5px;
+                font-family:@font-family-textos;
+                font-size: (@font-size-base + 2px);
+                color:@azul-escuro-lighter;
+                font-weight: 600; 
+            }
+        }
+    }
+
+    .footer {
+        background:@gray-lighter; 
+        height:25px;
+        & > h5 {
+            color:@gray;
+            padding-top:6px;
+            & > a {
+                color:@gray-darker;
+                &:hover {
+                    text-decoration:underline;
+                }
+            }
+        }
+    }
+
+
+@media (max-width: @screen-xs-max) {
+    i, .glyphicon.glyphicon-chevron-right {
+        display:none!important;
+    }
+    .background {
+        padding: 0;
+        margin-top:30px;
+        height:130px;
+        .stretch {
+            padding:0;
+            background-image: url('../img/projeto-niqels-xs.png');
+            background-position:50% 50%;
+        }
+    }
+    .navbar-header {
+        .navbar-toggle {
+            margin-right:0;
+            background: @gray-light;
+        }
+    }
+    .header {
+        .nav {
+            position:relative;
+            & > li {
+                clear: both;
+            }
+        }
+    }
+    .navbar-collapse {
+        margin-top:0;
+    }
+
+    .nav-pills > li {
+        float:none;
+        text-align:center;
+    }
+
+    .bg-panel {
+        background:none;
+        padding:0;
+        .panel-group {
+            .panel-body {
+                font-size:@font-size-small;
+                text-align: center;
+            }
+        }
+    }
+    .jumbotron {
+        height:100%;
+        .btn {
+            margin-top: 1em;
+            font-size:@font-size-base;
+            padding:20px 0;
+        }
+    }
+    .panel-and-img-all {
+         padding:0;
+        .panel-and-img {
+            padding:0;
+            & > h2 {
+                font-size: (@font-size-large * 1.5);
+                text-align: center;
+            }
+            & > p {
+                line-height: 1.5em;
+                font-size: @font-size-small;
+                text-align: center;
+            }
+        }
+
+    }
+    .footer {
+        .make-row();
+        margin-top:20px;
+        height:100%;
+        font-size: @font-size-small;
+        & > h5, & > a {
+            font-size: @font-size-small;
+            line-height: 1.5em;
+        }
+    }
+}
+
+
+@media (min-width: @screen-sm) and (max-width:@screen-md) {
+    .background {
+        .stretch {
+            margin-left:50px;
+        }
+    }
+    .bg-panel {
+        width:438px;
+        padding:0 30px 37px;
+    }
+    .nav {
+        margin-left:40px;
+    }
+    .fadein {
+        margin:1px 0 0 -16px;
+        & > img {
+            margin-top:1.5em;
+        }
+    }
+    .jumbotron {
+        height:950px;
+        .btn {
+            margin-top:1.5em;
+        }
+    }
+    .panel-and-img-all {
+        .panel-and-img {
+            & p {
+            text-align: left;
+            }    
+        &.texto-inferior-acompanhe {
+            text-align:right;
+            &  p {
+                text-align: right;
+                }
+            }
+        }
+        .img-ilustra-01 {
+            .make-row();
+            margin-top:80px;
+        }
+
+        .img-ilustra {
+            margin-top:80px;
+        }   
+    }
+
+        .footer {
+            .make-row();
+            margin-top: 20px;
+            height: 100%;}
+}
+
+ @media (min-width:@screen-md) {
+    body {
+        overflow-x: hidden;
+    }
+    .jumbotron {
+        height:700px;
+    }
+    .background {
+        .stretch {
+            margin-left:12px;
+        }
+    }
+    .nav {
+        margin-left:185px;
+    }
+    .fadein {
+        margin:1px 0 0;
+    }
+    .bg-panel {
+        margin:3px 0 0;
+        padding-bottom:22px;
+    }
+    .jumbotron {
+        .btn {
+            margin-top:1.5em;
+        }
+    }
+    .container-custom {
+        & hr {
+            margin-left:16px;
+        }
+    }
+
+    .panel-and-img-all {
+        margin-left:68px;
+        margin-right:-20px;
+        .texto-inferior-acompanhe {
+            margin:0 -65px 0 0;
+        }
+        .img-ilustra-01 {
+            margin-top:2.5em;
+        }
+    }
+
+}
+
+ @media (min-width:@screen-lg) {
+    .nav {
+        margin-left:240px;
+    }
+    .bg-panel {
+        margin:3px 50px 0 -20px;
+        padding-bottom:38px;
+    }
+    .background {
+        .stretch {
+            margin-left:-35px;
+        }
+    }
+    .panel-and-img-all {
+        margin-left:65px;
+        .texto-inferior-acompanhe {
+            margin-right:-60px;
+        }
+    }
+    .container-custom {
+        & hr {
+            padding-left:5px;
+        }
+    }
+    .jumbotron {
+        .btn {
+            margin-top: 4.5em;
+        }
+    }
+
+ }
