@@ -55,9 +55,9 @@ class UserCreationForm(forms.ModelForm):
     }
     email = forms.EmailField()
     name = forms.CharField(label=_("Name"), required=True, max_length=60)
-    password1 = forms.CharField(label=_("Password"),
+    password = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_("Password confirmation"),
+    password_confirm = forms.CharField(label=_("Password confirmation"),
         widget=forms.PasswordInput,
         help_text=_("Enter the same password as above, for verification."))
 
@@ -73,28 +73,28 @@ class UserCreationForm(forms.ModelForm):
             return email 
         raise forms.ValidationError(self.error_messages['duplicate_email'])
 
-    def clean_password1(self):
-        password1 = self.cleaned_data.get("password1")
+    def clean_password(self):
+        password = self.cleaned_data.get("password")
 
-        if password1 and not validate_password(password1):
+        if (not password) or (password and not validate_password(password)):
             raise forms.ValidationError(
                 self.error_messages['invalid_password'])
 
-        return password1
+        return password
 
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
+    def clean_password_confirm(self):
+        password = self.cleaned_data.get("password")
+        password_confirm = self.cleaned_data.get("password_confirm")
 
-        if password1 and password2 and password1 != password2:
+        if password and password_confirm and password != password_confirm:
             raise forms.ValidationError(
                 self.error_messages['password_mismatch'])
             
-        return password2
+        return password_confirm
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
         return user

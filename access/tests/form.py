@@ -51,8 +51,8 @@ class UserCreationFormTest(TestCase):
         data = {
             'name': 'foo',
             'email': 'existing@expenses.com',
-            'password1': u'asdasd',
-            'password2': u'asdasd'
+            'password': u'asdasd',
+            'password_confirm': u'asdasd'
         }
 
         form = UserCreationForm()
@@ -64,8 +64,8 @@ class UserCreationFormTest(TestCase):
         data = {
             'name': 'foo',
             'email': 'existing@expenses.com',
-            'password1': 'asdasd',
-            'password2': 'asdasd'
+            'password': 'asdasd',
+            'password_confirm': 'asdasd'
         }
 
         form = UserCreationForm(data)
@@ -74,12 +74,12 @@ class UserCreationFormTest(TestCase):
 
         self.assertEquals(form.clean_email(), data['email'])
 
-    def test_clean_password2_match(self):
+    def test_clean_password_confirm_match(self):
         data = {
             'name': 'foo',
             'email': 'existing@expenses.com',
-            'password1': u'asdasd',
-            'password2': u'asdasd'
+            'password': u'asdasd',
+            'password_confirm': u'asdasd'
         }
 
         form = UserCreationForm(data)
@@ -87,55 +87,55 @@ class UserCreationFormTest(TestCase):
 
         self.assertTrue(form.is_valid())
 
-        self.assertEquals(form.clean_password2(), data['password2'])
+        self.assertEquals(form.clean_password_confirm(), data['password_confirm'])
 
-    def test_clean_password2_differs(self):
+    def test_clean_password_confirm_differs(self):
         data = {
             'email': 'existing@expenses.com',
-            'password1': u'qweasd',
-            'password2': u'asdasd'
+            'password': u'qweasd',
+            'password_confirm': u'asdasd'
         }
 
         form = UserCreationForm()
         form.cleaned_data = data
 
-        self.assertRaises(forms.ValidationError, form.clean_password2)
+        self.assertRaises(forms.ValidationError, form.clean_password_confirm)
 
-    def test_clean_password1_invalid(self):
+    def test_clean_password_invalid(self):
         data = {
             'email': 'existing@expenses.com',
-            'password1': u'asd'
+            'password_confirm': u'asd'
         }
 
         form = UserCreationForm()
         form.cleaned_data = data
 
-        self.assertRaises(forms.ValidationError, form.clean_password1)
+        self.assertRaises(forms.ValidationError, form.clean_password)
 
     def test_no_password(self):
         data = {
             'email': 'existing@expenses.com',
-            'password1': None
+            'password': None
         }
 
         form = UserCreationForm()
         form.cleaned_data = data
 
-        self.assertEquals(form.clean_password1(), None)
+        self.assertRaises(forms.ValidationError, form.clean_password)
 
     @mock.patch.object(User, 'set_password')
     def test_save(self, set_password):
         data = {
             'name': 'foo',
             'email': 'existing@expenses.com',
-            'password1': u'asdasd',
-            'password2': u'asdasd'
+            'password': u'asdasd',
+            'password_confirm': u'asdasd'
         }
 
         form = UserCreationForm(data)
         form.save()
 
-        set_password.assert_called_with(data['password1'])
+        set_password.assert_called_with(data['password'])
 
         self.assertTrue(
             User.objects.filter(email='existing@expenses.com').exists()
@@ -146,14 +146,14 @@ class UserCreationFormTest(TestCase):
         data = {
             'name': 'foo',
             'email': 'existing@expenses.com',
-            'password1': u'asdasd',
-            'password2': u'asdasd'
+            'password': u'asdasd',
+            'password_confirm': u'asdasd'
         }
 
         form = UserCreationForm(data)
         form.save(commit=False)
 
-        set_password.assert_called_with(data['password1'])
+        set_password.assert_called_with(data['password'])
 
         self.assertFalse(
             User.objects.filter(email='existing@expenses.com').exists()

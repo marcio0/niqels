@@ -84,8 +84,8 @@ class RegisterViewTest(TestCase):
         data = {
             'name': 'foo',
             'email': 'new@expenses.com',
-            'password1': 'asdasd',
-            'password2': 'asdasd'
+            'password': 'asdasd',
+            'password_confirm': 'asdasd'
         }
         client = Client()
 
@@ -105,8 +105,8 @@ class RegisterViewTest(TestCase):
         data = {
             'name': 'foo',
             'email': 'new@expenses.com',
-            'password1': 'asdasd',
-            'password2': 'asdasd'
+            'password': 'asdasd',
+            'password_confirm': 'asdasd'
         }
         client = Client()
         ret = client.post('/register/', data)

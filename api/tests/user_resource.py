@@ -156,7 +156,7 @@ class UserResourceTest(ResourceTestCase):
         self.assertHttpBadRequest(resp)
 
         content = self.deserialize(resp)
-        self.assertIn('password1', content.get('user'))
+        self.assertIn('password', content.get('user'))
 
     def test_post_bad_password(self):
         '''
@@ -171,7 +171,7 @@ class UserResourceTest(ResourceTestCase):
         self.assertHttpBadRequest(resp)
 
         content = self.deserialize(resp)
-        self.assertIn('password1', content.get('user'))
+        self.assertIn('password', content.get('user'))
 
     # List tests: PUT
     def test_put_list_not_allowed(self):

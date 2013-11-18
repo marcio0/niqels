@@ -44,13 +44,10 @@ class UserResource(ModelResource):
         '''
         Mimicking form behavior to use in the UserCreationForm.
         '''
-        deserialized['password1'] = deserialized.get('password')
-        deserialized['password2'] = deserialized.get('password')
+        deserialized['password'] = deserialized.get('password')
+        deserialized['password_confirm'] = deserialized.get('password')
 
         return deserialized
-
-    def alter_detail_data_to_serialize(self, request, data):
-        return data
 
     def hydrate(self, bundle):
         bundle.obj.set_password(bundle.data.get('password'))
