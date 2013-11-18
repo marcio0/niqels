@@ -6714,7 +6714,6 @@ a:focus {
 }
 .background {
   height: 110px;
-  padding-left: 14px;
 }
 .background .stretch {
   background-image: url('../img/niqels-experimento.png');
@@ -6728,39 +6727,21 @@ a:focus {
   background-color: transparent;
   border: 0;
 }
-.bg-panel {
-  background: #e7e6e6;
-  margin-top: 2px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 24px 37px 24px;
-}
-.bg-panel .panel :hover {
-  background: #707383;
-  color: #ffffff;
-}
-.bg-panel .panel-group {
+#features .panel-group {
   margin-top: 1.5em;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
-.bg-panel .panel-group .panel-title {
+#features .panel-group .panel-title {
   font-family: "Roboto", sans-serif;
   color: #585b6c;
   border-color: transparent!important;
 }
-.bg-panel .panel-group .panel-title > a {
+#features .panel-group .panel-title > a {
   text-decoration: none;
 }
-.bg-panel .panel-group .panel-title > a:hover {
-  color: #ffffff;
-}
-.bg-panel .panel-group > p > .btn {
+#features .panel-group > p > .btn {
   font-family: "Oxygen", sans-serif;
 }
-.bg-panel .panel-group .panel-body {
+#features .panel-group .panel-body {
   line-height: 1.4em;
   font-size: 14px;
   text-align: left;
@@ -6770,28 +6751,27 @@ a:focus {
   max-width: 100%;
   height: auto;
 }
-.jumbotron {
+.well {
   text-align: center;
   background: #bec1cb;
-  height: 650px;
 }
-.jumbotron .btn {
+.well .btn {
   margin-top: 4.5em;
   padding: 14px 24px 17px;
   text-shadow: 1px 1px 1px #333!important;
   background: #ba3500;
   background-repeat: none;
 }
-.jumbotron .btn:hover {
+.well .btn:hover {
   background: #7d2400;
   border-color: #7d2400;
 }
-.jumbotron > h1 {
+.well > h1 {
   color: #585b6c;
   font-family: "Oxygen", sans-serif;
   font-weight: 100;
 }
-.jumbotron > h1 > span {
+.well > h1 > span {
   color: #ffffff;
   text-shadow: 1px 2px 2px #666666;
   filter: dropshadow(color=#666666, offx=1, offy=2);
@@ -6801,9 +6781,6 @@ i {
 }
 hr {
   margin-left: 0px;
-}
-.fadein > img {
-  position: absolute;
 }
 .marketing {
   padding: 6px;
@@ -6901,13 +6878,9 @@ hr {
     font-size: 12px;
     text-align: center;
   }
-  .jumbotron {
-    height: 100%;
-  }
-  .jumbotron .btn {
+  .well .btn {
     margin-top: 1em;
     font-size: 14px;
-    padding: 20px 0;
   }
   .panel-and-img-all {
     padding: 0;
@@ -6962,9 +6935,6 @@ hr {
   }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-  .background .stretch {
-    margin-left: 50px;
-  }
   .bg-panel {
     width: 438px;
     padding: 0 30px 37px;
@@ -6972,16 +6942,7 @@ hr {
   .nav {
     margin-left: 40px;
   }
-  .fadein {
-    margin: 1px 0 0 -16px;
-  }
-  .fadein > img {
-    margin-top: 1.5em;
-  }
-  .jumbotron {
-    height: 950px;
-  }
-  .jumbotron .btn {
+  .well .btn {
     margin-top: 1.5em;
   }
   .panel-and-img-all .panel-and-img p {
@@ -7060,23 +7021,14 @@ hr {
   body {
     overflow-x: hidden;
   }
-  .jumbotron {
-    height: 700px;
-  }
-  .background .stretch {
-    margin-left: 12px;
-  }
   .nav {
     margin-left: 185px;
-  }
-  .fadein {
-    margin: 1px 0 0;
   }
   .bg-panel {
     margin: 3px 0 0;
     padding-bottom: 22px;
   }
-  .jumbotron .btn {
+  .well .btn {
     margin-top: 1.5em;
   }
   .container-custom hr {
@@ -7097,13 +7049,6 @@ hr {
   .nav {
     margin-left: 240px;
   }
-  .bg-panel {
-    margin: 3px 50px 0 -20px;
-    padding-bottom: 38px;
-  }
-  .background .stretch {
-    margin-left: -35px;
-  }
   .panel-and-img-all {
     margin-left: 65px;
   }
@@ -7113,7 +7058,7 @@ hr {
   .container-custom hr {
     padding-left: 5px;
   }
-  .jumbotron .btn {
+  .well .btn {
     margin-top: 4.5em;
   }
 }

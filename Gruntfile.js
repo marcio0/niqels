@@ -99,24 +99,33 @@ module.exports = function(grunt) {
         },
 
         less: {
-            development: {
-                options: {
-                },
+            webapp: {
                 files: {
                     "static/src/css/styles.css": [
                         "static/less/styles.less",
                         "static/less/toastr-override.less"
-                    ],
+                    ]
+                }
+            },
+            landing: {
+                files: {
                     "static/src/css/landing.css": [
                         "static/less/landing.less"
                     ]
                 }
             }
+
         },
 
         watch: {
-            files: ['static/less/*.less'],
-            tasks: ['less']
+            webapp: {
+                files: ['static/less/styles.less'],
+                tasks: ['less:webapp']
+            },
+            landing: {
+                files: ['static/less/landing.less'],
+                tasks: ['less:landing']
+            }
         },
 
         exec: {
