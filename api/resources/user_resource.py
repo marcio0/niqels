@@ -1,5 +1,5 @@
 from tastypie.resources import ModelResource
-from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
+from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication, Authentication
 from tastypie.authorization import Authorization
 from django.core.urlresolvers import NoReverseMatch
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -11,11 +11,20 @@ from access.forms import UserCreationForm
 from access.models import User
 
 
+class UserResourceCustomAuthentication(Authentication):
+    '''
+    No authentication is required for a POST request to create a user.
+    '''
+    def is_authenticated(self, request, **kwargs):
+        if request.method == 'POST':
+            return True
+        return False
+
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         fields = ['email', 'name']
-        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
+        authentication = MultiAuthentication(UserResourceCustomAuthentication(), SessionAuthentication(), BasicAuthentication())
         authorization = Authorization()
         validation = FormValidation(form_class=UserCreationForm)
         list_allowed_methods = []

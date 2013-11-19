@@ -93,7 +93,7 @@ class UserResourceTest(ResourceTestCase):
             'name': 'john doe',
             'password': 'password'
         }
-        resp = self.api_client.post(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
         self.assertHttpCreated(resp)
 
         user = User.objects.get(email=data['email'])
@@ -108,7 +108,7 @@ class UserResourceTest(ResourceTestCase):
             'email': 'new@user.com',
             'password': 'password'
         }
-        resp = self.api_client.post(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
         self.assertHttpBadRequest(resp)
 
         content = self.deserialize(resp)
@@ -122,7 +122,7 @@ class UserResourceTest(ResourceTestCase):
             'name': 'john doe',
             'password': 'password'
         }
-        resp = self.api_client.post(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
         self.assertHttpBadRequest(resp)
 
         content = self.deserialize(resp)
@@ -138,7 +138,7 @@ class UserResourceTest(ResourceTestCase):
             'name': 'john doe',
             'password': 'password'
         }
-        resp = self.api_client.post(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
         self.assertHttpBadRequest(resp)
 
         content = self.deserialize(resp)
@@ -152,7 +152,7 @@ class UserResourceTest(ResourceTestCase):
             'name': 'john doe',
             'email': 'new@user.com',
         }
-        resp = self.api_client.post(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
         self.assertHttpBadRequest(resp)
 
         content = self.deserialize(resp)
@@ -167,7 +167,7 @@ class UserResourceTest(ResourceTestCase):
             'name': 'john doe',
             'password': 'small'
         }
-        resp = self.api_client.post(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
         self.assertHttpBadRequest(resp)
 
         content = self.deserialize(resp)
