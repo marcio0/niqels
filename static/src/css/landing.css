@@ -5380,7 +5380,7 @@ a.list-group-item:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #ffffff;
+  background-color: #e7e6e6;
   border: 1px solid transparent;
   border-radius: 0px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -5481,7 +5481,7 @@ a.list-group-item:focus {
 }
 .panel-default > .panel-heading {
   color: #585b6c;
-  background-color: #ffffff;
+  background-color: #e7e6e6;
   border-color: #dddddd;
 }
 .panel-default > .panel-heading + .panel-collapse .panel-body {
@@ -6687,11 +6687,12 @@ a:focus {
   text-decoration: underline;
   background-color: #ffffff;
 }
+#register-link {
+  color: #ba3500;
+  font-weight: bold;
+}
 .navbar-collapse {
   margin-top: 50px;
-}
-.lead-custom {
-  font-family: "Roboto", sans-serif;
 }
 .header {
   height: 100%;
@@ -6727,54 +6728,87 @@ a:focus {
   background-color: transparent;
   border: 0;
 }
-#features .panel-group {
-  margin-top: 1.5em;
-}
-#features .panel-group .panel-title {
-  font-family: "Roboto", sans-serif;
-  color: #585b6c;
-  border-color: transparent!important;
-}
-#features .panel-group .panel-title > a {
-  text-decoration: none;
-}
-#features .panel-group > p > .btn {
-  font-family: "Oxygen", sans-serif;
-}
-#features .panel-group .panel-body {
-  line-height: 1.4em;
-  font-size: 14px;
-  text-align: left;
-}
 .img-responsive {
   display: block;
   max-width: 100%;
   height: auto;
 }
-.well {
+#main {
   text-align: center;
   background: #bec1cb;
 }
-.well .btn {
-  margin-top: 4.5em;
+#main .title {
+  margin-top: 5em;
+  margin-bottom: 5em;
+}
+#main .title h1 {
+  color: #585b6c;
+  font-family: "Oxygen", sans-serif;
+  font-weight: 100;
+  font-size: 60px;
+}
+#main .title h1 > span {
+  color: #ffffff;
+  text-shadow: 1px 2px 2px #666666;
+  filter: dropshadow(color=#666666, offx=1, offy=2);
+}
+#main .title .lead-custom {
+  font-family: "Roboto", sans-serif;
+}
+#main #features .panel-wrapper {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #main #features .panel-wrapper {
+    float: left;
+    width: 33.33333333333333%;
+  }
+}
+#main #features .panel-title {
+  font-family: "Roboto", sans-serif;
+  color: #585b6c;
+  border-color: transparent!important;
+}
+#main #features .panel-title > a {
+  text-decoration: none;
+}
+#main #features .btn {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: "Oxygen", sans-serif;
+  margin-top: 2em;
+  margin-bottom: 2em;
   padding: 14px 24px 17px;
   text-shadow: 1px 1px 1px #333!important;
   background: #ba3500;
   background-repeat: none;
 }
-.well .btn:hover {
+@media (min-width: 768px) {
+  #main #features .btn {
+    float: left;
+    width: 33.33333333333333%;
+  }
+}
+@media (min-width: 768px) {
+  #main #features .btn {
+    margin-left: 33.33333333333333%;
+  }
+}
+#main #features .btn:hover {
   background: #7d2400;
   border-color: #7d2400;
 }
-.well > h1 {
-  color: #585b6c;
-  font-family: "Oxygen", sans-serif;
-  font-weight: 100;
-}
-.well > h1 > span {
-  color: #ffffff;
-  text-shadow: 1px 2px 2px #666666;
-  filter: dropshadow(color=#666666, offx=1, offy=2);
+#main #features .panel-body {
+  line-height: 1.4em;
+  font-size: 14px;
+  text-align: left;
 }
 i {
   padding-left: 1em;
@@ -6870,14 +6904,6 @@ hr {
     float: none;
     text-align: center;
   }
-  .bg-panel {
-    background: none;
-    padding: 0;
-  }
-  .bg-panel .panel-group .panel-body {
-    font-size: 12px;
-    text-align: center;
-  }
   .well .btn {
     margin-top: 1em;
     font-size: 14px;
@@ -6935,10 +6961,6 @@ hr {
   }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-  .bg-panel {
-    width: 438px;
-    padding: 0 30px 37px;
-  }
   .nav {
     margin-left: 40px;
   }
@@ -7024,10 +7046,6 @@ hr {
   .nav {
     margin-left: 185px;
   }
-  .bg-panel {
-    margin: 3px 0 0;
-    padding-bottom: 22px;
-  }
   .well .btn {
     margin-top: 1.5em;
   }
@@ -7057,8 +7075,5 @@ hr {
   }
   .container-custom hr {
     padding-left: 5px;
-  }
-  .well .btn {
-    margin-top: 4.5em;
   }
 }
