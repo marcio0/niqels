@@ -106,7 +106,7 @@ def register(request):
         if form.is_valid():
             form.save()
             email = request.POST['email']
-            password = request.POST['password1']
+            password = request.POST['password']
 
             user = authenticate(email=email, password=password)
             login(request, user)

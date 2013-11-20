@@ -84,11 +84,94 @@ class UserResourceTest(ResourceTestCase):
         })
 
     # List tests: POST
-    def test_post_list_not_allowed(self):
+    def test_post(self):
         '''
-        User Resource does not accept POST.
+        Creating a user.
         '''
-        self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json'))
+        data = {
+            'email': 'new@user.com',
+            'name': 'john doe',
+            'password': 'password'
+        }
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
+        self.assertHttpCreated(resp)
+
+        user = User.objects.get(email=data['email'])
+        self.assertEquals(user.name, data['name'])
+        self.assertTrue(user.check_password(data['password']))
+
+    def test_post_no_name(self):
+        '''
+        Name is required.
+        '''
+        data = {
+            'email': 'new@user.com',
+            'password': 'password'
+        }
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertIn('name', content.get('user'))
+
+    def test_post_no_email(self):
+        '''
+        Email is required.
+        '''
+        data = {
+            'name': 'john doe',
+            'password': 'password'
+        }
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertIn('email', content.get('user'))
+
+    def test_post_bad_email(self):
+        '''
+        Checking for valid email.
+        '''
+        
+        data = {
+            'email': 'invalid_email',
+            'name': 'john doe',
+            'password': 'password'
+        }
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertIn('email', content.get('user'))
+
+    def test_post_no_password(self):
+        '''
+        Creating a user.
+        '''
+        data = {
+            'name': 'john doe',
+            'email': 'new@user.com',
+        }
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertIn('password', content.get('user'))
+
+    def test_post_bad_password(self):
+        '''
+        Checking for password_validity.
+        '''
+        data = {
+            'email': 'new@user.com',
+            'name': 'john doe',
+            'password': 'small'
+        }
+        resp = self.api_client.post(self.detail_url, data=data, format='json')
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertIn('password', content.get('user'))
 
     # List tests: PUT
     def test_put_list_not_allowed(self):

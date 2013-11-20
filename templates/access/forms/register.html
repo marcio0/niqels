@@ -33,33 +33,33 @@
         </div>
     </div>
 
-    <div class="form-group {% if register_form.password1.errors %}has-error{% endif %}">
-        <label class="col-lg-3 control-label" for="password1">{% trans "Password" %}</label> 
+    <div class="form-group {% if register_form.password.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label" for="password">{% trans "Password" %}</label> 
         <div class="col-lg-9 input-icon">
             <i class="icon-asterisk input-icon-prepend"></i>
             <input
                 type="password"
-                name="password1"
+                name="password"
                 class="form-control"
-                value="{{ register_form.password1.value|default_if_none:"" }}"
+                value="{{ register_form.password.value|default_if_none:"" }}"
             >
-            {% for error in register_form.password1.errors %}
+            {% for error in register_form.password.errors %}
                 <span class="help-block error">{{ error }}</span>
             {% endfor %}
         </div>
     </div>
 
-    <div class="form-group {% if register_form.password2.errors %}has-error{% endif %}">
-        <label class="col-lg-3 control-label" for="password2">{% trans "Confirm password" %}</label> 
+    <div class="form-group {% if register_form.password_confirm.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label" for="password_confirm">{% trans "Confirm password" %}</label> 
         <div class="col-lg-9 input-icon">
             <i class="icon-asterisk input-icon-prepend"></i>
             <input
                 type="password"
-                name="password2"
+                name="password_confirm"
                 class="form-control"
-                value="{{ register_form.password2.value|default_if_none:"" }}"
+                value="{{ register_form.password_confirm.value|default_if_none:"" }}"
             >
-            {% for error in register_form.password2.errors %}
+            {% for error in register_form.password_confirm.errors %}
                 <span class="help-block error">{{ error }}</span>
             {% endfor %}
         </div>
