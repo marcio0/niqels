@@ -65,6 +65,8 @@ body {
 
     #features {
         .panel-wrapper {
+            .make-xs-column(10);
+            .make-sm-column(6);
             .make-md-column(4);
 
             .panel {
@@ -88,11 +90,32 @@ body {
                         color: @gray-dark;
                     }
                 }
-            }
 
+                .panel-body {
+                    line-height: 1.4em;
+                    font-size: @font-size-base;
+                    text-align: justify;
+                }
+            }
         }
 
-        .btn {
+        .row-break {
+            .clearfix();
+
+            &.sm {
+                .visible-sm();
+            }
+
+            &.md {
+                .visible-md();
+            }
+
+            &.lg {
+                .visible-lg();
+            }
+        }
+
+        #register-button {
             .make-sm-column(4);
             .make-sm-column-offset(4);
 
@@ -111,11 +134,6 @@ body {
             }
         }
 
-        .panel-body {
-            line-height: 1.4em;
-            font-size: @font-size-base;
-            text-align: left;
-        }
     }
 }
 
@@ -187,10 +205,12 @@ hr {margin-left:0px;}
     #main {
         #features {
             .panel-wrapper {
-                margin-bottom: 10px;
+                float: none;
+                margin: auto;
+                margin-bottom: 15px;
             }
 
-            .btn {
+            #register-button {
                 margin-top: 1em;
                 font-size: @font-size-base;
             }
@@ -240,11 +260,11 @@ hr {margin-left:0px;}
 
     #main {
         #features {
-            .panel-wrapper {
+            .row-break {
                 margin-bottom: 10px;
             }
 
-            .btn {
+            #register-button {
                 margin-top: 1.5em;
             }
         }
@@ -295,6 +315,10 @@ hr {margin-left:0px;}
         }
     }
 
+    #main #features .row-break {
+        margin-bottom: 30px;
+    }
+
     .container-custom {
         & hr {
             margin-left:16px;
@@ -322,8 +346,8 @@ hr {margin-left:0px;}
     }
 
     .container-custom {
-       & hr {
+        & hr {
            padding-left:5px;
-       }
+        }
     }
 }
