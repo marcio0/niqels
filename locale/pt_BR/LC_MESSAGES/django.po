@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-16 01:40-0200\n"
+"POT-Creation-Date: 2013-11-19 23:51-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,7 @@ msgstr "Português"
 msgid "Category"
 msgstr "Categoria"
 
-#: expenses/models.py:31
+#: expenses/admin.py:58 expenses/models.py:31
 msgid "Category group"
 msgstr "Grupo de categoria"
 
@@ -265,6 +265,15 @@ msgstr "Movimentação"
 msgid "Transactions"
 msgstr "Movimentações"
 
+#: templates/landing.html:53 templates/access/login.html:67
+#: templates/access/forms/login_inline.html:15
+msgid "Login"
+msgstr "Entrar"
+
+#: templates/landing.html:54
+msgid "Create account"
+msgstr "Criar conta"
+
 #: templates/presentation.html:26
 msgid "Organize your money the easy way!"
 msgstr "Organize seus gastos de forma fácil!"
@@ -306,10 +315,6 @@ msgstr "Faça login"
 msgid "Email"
 msgstr "Email"
 
-#: templates/access/login.html:67 templates/access/forms/login_inline.html:15
-msgid "Login"
-msgstr "Login"
-
 #: templates/access/login.html:77 templates/access/forms/register.html:83
 msgid "Forgot your password?"
 msgstr "Esqueci minha senha"
@@ -333,7 +338,7 @@ msgstr "Já é usuário?"
 
 #: templates/access/forms/register.html:82
 msgid "Sign in"
-msgstr "Login"
+msgstr "Entrar"
 
 #: templates/password_reset/recovery_done.html:3
 msgid "New password set"
