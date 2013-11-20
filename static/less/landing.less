@@ -47,13 +47,13 @@ body {
         margin-bottom: 5em;
 
         h1 {
-            color:@gray-dark;
-            font-family:@font-family-custom-title;
-            font-weight:100;
+            color: @gray-dark;
+            font-family: @font-family-custom-title;
+            font-weight: 100;
             font-size: 60px;
 
             & > span {
-                color:#ffffff;
+                color: #ffffff;
                 text-shadow: 1px 2px 2px #666666;
                 filter: dropshadow(color=#666666, offx=1, offy=2);
             }
@@ -66,15 +66,30 @@ body {
     #features {
         .panel-wrapper {
             .make-md-column(4);
-        }
-        .panel-title {
-            font-family: @font-family-custom-panel;
-            color: @gray-dark;
-            border-color: transparent!important;
 
-            & > a {
-                text-decoration: none;
+            .panel {
+                background: @azul-claro;
+                border-color: transparent;
+                box-shadow: none;
+
+                .panel-heading {
+                    border-color: transparent;
+                    background: @azul-claro;
+
+                    img {
+                        width: 150px;
+                        height: 150px;
+
+                        margin-bottom: 30px;
+                    }
+
+                    .panel-title {
+                        font-family: @font-family-custom-panel;
+                        color: @gray-dark;
+                    }
+                }
             }
+
         }
 
         .btn {
@@ -169,12 +184,19 @@ hr {margin-left:0px;}
         }
     }
 
-    .well {
-        .btn {
-            margin-top: 1em;
-            font-size:@font-size-base;
+    #main {
+        #features {
+            .panel-wrapper {
+                margin-bottom: 10px;
+            }
+
+            .btn {
+                margin-top: 1em;
+                font-size: @font-size-base;
+            }
         }
     }
+
     .panel-and-img-all {
          padding:0;
         .panel-and-img {
@@ -216,9 +238,15 @@ hr {margin-left:0px;}
         }
     }
 
-    .well {
-        .btn {
-            margin-top:1.5em;
+    #main {
+        #features {
+            .panel-wrapper {
+                margin-bottom: 10px;
+            }
+
+            .btn {
+                margin-top: 1.5em;
+            }
         }
     }
 
@@ -251,7 +279,7 @@ hr {margin-left:0px;}
     }
 }
 
- @media (min-width:@screen-md) {
+@media (min-width:@screen-md) {
     body {
         overflow-x: hidden;
     }
@@ -264,12 +292,6 @@ hr {margin-left:0px;}
         #navbar-links li > a {
             padding-top: 40px;
             padding-bottom: 40px;
-        }
-    }
-
-    .well {
-        .btn {
-            margin-top: 1.5em;
         }
     }
 
