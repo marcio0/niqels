@@ -1,60 +1,42 @@
 @import "lib/bootstrap/bootstrap.less";
 @import "landing-vars.less";
 
-body {background: @white;}
-
-.nav > li > a:hover, a:focus {
-    text-decoration: underline;
-    background-color: @white;
+body {
+    background: @white;
 }
 
-#register-link {
-    color: @laranja;
-    font-weight: bold;
-}
-
-.navbar-collapse {
-    margin-top: 50px;
-}
+// navbar
 
 
-.header {
-    height: 100%;
+#navbar {
+    margin-bottom: 0;
 
-    .nav {
-        position:absolute;
-        z-index: 1000;
-        right:0;
-        margin-top:10px;
-        & a {
-            font-family:@font-family-custom-title;
+    .navbar-header {
+        #logo {
+            height: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        } 
+    }
+
+    #navbar-links {
+        a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #register-link {
+            color: @laranja;
         }
     }
 }
 
-.navbar {margin-bottom:0;}
-
 .navbar-default {
     background: @white; 
-    border:transparent;
+    border: transparent;
 }
 
-.background {
-    height:110px;
-    .stretch {
-        background-image: url('../img/niqels-experimento.png');
-        max-width:100%;
-        height:100%;
-        margin-top: -30px;
-        background-repeat:no-repeat;
-        .text-hide;
-    }
-}
-
-
-.img-responsive {
-    .img-responsive();
-}
+//main coantent
 
 #main {
     text-align: center;
@@ -150,15 +132,15 @@ hr {margin-left:0px;}
 }
 
 .footer {
-    background:@gray-lighter; 
-    height:25px;
+    background: @gray-lighter; 
+    height: 25px;
     & > h5 {
-        color:@gray;
-        padding-top:6px;
+        color: @gray;
+        padding-top: 6px;
         & > a {
-            color:@gray-darker;
+            color: @gray-darker;
             &:hover {
-                text-decoration:underline;
+                text-decoration: underline;
             }
         }
     }
@@ -169,37 +151,22 @@ hr {margin-left:0px;}
     i, .glyphicon.glyphicon-chevron-right {
         display:none!important;
     }
-    .background {
-        padding: 0;
-        margin-top:30px;
-        height:130px;
-        .stretch {
-            padding:0;
-            background-image: url('../img/projeto-niqels-xs.png');
-            background-position:50% 50%;
-        }
-    }
-    .navbar-header {
-        .navbar-toggle {
-            margin-right:0;
-            background: @gray-light;
-        }
-    }
-    .header {
-        .nav {
-            position:relative;
-            & > li {
-                clear: both;
+
+    #navbar {
+        .navbar-header {
+            height: 80px;
+
+            .navbar-toggle {
+                background: @gray-light;
+                margin-top: 23px;
+                margin-bottom: 23px;
             }
         }
-    }
-    .navbar-collapse {
-        margin-top:0;
-    }
 
-    .nav-pills > li {
-        float:none;
-        text-align:center;
+        #navbar-links > ul > li {
+            float: none;
+            text-align: center;
+        }
     }
 
     .well {
@@ -226,8 +193,8 @@ hr {margin-left:0px;}
     }
     .footer {
         .make-row();
-        margin-top:20px;
-        height:100%;
+        margin-top: 20px;
+        height: 100%;
         font-size: @font-size-small;
         & > h5, & > a {
             font-size: @font-size-small;
@@ -238,18 +205,23 @@ hr {margin-left:0px;}
 
 
 @media (min-width: @screen-sm) and (max-width:@screen-md) {
-    .background {
-        .stretch {
+    #navbar {
+        .navbar-header {
+            height: 80px;
+        }
+
+        #navbar-links li > a {
+            padding-top: 30px;
+            padding-bottom: 30px;
         }
     }
-    .nav {
-        margin-left:40px;
-    }
+
     .well {
         .btn {
             margin-top:1.5em;
         }
     }
+
     .panel-and-img-all {
         .panel-and-img {
             & p {
@@ -283,14 +255,24 @@ hr {margin-left:0px;}
     body {
         overflow-x: hidden;
     }
-    .nav {
-        margin-left:185px;
+    #navbar {
+        .navbar-header {
+            max-height: 100px;
+            height: 100px;
+        }
+
+        #navbar-links li > a {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
     }
+
     .well {
         .btn {
             margin-top: 1.5em;
         }
     }
+
     .container-custom {
         & hr {
             margin-left:16px;
@@ -310,15 +292,13 @@ hr {margin-left:0px;}
 }
 
 @media (min-width:@screen-lg) {
-    .nav {
-       margin-left:240px;
-    }
     .panel-and-img-all {
        margin-left:65px;
        .texto-inferior-acompanhe {
            margin-right:-60px;
        }
     }
+
     .container-custom {
        & hr {
            padding-left:5px;

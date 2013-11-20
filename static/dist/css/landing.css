@@ -6687,8 +6687,6 @@ body {
 }
 #navbar .navbar-header #logo {
   height: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 #navbar #navbar-links a {
   text-decoration: none;
@@ -7001,7 +6999,6 @@ hr {
     overflow-x: hidden;
   }
   #navbar .navbar-header {
-    max-height: 100px;
     height: 100px;
   }
   #navbar #navbar-links li > a {
