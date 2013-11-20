@@ -6735,13 +6735,23 @@ body {
     width: 33.33333333333333%;
   }
 }
-#main #features .panel-title {
+#main #features .panel-wrapper .panel {
+  background: #a6a7bf;
+  border-color: transparent;
+  box-shadow: none;
+}
+#main #features .panel-wrapper .panel .panel-heading {
+  border-color: transparent;
+  background: #a6a7bf;
+}
+#main #features .panel-wrapper .panel .panel-heading img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 30px;
+}
+#main #features .panel-wrapper .panel .panel-heading .panel-title {
   font-family: "Roboto", sans-serif;
   color: #2b2d5d;
-  border-color: transparent!important;
-}
-#main #features .panel-title > a {
-  text-decoration: none;
 }
 #main #features .btn {
   position: relative;
@@ -6857,7 +6867,10 @@ hr {
     float: none;
     text-align: center;
   }
-  .well .btn {
+  #main #features .panel-wrapper {
+    margin-bottom: 10px;
+  }
+  #main #features .btn {
     margin-top: 1em;
     font-size: 14px;
   }
@@ -6921,7 +6934,10 @@ hr {
     padding-top: 30px;
     padding-bottom: 30px;
   }
-  .well .btn {
+  #main #features .panel-wrapper {
+    margin-bottom: 10px;
+  }
+  #main #features .btn {
     margin-top: 1.5em;
   }
   .panel-and-img-all .panel-and-img p {
@@ -7007,9 +7023,6 @@ hr {
   #navbar #navbar-links li > a {
     padding-top: 40px;
     padding-bottom: 40px;
-  }
-  .well .btn {
-    margin-top: 1.5em;
   }
   .container-custom hr {
     margin-left: 16px;
