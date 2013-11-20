@@ -10,6 +10,8 @@ body {
 
 #navbar {
     margin-bottom: 0;
+    background: @white; 
+    border: transparent;
 
     .navbar-header {
         #logo {
@@ -31,20 +33,14 @@ body {
     }
 }
 
-.navbar-default {
-    background: @white; 
-    border: transparent;
-}
-
-//main coantent
+//main content
 
 #main {
     text-align: center;
     background: @azul-claro;
 
-    .title {
-        margin-top: 5em;
-        margin-bottom: 5em;
+    #title {
+        margin-top: 4em;
 
         h1 {
             color: @gray-dark;
@@ -125,11 +121,11 @@ body {
             margin-top: 2em;
             margin-bottom: 2em;
             padding: (@modal-title-padding - 1) (@modal-inner-padding + 4) (@modal-title-padding + 2);
-            text-shadow: 1px 1px 1px #333!important;
+            text-shadow: 1px 1px 1px #333 !important;
             background: @laranja;
             background-repeat:none;
             &:hover {
-                background:@laranja-dark;
+                background: @laranja-dark;
                 border-color: @laranja-dark;
             }
         }
@@ -196,23 +192,33 @@ hr {margin-left:0px;}
             }
         }
 
-        #navbar-links > ul > li {
-            float: none;
+        #navbar-links {
             text-align: center;
         }
     }
 
     #main {
+        #title {
+            margin-top: 1em;
+
+            h1 {
+                font-size: 40px !important;
+            }
+        }
+
         #features {
             .panel-wrapper {
+                .panel .panel-heading img {
+                    width: 75px;
+                    height: 75px;
+                }
                 float: none;
                 margin: auto;
                 margin-bottom: 15px;
             }
 
             #register-button {
-                margin-top: 1em;
-                font-size: @font-size-base;
+                //font-size: @font-size-base;
             }
         }
     }
@@ -259,13 +265,13 @@ hr {margin-left:0px;}
     }
 
     #main {
+        #title {
+            margin-top: 2em;
+        }
+
         #features {
             .row-break {
                 margin-bottom: 10px;
-            }
-
-            #register-button {
-                margin-top: 1.5em;
             }
         }
     }
@@ -315,8 +321,10 @@ hr {margin-left:0px;}
         }
     }
 
-    #main #features .row-break {
-        margin-bottom: 30px;
+    #main {
+        #features .row-break {
+            margin-bottom: 30px;
+        }
     }
 
     .container-custom {
@@ -326,13 +334,13 @@ hr {margin-left:0px;}
     }
 
     .panel-and-img-all {
-        margin-left:68px;
-        margin-right:-20px;
+        margin-left: 68px;
+        margin-right: -20px;
         .texto-inferior-acompanhe {
-            margin:0 -65px 0 0;
+            margin: 0 -65px 0 0;
         }
         .img-ilustra-01 {
-            margin-top:2.5em;
+            margin-top: 2.5em;
         }
     }
 }

@@ -6684,6 +6684,8 @@ body {
 }
 #navbar {
   margin-bottom: 0;
+  background: #ffffff;
+  border: transparent;
 }
 #navbar .navbar-header #logo {
   height: 100%;
@@ -6697,30 +6699,25 @@ body {
 #navbar #navbar-links #register-link {
   color: #ba3500;
 }
-.navbar-default {
-  background: #ffffff;
-  border: transparent;
-}
 #main {
   text-align: center;
   background: #a6a7bf;
 }
-#main .title {
-  margin-top: 5em;
-  margin-bottom: 5em;
+#main #title {
+  margin-top: 4em;
 }
-#main .title h1 {
+#main #title h1 {
   color: #2b2d5d;
   font-family: "Oxygen", sans-serif;
   font-weight: 100;
   font-size: 60px;
 }
-#main .title h1 > span {
+#main #title h1 > span {
   color: #ffffff;
   text-shadow: 1px 2px 2px #666666;
   filter: dropshadow(color=#666666, offx=1, offy=2);
 }
-#main .title .lead-custom {
+#main #title .lead-custom {
   font-family: "Roboto", sans-serif;
 }
 #main #features .panel-wrapper {
@@ -6975,7 +6972,7 @@ td#main #features .row-break.lg {
   margin-top: 2em;
   margin-bottom: 2em;
   padding: 14px 24px 17px;
-  text-shadow: 1px 1px 1px #333!important;
+  text-shadow: 1px 1px 1px #333 !important;
   background: #ba3500;
   background-repeat: none;
 }
@@ -7069,18 +7066,23 @@ hr {
     margin-top: 23px;
     margin-bottom: 23px;
   }
-  #navbar #navbar-links > ul > li {
-    float: none;
+  #navbar #navbar-links {
     text-align: center;
+  }
+  #main #title {
+    margin-top: 1em;
+  }
+  #main #title h1 {
+    font-size: 40px !important;
   }
   #main #features .panel-wrapper {
     float: none;
     margin: auto;
     margin-bottom: 15px;
   }
-  #main #features #register-button {
-    margin-top: 1em;
-    font-size: 14px;
+  #main #features .panel-wrapper .panel .panel-heading img {
+    width: 75px;
+    height: 75px;
   }
   .panel-and-img-all {
     padding: 0;
@@ -7142,11 +7144,11 @@ hr {
     padding-top: 30px;
     padding-bottom: 30px;
   }
+  #main #title {
+    margin-top: 2em;
+  }
   #main #features .row-break {
     margin-bottom: 10px;
-  }
-  #main #features #register-button {
-    margin-top: 1.5em;
   }
   .panel-and-img-all .panel-and-img p {
     text-align: left;
