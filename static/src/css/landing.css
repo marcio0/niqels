@@ -6696,8 +6696,12 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
-#navbar #navbar-links #register-link {
-  color: #ba3500;
+.register-link {
+  color: #ba3500 !important;
+}
+span.highlight,
+a.highlight {
+  font-weight: bold !important;
 }
 #main {
   text-align: center;
@@ -6979,10 +6983,21 @@ td#main #features .row-break.lg {
 @media (min-width: 768px) {
   #main #features #register-button {
     float: left;
-    width: 33.33333333333333%;
+    width: 50%;
   }
 }
 @media (min-width: 768px) {
+  #main #features #register-button {
+    margin-left: 25%;
+  }
+}
+@media (min-width: 992px) {
+  #main #features #register-button {
+    float: left;
+    width: 33.33333333333333%;
+  }
+}
+@media (min-width: 992px) {
   #main #features #register-button {
     margin-left: 33.33333333333333%;
   }

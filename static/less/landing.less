@@ -26,10 +26,16 @@ body {
             text-decoration: none;
             font-weight: bold;
         }
+    }
+}
 
-        #register-link {
-            color: @laranja;
-        }
+.register-link {
+    color: @laranja !important;
+}
+
+span, a {
+    &.highlight {
+    font-weight: bold !important;
     }
 }
 
@@ -112,8 +118,11 @@ body {
         }
 
         #register-button {
-            .make-sm-column(4);
-            .make-sm-column-offset(4);
+            .make-sm-column(6);
+            .make-sm-column-offset(3);
+
+            .make-md-column(4);
+            .make-md-column-offset(4);
 
             .make-xs-column(12);
 

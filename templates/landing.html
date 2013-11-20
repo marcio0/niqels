@@ -51,7 +51,7 @@
                 <div class="collapse navbar-collapse" id="navbar-links">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{% url "login" %}">{% trans "Login" %}</a></li>
-                        <li><a id="register-link" href="{% url "register" %}">{% trans "Create account" %}</a></li>
+                        <li><a class="register-link" href="{% url "register" %}">{% trans "Create account" %}</a></li>
                     </ul>
                 </div>
             </div>
@@ -120,7 +120,8 @@
                             </div><!-- .panel-heading -->
 
                             <div class="panel-body">
-                                Use nosso sistema com uma interface voltada para mobiles com nosso aplicativo Android disponível no market aqui: link
+                                Use nosso sistema com uma interface voltada para mobiles com nosso aplicativo Android disponível no market:
+                                <a class="highlight" href="https://play.google.com/store/apps/details?id=br.com.niqels">Niqels App</a>
                             </div><!-- .panel-body -->
                         </div><!-- .panel.panel-default -->
                     </div>
@@ -157,6 +158,7 @@
 
                             <div class="panel-body">
                                 O cadastro leva apenas alguns instantes, crie sua conta gratuitamente e começe a usar!
+                                <a class="register-link highlight" href="{% url "register" %}">Clique aqui para criar sua conta</a>
                             </div><!-- .panel-body -->
                         </div><!-- .panel.panel-default -->
                     </div>
