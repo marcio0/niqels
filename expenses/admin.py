@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from expenses.models import Category, Transaction, CategoryGroup
 
+
 class CategoryAdmin(admin.ModelAdmin):
     fields = ['group' ,'name', 'is_negative', 'is_active']
     search_fields = ['name']
@@ -38,8 +39,8 @@ class CategoryGroupAdmin(admin.ModelAdmin):
     fields = ['name']
     search_fields = ['name']
     actions = None
-
 admin.site.register(CategoryGroup, CategoryGroupAdmin)
+
 
 class CategoryListFilter(SimpleListFilter):
     title = _('Category')
@@ -54,6 +55,7 @@ class CategoryListFilter(SimpleListFilter):
         else:
             return queryset
 
+
 class CategoryGroupListFilter(SimpleListFilter):
     title = _('Category group')
     parameter_name = 'category_group'
@@ -67,12 +69,14 @@ class CategoryGroupListFilter(SimpleListFilter):
         else:
             return queryset
 
+
 class TransactionAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
         return False
 
-    list_display = ('get_user', 'date', 'value', 'get_category')
+    list_display = ('date', 'value', 'get_category', 'created')
     list_filter = (CategoryListFilter, CategoryGroupListFilter, 'date', 'created')
+    ordering = ['-created']
 
     fields = ['value', 'description', 'date', 'user', 'created']
     search_fields = ['=value', '=user__email', 'description']
@@ -89,5 +93,4 @@ class TransactionAdmin(admin.ModelAdmin):
     def get_user(self, obj):
         return '%s (%s)' % (obj.user.name, obj.user.email)
     get_user.short_description = u'User'
-
 admin.site.register(Transaction, TransactionAdmin)
