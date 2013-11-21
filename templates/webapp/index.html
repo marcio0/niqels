@@ -7,7 +7,6 @@
 
 {% block extrahead %}
 
-<link href="{% static "css/spectrum.css" %}" rel="stylesheet" media="screen">
 <link href="{% static "css/bootstrap-select.css" %}" rel="stylesheet" media="screen">
 
 {% endblock extrahead %}
@@ -52,10 +51,6 @@
 
 <script type="text/ng-template" id="transaction-list.html">
 {% include "webapp/transactions/transaction-list.html" %}
-</script>
-
-<script type="text/ng-template" id="settings.html">
-{% include "webapp/settings/settings.html" %}
 </script>
 
 <script type="text/ng-template" id="reports.html">
@@ -103,9 +98,7 @@
         <script src="{{lib}}highcharts.src.js"></script>
         <script src="{{lib}}bootstrap-datepicker.js"></script>
         <script src="{{lib}}jquery.maskMoney.js"></script>
-        <script src="{{lib}}spectrum.js"></script>
         <script src="{{lib}}toastr.js"></script>
-        <script src="{{lib}}bootstrap-typeahead.js"></script>
         <script src="{{lib}}min/moment.min.js"></script>
         <script src="{{lib}}bootstrap-select.js"></script>
         <script src="{{lib}}min/modernizr.custom.19405.js"></script>
