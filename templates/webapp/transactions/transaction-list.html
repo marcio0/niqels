@@ -135,7 +135,7 @@
                                 <td class="description-column" ng-bind="transaction.description"></td>
 
                                 <td class="value-column" is-positive-class="transaction.value">
-                                    <span ng-bind="transaction.value | number:2"></span>
+                                    <span ng-bind="transaction.value | currency"></span>
                                 </td>
 
                                 <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
