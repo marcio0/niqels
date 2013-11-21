@@ -145,9 +145,7 @@
     <script type="text/javascript">
         window.isUserFirstLogin = true;
         $(function () {
-            toastr.options.positionClass = "toast-top-full-width";
-            toastr.info("{% trans "Welcome to Niqels, {0}!"%}".format('{{ user.name }}'));
-            toastr.options.positionClass = "toast-bottom-right";
+            toastr.info("{% trans "Welcome to Niqels, {0}!"%}".format('{{ user.name }}'), null, {positionClass: "toast-bottom-full-width"});
         });
     </script>
 {% endif %}
