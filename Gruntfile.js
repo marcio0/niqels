@@ -110,7 +110,7 @@ module.exports = function(grunt) {
             landing: {
                 files: {
                     "static/src/css/landing.css": [
-                        "static/less/landing.less"
+                        "static/less/landing/landing.less"
                     ]
                 }
             }
@@ -119,11 +119,11 @@ module.exports = function(grunt) {
 
         watch: {
             webapp: {
-                files: ['static/less/styles.less'],
+                files: ['static/less/*.less'],
                 tasks: ['less:webapp']
             },
             landing: {
-                files: ['static/less/landing.less'],
+                files: ['static/less/landing/*.less'],
                 tasks: ['less:landing']
             }
         },
