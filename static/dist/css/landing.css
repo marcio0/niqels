@@ -6760,11 +6760,12 @@ a.highlight {
 }
 #main #features .panel-wrapper .panel .panel-heading .panel-title {
   font-family: "Roboto", sans-serif;
+  font-size: 20px;
   color: #2b2d5d;
 }
 #main #features .panel-wrapper .panel .panel-body {
   line-height: 1.4em;
-  font-size: 14px;
+  font-size: 16px;
   text-align: justify;
 }
 #main #features .row-break:before,

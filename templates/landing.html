@@ -209,11 +209,13 @@
            </h5>
         </div>
         
-        <!-- Bootstrap core JavaScript
-        ==================================================
-        Placed at the end of the document so the pages load faster -->
-        <script src="/static/landing/js/jquery.js"></script>
-        <script src="/static/landing/js/bootstrap.js"></script>
+        {% if is_debug %}
+        <script src="{% static "js/lib/jquery-1.10.2.js" %}"></script>
+        <script src="{% static "js/lib/bootstrap.js" %}"></script>
+        {% else %}
+        <script src="{% static "js/script.min.js" %}"></script>
+        {% endif %}
+        <script src="{% url "django.views.i18n.javascript_catalog" %}" type="text/javascript"></script>
 
         {% if USE_GA %}
             {% include "ga.html" %}
