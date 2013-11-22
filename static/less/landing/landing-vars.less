@@ -111,7 +111,7 @@
 @table-bg-hover:                     #f5f5f5;
 @table-bg-active:                    @table-bg-hover;
 
-@table-border-color:                 #585b6c; // table and cell border
+@table-border-color:                 #ddd; // table and cell border
 
 
 // Buttons
@@ -122,7 +122,6 @@
 @btn-default-color:              #333;
 @btn-default-bg:                 #fff;
 @btn-default-border:             #ccc;
-@btn-custom-border:              @laranja;
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @brand-primary;
@@ -133,7 +132,7 @@
 @btn-success-border:             darken(@btn-success-bg, 5%);
 
 @btn-warning-color:              #fff;
-@btn-warning-bg:                 @laranja;
+@btn-warning-bg:                 @brand-warning;
 @btn-warning-border:             darken(@btn-warning-bg, 5%);
 
 @btn-danger-color:               #fff;
@@ -283,7 +282,7 @@
 //
 // Reset inverted navbar basics
 @navbar-inverse-color:                      @gray-light;
-@navbar-inverse-bg:                         #282b3a;
+@navbar-inverse-bg:                         #222;
 @navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
@@ -339,7 +338,7 @@
 
 // Pills
 @nav-pills-active-link-hover-bg:            @component-active-bg;
-@nav-pills-active-link-hover-color:         @gray;
+@nav-pills-active-link-hover-color:         #fff;
 
 
 // Pagination
@@ -368,10 +367,9 @@
 
 @jumbotron-padding:              30px;
 @jumbotron-color:                inherit;
-@jumbotron-bg:                   @azul-claro;
+@jumbotron-bg:                   @gray-lighter;
 
 @jumbotron-heading-color:        inherit;
-@jumbotron-custom:               @navbar-inverse-bg;
 
 
 // Form states and alerts
@@ -503,15 +501,15 @@
 
 // Panels
 // -------------------------
-@panel-bg:                    @gray-lighter;
+@panel-bg:                    #fff;
 @panel-inner-border:          #ddd;
 @panel-border-radius:         @border-radius-base;
 @panel-footer-bg:             #f5f5f5;
 
 @panel-default-text:          @gray-dark;
 @panel-default-border:        #ddd;
-//@panel-default-heading-bg:    @white;
-@panel-default-heading-bg:    @gray-lighter;
+
+@panel-default-heading-bg:    #f5f5f5;
 
 @panel-primary-text:          #fff;
 @panel-primary-border:        @brand-primary;

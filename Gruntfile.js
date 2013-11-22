@@ -117,11 +117,11 @@ module.exports = function(grunt) {
 
         watch: {
             webapp: {
-                files: ['static/less/*.less'],
+                files: ['static/less/*.less', 'static/less/webapp/*.less'],
                 tasks: ['less:webapp']
             },
             landing: {
-                files: ['static/less/landing/*.less'],
+                files: ['static/less/*.less', 'static/less/landing/*.less'],
                 tasks: ['less:landing']
             }
         },
