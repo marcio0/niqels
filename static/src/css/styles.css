@@ -261,7 +261,7 @@ body {
   font-family: "Oxygen", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #585b6c;
+  color: #2b2d5d;
   background-color: #fdfdfd;
 }
 input,
@@ -279,12 +279,12 @@ textarea {
   background-image: none;
 }
 a {
-  color: #4a4c78;
+  color: #1f214c;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #2d2e49;
+  color: #090916;
   text-decoration: underline;
 }
 a:focus {
@@ -621,7 +621,7 @@ pre {
   line-height: 1.428571429;
   word-break: break-all;
   word-wrap: break-word;
-  color: #585b6c;
+  color: #2b2d5d;
   background-color: #f5f5f5;
   border: 1px solid #cccccc;
   border-radius: 0px;
@@ -1495,7 +1495,7 @@ legend {
   margin-bottom: 20px;
   font-size: 21px;
   line-height: inherit;
-  color: #585b6c;
+  color: #2b2d5d;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -1735,7 +1735,7 @@ textarea.input-lg {
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #989bab;
+  color: #565ab1;
 }
 @media (min-width: 768px) {
   .form-inline .form-group {
@@ -2070,7 +2070,7 @@ fieldset[disabled] .btn-info.active {
   border-color: #46b8da;
 }
 .btn-link {
-  color: #4a4c78;
+  color: #1f214c;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0;
@@ -2091,7 +2091,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #2d2e49;
+  color: #090916;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -3593,7 +3593,7 @@ a .icon-flip-vertical:before {
   clear: both;
   font-weight: normal;
   line-height: 1.428571429;
-  color: #585b6c;
+  color: #2b2d5d;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
@@ -4093,7 +4093,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: #4a4c78;
+  border-color: #1f214c;
 }
 .nav .nav-divider {
   height: 1px;
@@ -4232,12 +4232,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
   display: block;
 }
 .nav .caret {
-  border-top-color: #4a4c78;
-  border-bottom-color: #4a4c78;
+  border-top-color: #1f214c;
+  border-bottom-color: #1f214c;
 }
 .nav a:hover .caret {
-  border-top-color: #2d2e49;
-  border-bottom-color: #2d2e49;
+  border-top-color: #090916;
+  border-bottom-color: #090916;
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -4588,18 +4588,18 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-color: #d4d1dd;
 }
 .navbar-default .navbar-brand {
-  color: #585b6c;
+  color: #2b2d5d;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #414350;
+  color: #1b1c3a;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #585b6c;
+  color: #2b2d5d;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #585b6c;
+  color: #2b2d5d;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -4650,12 +4650,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-bottom-color: #fdfdfd;
 }
 .navbar-default .navbar-nav > .dropdown > a .caret {
-  border-top-color: #585b6c;
-  border-bottom-color: #585b6c;
+  border-top-color: #2b2d5d;
+  border-bottom-color: #2b2d5d;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #585b6c;
+    color: #2b2d5d;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -4676,7 +4676,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default .navbar-link {
-  color: #585b6c;
+  color: #2b2d5d;
 }
 .navbar-default .navbar-link:hover {
   color: #4a4c78;
@@ -5041,7 +5041,7 @@ a.badge:focus {
 }
 a.list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #4a4c78;
+  color: #1f214c;
   background-color: #ffffff;
 }
 .nav-pills > li > a > .badge {
@@ -5099,7 +5099,7 @@ a.list-group-item.active > .badge,
 }
 a.thumbnail:hover,
 a.thumbnail:focus {
-  border-color: #4a4c78;
+  border-color: #1f214c;
 }
 .thumbnail > img {
   margin-left: auto;
@@ -5107,7 +5107,7 @@ a.thumbnail:focus {
 }
 .thumbnail .caption {
   padding: 9px;
-  color: #585b6c;
+  color: #2b2d5d;
 }
 .alert {
   padding: 15px;
@@ -5480,7 +5480,7 @@ a.list-group-item:focus {
   border-color: #dddddd;
 }
 .panel-default > .panel-heading {
-  color: #585b6c;
+  color: #2b2d5d;
   background-color: #eeeeee;
   border-color: #dddddd;
 }
