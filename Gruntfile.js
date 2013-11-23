@@ -100,15 +100,16 @@ module.exports = function(grunt) {
             webapp: {
                 files: {
                     "static/src/css/styles.css": [
-                        "static/less/webapp/styles.less",
-                        "static/less/toastr-override.less"
+                        "static/less/webapp/*.less",
+                        "static/less/variables.less"
                     ]
                 }
             },
             landing: {
                 files: {
                     "static/src/css/landing.css": [
-                        "static/less/landing/landing.less"
+                        "static/less/landing/*.less",
+                        "static/less/variables.less"
                     ]
                 }
             }
