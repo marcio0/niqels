@@ -4,7 +4,7 @@
 angular.module('ga', [])
     .config(function () {
         if (window._gaq === undefined) {
-            console.warn("Your attention please: _gaq is not present. I'm replacing it with a list.");
+            console.warn("Your attention please: _gaq is not present. Using a dummy instead.");
             window._gaq = [];
         }
     })
