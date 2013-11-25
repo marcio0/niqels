@@ -4,7 +4,7 @@
 angular.module('ga', [])
     .config(function () {
         if (window._gaq === undefined) {
-            console.warn("Your attention please: _gaq is not present. I'm replacing it with a list.");
+            console.warn("Your attention please: _gaq is not present. Using a dummy instead.");
             window._gaq = [];
         }
     })
@@ -31,20 +31,27 @@ angular.module('ga', [])
         var reportsCategory = 'Reports';
         var accountsCategory = 'Account';
 
-        $rootScope.$on('$stateChangeSuccess', function () {
-            _gaq.push(['_trackPageview', $location.path()]);
-        });
+        var createdAccountsMetric = 'metric1';
+        var userAccessMetric = 'metric2';
 
+
+        _gaq.push(['set', 'metric2', 1]);
         if (window.isUserFirstLogin){
+            _gaq.push(['set', 'metric1', 1]);
             _gaq.push(['_trackEvent', accountsCategory, 'create']);
             window.isUserFirstTransaction = true;
         }
         else {
             window.isUserFirstTransaction = false;
-            _gaq.push(['_trackEvent', accountsCategory, 'returned']);
         }
 
-        $rootScope.$on('transaction-created', function () {
+
+        $rootScope.$on('$stateChangeSuccess', function () {
+            _gaq.push(['_trackPageview', $location.path()]);
+        });
+
+
+        $rootScope.$on('transaction-created', function (ev, transaction) {
             // tracks transactions
 
             if (window.isUserFirstTransaction) {
@@ -53,28 +60,14 @@ angular.module('ga', [])
                 _gaq.push(['_trackEvent', transactionsCategory, 'create-first']);
                 window.isUserFirstTransaction = false;
             }
-            else {
-                _gaq.push(['_trackEvent', transactionsCategory, 'create']);
-            }
+            _gaq.push(['_trackEvent', transactionsCategory, 'create', transaction.category.name]);
         });
+
 
         $rootScope.$on('transaction-removed', function () {
             _gaq.push(['_trackEvent', 'Transactions', 'remove']);
-            
         });
 
-        var first = false;
-        $rootScope.$on('transaction-list-filter-date-changed', function (event, date) {
-            // when a user changes the date period on the transaction list
-            if (!first) {
-                // do not log the first hit, it's not user interaction
-                first = true;
-                return;
-            }
-
-            var dateStr = moment(date).format('YYYY-MM-DD');
-            _gaq.push(['_trackEvent', transactionsCategory, 'change-list-period', dateStr]);
-        });
 
         $rootScope.$on('category-comparison-category-selected', function (event, category) {
             // tracking when a user changes the category on comparison report

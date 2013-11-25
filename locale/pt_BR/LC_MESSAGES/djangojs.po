@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-19 23:51-0200\n"
+"POT-Creation-Date: 2013-11-25 18:50-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,11 +38,11 @@ msgstr "Um erro ocorreu ao criado %s."
 msgid "%s sucessfuly removed."
 msgstr "%s removida com sucesso."
 
-#: static/src/js/app/directives.js:142
+#: static/src/js/app/directives.js:74
 msgid "Confirm action"
 msgstr "Confirmar ação"
 
-#: static/src/js/app/directives.js:186
+#: static/src/js/app/directives.js:107
 msgid "Select one"
 msgstr "Selecione uma categoria"
 
