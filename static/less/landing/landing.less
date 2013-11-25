@@ -13,6 +13,7 @@ body {
     margin-bottom: 0;
     background: @white; 
     border: transparent;
+    font-size: 14px;
 
     .navbar-header {
         #logo {
@@ -82,22 +83,21 @@ span, a {
                     background: @azul-claro;
 
                     img {
-                        width: 150px;
-                        height: 150px;
+                        width: 100px;
+                        height: 100px;
 
                         margin-bottom: 30px;
                     }
 
                     .panel-title {
                         font-family: @font-family-custom-panel;
-                        font-size: 16px;
+                        font-size: @font-size-base + 2;
                         color: @gray-dark;
                     }
                 }
 
                 .panel-body {
                     line-height: 1.4em;
-                    font-size: 14px;
                     text-align: justify;
                 }
             }
@@ -159,13 +159,13 @@ hr {margin-left:0px;}
         line-height:(@line-height-computed * 1.4);
         & > h2 {
             font-family:@font-family-title-textos-h2;
-            font-size: (@font-size-large * 2);
+            font-size: (@font-size-large + 4);
             font-weight: 700;
         }
         & > p {
             margin:0 5px;
             font-family:@font-family-textos;
-            font-size: (@font-size-base + 2px);
+            font-size: (@font-size-base + 4px);
             color:@azul-escuro-lighter;
             font-weight: 600; 
         }
@@ -221,8 +221,8 @@ hr {margin-left:0px;}
         #features {
             .panel-wrapper {
                 .panel .panel-heading img {
-                    width: 75px;
-                    height: 75px;
+                    width: 70px;
+                    height: 70px;
                 }
                 float: none;
                 margin: auto;
@@ -355,7 +355,7 @@ hr {margin-left:0px;}
 
 @media (min-width:@screen-lg) {
     .panel-and-img-all {
-       margin-left:65px;
+       margin-left: 65px;
        .texto-inferior-acompanhe {
            margin-right:-60px;
        }
