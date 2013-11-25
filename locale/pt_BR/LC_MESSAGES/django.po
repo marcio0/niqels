@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-19 23:51-0200\n"
+"POT-Creation-Date: 2013-11-25 18:50-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,8 +49,6 @@ msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
 #: access/forms.py:57 templates/access/forms/register.html:5
-#: templates/webapp/settings/category-edit.html:14
-#: templates/webapp/settings/category-list.html:24
 msgid "Name"
 msgstr "Nome"
 
@@ -138,13 +136,13 @@ msgstr "Inglês"
 msgid "Portuguese"
 msgstr "Português"
 
-#: expenses/admin.py:45 expenses/models.py:71
+#: expenses/admin.py:46 expenses/models.py:71
 #: templates/webapp/transactions/transaction-form.html:17
 #: templates/webapp/transactions/transaction-list.html:118
 msgid "Category"
 msgstr "Categoria"
 
-#: expenses/admin.py:58 expenses/models.py:31
+#: expenses/admin.py:60 expenses/models.py:31
 msgid "Category group"
 msgstr "Grupo de categoria"
 
@@ -180,8 +178,7 @@ msgstr "grupo de categoria"
 msgid "The group this category belongs."
 msgstr "O grupo ao qual esta categoria pertence."
 
-#: expenses/models.py:72 templates/webapp/settings/category-list.html:3
-#: templates/webapp/settings/settings.html:9
+#: expenses/models.py:72
 msgid "Categories"
 msgstr "Categorias"
 
@@ -260,7 +257,7 @@ msgstr "Quando esta movimentação foi criada."
 msgid "Transaction"
 msgstr "Movimentação"
 
-#: expenses/models.py:163 templates/webapp/index.html:19
+#: expenses/models.py:163 templates/webapp/index.html:18
 #: templates/webapp/transactions/transaction-list.html:11
 msgid "Transactions"
 msgstr "Movimentações"
@@ -273,18 +270,6 @@ msgstr "Entrar"
 #: templates/landing.html:54
 msgid "Create account"
 msgstr "Criar conta"
-
-#: templates/presentation.html:26
-msgid "Organize your money the easy way!"
-msgstr "Organize seus gastos de forma fácil!"
-
-#: templates/user-menu.html:6
-msgid "Change password"
-msgstr "Mudar senha"
-
-#: templates/user-menu.html:9
-msgid "Logout"
-msgstr "Sair"
 
 #: templates/access/change_password.html:11
 msgid "Old password"
@@ -419,17 +404,25 @@ msgstr "Um email foi enviado para <strong>%(email)s</strong>."
 msgid "Follow the instructions on this email to set a new password."
 msgstr "Siga as instruções neste email para escolher uma nova senha."
 
-#: templates/webapp/index.html:20 templates/webapp/reports/reports.html:4
+#: templates/webapp/index.html:19 templates/webapp/reports/reports.html:4
 msgid "Reports"
 msgstr "Relatórios"
 
-#: templates/webapp/index.html:24
+#: templates/webapp/index.html:23
 msgid "Like us on Facebook"
 msgstr "Curta nossa página no Facebook"
 
-#: templates/webapp/index.html:151
+#: templates/webapp/index.html:143
 msgid "Welcome to Niqels, {0}!"
 msgstr "Bem vindo ao Niqels, {0}!"
+
+#: templates/webapp/user-menu.html:6
+msgid "Change password"
+msgstr "Mudar senha"
+
+#: templates/webapp/user-menu.html:9
+msgid "Logout"
+msgstr "Sair"
 
 #: templates/webapp/reports/balance.html:3
 #: templates/webapp/reports/reports.html:10
@@ -466,44 +459,6 @@ msgstr "Período"
 msgid "Update"
 msgstr "Atualizar"
 
-#: templates/webapp/settings/category-edit.html:8
-msgid "Edit category"
-msgstr "Editar categoria"
-
-#: templates/webapp/settings/category-edit.html:25
-msgid "Color"
-msgstr "Cor"
-
-#: templates/webapp/settings/category-edit.html:37
-#: templates/webapp/transactions/transaction-list.html:92
-#: templates/webapp/transactions/transaction-list.html:145
-msgid "Do you wish to remove this category?"
-msgstr "Deseja remover esta categoria?"
-
-#: templates/webapp/settings/category-edit.html:40
-msgid "Remove category"
-msgstr "Remover categoria"
-
-#: templates/webapp/settings/category-edit.html:42
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: templates/webapp/settings/category-edit.html:43
-msgid "Save"
-msgstr "Salvar"
-
-#: templates/webapp/settings/category-list.html:7
-msgid "New category"
-msgstr "Nova categoria"
-
-#: templates/webapp/settings/category-list.html:13
-msgid "Search categories"
-msgstr "Buscar categorias"
-
-#: templates/webapp/settings/category-list.html:42
-msgid "No categories."
-msgstr "Nenhuma categoria."
-
 #: templates/webapp/settings/settings.html:4
 msgid "Menu"
 msgstr "Menu"
@@ -524,28 +479,28 @@ msgstr "total"
 msgid "New transaction"
 msgstr "Nova movimentação"
 
-#: templates/webapp/transactions/transaction-form.html:39
+#: templates/webapp/transactions/transaction-form.html:40
 #: templates/webapp/transactions/transaction-list.html:71
 #: templates/webapp/transactions/transaction-list.html:124
 msgid "Value"
 msgstr "Valor"
 
-#: templates/webapp/transactions/transaction-form.html:56
+#: templates/webapp/transactions/transaction-form.html:57
 #: templates/webapp/transactions/transaction-list.html:68
 #: templates/webapp/transactions/transaction-list.html:121
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/webapp/transactions/transaction-form.html:67
+#: templates/webapp/transactions/transaction-form.html:68
 msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
-#: templates/webapp/transactions/transaction-form.html:73
+#: templates/webapp/transactions/transaction-form.html:74
 #: templates/webapp/transactions/transaction-list.html:65
 msgid "Date"
 msgstr "Data"
 
-#: templates/webapp/transactions/transaction-form.html:84
+#: templates/webapp/transactions/transaction-form.html:85
 msgid "Submit"
 msgstr "Enviar"
 
@@ -553,11 +508,43 @@ msgstr "Enviar"
 msgid "Group transactions by:"
 msgstr "Agrupar movimentações por:"
 
+#: templates/webapp/transactions/transaction-list.html:92
+#: templates/webapp/transactions/transaction-list.html:145
+msgid "Do you wish to remove this category?"
+msgstr "Deseja remover esta categoria?"
+
 #: templates/webapp/transactions/transaction-list.html:96
-#: templates/webapp/transactions/transaction-list.html:150
+#: templates/webapp/transactions/transaction-list.html:149
 msgid "Remove this transaction"
 msgstr "Remover esta movimentação"
 
-#: templates/webapp/transactions/transaction-list.html:161
-msgid "No transacions for the period."
+#: templates/webapp/transactions/transaction-list.html:160
+msgid "No transactions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Organize your money the easy way!"
+#~ msgstr "Organize seus gastos de forma fácil!"
+
+#~ msgid "Edit category"
+#~ msgstr "Editar categoria"
+
+#~ msgid "Color"
+#~ msgstr "Cor"
+
+#~ msgid "Remove category"
+#~ msgstr "Remover categoria"
+
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgid "Save"
+#~ msgstr "Salvar"
+
+#~ msgid "New category"
+#~ msgstr "Nova categoria"
+
+#~ msgid "Search categories"
+#~ msgstr "Buscar categorias"
+
+#~ msgid "No categories."
+#~ msgstr "Nenhuma categoria."

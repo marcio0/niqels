@@ -10,7 +10,7 @@
          
         <h4 class="area-header">{% trans "Transactions" %}</h4>
 
-        <div id="transacion-list-options" class="well">
+        <div id="transaction-list-options" class="well">
             <div class="month-selector">
             <div class="btn-group">
                 <button class="btn btn-link previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left icon-" ng-click="moveMonth('subtract')"></i></button>
@@ -28,14 +28,14 @@
                             value="{% trans "date" %}"
                             ng-click="groupBy = 'date'"
                             ng-class="{active: groupBy == 'date'}"
-                            track="click,Transacions,grouping,date"
+                            track="click,Transactions,grouping,date"
                             >
                     <input class="btn btn-default"
                             ng-class="{active: groupBy == 'category.name'}"
                             type="button"
                             value="{% trans "category" %}"
                             ng-click="groupBy = 'category.name'"
-                            track="click,Transacions,grouping,category"
+                            track="click,Transactions,grouping,category"
                             >
                 </div>
             </li>
@@ -157,7 +157,7 @@
         </div>
 
         <div id="empty-msg" ng-show="isEmpty()">
-            {% trans "No transacions for the period." %}
+            {% trans "No transactions for the period." %}
         </div>
 
         <div class="loading-spinner" ng-show="loading">
