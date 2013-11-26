@@ -100,16 +100,14 @@ module.exports = function(grunt) {
             webapp: {
                 files: {
                     "static/src/css/styles.css": [
-                        "static/less/webapp/*.less",
-                        "static/less/variables.less"
+                        "static/less/webapp/styles.less"
                     ]
                 }
             },
             landing: {
                 files: {
                     "static/src/css/landing.css": [
-                        "static/less/landing/*.less",
-                        "static/less/variables.less"
+                        "static/less/landing/*.less"
                     ]
                 }
             }

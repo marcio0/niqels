@@ -1,81 +1,3 @@
-.chart-title {
-  text-align: center;
-  margin-bottom: 15px;
-  margin-top: 30px;
-}
-div.balance-info {
-  padding-right: 15px;
-}
-div.balance-info div {
-  position: relative;
-  text-align: right;
-  margin: 15px 0;
-}
-div.balance-info div.renevues .value,
-div.balance-info div.expenses .value {
-  font-size: 16px;
-}
-div.balance-info div.renevues {
-  color: #46a546;
-}
-div.balance-info div.expenses {
-  color: #9d261d;
-}
-div.balance-info div.total .value {
-  font-size: 20px;
-  font-weight: bold;
-}
-div.balance-info div.total.positive {
-  color: #049cdb;
-}
-div.balance-info div.total.negative {
-  color: #9d261d;
-}
-div.balance-info div .description {
-  position: absolute;
-  font-size: 11px;
-  bottom: 3px;
-  left: 0px;
-}
-div.balance-info div.total .value {
-  border-top: 1px solid #CCC;
-  padding: 5px 0;
-}
-p.renevues {
-  color: #46a546;
-}
-p.expenses {
-  color: #9d261d;
-}
-
-.category-table tbody tr {
-  cursor: pointer;
-}
-.category-table tbody tr td.category-name:hover {
-  text-decoration: underline;
-}
-
-/*
- * charts.less
-* Global styles for the charts.
- */
-.highcharts-tooltip p {
-  margin-bottom: 3px;
-}
-.highcharts-tooltip div.title {
-  font-size: 11px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 5px;
-}
-
-/*
- * Category edit
- */
-button.remove-category {
-  float: left;
-}
-
 /*!
  * Bootstrap v3.0.0
  *
@@ -7110,6 +7032,26 @@ thead tr th {
   font-style: italic;
   font-weight: normal;
 }
+#transaction-list-options .option li {
+  vertical-align: middle;
+}
+#transaction-list-options .option .toggle-selector a {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+#transaction-list-options .option .toggle-selector a:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+#transaction-list-options .option .toggle-selector .active {
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#transaction-list-options .option .toggle-selector .active:hover {
+  text-decoration: underline;
+}
 #transaction-list-panel .transaction-group .panel-heading .panel-title .group-total {
   font-family: "Oxygen", Helvetica, Arial, sans-serif;
 }
@@ -7147,6 +7089,16 @@ thead tr th {
 .month-selector {
   margin-bottom: 20px;
   text-align: center;
+}
+.month-selector .btn {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+  border: 0;
+  box-shadow: 1px 1px 1px #ccc;
+  height: 100%;
+}
+.month-selector .btn i {
+  line-height: initial;
 }
 .loading-spinner {
   width: 100%;
@@ -7232,12 +7184,6 @@ thead tr th {
 }
 .btn {
   text-transform: uppercase;
-}
-.btn i {
-  margin-left: 5px;
-}
-a > i[class^="icon"] {
-  margin-left: 5px;
 }
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
@@ -7368,61 +7314,3 @@ span.category-label:empty {
 hr {
   border-color: #807f88;
 }
-
-/*
- * transaction-list.less
- * styles for the transaction list.
- */
-thead tr th {
-  font-style: italic;
-  font-weight: normal;
-}
-#transaction-list-panel .transaction-group .panel-heading .panel-title .group-total {
-  font-family: "Oxygen", Helvetica, Arial, sans-serif;
-}
-#transaction-list-panel .transaction-group .panel-heading .panel-title .group-total.renevue {
-  color: #46a546;
-}
-#transaction-list-panel .transaction-group .panel-heading .panel-title .group-total.expense {
-  color: #9d261d;
-}
-#transaction-list-panel .transaction-group .panel-body {
-  background-color: #fdfdfd;
-}
-#transaction-list-panel .transaction-group .panel-body table thead .category-column-header,
-#transaction-list-panel .transaction-group .panel-body table thead .date-column-header,
-#transaction-list-panel .transaction-group .panel-body table thead .value-column-header,
-#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header {
-  width: 1%;
-}
-#transaction-list-panel .transaction-group .panel-body table thead .value-column-header {
-  text-align: right;
-}
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column {
-  text-align: right;
-  white-space: nowrap;
-}
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column.renevue {
-  background-color: #dff1df;
-}
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column.expense {
-  background-color: #f8dcda;
-}
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .action-bar .delete-transaction:hover {
-  color: #d9534f;
-}
-.month-selector {
-  margin-bottom: 20px;
-  text-align: center;
-}
-.loading-spinner {
-  width: 100%;
-  text-align: center;
-}
-#empty-msg {
-  text-align: center;
-}
-#transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
-  color: #d9534f;
-}
-
