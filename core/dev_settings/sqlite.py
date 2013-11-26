@@ -12,4 +12,6 @@ DATABASES = {
     }
 }
 
+STATIC_ROOT = '/home/vagrant/staticfiles/'
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
