@@ -7110,6 +7110,26 @@ thead tr th {
   font-style: italic;
   font-weight: normal;
 }
+#transaction-list-options .option li {
+  vertical-align: middle;
+}
+#transaction-list-options .option .toggle-selector a {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+#transaction-list-options .option .toggle-selector a:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+#transaction-list-options .option .toggle-selector .active {
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#transaction-list-options .option .toggle-selector .active:hover {
+  text-decoration: underline;
+}
 #transaction-list-panel .transaction-group .panel-heading .panel-title .group-total {
   font-family: "Oxygen", Helvetica, Arial, sans-serif;
 }
@@ -7376,6 +7396,26 @@ hr {
 thead tr th {
   font-style: italic;
   font-weight: normal;
+}
+#transaction-list-options .option li {
+  vertical-align: middle;
+}
+#transaction-list-options .option .toggle-selector a {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+#transaction-list-options .option .toggle-selector a:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+#transaction-list-options .option .toggle-selector .active {
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#transaction-list-options .option .toggle-selector .active:hover {
+  text-decoration: underline;
 }
 #transaction-list-panel .transaction-group .panel-heading .panel-title .group-total {
   font-family: "Oxygen", Helvetica, Arial, sans-serif;

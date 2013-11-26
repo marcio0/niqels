@@ -19,26 +19,28 @@
             </div>
             </div>
 
-            <ul class="list-inline">
-            <li>{% trans "Group transactions by:" %}</li>
-            <li>
-                <div id="group-options" class="btn-group">
-                    <input class="btn btn-default"
-                            type="button"
-                            value="{% trans "date" %}"
-                            ng-click="groupBy = 'date'"
-                            ng-class="{active: groupBy == 'date'}"
-                            track="click,Transactions,grouping,date"
-                            >
-                    <input class="btn btn-default"
-                            ng-class="{active: groupBy == 'category.name'}"
-                            type="button"
-                            value="{% trans "category" %}"
-                            ng-click="groupBy = 'category.name'"
-                            track="click,Transactions,grouping,category"
-                            >
-                </div>
-            </li>
+            <ul class="list-inline option">
+                <li>{% trans "Group transactions by:" %}</li>
+                <li>
+                    <ul class="list-inline toggle-selector">
+                        <li>
+                            <a 
+                                ng-click="groupBy = 'date'"
+                                ng-class="{active: groupBy == 'date'}"
+                                >
+                                {% trans "date" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                ng-class="{active: groupBy == 'category.name'}"
+                                ng-click="groupBy = 'category.name'"
+                                >
+                                {% trans "category" %}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
 

@@ -10,6 +10,35 @@ thead tr th {
     font-weight: normal;
 }
 
+#transaction-list-options {
+    .option {
+        li {
+            vertical-align: middle;
+        }
+        .toggle-selector {
+            a {
+                padding-right: 5px;
+
+                padding-left: 5px;
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+            }
+            .active {
+                text-shadow: none;
+                -webkit-box-shadow: none;
+                font-weight: bold;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
 #transaction-list-panel {
     .transaction-group {
         .panel-heading .panel-title .group-total {
