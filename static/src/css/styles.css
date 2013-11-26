@@ -7310,6 +7310,9 @@ thead tr th {
 #transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
   color: #d9534f;
 }
+body {
+  overflow-y: scroll;
+}
 .left-column {
   position: relative;
   min-height: 1px;
