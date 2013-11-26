@@ -3,15 +3,15 @@
  * It is compiled separately and concatenated with the web app css.
  */
 @import "lib/toastr.less";
-@import "variables.less";
+//@import "variables.less";
 
 #toast-container {
     > div {
         .borderRadius(@border-radius-base) !important;
-        .boxShadow(none) !important;
+        .boxShadow(2px 2px 5px @grey) !important;
     }
 
 	> :hover {
-		.boxShadow(0 0 12px @grey) !important;
+        .boxShadow(2px 2px 5px #ccc) !important;
     }
 }
