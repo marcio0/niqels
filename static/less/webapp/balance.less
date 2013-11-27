@@ -1,57 +1,60 @@
-@import "../variables.less";
 
-.chart-title {
-    text-align: center;
-    margin-bottom: 15px;
-    margin-top: 30px;
-}
+#balance-panel {
+    .panel {
+        background-color: transparent;
+        border-style: dashed;
+        box-shadow: 0 0 3px #ccc;
+    }
 
-div.balance-info {
-    padding-right: 15px;
+    .panel-body {
+        div.balance-info {
+            padding-right: 15px;
 
-    div {
-        position: relative;
-        text-align: right;
-        margin: 15px 0;
+            div {
+                position: relative;
+                text-align: right;
+                margin: 15px 0;
 
-        &.renevues, &.expenses {
-            .value {
-                font-size: 16px;
+                &.renevues, &.expenses {
+                    .value {
+                        font-size: 16px;
+                    }
+                }
+
+                &.renevues {
+                    color: @renevues;
+                }
+
+                &.expenses {
+                    color: @expenses;
+                }
+
+                &.total {
+                    .value {
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+
+                    &.positive {
+                        color: @positive;
+                    }
+                    &.negative {
+                        color: @negative;
+                    }
+                }
+
+                .description {
+                    position: absolute;
+                    font-size: 11px;
+                    bottom: 3px;
+                    left: 0px;
+                }
+
+                &.total .value {
+                    border-top: 1px solid #CCC;
+                    padding: 5px 0;
+                }
             }
-        }
-
-        &.renevues {
-            color: @renevues;
-        }
-
-        &.expenses {
-            color: @expenses;
-        }
-
-        &.total {
-            .value {
-                font-size: 20px;
-                font-weight: bold;
-            }
-
-            &.positive {
-                color: @positive;
-            }
-            &.negative {
-                color: @negative;
-            }
-        }
-
-        .description {
-            position: absolute;
-            font-size: 11px;
-            bottom: 3px;
-            left: 0px;
-        }
-
-        &.total .value {
-            border-top: 1px solid #CCC;
-            padding: 5px 0;
         }
     }
 }

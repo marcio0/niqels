@@ -7066,46 +7066,46 @@ td.visible-print {
 button.remove-category {
   float: left;
 }
-.chart-title {
-  text-align: center;
-  margin-bottom: 15px;
-  margin-top: 30px;
+#balance-panel .panel {
+  background-color: transparent;
+  border-style: dashed;
+  box-shadow: 0 0 3px #ccc;
 }
-div.balance-info {
+#balance-panel .panel-body div.balance-info {
   padding-right: 15px;
 }
-div.balance-info div {
+#balance-panel .panel-body div.balance-info div {
   position: relative;
   text-align: right;
   margin: 15px 0;
 }
-div.balance-info div.renevues .value,
-div.balance-info div.expenses .value {
+#balance-panel .panel-body div.balance-info div.renevues .value,
+#balance-panel .panel-body div.balance-info div.expenses .value {
   font-size: 16px;
 }
-div.balance-info div.renevues {
+#balance-panel .panel-body div.balance-info div.renevues {
   color: #46a546;
 }
-div.balance-info div.expenses {
+#balance-panel .panel-body div.balance-info div.expenses {
   color: #9d261d;
 }
-div.balance-info div.total .value {
+#balance-panel .panel-body div.balance-info div.total .value {
   font-size: 20px;
   font-weight: bold;
 }
-div.balance-info div.total.positive {
+#balance-panel .panel-body div.balance-info div.total.positive {
   color: #049cdb;
 }
-div.balance-info div.total.negative {
+#balance-panel .panel-body div.balance-info div.total.negative {
   color: #9d261d;
 }
-div.balance-info div .description {
+#balance-panel .panel-body div.balance-info div .description {
   position: absolute;
   font-size: 11px;
   bottom: 3px;
   left: 0px;
 }
-div.balance-info div.total .value {
+#balance-panel .panel-body div.balance-info div.total .value {
   border-top: 1px solid #CCC;
   padding: 5px 0;
 }
@@ -7195,8 +7195,8 @@ thead tr th {
   vertical-align: middle;
 }
 #transaction-list-options .option .toggle-selector a {
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 2px;
+  padding-left: 2px;
 }
 #transaction-list-options .option .toggle-selector a:hover {
   cursor: pointer;

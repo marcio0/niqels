@@ -10,8 +10,8 @@
          
         <h4 class="area-header">{% trans "Transactions" %}</h4>
 
-        <div id="transaction-list-options" class="well">
-            <div class="month-selector">
+        <div id="transaction-list-options" class="panel panel-default">
+            <div class="month-selector panel-body">
             <div class="btn-group">
                 <button class="btn btn-default previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left" ng-click="moveMonth('subtract')"></i></button>
                 <button class="btn btn-default actual-month" ng-class="{disabled: loading}" month-selector="filterDate"></button>
@@ -31,6 +31,7 @@
                                 {% trans "date" %}
                             </a>
                         </li>
+                        /
                         <li>
                             <a
                                 ng-class="{active: groupBy == 'category.name'}"
@@ -170,6 +171,6 @@
 
 </div>
 
-<div class="right-column">
+<div class="right-column" id="balance-panel">
     {% include "webapp/transactions/month_balance_panel.html" %}
 </div>
