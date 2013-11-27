@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-25 18:50-0200\n"
+"POT-Creation-Date: 2013-11-27 01:16-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,7 +138,7 @@ msgstr "Português"
 
 #: expenses/admin.py:46 expenses/models.py:71
 #: templates/webapp/transactions/transaction-form.html:17
-#: templates/webapp/transactions/transaction-list.html:118
+#: templates/webapp/transactions/transaction-list.html:123
 msgid "Category"
 msgstr "Categoria"
 
@@ -183,7 +183,7 @@ msgid "Categories"
 msgstr "Categorias"
 
 #: expenses/models.py:77 expenses/models.py:143
-#: templates/webapp/transactions/transaction-list.html:36
+#: templates/webapp/transactions/transaction-list.html:42
 msgid "category"
 msgstr "categoria"
 
@@ -229,7 +229,7 @@ msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
 msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
 
 #: expenses/models.py:135
-#: templates/webapp/transactions/transaction-list.html:28
+#: templates/webapp/transactions/transaction-list.html:32
 msgid "date"
 msgstr "data"
 
@@ -408,11 +408,7 @@ msgstr "Siga as instruções neste email para escolher uma nova senha."
 msgid "Reports"
 msgstr "Relatórios"
 
-#: templates/webapp/index.html:23
-msgid "Like us on Facebook"
-msgstr "Curta nossa página no Facebook"
-
-#: templates/webapp/index.html:143
+#: templates/webapp/index.html:123
 msgid "Welcome to Niqels, {0}!"
 msgstr "Bem vindo ao Niqels, {0}!"
 
@@ -475,19 +471,23 @@ msgstr "gastos"
 msgid "total"
 msgstr "total"
 
+#: templates/webapp/transactions/month_balance_panel.html:33
+msgid "See full report..."
+msgstr "Ver relatório completo..."
+
 #: templates/webapp/transactions/transaction-form.html:3
 msgid "New transaction"
 msgstr "Nova movimentação"
 
 #: templates/webapp/transactions/transaction-form.html:40
-#: templates/webapp/transactions/transaction-list.html:71
-#: templates/webapp/transactions/transaction-list.html:124
+#: templates/webapp/transactions/transaction-list.html:76
+#: templates/webapp/transactions/transaction-list.html:129
 msgid "Value"
 msgstr "Valor"
 
 #: templates/webapp/transactions/transaction-form.html:57
-#: templates/webapp/transactions/transaction-list.html:68
-#: templates/webapp/transactions/transaction-list.html:121
+#: templates/webapp/transactions/transaction-list.html:73
+#: templates/webapp/transactions/transaction-list.html:126
 msgid "Description"
 msgstr "Descrição"
 
@@ -496,7 +496,7 @@ msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
 #: templates/webapp/transactions/transaction-form.html:74
-#: templates/webapp/transactions/transaction-list.html:65
+#: templates/webapp/transactions/transaction-list.html:70
 msgid "Date"
 msgstr "Data"
 
@@ -508,19 +508,22 @@ msgstr "Enviar"
 msgid "Group transactions by:"
 msgstr "Agrupar movimentações por:"
 
-#: templates/webapp/transactions/transaction-list.html:92
-#: templates/webapp/transactions/transaction-list.html:145
+#: templates/webapp/transactions/transaction-list.html:97
+#: templates/webapp/transactions/transaction-list.html:150
 msgid "Do you wish to remove this category?"
 msgstr "Deseja remover esta categoria?"
 
-#: templates/webapp/transactions/transaction-list.html:96
-#: templates/webapp/transactions/transaction-list.html:149
+#: templates/webapp/transactions/transaction-list.html:101
+#: templates/webapp/transactions/transaction-list.html:154
 msgid "Remove this transaction"
 msgstr "Remover esta movimentação"
 
-#: templates/webapp/transactions/transaction-list.html:160
+#: templates/webapp/transactions/transaction-list.html:165
 msgid "No transactions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Like us on Facebook"
+#~ msgstr "Curta nossa página no Facebook"
 
 #~ msgid "Organize your money the easy way!"
 #~ msgstr "Organize seus gastos de forma fácil!"

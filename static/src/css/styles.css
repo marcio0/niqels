@@ -7109,6 +7109,11 @@ button.remove-category {
   border-top: 1px solid #CCC;
   padding: 5px 0;
 }
+#balance-panel a.more {
+  float: right;
+  font-style: italic;
+  margin-top: 10px;
+}
 p.renevues {
   color: #46a546;
 }

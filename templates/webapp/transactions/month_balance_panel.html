@@ -3,31 +3,33 @@
 <h4 class="area-header">{% trans "Balance" %}</h4>
 
 <div class="panel panel-default" id="balance-panel">
-<div ng-controller="BalancePanelCtrl" class="panel-body">
-    <div class="balance-info">
-        <div id="total-renevues" class="renevues">
-            <span class="description">
-                {% trans "renevues" %}
-            </span>
-            <span class="value" ng-bind="renevues | currency">
-            </span>
+    <div ng-controller="BalancePanelCtrl" class="panel-body">
+        <div class="balance-info">
+            <div id="total-renevues" class="renevues">
+                <span class="description">
+                    {% trans "renevues" %}
+                </span>
+                <span class="value" ng-bind="renevues | currency">
+                </span>
+            </div>
+
+            <div id="total-expenses" class="expenses">
+                <span class="description">
+                    {% trans "expenses" %}
+                </span>
+                <span class="value" ng-bind="expenses | currency">
+                </span>
+            </div>
+
+            <div id="balance-total" class="total" ng-class="{true: 'positive', false: 'negative'}[(renevues + expenses) >= 0]">
+                <span class="description">
+                    {% trans "total" %}
+                </span>
+                <span class="value" ng-bind="(renevues + expenses) | currency">
+                </span>
+            </div>
         </div>
 
-        <div id="total-expenses" class="expenses">
-            <span class="description">
-                {% trans "expenses" %}
-            </span>
-            <span class="value" ng-bind="expenses | currency">
-            </span>
-        </div>
-
-        <div id="balance-total" class="total" ng-class="{true: 'positive', false: 'negative'}[(renevues + expenses) >= 0]">
-            <span class="description">
-                {% trans "total" %}
-            </span>
-            <span class="value" ng-bind="(renevues + expenses) | currency">
-            </span>
-        </div>
+        <a href="/#/reports/balance" class="more">{% trans "See full report..." %}</a>
     </div>
-</div>
 </div>
