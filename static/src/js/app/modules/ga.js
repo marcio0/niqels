@@ -3,9 +3,11 @@
 
 angular.module('ga', [])
     .config(function () {
-        if (window._gaq === undefined) {
-            console.warn("Your attention please: _gaq is not present. Using a dummy instead.");
-            window._gaq = [];
+        if (window.ga === undefined) {
+            console.warn("Your attention please: ga is not present. Using a dummy instead.");
+            window.ga = function () {
+                console.log('ga() called with arguments:', arguments);
+            };
         }
     })
 
@@ -20,7 +22,7 @@ angular.module('ga', [])
                 vars.unshift('_trackEvent');
 
                 element.on(action, function () {
-                    _gaq.push(vars);
+                    //_gaq.push(vars);
                 });
             }
         };
@@ -33,13 +35,18 @@ angular.module('ga', [])
 
         var createdAccountsMetric = 'metric1';
         var userAccessMetric = 'metric2';
+        var createdTransactionsMetric = 'metric3';
 
+        var transactionTypeDimension = 'dimension1';
 
-        _gaq.push(['set', 'metric2', 1]);
-        _gaq.push(['_trackEvent', accountsCategory, 'login']);
+        ga('set', userAccessMetric, 1);
+        //_gaq.push(['_trackEvent', accountsCategory, 'login']);
+        ga('send', 'event', accountsCategory, 'login');
         if (window.isUserFirstLogin){
-            _gaq.push(['set', 'metric1', 1]);
-            _gaq.push(['_trackEvent', accountsCategory, 'create']);
+            //_gaq.push(['set', 'metric1', 1]);
+            //_gaq.push(['_trackEvent', accountsCategory, 'create']);
+            ga('set', createdAccountsMetric, 1);
+            ga('send', 'event', accountsCategory, 'create');
             window.isUserFirstTransaction = true;
         }
         else {
@@ -48,31 +55,33 @@ angular.module('ga', [])
 
 
         $rootScope.$on('$stateChangeSuccess', function () {
-            _gaq.push(['_trackPageview', $location.path()]);
+            //_gaq.push(['_trackPageview', $location.path()]);
+            ga('send', 'pageview', $location.path());
         });
 
 
         $rootScope.$on('transaction-created', function (ev, transaction) {
-            // tracks transactions
-
             if (window.isUserFirstTransaction) {
-                // if it's the first user transaction
-
-                _gaq.push(['_trackEvent', transactionsCategory, 'create-first']);
+                ga('send', 'event', transactionsCategory, 'create-first');
                 window.isUserFirstTransaction = false;
             }
-            _gaq.push(['_trackEvent', transactionsCategory, 'create', transaction.category.name]);
+            ga('set', {
+                createdTransactionsMetric: 1,
+                transactionTypeDimension: transaction.category.name
+                
+            });
+            ga('send', 'event', transactionsCategory, 'create', transaction.category.name);
         });
 
 
         $rootScope.$on('transaction-removed', function () {
-            _gaq.push(['_trackEvent', 'Transactions', 'remove']);
+            ga.push('send', 'event', 'Transactions', 'remove');
         });
 
 
         $rootScope.$on('category-comparison-category-selected', function (event, category) {
             // tracking when a user changes the category on comparison report
-            _gaq.push(['_trackEvent', reportsCategory, 'comparison-category-selection', category]);
+            ga('send', 'event', reportsCategory, 'comparison-category-selection', category);
         });
     }])
 
