@@ -8,43 +8,45 @@
 
     <div id="transaction-list-panel" ng-controller="TransactionListCtrl">
          
-        <h4 class="area-header">{% trans "Transactions" %}</h4>
+        <h4 class="area-header">{% trans "Transactions" %} <a data-toggle="collapse" data-target="#transaction-list-options"><i class="icon-gear"></i></h4></a>
 
-        <div id="transaction-list-options" class="panel panel-default">
-            <div class="month-selector panel-body">
+        <div id="transaction-list-options" class="panel panel-default collapse">
+            <div class="panel-body">
+                <ul class="list-inline option">
+                    <li>{% trans "Group transactions by:" %}</li>
+                    <li>
+                        <ul class="list-inline toggle-selector">
+                            <li>
+                                <a 
+                                    ng-click="groupBy = 'date'"
+                                    ng-class="{active: groupBy == 'date'}"
+                                    >
+                                    <i class="icon-ok"></i>
+                                    {% trans "date" %}
+                                </a>
+                            </li>
+                            <li>/</li>
+                            <li>
+                                <a
+                                    ng-class="{active: groupBy == 'category.name'}"
+                                    ng-click="groupBy = 'category.name'"
+                                    >
+                                    <i class="icon-ok"></i>
+                                    {% trans "category" %}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="month-selector">
             <div class="btn-group">
-                <button class="btn btn-default previous-month" ng-class="{disabled: loading}"><i class="icon-chevron-left" ng-click="moveMonth('subtract')"></i></button>
+                <button class="btn btn-default previous-month" ng-class="{disabled: loading}" ng-click="moveMonth('subtract')"><i class="icon-chevron-left"></i></button>
                 <button class="btn btn-default actual-month" ng-class="{disabled: loading}" month-selector="filterDate"></button>
-                <button class="btn btn-default next-month" ng-class="{disabled: loading}"><i class="icon-chevron-right" ng-click="moveMonth('add')"></i></button>
+                <button class="btn btn-default next-month" ng-class="{disabled: loading}" ng-click="moveMonth('add')"><i class="icon-chevron-right"></i></button>
             </div>
-            </div>
-
-            <ul class="list-inline option">
-                <li>{% trans "Group transactions by:" %}</li>
-                <li>
-                    <ul class="list-inline toggle-selector">
-                        <li>
-                            <a 
-                                ng-click="groupBy = 'date'"
-                                ng-class="{active: groupBy == 'date'}"
-                                >
-                                <i class="icon-ok"></i>
-                                {% trans "date" %}
-                            </a>
-                        </li>
-                        <li>/</li>
-                        <li>
-                            <a
-                                ng-class="{active: groupBy == 'category.name'}"
-                                ng-click="groupBy = 'category.name'"
-                                >
-                                <i class="icon-ok"></i>
-                                {% trans "category" %}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
         </div>
 
         <div class="panel-group" id="transaction-groups" ng-if="groupBy == 'category.name'">
@@ -58,7 +60,7 @@
                             track="click,Transactions,open-category"
                             ng-bind="group.name"></a>
 
-                            <span class="group-total pull-right" ng-bind="group.total | currency" is-positive-class="group.total"></span>
+                        <span class="group-total pull-right" ng-bind="group.total | currency" is-positive-class="group.total"></span>
                     </h4>
                 </div>
 

@@ -3,14 +3,20 @@
  * styles for the transaction list.
  */
 
-@import '../variables.less';
-
 thead tr th {
     font-style: italic;
     font-weight: normal;
 }
 
+a[data-toggle="collapse"] {
+    cursor: pointer;
+}
+
 #transaction-list-options {
+    background-color: transparent;
+    border: 1px solid @component-bg-color;
+    box-shadow: 1px 1px 3px #ccc;
+
     .option {
         li {
             vertical-align: middle;
@@ -48,6 +54,7 @@ thead tr th {
             background-color: transparent;
             border-bottom: 1px solid #ccc;
             box-shadow: 0px 5px 2px -4px #ccc;
+
 
             .panel-title {
                 .group-total {
@@ -117,9 +124,22 @@ thead tr th {
                         border-bottom: 0px !important;
                         background-color: transparent;
 
+                        i {
+                            cursor: pointer;
+                            visibility: hidden;
+                            opacity: 0;
+                            transition: opacity 0.3s;
+                        }
+
                         .delete-transaction:hover {
                             color: @brand-danger;
                         }
+                    }
+
+                    &:hover td.action-bar > * {
+                        visibility: visible;
+                        transition: opacity 0.3s;
+                        opacity: 1;
                     }
 
                     &:last-child td {
@@ -132,17 +152,18 @@ thead tr th {
 }
 
 .month-selector {
-    margin-bottom: 20px;
     text-align: center;
 
     .btn {
+        background-color: @component-bg-color;
         margin-left: 5px !important;
         margin-right: 5px !important;
         border: 0;
         box-shadow: 1px 1px 1px #ccc;
         height: 100%;
-        i {
-            line-height: initial;
+
+        &:hover {
+            background-color: @azul-claro;
         }
     }
 
@@ -164,8 +185,3 @@ thead tr th {
 #empty-msg {
     text-align: center;
 }
-
-#transaction-list-panel .transaction-table .action-bar > i.delete-transaction {
-    color: @brand-danger;
-}
-
