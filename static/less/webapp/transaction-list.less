@@ -17,22 +17,19 @@ thead tr th {
         }
         .toggle-selector {
             a {
-                padding-right: 2px;
-                padding-left: 2px;
-
                 &:hover {
                     cursor: pointer;
-                    text-decoration: none;
+                }
+                i {
+                    display: none;
                 }
             }
             .active {
                 text-shadow: none;
                 -webkit-box-shadow: none; //fix this
-                font-weight: bold;
-                text-decoration: underline;
 
-                &:hover {
-                    text-decoration: underline;
+                i {
+                    display: inline !important;
                 }
             }
         }

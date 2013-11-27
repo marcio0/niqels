@@ -7194,22 +7194,18 @@ thead tr th {
 #transaction-list-options .option li {
   vertical-align: middle;
 }
-#transaction-list-options .option .toggle-selector a {
-  padding-right: 2px;
-  padding-left: 2px;
-}
 #transaction-list-options .option .toggle-selector a:hover {
   cursor: pointer;
-  text-decoration: none;
+}
+#transaction-list-options .option .toggle-selector a i {
+  display: none;
 }
 #transaction-list-options .option .toggle-selector .active {
   text-shadow: none;
   -webkit-box-shadow: none;
-  font-weight: bold;
-  text-decoration: underline;
 }
-#transaction-list-options .option .toggle-selector .active:hover {
-  text-decoration: underline;
+#transaction-list-options .option .toggle-selector .active i {
+  display: inline !important;
 }
 #transaction-list-panel .transaction-group {
   background-color: transparent;
