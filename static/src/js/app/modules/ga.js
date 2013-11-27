@@ -36,6 +36,7 @@ angular.module('ga', [])
 
 
         _gaq.push(['set', 'metric2', 1]);
+        _gaq.push(['_trackEvent', accountsCategory, 'login']);
         if (window.isUserFirstLogin){
             _gaq.push(['set', 'metric1', 1]);
             _gaq.push(['_trackEvent', accountsCategory, 'create']);
