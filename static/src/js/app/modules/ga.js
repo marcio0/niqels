@@ -1,6 +1,10 @@
 (function () {
 'use strict';
 
+// TODO
+// - criar factory $ga com métodos setMetric, setDimension, sendMetric e trackEvent
+// refatorar diretiva, poder selecionar se é métrica ou evento ou dimensão
+
 angular.module('ga', [])
     .config(function () {
         if (window.ga === undefined) {
@@ -17,12 +21,14 @@ angular.module('ga', [])
             link: function (scope, element, attrs) {
                 var vars = attrs.track.split(',');
 
-                var action = vars.splice(0, 1)[0];
+                var listener = vars.splice(0, 1)[0];
 
-                vars.unshift('_trackEvent');
+                var category = vars.shift();
+                var action = vars.shift();
+                var label = vars.shift();
 
-                element.on(action, function () {
-                    //_gaq.push(vars);
+                element.on(listener, function () {
+                    ga('send', 'event', category, action, label);
                 });
             }
         };
