@@ -72,8 +72,8 @@ angular.module('ga', [])
                 window.isUserFirstTransaction = false;
             }
             ga('set', {
-                createdTransactionsMetric: 1,
-                transactionTypeDimension: transaction.category.name
+                'metric3': 1, //createdTransactionsMetric
+                'dimension1': transaction.category.name //transactionTypeDimension
                 
             });
             ga('send', 'event', transactionsCategory, 'create', transaction.category.name);
