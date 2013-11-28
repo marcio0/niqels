@@ -45,14 +45,14 @@ angular.module('ga', [])
 
         var transactionTypeDimension = 'dimension1';
 
-        ga('set', userAccessMetric, 1);
+        //ga('set', userAccessMetric, 1);
         //_gaq.push(['_trackEvent', accountsCategory, 'login']);
-        ga('send', 'event', accountsCategory, 'login');
+        ga('send', 'event', accountsCategory, 'login', {'metric2': 1});
         if (window.isUserFirstLogin){
             //_gaq.push(['set', 'metric1', 1]);
             //_gaq.push(['_trackEvent', accountsCategory, 'create']);
-            ga('set', createdAccountsMetric, 1);
-            ga('send', 'event', accountsCategory, 'create');
+            //ga('set', createdAccountsMetric, 1);
+            ga('send', 'event', accountsCategory, 'create', {'metric1': 1});
             window.isUserFirstTransaction = true;
         }
         else {
@@ -71,12 +71,12 @@ angular.module('ga', [])
                 ga('send', 'event', transactionsCategory, 'create-first');
                 window.isUserFirstTransaction = false;
             }
-            ga('set', {
+            //ga('set', );
+            ga('send', 'event', transactionsCategory, 'create', transaction.category.name, {
                 'metric3': 1, //createdTransactionsMetric
                 'dimension1': transaction.category.name //transactionTypeDimension
                 
             });
-            ga('send', 'event', transactionsCategory, 'create', transaction.category.name);
         });
 
 
