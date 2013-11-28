@@ -81,7 +81,7 @@ angular.module('ga', [])
 
 
         $rootScope.$on('transaction-removed', function () {
-            ga.push('send', 'event', 'Transactions', 'remove');
+            ga('send', 'event', 'Transactions', 'remove');
         });
 
 
