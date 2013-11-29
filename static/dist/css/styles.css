@@ -7364,6 +7364,8 @@ body {
   min-height: 100%;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
+  padding-left: 0;
+  padding-right: 0;
   background-color: #fdfdfd;
 }
 @media (min-width: 768px) {
