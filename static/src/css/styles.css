@@ -1827,7 +1827,7 @@ textarea.input-lg {
 }
 .btn:hover,
 .btn:focus {
-  color: #333333;
+  color: #1f214c;
   text-decoration: none;
 }
 .btn:active,
@@ -1849,8 +1849,8 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #333333;
-  background-color: #ffffff;
+  color: #1f214c;
+  background-color: #a6a7bf;
   border-color: #cccccc;
 }
 .btn-default:hover,
@@ -1858,8 +1858,8 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #333333;
-  background-color: #ebebeb;
+  color: #1f214c;
+  background-color: #8e90ae;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -1882,7 +1882,7 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #ffffff;
+  background-color: #a6a7bf;
   border-color: #cccccc;
 }
 .btn-primary {
@@ -3668,7 +3668,7 @@ a .icon-flip-vertical:before {
   }
 }
 .btn-default .caret {
-  border-top-color: #333333;
+  border-top-color: #1f214c;
 }
 .btn-primary .caret,
 .btn-success .caret,
@@ -3678,7 +3678,7 @@ a .icon-flip-vertical:before {
   border-top-color: #fff;
 }
 .dropup .btn-default .caret {
-  border-bottom-color: #333333;
+  border-bottom-color: #1f214c;
 }
 .dropup .btn-primary .caret,
 .dropup .btn-success .caret,
@@ -7310,15 +7310,9 @@ a[data-toggle="collapse"] {
   text-align: center;
 }
 .month-selector .btn {
-  background-color: #e6e4eb;
   margin-left: 5px !important;
   margin-right: 5px !important;
-  border: 0;
   box-shadow: 1px 1px 1px #ccc;
-  height: 100%;
-}
-.month-selector .btn:hover {
-  background-color: #a6a7bf;
 }
 .loading-spinner {
   width: 100%;
@@ -7339,6 +7333,10 @@ body,
 body {
   overflow-y: scroll;
   background-color: #e6e4eb;
+}
+.left-column,
+.content-column {
+  padding-top: 10px;
 }
 .left-column {
   position: relative;
@@ -7418,7 +7416,11 @@ body {
   }
 }
 .btn {
+  font-family: "Roboto", sans-serif;
   text-transform: uppercase;
+}
+.btn-link {
+  box-shadow: none !important;
 }
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
@@ -7496,9 +7498,6 @@ span.category-label:empty {
 }
 .navbar {
   margin-bottom: 0;
-}
-.btn {
-  font-family: "Roboto", sans-serif;
 }
 .modal .modal-header {
   background-color: #807f88;

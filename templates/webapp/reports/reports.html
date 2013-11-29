@@ -1,31 +1,31 @@
 {% load i18n %}
 
-        <div class="left-column list-group" id="reports-menu">
-            <a class="list-group-item" ng-class="{active: $state.includes('reports.balance')}" href="#/reports/balance">
-                {% trans "Balance" %}
-            </a>
-            <a class="list-group-item" ng-class="{active: $state.includes('reports.top-categories')}" href="#/reports/top-categories">
-                {% trans "Top categories" %}
-            </a>
-            <a class="list-group-item" ng-class="{active: $state.includes('reports.category-comparison')}" href="#/reports/category-comparison">
-                {% trans "Category comparison" %}
-            </a>
-        </div>
+<div class="left-column list-group" id="reports-menu">
+    <a class="list-group-item" ng-class="{active: $state.includes('reports.balance')}" href="#/reports/balance">
+        {% trans "Balance" %}
+    </a>
+    <a class="list-group-item" ng-class="{active: $state.includes('reports.top-categories')}" href="#/reports/top-categories">
+        {% trans "Top categories" %}
+    </a>
+    <a class="list-group-item" ng-class="{active: $state.includes('reports.category-comparison')}" href="#/reports/category-comparison">
+        {% trans "Category comparison" %}
+    </a>
+</div>
 
 
-        <div class="content-column" ng-controller="ReportsCtrl">
-            <div class="month-selector">
-                {% trans "Period" %}: 
-                <button class="btn btn-link actual-month" id="date-start" month-selector="options.dateStart"></button>
-                /
-                <button class="btn btn-link actual-month" id="date-end" month-selector="options.dateEnd"></button>
-                <button class="btn btn-small btn-primary"
-                    ng-click="updateCharts()"
-                    track="click,Reports,update-period"
-                    >
-                    {% trans "Update" %}
-                </button>
-            </div>
+<div class="content-column" ng-controller="ReportsCtrl">
+    <div class="month-selector">
+        {% trans "Period" %}: 
+        <button class="btn btn-link actual-month" id="date-start" month-selector="options.dateStart"></button>
+        /
+        <button class="btn btn-link actual-month" id="date-end" month-selector="options.dateEnd"></button>
+        <button class="btn btn-small btn-primary"
+            ng-click="updateCharts()"
+            track="click,Reports,update-period"
+            >
+            {% trans "Update" %}
+        </button>
+    </div>
 
-            <div ui-view></div>
-        </div>
+    <div ui-view></div>
+</div>

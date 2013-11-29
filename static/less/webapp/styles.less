@@ -25,6 +25,10 @@ body {
     background-color: @component-bg-color;
 }
 
+.left-column, .content-column{
+    padding-top: 10px;
+}
+
 .left-column {
     .make-sm-column(5);
     .make-md-column(3);
@@ -53,7 +57,12 @@ body {
 
 
 .btn {
+    font-family: @font-family-custom-panel;
     text-transform: uppercase;
+
+    &-link {
+        box-shadow: none !important;
+    }
 }
 
 a > i[class^="icon"] {
@@ -119,11 +128,6 @@ span.category-label {
 .navbar {
     margin-bottom: 0;
 }
-
-.btn {
-    font-family: @font-family-custom-panel;
-}
-
 
 .modal {
     .modal-header {
