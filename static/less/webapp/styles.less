@@ -12,29 +12,45 @@
 @import "../forms.less";
 @import "transaction-list.less";
 
+html, body, .container, .row {
+    height: 100%;
+}
+
+.navbar {
+    background-color: @white;
+}
+
 body {
     overflow-y: scroll;
+    background-color: @component-bg-color;
 }
 
 .left-column {
     .make-sm-column(5);
-    .make-lg-column(3);
+    .make-md-column(3);
 }
 
-.content-column-middle {
+.content-column {
     .make-sm-column(7);
-    .make-lg-column(6);
+    .make-md-column(9);
+
+    min-height: 100%;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-color: @white;
+
+    .content-main {
+        height: 100%;
+        .make-sm-column(8);
+        .make-md-column(8);
+    }
+
+    .content-right-column {
+        .make-sm-column(4);
+        .make-lg-column(4);
+    }
 }
 
-.content-column-right {
-    .make-sm-column(7);
-    .make-lg-column(9);
-}
-
-.right-column {
-    .make-sm-column(12);
-    .make-lg-column(3);
-}
 
 .btn {
     text-transform: uppercase;
@@ -98,6 +114,10 @@ span.category-label {
     img {
         max-height: @navbar-height;
     }
+}
+
+.navbar {
+    margin-bottom: 0;
 }
 
 .btn {

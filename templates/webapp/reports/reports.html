@@ -1,11 +1,6 @@
 {% load i18n %}
 
-<div ng-controller="ReportsCtrl" id="reports">
-    <h3 class="area-header">{% trans "Reports" %}</h3>
-
-    <div class="row">
-
-        <div class="col-md-2 list-group" id="reports-menu">
+        <div class="left-column list-group" id="reports-menu">
             <a class="list-group-item" ng-class="{active: $state.includes('reports.balance')}" href="#/reports/balance">
                 {% trans "Balance" %}
             </a>
@@ -18,7 +13,7 @@
         </div>
 
 
-        <div class="col-md-10">
+        <div class="content-column" ng-controller="ReportsCtrl">
             <div class="month-selector">
                 {% trans "Period" %}: 
                 <button class="btn btn-link actual-month" id="date-start" month-selector="options.dateStart"></button>
@@ -34,6 +29,3 @@
 
             <div ui-view></div>
         </div>
-    </div>
-</div>
-

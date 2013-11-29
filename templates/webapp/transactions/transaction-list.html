@@ -4,9 +4,9 @@
     {% include "webapp/transactions/transaction-form.html" %}
 </div>
 
-<div class="content-column-middle">
+<div class="content-column">
 
-    <div id="transaction-list-panel" ng-controller="TransactionListCtrl">
+    <div id="transaction-list-panel" class="content-main" ng-controller="TransactionListCtrl">
          
         <h4 class="area-header">{% trans "Transactions" %} <a data-toggle="collapse" data-target="#transaction-list-options"><i class="icon-gear"></i></h4></a>
 
@@ -173,8 +173,9 @@
 
     </div> <!-- panel -->
 
+    <div class="content-right-column" id="balance-panel">
+        {% include "webapp/transactions/month_balance_panel.html" %}
+    </div>
+
 </div>
 
-<div class="right-column" id="balance-panel">
-    {% include "webapp/transactions/month_balance_panel.html" %}
-</div>
