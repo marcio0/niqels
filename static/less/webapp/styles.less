@@ -30,9 +30,10 @@ body {
     }
 
     .navbar-header {
+        .make-sm-column(4);
         .make-md-column(3);
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
     .navbar-brand {
         padding-top: 0;
@@ -43,6 +44,11 @@ body {
         }
     }
 
+    .navbar-collapse {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
     .navbar-nav {
         li {
             a:hover {
@@ -50,12 +56,16 @@ body {
             }
 
             &.active {
-                &:hover {
-                }
                 a {
                     color: inherit;
                     background-color: inherit;
+
                     box-shadow: inset 0px -5px 0px @navbar-default-link-active-bg;
+
+                    @media (max-width: @screen-xs-max) {
+                        box-shadow: inset 5px 0px 0px @navbar-default-link-active-bg;
+                        
+                    }
 
                     &:hover {
                         text-decoration: none;
@@ -76,6 +86,7 @@ body {
 
 .left-column, .content-column{
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .left-column {

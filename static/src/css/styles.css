@@ -7295,8 +7295,14 @@ body {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+@media (min-width: 768px) {
+  .navbar .navbar-header {
+    float: left;
+    width: 33.33333333333333%;
+  }
 }
 @media (min-width: 992px) {
   .navbar .navbar-header {
@@ -7311,6 +7317,10 @@ body {
 .navbar .navbar-brand img {
   max-height: 50px;
 }
+.navbar .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
 .navbar .navbar-nav li a:hover {
   text-decoration: underline;
 }
@@ -7318,6 +7328,11 @@ body {
   color: inherit;
   background-color: inherit;
   box-shadow: inset 0px -5px 0px #4a4c78;
+}
+@media (max-width: 767px) {
+  .navbar .navbar-nav li.active a {
+    box-shadow: inset 5px 0px 0px #4a4c78;
+  }
 }
 .navbar .navbar-nav li.active a:hover {
   text-decoration: none;
@@ -7330,6 +7345,7 @@ body {
 .left-column,
 .content-column {
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 .left-column {
   position: relative;
