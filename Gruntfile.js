@@ -150,7 +150,7 @@ module.exports = function(grunt) {
                 files: [
                     {src: 'img/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
                     {src: 'css/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
-                    {src: 'font/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
+                    {src: 'fonts/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
                 ]
             },
             local_settings: {
