@@ -8,7 +8,7 @@
 
     <div id="transaction-list-panel" class="content-main" ng-controller="TransactionListCtrl">
          
-        <h4 class="area-header">{% trans "Transactions" %} <a data-toggle="collapse" data-target="#transaction-list-options"><i class="icon-gear"></i></h4></a>
+        <h4 class="area-header">{% trans "Transactions" %} <a data-toggle="collapse" data-target="#transaction-list-options"><i class="fa fa-gear"></i></h4></a>
 
         <div id="transaction-list-options" class="panel panel-default collapse">
             <div class="panel-body">
@@ -21,7 +21,7 @@
                                     ng-click="groupBy = 'date'"
                                     ng-class="{active: groupBy == 'date'}"
                                     >
-                                    <i class="icon-ok"></i>
+                                    <i class="fa fa-check"></i>
                                     {% trans "date" %}
                                 </a>
                             </li>
@@ -31,7 +31,7 @@
                                     ng-class="{active: groupBy == 'category.name'}"
                                     ng-click="groupBy = 'category.name'"
                                     >
-                                    <i class="icon-ok"></i>
+                                    <i class="fa fa-check"></i>
                                     {% trans "category" %}
                                 </a>
                             </li>
@@ -43,9 +43,9 @@
 
         <div class="month-selector">
             <div class="btn-group">
-                <button class="btn btn-default previous-month" ng-class="{disabled: loading}" ng-click="moveMonth('subtract')"><i class="icon-chevron-left"></i></button>
+                <button class="btn btn-default previous-month" ng-class="{disabled: loading}" ng-click="moveMonth('subtract')"><i class="fa fa-chevron-left"></i></button>
                 <button class="btn btn-default actual-month" ng-class="{disabled: loading}" month-selector="filterDate"></button>
-                <button class="btn btn-default next-month" ng-class="{disabled: loading}" ng-click="moveMonth('add')"><i class="icon-chevron-right"></i></button>
+                <button class="btn btn-default next-month" ng-class="{disabled: loading}" ng-click="moveMonth('add')"><i class="fa fa-chevron-right"></i></button>
             </div>
         </div>
 
@@ -94,7 +94,7 @@
 
                                     <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
                                         <i
-                                            class="icon-trash delete-transaction"
+                                            class="fa fa-trash delete-transaction"
                                             ng-click="removeTransaction()"
                                             confirmation-needed="{% trans "Do you wish to remove this category?" %}"
                                             data-toggle="tooltip"
@@ -147,7 +147,7 @@
 
                                 <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
                                     <i
-                                        class="icon-trash delete-transaction"
+                                        class="fa fa-trash delete-transaction"
                                         ng-click="removeTransaction()"
                                         confirmation-needed="{% trans "Do you wish to remove this category?" %}"
                                         data-toggle="tooltip"
@@ -168,7 +168,7 @@
         </div>
 
         <div class="loading-spinner" ng-show="loading">
-            <i class="icon-spinner icon-spin icon-3x"></i>
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
 
     </div> <!-- panel -->

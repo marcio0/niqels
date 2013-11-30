@@ -9,7 +9,7 @@
         <div class="form-group {% if form.email.errors %}has-error{% endif %}">
             <label class="col-lg-3 control-label" for="id_username_or_email">{% trans "Email" %}</label>
             <div class="col-lg-9 input-icon">
-                <i class="icon-envelope input-icon-prepend"></i>
+                <i class="fa fa-envelope input-icon-prepend"></i>
                 <input id="id_username_or_email" name="username_or_email" type="email" class="form-control">
                 {% for error in recovery_form.email.errors %}
                     <span class="help-block error">{{ error }}</span>
@@ -20,7 +20,7 @@
             <div class="col-lg-9 col-lg-offset-3">
                 <button type="submit" class="btn btn-primary">
                     {% trans "Recover my password" %}
-                    <i class="icon-ok input-icon-append"></i>
+                    <i class="fa fa-check input-icon-append"></i>
                 </button>
             </div>
         </div>

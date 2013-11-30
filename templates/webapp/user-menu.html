@@ -1,6 +1,6 @@
 {% load i18n %}
 <li class="dropdown" name="user-menu">
-    <a class="dropdown-toggle" data-toggle="dropdown">{{ user.name|capfirst }} <i class="icon-gears icon-large"></i></a>
+    <a class="dropdown-toggle" data-toggle="dropdown">{{ user.name|capfirst }} <i class="fa fa-gears fa-lg"></i></a>
     <ul class="dropdown-menu">
         <li>
             <a name="change-password" href="{% url "change_password" %}" class="navbar-link">{% trans "Change password" %}</a>

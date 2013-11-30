@@ -26,7 +26,7 @@
             <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
                 <label for="id_password1" class="col-lg-4 form-label">{% trans "New password" %}</label>
                 <div class="col-lg-8 input-icon">
-                    <i class="icon-asterisk input-icon-prepend"></i>
+                    <i class="fa fa-asterisk input-icon-prepend"></i>
                     <input id="id_password1" name="password1" type="password" class="form-control" required>
                     {% for error in form.password1.errors %}
                         <span class="help-block error">{{ error }}</span>
@@ -36,7 +36,7 @@
             <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
                 <label for="id_password2" class="col-lg-4 form-label">{% trans "Confirm password" %}</label>
                 <div class="col-lg-8 input-icon">
-                    <i class="icon-asterisk input-icon-prepend"></i>
+                    <i class="fa fa-asterisk input-icon-prepend"></i>
                     <input id="id_password2" name="password2" type="password" class="form-control" required>
                     {% for error in form.password2.errors %}
                         <span class="help-block error">{{ error }}</span>
@@ -47,7 +47,7 @@
                 <div class="col-lg-8 col-lg-offset-4">
                     <button type="submit" class="btn btn-primary">
                         {% trans "Set new password" %}
-                        <i class="icon-ok"></i>
+                        <i class="fa fa-check"></i>
                     </button>
                 </div>
             </div>
