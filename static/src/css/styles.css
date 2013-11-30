@@ -1850,7 +1850,7 @@ fieldset[disabled] .btn {
 }
 .btn-default {
   color: #1f214c;
-  background-color: #a6a7bf;
+  background-color: #e6e4eb;
   border-color: #cccccc;
 }
 .btn-default:hover,
@@ -1859,7 +1859,7 @@ fieldset[disabled] .btn {
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
   color: #1f214c;
-  background-color: #8e90ae;
+  background-color: #d0cdda;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -1882,7 +1882,7 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #a6a7bf;
+  background-color: #e6e4eb;
   border-color: #cccccc;
 }
 .btn-primary {
@@ -7019,7 +7019,7 @@ button.remove-category {
   float: left;
 }
 #balance-panel .panel {
-  background-color: transparent;
+  background-color: #fdfdfd;
   border-style: solid;
   box-shadow: 0 0 3px #ccc;
 }
@@ -7340,7 +7340,7 @@ body {
 @media (min-width: 768px) {
   .left-column {
     float: left;
-    width: 41.66666666666667%;
+    width: 33.33333333333333%;
   }
 }
 @media (min-width: 992px) {
@@ -7364,7 +7364,7 @@ body {
 @media (min-width: 768px) {
   .content-column {
     float: left;
-    width: 58.333333333333336%;
+    width: 66.66666666666666%;
   }
 }
 @media (min-width: 992px) {
@@ -7383,7 +7383,7 @@ body {
 @media (min-width: 768px) {
   .content-column .content-main {
     float: left;
-    width: 66.66666666666666%;
+    width: 100%;
   }
 }
 @media (min-width: 992px) {
@@ -7401,10 +7401,10 @@ body {
 @media (min-width: 768px) {
   .content-column .content-right-column {
     float: left;
-    width: 33.33333333333333%;
+    width: 100%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .content-column .content-right-column {
     float: left;
     width: 33.33333333333333%;
