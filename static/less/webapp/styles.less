@@ -16,14 +16,65 @@ html, body, .container, .row {
     height: 100%;
 }
 
-.navbar {
-    background-color: @white;
-}
-
 body {
     overflow-y: scroll;
     background-color: @component-bg-color;
 }
+
+.navbar {
+    background-color: @white;
+    margin-bottom: 0;
+
+    .container {
+        padding: 0;
+    }
+
+    .navbar-header {
+        .make-md-column(3);
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .navbar-brand {
+        padding-top: 0;
+        padding-bottom: 0;
+        
+        img {
+            max-height: @navbar-height;
+        }
+    }
+
+    .navbar-nav {
+        li {
+            padding-left: 3px;
+            padding-right: 3px;
+            a:hover {
+                text-decoration: underline;
+            }
+
+            &.active {
+                &:hover {
+                }
+                a {
+                    color: inherit;
+                    background-color: inherit;
+                    box-shadow: inset 0px -5px 0px @navbar-default-link-active-bg;
+
+                    &:hover {
+                        text-decoration: none;
+                        background-color: inherit;
+                        color: inherit;
+                    }
+                }
+            }
+            &.dropdown {
+                a.dropdown-toggle {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
 
 .left-column, .content-column{
     padding-top: 10px;
@@ -105,30 +156,6 @@ span.category-label {
     text-align: center;
     margin-top: 25px;
     margin-bottom: 25px;
-}
-
-// fixing color on navbar dropdown item hover 
-.navbar-nav li.dropdown {
-    > ul.dropdown-menu > li > a:hover {
-        color: @white;
-    }
-
-    a.dropdown-toggle {
-        cursor: pointer;
-    }
-}
-
-.navbar-brand {
-    padding-top: 0;
-    padding-bottom: 0;
-    
-    img {
-        max-height: @navbar-height;
-    }
-}
-
-.navbar {
-    margin-bottom: 0;
 }
 
 .modal {

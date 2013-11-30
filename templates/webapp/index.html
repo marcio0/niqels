@@ -13,7 +13,7 @@
 
 
 {% block webapp-menu %}
-<div class="collapse navbar-collapse navbar-ex1-collapse">
+<div class="collapse navbar-collapse" id="navbar-menu">
     <ul class="nav navbar-nav">
         <li ng-class="{active: $state.includes('transactions')}"><a href="#/transactions">{% trans "Transactions" %}</a></li>
         <li ng-class="{active: $state.includes('reports')}"><a href="#/reports">{% trans "Reports" %}</a></li>
