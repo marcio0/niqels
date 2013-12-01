@@ -6829,6 +6829,7 @@ td.visible-print {
   height: 16px;
 }
 .datepicker {
+  font-size: 12px;
   border: 1px solid #cccccc;
   border-radius: 0px !important;
   background-color: #fdfdfd;
