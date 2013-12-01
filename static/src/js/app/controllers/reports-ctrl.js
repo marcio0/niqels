@@ -3,6 +3,15 @@ function ReportsCtrl ($scope, $rootScope) {
 
     var today = moment();
 
+    $scope.queryPeriods = [
+        {name: gettext('This month'), value: 0},
+        {name: gettext('Three months'), value: 1},
+        {name: gettext('Six months'), value: 2},
+        {name: gettext('A year'), value: 3},
+        {name: gettext('Custom...'), value: 4}
+    ];
+    $scope.period = 3;
+
     $scope.options = {};
     $scope.options.dateStart = today.clone().subtract(11, 'months');
     $scope.options.dateEnd = today;
