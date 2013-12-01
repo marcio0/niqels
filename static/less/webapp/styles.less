@@ -127,10 +127,6 @@ body {
     }
 }
 
-a > i[class^="icon"] {
-    //margin-left: 5px;
-}
-
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
   templates compile.  The !important is important given that there may be 
@@ -138,23 +134,6 @@ a > i[class^="icon"] {
  */
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
-}
-
-.affix {
-    top: 20px;
-    width: 230px;
-}
-
-.center-form {
-    width: 300px;
-    margin: 0 auto;
-    .well();
-}
-
-span.category-label {
-    .label();
-    padding: 4px 6px;
-    font-weight: normal;
 }
 
 /*
@@ -167,19 +146,6 @@ span.category-label {
     margin-bottom: 25px;
 }
 
-.modal {
-    .modal-header {
-        background-color: @gray;
-        color: #FFF;
-
-        .close {
-            color: #FFF;
-        }
-    }
-    .modal-footer {
-        background-color: @gray-lighter;
-    }
-}
 
 .center-panel {
     .make-lg-column(4);
@@ -190,6 +156,10 @@ span.category-label {
 
     .make-sm-column(6);
     .make-sm-column-offset(3);
+
+    background-color: @white;
+    border-style: solid;
+    box-shadow: 0 0 3px #ccc;
 }
 
 hr {
