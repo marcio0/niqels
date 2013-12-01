@@ -1850,7 +1850,7 @@ fieldset[disabled] .btn {
 }
 .btn-default {
   color: #1f214c;
-  background-color: #a6a7bf;
+  background-color: #e6e4eb;
   border-color: #cccccc;
 }
 .btn-default:hover,
@@ -1859,7 +1859,7 @@ fieldset[disabled] .btn {
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
   color: #1f214c;
-  background-color: #8e90ae;
+  background-color: #d0cdda;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -1882,7 +1882,7 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #a6a7bf;
+  background-color: #e6e4eb;
   border-color: #cccccc;
 }
 .btn-primary {
@@ -6829,6 +6829,7 @@ td.visible-print {
   height: 16px;
 }
 .datepicker {
+  font-size: 12px;
   border: 1px solid #cccccc;
   border-radius: 0px !important;
   background-color: #fdfdfd;
@@ -7019,7 +7020,7 @@ button.remove-category {
   float: left;
 }
 #balance-panel .panel {
-  background-color: transparent;
+  background-color: #fdfdfd;
   border-style: solid;
   box-shadow: 0 0 3px #ccc;
 }
@@ -7295,8 +7296,14 @@ body {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+@media (min-width: 768px) {
+  .navbar .navbar-header {
+    float: left;
+    width: 33.33333333333333%;
+  }
 }
 @media (min-width: 992px) {
   .navbar .navbar-header {
@@ -7311,6 +7318,10 @@ body {
 .navbar .navbar-brand img {
   max-height: 50px;
 }
+.navbar .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
 .navbar .navbar-nav li a:hover {
   text-decoration: underline;
 }
@@ -7318,6 +7329,11 @@ body {
   color: inherit;
   background-color: inherit;
   box-shadow: inset 0px -5px 0px #4a4c78;
+}
+@media (max-width: 767px) {
+  .navbar .navbar-nav li.active a {
+    box-shadow: inset 5px 0px 0px #4a4c78;
+  }
 }
 .navbar .navbar-nav li.active a:hover {
   text-decoration: none;
@@ -7330,6 +7346,7 @@ body {
 .left-column,
 .content-column {
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 .left-column {
   position: relative;
@@ -7340,7 +7357,7 @@ body {
 @media (min-width: 768px) {
   .left-column {
     float: left;
-    width: 41.66666666666667%;
+    width: 33.33333333333333%;
   }
 }
 @media (min-width: 992px) {
@@ -7364,7 +7381,7 @@ body {
 @media (min-width: 768px) {
   .content-column {
     float: left;
-    width: 58.333333333333336%;
+    width: 66.66666666666666%;
   }
 }
 @media (min-width: 992px) {
@@ -7383,7 +7400,7 @@ body {
 @media (min-width: 768px) {
   .content-column .content-main {
     float: left;
-    width: 66.66666666666666%;
+    width: 100%;
   }
 }
 @media (min-width: 992px) {
@@ -7401,10 +7418,10 @@ body {
 @media (min-width: 768px) {
   .content-column .content-right-column {
     float: left;
-    width: 33.33333333333333%;
+    width: 100%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .content-column .content-right-column {
     float: left;
     width: 33.33333333333333%;
@@ -7427,49 +7444,6 @@ body {
 .ng-cloak {
   display: none !important;
 }
-.affix {
-  top: 20px;
-  width: 230px;
-}
-.center-form {
-  width: 300px;
-  margin: 0 auto;
-  min-height: 20px;
-  padding: 19px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
-  border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-.center-form blockquote {
-  border-color: #ddd;
-  border-color: rgba(0, 0, 0, 0.15);
-}
-span.category-label {
-  display: inline;
-  padding: .2em .6em .3em;
-  font-size: 75%;
-  font-weight: bold;
-  line-height: 1;
-  color: #ffffff;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: .25em;
-  padding: 4px 6px;
-  font-weight: normal;
-}
-span.category-label[href]:hover,
-span.category-label[href]:focus {
-  color: #ffffff;
-  text-decoration: none;
-  cursor: pointer;
-}
-span.category-label:empty {
-  display: none;
-}
 /*
  * /GLOBAL STYLES
  */
@@ -7478,21 +7452,14 @@ span.category-label:empty {
   margin-top: 25px;
   margin-bottom: 25px;
 }
-.modal .modal-header {
-  background-color: #807f88;
-  color: #FFF;
-}
-.modal .modal-header .close {
-  color: #FFF;
-}
-.modal .modal-footer {
-  background-color: #e6e4eb;
-}
 .center-panel {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  background-color: #fdfdfd;
+  border-style: solid;
+  box-shadow: 0 0 3px #ccc;
 }
 @media (min-width: 1200px) {
   .center-panel {
