@@ -1,6 +1,20 @@
 function ReportsCtrl ($scope, $rootScope) {
     'use strict';
 
+    $scope.getInterval = function (months) {
+        return [
+            moment().startOf('month').subtract(months, 'months'),
+            moment().endOf('month')
+        ];
+    };
+
+    var periodsIntervals = {
+        0: $scope.getInterval(0),
+        1: $scope.getInterval(2),
+        2: $scope.getInterval(5),
+        3: $scope.getInterval(12)
+    };
+
     var today = moment();
 
     $scope.queryPeriods = [
@@ -16,6 +30,15 @@ function ReportsCtrl ($scope, $rootScope) {
     $scope.options.dateStart = today.clone().subtract(11, 'months');
     $scope.options.dateEnd = today;
 
+    $scope.$watch('period', function (newValue) {
+        if (!newValue) return;
+        if (newValue === 4) {
+            var action = 'show';
+        } else {
+            var action = 'hide';
+        }
+        $('#custom-period-panel').collapse(action);
+    });
 
     function getParams () {
         var params = {
@@ -29,8 +52,12 @@ function ReportsCtrl ($scope, $rootScope) {
     $scope._getParams = getParams;
 
     $scope.updateCharts = function updateCharts () {
-        var dateStart = $scope.options.dateStart;
-        var dateEnd = $scope.options.dateEnd;
+        var period = periodsIntervals[$scope.period];
+        console.log(period[0], period[1]);
+        return;
+
+        var dateStart = period[0];
+        var dateEnd = period[1];
 
         if (dateEnd.diff(dateStart, 'months') > 12) {
             toastr.warning(gettext('The period must be 12 months or lower.'));

@@ -14,34 +14,38 @@
 
 
 <div class="content-column" ng-controller="ReportsCtrl" id="reports">
-    <div class="col-md-4 col-md-offset-4 form-group">
-        <label for="id_category" class="form-label">{% trans "Period" %}</label>
-        <select
-            id="period"
-            name="period"
-            class="form-control"
+    <form class="form-inline" id="period-form">
+        <div class="form-group">
+            <label for="period" class="form-label">{% trans "Period:" %}</label>
+            <select
+                id="period"
+                name="period"
+                class="form-control"
 
-            ng-model="period"
-            category-field
+                ng-model="period"
+                category-field
 
-            ng-options="p.value as p.name for p in queryPeriods"
+                ng-options="p.value as p.name for p in queryPeriods">
+            </select>
+        </div>
+        <button class="btn btn-small btn-primary"
+            ng-click="updateCharts()"
+            track="click,Reports,update-period"
             >
-        </select>
-    </div>
+            {% trans "Update" %}&nbsp;
+            <i class="fa fa-refresh"></i>
+        </button>
+    </form>
+
     <div class="clearfix"></div>
-    <div id="custom-period-panel" class="panel panel-default options-panel collapse in">
+
+    <div id="custom-period-panel" class="panel panel-default options-panel collapse" data-toggle="false">
         <div class="panel-body">
             <div class="month-selector">
+                {% trans "Show data between" %}
                 <button class="btn btn-link actual-month" id="date-start" month-selector="options.dateStart"></button>
-                /
+                {% trans "and" %}
                 <button class="btn btn-link actual-month" id="date-end" month-selector="options.dateEnd"></button>
-                <button class="btn btn-small btn-primary"
-                    ng-click="updateCharts()"
-                    track="click,Reports,update-period"
-                    >
-                    {% trans "Update" %}&nbsp;
-                    <i class="fa fa-refresh"></i>
-                </button>
             </div>
         </div>
     </div>

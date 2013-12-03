@@ -103,22 +103,21 @@ body {
     min-height: 100%;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
-    padding-left: 0;
-    padding-right: 0;
     background-color: @white;
 
     .content-main {
-        height: 100%;
         .make-sm-column(12);
         .make-md-column(8);
+        height: 100%;
+        padding-left: 0;
     }
 
     .content-right-column {
         .make-sm-column(12);
         .make-md-column(4);
+        padding-right: 0;
     }
 }
-
 
 .btn {
     font-family: @font-family-custom-panel;

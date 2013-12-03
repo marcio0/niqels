@@ -7267,6 +7267,24 @@ a[data-toggle="collapse"] {
 .options-panel .option .toggle-selector .active i {
   display: inline !important;
 }
+#reports #period-form {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: auto;
+  float: none !important;
+}
+@media (min-width: 768px) {
+  #reports #period-form {
+    float: left;
+    width: 50%;
+  }
+}
+#reports #custom-period-panel {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 html,
 body,
 .container,
@@ -7367,8 +7385,6 @@ body {
   min-height: 100%;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  padding-left: 0;
-  padding-right: 0;
   background-color: #fdfdfd;
 }
 @media (min-width: 768px) {
@@ -7384,11 +7400,12 @@ body {
   }
 }
 .content-column .content-main {
-  height: 100%;
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  height: 100%;
+  padding-left: 0;
 }
 @media (min-width: 768px) {
   .content-column .content-main {
@@ -7407,6 +7424,7 @@ body {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  padding-right: 0;
 }
 @media (min-width: 768px) {
   .content-column .content-right-column {
