@@ -115,7 +115,6 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
         var c2 = allSeries[$scope.category2.name];
 
         var diffMonths = $scope.options.dateEnd.diff($scope.options.dateStart, 'months');
-        debugger;
 
         function getDefaultData (name) {
             var data = {name: name, data: []};
