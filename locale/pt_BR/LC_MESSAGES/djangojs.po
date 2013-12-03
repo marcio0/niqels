@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-27 01:16-0200\n"
+"POT-Creation-Date: 2013-12-03 01:30-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,26 +55,46 @@ msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
 msgid "Please fill in the fields correctly."
 msgstr "Por favor, preencha os campos corretamente."
 
-#: static/src/js/app/controllers/reports-ctrl.js:27
+#: static/src/js/app/controllers/reports-ctrl.js:13
+msgid "This month"
+msgstr ""
+
+#: static/src/js/app/controllers/reports-ctrl.js:14
+msgid "Three months"
+msgstr ""
+
+#: static/src/js/app/controllers/reports-ctrl.js:15
+msgid "Six months"
+msgstr ""
+
+#: static/src/js/app/controllers/reports-ctrl.js:16
+msgid "A year"
+msgstr ""
+
+#: static/src/js/app/controllers/reports-ctrl.js:17
+msgid "Custom..."
+msgstr ""
+
+#: static/src/js/app/controllers/reports-ctrl.js:69
 msgid "The period must be 12 months or lower."
 msgstr "O período deve ser de 12 meses ou menos"
 
-#: static/src/js/app/controllers/reports-ctrl.js:46
-#: static/src/js/app/controllers/reports-ctrl.js:93
+#: static/src/js/app/controllers/reports-ctrl.js:88
+#: static/src/js/app/controllers/reports-ctrl.js:135
 #: static/src/js/app/modules/charts.js:57
 #: static/src/js/app/modules/charts.js:271
 msgid "Renevues"
 msgstr "Receitas"
 
-#: static/src/js/app/controllers/reports-ctrl.js:47
-#: static/src/js/app/controllers/reports-ctrl.js:97
+#: static/src/js/app/controllers/reports-ctrl.js:89
+#: static/src/js/app/controllers/reports-ctrl.js:139
 #: static/src/js/app/modules/charts.js:58
 #: static/src/js/app/modules/charts.js:270
 msgid "Expenses"
 msgstr "Despesas"
 
-#: static/src/js/app/controllers/reports-ctrl.js:94
-#: static/src/js/app/controllers/reports-ctrl.js:98
+#: static/src/js/app/controllers/reports-ctrl.js:136
+#: static/src/js/app/controllers/reports-ctrl.js:140
 msgid "Balance data"
 msgstr "Balanço"
 

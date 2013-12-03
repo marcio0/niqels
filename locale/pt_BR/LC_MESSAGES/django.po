@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-27 01:16-0200\n"
+"POT-Creation-Date: 2013-12-03 01:30-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,8 +137,8 @@ msgid "Portuguese"
 msgstr "Português"
 
 #: expenses/admin.py:46 expenses/models.py:71
-#: templates/webapp/transactions/transaction-form.html:17
-#: templates/webapp/transactions/transaction-list.html:123
+#: templates/webapp/transactions/transaction-form.html:16
+#: templates/webapp/transactions/transaction-list.html:125
 msgid "Category"
 msgstr "Categoria"
 
@@ -183,7 +183,7 @@ msgid "Categories"
 msgstr "Categorias"
 
 #: expenses/models.py:77 expenses/models.py:143
-#: templates/webapp/transactions/transaction-list.html:42
+#: templates/webapp/transactions/transaction-list.html:35
 msgid "category"
 msgstr "categoria"
 
@@ -229,7 +229,7 @@ msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
 msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
 
 #: expenses/models.py:135
-#: templates/webapp/transactions/transaction-list.html:32
+#: templates/webapp/transactions/transaction-list.html:25
 msgid "date"
 msgstr "data"
 
@@ -271,22 +271,27 @@ msgstr "Entrar"
 msgid "Create account"
 msgstr "Criar conta"
 
-#: templates/access/change_password.html:11
+#: templates/access/change_password.html:7
+#, fuzzy
+msgid "Password change"
+msgstr "Senha"
+
+#: templates/access/change_password.html:13
 msgid "Old password"
 msgstr "Senha antiga"
 
-#: templates/access/change_password.html:18
+#: templates/access/change_password.html:20
 #: templates/password_reset/reset.html:28
 msgid "New password"
 msgstr "Nova senha"
 
-#: templates/access/change_password.html:25
+#: templates/access/change_password.html:27
 #: templates/access/forms/register.html:53
 #: templates/password_reset/reset.html:38
 msgid "Confirm password"
 msgstr "Confirmar senha"
 
-#: templates/access/change_password.html:33
+#: templates/access/change_password.html:35
 msgid "Reset password"
 msgstr "Alterar senha"
 
@@ -404,7 +409,7 @@ msgstr "Um email foi enviado para <strong>%(email)s</strong>."
 msgid "Follow the instructions on this email to set a new password."
 msgstr "Siga as instruções neste email para escolher uma nova senha."
 
-#: templates/webapp/index.html:19 templates/webapp/reports/reports.html:4
+#: templates/webapp/index.html:19
 msgid "Reports"
 msgstr "Relatórios"
 
@@ -421,7 +426,7 @@ msgid "Logout"
 msgstr "Sair"
 
 #: templates/webapp/reports/balance.html:3
-#: templates/webapp/reports/reports.html:10
+#: templates/webapp/reports/reports.html:5
 #: templates/webapp/transactions/month_balance_panel.html:3
 msgid "Balance"
 msgstr "Balanço"
@@ -438,22 +443,31 @@ msgstr "Categoria 1"
 msgid "Category 2"
 msgstr "Categoria 2"
 
-#: templates/webapp/reports/reports.html:13
+#: templates/webapp/reports/reports.html:8
 #: templates/webapp/reports/top-categories.html:3
 msgid "Top categories"
 msgstr "Principais categorias"
 
-#: templates/webapp/reports/reports.html:16
+#: templates/webapp/reports/reports.html:11
 msgid "Category comparison"
 msgstr "Comparação de categorias"
 
-#: templates/webapp/reports/reports.html:23
-msgid "Period"
+#: templates/webapp/reports/reports.html:19
+#, fuzzy
+msgid "Period:"
 msgstr "Período"
 
-#: templates/webapp/reports/reports.html:31
+#: templates/webapp/reports/reports.html:35
 msgid "Update"
 msgstr "Atualizar"
+
+#: templates/webapp/reports/reports.html:45
+msgid "Show data between"
+msgstr ""
+
+#: templates/webapp/reports/reports.html:47
+msgid "and"
+msgstr ""
 
 #: templates/webapp/settings/settings.html:4
 msgid "Menu"
@@ -479,46 +493,46 @@ msgstr "Ver relatório completo..."
 msgid "New transaction"
 msgstr "Nova movimentação"
 
-#: templates/webapp/transactions/transaction-form.html:40
-#: templates/webapp/transactions/transaction-list.html:76
-#: templates/webapp/transactions/transaction-list.html:129
+#: templates/webapp/transactions/transaction-form.html:39
+#: templates/webapp/transactions/transaction-list.html:78
+#: templates/webapp/transactions/transaction-list.html:131
 msgid "Value"
 msgstr "Valor"
 
-#: templates/webapp/transactions/transaction-form.html:57
-#: templates/webapp/transactions/transaction-list.html:73
-#: templates/webapp/transactions/transaction-list.html:126
+#: templates/webapp/transactions/transaction-form.html:56
+#: templates/webapp/transactions/transaction-list.html:75
+#: templates/webapp/transactions/transaction-list.html:128
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/webapp/transactions/transaction-form.html:68
+#: templates/webapp/transactions/transaction-form.html:67
 msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
-#: templates/webapp/transactions/transaction-form.html:74
-#: templates/webapp/transactions/transaction-list.html:70
+#: templates/webapp/transactions/transaction-form.html:73
+#: templates/webapp/transactions/transaction-list.html:72
 msgid "Date"
 msgstr "Data"
 
-#: templates/webapp/transactions/transaction-form.html:85
+#: templates/webapp/transactions/transaction-form.html:84
 msgid "Submit"
 msgstr "Enviar"
 
-#: templates/webapp/transactions/transaction-list.html:23
+#: templates/webapp/transactions/transaction-list.html:16
 msgid "Group transactions by:"
 msgstr "Agrupar movimentações por:"
 
-#: templates/webapp/transactions/transaction-list.html:97
-#: templates/webapp/transactions/transaction-list.html:150
+#: templates/webapp/transactions/transaction-list.html:99
+#: templates/webapp/transactions/transaction-list.html:152
 msgid "Do you wish to remove this category?"
 msgstr "Deseja remover esta categoria?"
 
-#: templates/webapp/transactions/transaction-list.html:101
-#: templates/webapp/transactions/transaction-list.html:154
+#: templates/webapp/transactions/transaction-list.html:103
+#: templates/webapp/transactions/transaction-list.html:156
 msgid "Remove this transaction"
 msgstr "Remover esta movimentação"
 
-#: templates/webapp/transactions/transaction-list.html:165
+#: templates/webapp/transactions/transaction-list.html:167
 msgid "No transactions for the period."
 msgstr "Nenhuma movimentação no período."
 

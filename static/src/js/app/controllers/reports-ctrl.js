@@ -1,21 +1,13 @@
 function ReportsCtrl ($scope, $rootScope) {
     'use strict';
 
-    $scope.getInterval = function (months) {
-        return [
-            moment().startOf('month').subtract(months, 'months'),
-            moment().endOf('month')
-        ];
-    };
+    // setting up scope variables
+    $scope.period = 3;
 
-    var periodsIntervals = {
-        0: $scope.getInterval(0),
-        1: $scope.getInterval(2),
-        2: $scope.getInterval(5),
-        3: $scope.getInterval(12)
+    $scope.options = {
+        dateStart: moment().startOf('month').subtract(11, 'months'),
+        dateEnd: moment().endOf('month')
     };
-
-    var today = moment();
 
     $scope.queryPeriods = [
         {name: gettext('This month'), value: 0},
@@ -24,14 +16,28 @@ function ReportsCtrl ($scope, $rootScope) {
         {name: gettext('A year'), value: 3},
         {name: gettext('Custom...'), value: 4}
     ];
-    $scope.period = 3;
 
-    $scope.options = {};
-    $scope.options.dateStart = today.clone().subtract(11, 'months');
-    $scope.options.dateEnd = today;
+    $scope._getInterval = function (months) {
+        return [
+            moment().startOf('month').subtract(months, 'months'),
+            moment().endOf('month')
+        ];
+    };
+
+    $scope._getCustomIntervals = function () {
+        return [$scope.options.dateStart, $scope.options.dateEnd];
+    };
+
+    var periodIntervals = {
+        0: function () {return $scope._getInterval(0)},
+        1: function () {return $scope._getInterval(2)},
+        2: function () {return $scope._getInterval(5)},
+        3: function () {return $scope._getInterval(12)},
+        4: $scope._getCustomIntervals
+    };
 
     $scope.$watch('period', function (newValue) {
-        if (!newValue) return;
+        if (newValue === undefined) return;
         if (newValue === 4) {
             var action = 'show';
         } else {
@@ -52,9 +58,7 @@ function ReportsCtrl ($scope, $rootScope) {
     $scope._getParams = getParams;
 
     $scope.updateCharts = function updateCharts () {
-        var period = periodsIntervals[$scope.period];
-        console.log(period[0], period[1]);
-        return;
+        var period = periodIntervals[$scope.period]();
 
         var dateStart = period[0];
         var dateEnd = period[1];
