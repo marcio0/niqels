@@ -8,6 +8,7 @@ function ReportsCtrl ($scope, $rootScope) {
         dateStart: moment().startOf('month').subtract(11, 'months'),
         dateEnd: moment().endOf('month')
     };
+    $scope.customPeriod = angular.copy($scope.options);
 
     $scope.queryPeriods = [
         {name: gettext('This month'), value: 0},
@@ -25,7 +26,7 @@ function ReportsCtrl ($scope, $rootScope) {
     };
 
     $scope._getCustomIntervals = function () {
-        return [$scope.options.dateStart, $scope.options.dateEnd];
+        return [$scope.customPeriod.dateStart, $scope.customPeriod.dateEnd];
     };
 
     var periodIntervals = {
@@ -60,11 +61,15 @@ function ReportsCtrl ($scope, $rootScope) {
     $scope.updateCharts = function updateCharts () {
         var period = periodIntervals[$scope.period]();
 
-        var dateStart = period[0];
-        var dateEnd = period[1];
+        $scope.options.dateStart = period[0];
+        $scope.options.dateEnd = period[1];
 
-        if (dateEnd.diff(dateStart, 'months') > 12) {
+        if ($scope.options.dateEnd.diff($scope.options.dateStart, 'months') > 12) {
             toastr.warning(gettext('The period must be 12 months or lower.'));
+            return;
+        }
+        if ($scope.options.dateStart > $scope.options.dateEnd) {
+            toastr.warning(gettext('The start date must be lower than the end date.'));
             return;
         }
 
@@ -109,12 +114,26 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
         var c1 = allSeries[$scope.category1.name];
         var c2 = allSeries[$scope.category2.name];
 
-        //TODO: fix this for different periods
-        c1 = c1 || {name: $scope.category1.name, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
-        c2 = c2 || {name: $scope.category2.name, data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
+        var diffMonths = $scope.options.dateEnd.diff($scope.options.dateStart, 'months');
+        debugger;
 
-        for (var i=0; i<$scope.options.dateStart.diff($scope.options.dateEnd, 'months'); i++) {
+        function getDefaultData (name) {
+            var data = {name: name, data: []};
+            for (var i=0; i<diffMonths; i++) {
+                data.data.push(0);
+            }
+            return data;
+        }
+
+        c1 = c1 || getDefaultData($scope.category1.name);
+        c2 = c2 || getDefaultData($scope.category2.name);
+
+        // adding missing points at the end
+        for (var i=c1.data.length; i< diffMonths + 1; i++) {
             c1.data.push(0);
+            //c2.data.push(0);
+        }
+        for (var i=c2.data.length; i< diffMonths + 1; i++) {
             c2.data.push(0);
         }
 

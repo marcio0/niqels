@@ -364,7 +364,7 @@ angular.module('charts', [])
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
-                                return this.y !== 0 ? $filter('currency')(this.y) : '';
+                                return $filter('currency')(this.y);
                             }
                         }
                     }
