@@ -74,7 +74,7 @@ class TransactionAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
         return False
 
-    list_display = ('date', 'value', 'get_category', 'created')
+    list_display = ('date', 'value', 'get_short_description', 'get_category', 'created')
     list_filter = (CategoryListFilter, CategoryGroupListFilter, 'date', 'created')
     ordering = ['-created']
 
@@ -85,6 +85,12 @@ class TransactionAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 40})},
     }
+
+    def get_short_description(self, obj):
+        if obj.description:
+            return obj.description[0:40] + '...'
+        return obj.description
+    get_short_description.short_description = "short description"
 
     def get_category(self, obj):
         return '%s (%s)' % (obj.category.name, obj.category.group.name)
