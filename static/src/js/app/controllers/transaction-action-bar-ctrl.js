@@ -3,7 +3,7 @@ function TransactionActionBarCtrl ($scope, Transaction, $rootScope) {
 
     $scope.removeTransaction = function () {
         //finish this
-        Transaction['delete']({id: $scope.transaction.id}).$then(function () {
+        Transaction['delete']({id: $scope.transaction.id}).$promise.then(function () {
             for (var i in $scope.days) {
                 var day = $scope.days[i];
                 if (day.day === $scope.transaction.date) {

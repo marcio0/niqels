@@ -11,11 +11,11 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
         $scope.category = '';
     };
 
-    Category.query().$then(function (result) {
+    Category.query().$promise.then(function (result) {
         // adding a default option so angular won't freak out
         var c = {name: gettext('Select a category')};
-        result.resource.unshift(c);
-        $scope.categories = result.resource;
+        result.unshift(c);
+        $scope.categories = result;
     });
 
     resetForm();
@@ -31,16 +31,16 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             var cls, promise;
 
             promise = Transaction.save(transaction_data)
-                .$then(function (value) {
+                .$promise.then(function (value) {
                     resetForm();
                     return value;
                 })
                 .then(function (value) {
-                    $rootScope.$emit('transaction-created', value.resource);
+                    $rootScope.$emit('transaction-created', value);
                     return value;
                 });
 
-            promise.always(function () {
+            promise.finally(function () {
                 form.$setPristine();
                 $scope.sending = false;
             });

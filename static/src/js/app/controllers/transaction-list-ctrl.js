@@ -62,12 +62,12 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
             limit: 0
         };
 
-        Transaction.query(filter).$then(function (result) {
+        var prom = Transaction.query(filter).$promise.then(function (result) {
 
-            $scope.allTransactions = result.resource;
+            $scope.allTransactions = result;
             $scope.transactionGroups = groupTransactions($scope.groupBy);
 
-        }).always(function () {$scope.loading = false;});
+        }).finally(function () {$scope.loading = false;});
     };
 
     $scope.moveMonth = function moveMonth (dir) {

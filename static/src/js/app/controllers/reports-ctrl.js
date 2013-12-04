@@ -87,7 +87,7 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
     function update () {
 
         var params = $scope._getParams();
-        var data = CategoryComparison.fetchData(params).then(function (result) {
+        CategoryComparison.fetchData(params).then(function (result) {
             var c1 = gettext('Renevues');
             var c2 = gettext('Expenses');
 
@@ -101,10 +101,10 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
             $scope.$watch('category1', selectCategory);
             $scope.$watch('category2', selectCategory);
 
+            $scope.categoryComparisonData = result;
+
             return result;
         });
-
-        $scope.categoryComparisonData = data;
     }
 
 
@@ -136,15 +136,13 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
             c2.data.push(0);
         }
 
-        // after the chart data promise delivers, set up series
-        $scope.categoryComparisonData.then(function (data) {
-            data.options.series = [c1, c2];
-            $scope.categoryComparisonData = $q.when(data);
-        });
+        var newData = angular.copy($scope.categoryComparisonData);
+        newData.options.series = [c1, c2];
+        $scope.categoryComparisonData = newData;
     }
 
-    Category.query().$then(function (result) {
-        var categories = result.resource;
+    Category.query().$promise.then(function (result) {
+        var categories = result;
 
         // adding balance data as categories
         var renevuesCategory = {
@@ -195,13 +193,14 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
 CategoryComparisonCtrl.$inject = ['$scope', '$q', '$rootScope', 'CategoryComparison', 'Category'];
 
 
-function TopCategoriesChartCtrl ($scope, TopCategories) {
+function TopCategoriesChartCtrl ($q, $scope, TopCategories) {
     'use strict';
 
     function update () {
         var params = $scope._getParams();
-        var data = TopCategories.fetchData(params);
-        $scope.topCategoriesData = data;
+        var data = TopCategories.fetchData(params).then(function (data) {
+            $scope.topCategoriesData = data;
+        });
     }
 
     // the parent scope will $broadcast this
@@ -209,16 +208,17 @@ function TopCategoriesChartCtrl ($scope, TopCategories) {
 
     update();
 }
-TopCategoriesChartCtrl.$inject = ['$scope', 'TopCategories'];
+TopCategoriesChartCtrl.$inject = ['$q', '$scope', 'TopCategories'];
 
 
-function BalanceChartCtrl ($scope, BalanceChart) {
+function BalanceChartCtrl ($q, $scope, BalanceChart) {
     'use strict';
 
     function update () {
         var params = $scope._getParams();
-        var data = BalanceChart.fetchData(params);
-        $scope.balanceData = data;
+        BalanceChart.fetchData(params).then(function (data) {
+            $scope.balanceData = data;
+        });
     }
 
     // the parent scope will $broadcast this
@@ -226,4 +226,4 @@ function BalanceChartCtrl ($scope, BalanceChart) {
 
     update();
 }
-BalanceChartCtrl.$inject = ['$scope', 'BalanceChart'];
+BalanceChartCtrl.$inject = ['$q', '$scope', 'BalanceChart'];

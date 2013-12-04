@@ -77,7 +77,7 @@ angular.module('charts', [])
                     options.xAxis.categories = xAxisMonthParser(months);
                     options.series = [renevuesSeries, expensesSeries];
 
-                    deferred.resolve({options: options, result: result});
+                    deferred.resolve({options: options, result: result.data});
                 }, 
                 function failure (result) {
                     deferred.reject(result);
@@ -176,14 +176,14 @@ angular.module('charts', [])
                 params.date__gte = params.date_start;
                 params.date__lte = params.date_end;
 
-                Transaction.query(params).$then(function (result) {
+                Transaction.query(params).$promise.then(function (result) {
                     var options = {},
                         series = [];
 
                     $.extend(true, options, me.chartOptions);
 
-                    for (var i in result.data) {
-                        var category = result.data[i];
+                    for (var i in result) {
+                        var category = result[i];
                         var value = category.sum;
                         if (value < 0) {
                             //this chart shows only expenses
@@ -264,7 +264,7 @@ angular.module('charts', [])
                 } while (start < end);
                 var period = categories.length;
 
-                Transaction.query(params).$then(function (result) {
+                Transaction.query(params).$promise.then(function (result) {
                     var options = {},
                         series = [],
                         expenses = gettext('Expenses'),
@@ -275,8 +275,8 @@ angular.module('charts', [])
                     dict[expenses] = {name: expenses, data: [], type: 'area'};
                     dict[renevues] = {name: renevues, data: [], type: 'area'};
 
-                    for (var i=0; i<result.data.length; i++) {
-                        var transactionGroup = result.data[i];
+                    for (var i=0; i<result.length; i++) {
+                        var transactionGroup = result[i];
 
                         var month = moment(transactionGroup.date__month).format('MMM YYYY');
                         var category = transactionGroup.category__name;
@@ -396,7 +396,6 @@ angular.module('charts', [])
                 //Update when charts data changes
                 scope.$watch('chartData', function(value) {
                     if(!value) return;
-
                     // We need deep copy in order to NOT override original chart object.
                     // This allows us to override chart data member and still the keep
                     // our original renderTo will be the same

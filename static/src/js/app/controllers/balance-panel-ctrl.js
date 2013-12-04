@@ -13,9 +13,9 @@ function BalancePanelCtrl ($scope, $rootScope, BalanceChart) {
             date_end: date_end.format('YYYY-MM-DD')
         };
 
-        var data = BalanceChart.fetchData(params).then(function setupScope (result) {
+        BalanceChart.fetchData(params).then(function setupScope (result) {
             var httpResult = result.result,
-                this_month = httpResult.data[0];
+                this_month = httpResult[0];
 
             $scope.renevues = parseFloat(this_month.renevues);
             $scope.expenses = parseFloat(this_month.expenses);

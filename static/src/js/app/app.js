@@ -79,8 +79,8 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
             return interpolate(fmt, obj, named);
         };
 
-        Category.query().$then(function (result) {
-            $rootScope.categories = result.resource;
+        Category.query().$promise.then(function (result) {
+            $rootScope.categories = result;
         });
 
         $rootScope.$state = $state;
