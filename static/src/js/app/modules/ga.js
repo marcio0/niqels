@@ -8,9 +8,10 @@
 angular.module('ga', [])
     .config(function () {
         if (window.ga === undefined) {
-            console.warn("Your attention please: ga is not present. Using a dummy instead.");
+            console.warn("Your attention please: ga is not present. Using '_ga' as a dummy instead.");
+            window._ga = [];
             window.ga = function () {
-                console.log('ga() called with arguments:', arguments);
+                _ga.push(arguments);
             };
         }
     })
