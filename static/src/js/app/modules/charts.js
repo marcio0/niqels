@@ -123,7 +123,7 @@ angular.module('charts', [])
                     }]
                 },
                 tooltip: {
-                    enabled: true,
+                    enabled: false,
                     formatter: function () {
                         var point1 = this.points[0],
                             point2 = this.points[1],
