@@ -7681,7 +7681,7 @@ p.expenses {
 .input-icon i.input-icon-append {
   z-index: 10;
   position: absolute;
-  bottom: 7px;
+  bottom: 9px;
 }
 .input-icon i.input-icon-prepend {
   left: 10px;
@@ -7696,16 +7696,15 @@ p.expenses {
 .input-icon[class^="col-"] i.input-icon-prepend {
   left: 25px;
 }
-i.input-error {
-  color: #b94a48;
-}
-#transaction-form .bootstrap-select {
+.input-icon .bootstrap-select {
   width: 100% !important;
   margin-bottom: 0 !important;
 }
-#transaction-form .bootstrap-select .filter-option {
-  font-weight: normal;
+.input-icon .bootstrap-select .filter-option {
   margin-left: 20px !important;
+}
+i.input-error {
+  color: #b94a48;
 }
 .bootstrap-select .btn.dropdown-toggle {
   color: #807f88 !important;
