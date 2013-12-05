@@ -214,8 +214,30 @@ angular.module('charts', [])
 
                     options.series = [{data: series}];
 
+                    var cb = function (chart) {
+                        for (var i in chart.legend.allItems) {
+                            var legend = chart.legend.allItems[i];
+                            for (var j in legend.series.data) {
+                                var s = legend.series.data[j];
+                                if (s.name !== legend.name) continue;
+
+                                $(s.legendGroup.element).on('mouseenter', {s: s},function (ev) {
+                                    var s =  ev.data.s;
+                                    s.slice(true);
+                                });
+
+                                $(s.legendGroup.element).on('mouseleave', {s: s},function (ev) {
+                                    var s =  ev.data.s;
+                                    s.slice(false);
+                                });
+                            }
+                        }
+                    };
+
+                    options._loadCb = cb;
+
                     deferred.resolve({options: options, result: result});
-                }, 
+                },
                 function failure (result) {
                     deferred.reject(result);
                 });
@@ -432,7 +454,7 @@ angular.module('charts', [])
                     var deepCopy = true;
                     var newSettings = {};
                     $.extend(deepCopy, newSettings, chartsDefaults, value.options);
-                    var chart = new Highcharts.Chart(newSettings);
+                    var chart = new Highcharts.Chart(newSettings, newSettings._loadCb);
                 });
             }
         };
