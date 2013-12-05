@@ -32,6 +32,7 @@ angular.module('charts', [])
             plotOptions: {
                 series: {
                     dataLabels: {
+                        crop: false,
                         style: {
                             textShadow: "1px 1px 0px #FFF, -1px 1px 0px #fff, 1px -1px 0px #fff, -1px -1px 0px #fff, 2px 2px 0px #FFF, -2px 2px 0px #fff, 2px -2px 0px #fff, -2px -2px 0px #fff"
                         }

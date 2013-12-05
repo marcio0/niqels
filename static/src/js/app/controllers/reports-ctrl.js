@@ -2,10 +2,10 @@ function ReportsCtrl ($scope, $rootScope) {
     'use strict';
 
     // setting up scope variables
-    $scope.period = 3;
+    $scope.period = 2;
 
     $scope.options = {
-        dateStart: moment().startOf('month').subtract(11, 'months'),
+        dateStart: moment().startOf('month').subtract(5, 'months'),
         dateEnd: moment().endOf('month')
     };
     $scope.customPeriod = angular.copy($scope.options);
