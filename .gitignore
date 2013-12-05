@@ -3,3 +3,4 @@
 local_settings.py
 staticfiles
 node_modules/
+.idea/
