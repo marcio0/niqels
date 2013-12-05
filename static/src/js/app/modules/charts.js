@@ -51,31 +51,44 @@ angular.module('charts', [])
                     deferred = $q.defer();
 
                 $http.get('/api/v1/data/balance/', {params: params}).then(function (result) {
-                    var series = [],
-                        options = {},
+                    var options = {},
                         months = [],
                         renevuesSeries = {data: [], name: gettext('Renevues'), color: '#46a546', codename: 'renevues'},
                         expensesSeries = {data: [], name: gettext('Expenses'), color: '#9d261d', codename: 'expenses'},
-                        balanceSeries = {data: [], name: gettext('Total'), type: 'area'};
+                        balanceSeries = {data: [], name: gettext('Total'), type: 'area', visible: false},
+                        avgSeries = {data: [], name: gettext('Average'), type: 'spline', visible: false},
+                        avgValues = [];
 
                     $.extend(true, options, me.chartOptions);
 
                     for (var i in result.data) {
-                        var data = {},
-                            month = result.data[i],
-                            monthName,
+                        var month = result.data[i],
                             renevues = parseFloat(month.renevues),
-                            expenses = parseFloat(month.expenses);
+                            expenses = parseFloat(month.expenses),
+                            total = renevues + expenses,
+                            avg = 0,
+                            realLength = 0;
+
+                        avgValues.push(total);
+
+                        avg = avgValues.reduce(function (previous, current) {
+                            var sum = previous + current;
+                            if (sum != 0) {
+                                realLength++;
+                            }
+                            return sum;
+                        }) / (realLength || 1);
 
                         months.push(moment(month.period, 'YYYY-MM-DD'));
 
                         renevuesSeries.data.push(renevues);
                         expensesSeries.data.push(Math.abs(expenses));
-                        balanceSeries.data.push(renevues + expenses);
+                        balanceSeries.data.push(total);
+                        avgSeries.data.push(avg);
                     }
 
                     options.xAxis.categories = xAxisMonthParser(months);
-                    options.series = [renevuesSeries, expensesSeries];
+                    options.series = [renevuesSeries, expensesSeries, balanceSeries, avgSeries];
 
                     deferred.resolve({options: options, result: result.data});
                 }, 
@@ -148,8 +161,8 @@ angular.module('charts', [])
                     area: {
                         fillOpacity: 0.1,
                         lineWidth: 1,
-                        lineColor: '#000',
-                        marker: {enabled: false},
+                        lineColor: '#ccc',
+                        marker: {enabled: true},
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
@@ -209,20 +222,30 @@ angular.module('charts', [])
                 title: {
                     text: ''
                 },
-                tooltip: {
-                    enabled: false,
-                    formatter: function () {
+                legend: {
+                    enabled: true,
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    floating: true,
+                    borderWidth: 0,
+                    labelFormatter: function () {
                         var value = $filter('currency')(this.y);
-                        var percentage = this.percentage;
-                        return '<b>' + value + ' (' + percentage + '%)</b>';
+                        var percentage = this.percentage.toFixed(2);
+                        var name = this.name;
+                        return '<b>{0}</b> <br/>{1} ({2}%)'.format(name, value, percentage);
                     }
+
+                },
+                tooltip: {
+                    enabled: false
                 },
                 plotOptions: {
                     pie: {
-                        allowPointSelect: false,
+                        allowPointSelect: true,
                         cursor: 'pointer',
                         dataLabels: {
-                            enabled: true,
+                            enabled: false,
                             //format: '<b>{point.name}</b>: <br/> {point.value} ({point.percentage:.1f}%)'
                             formatter: function () {
                                 var value = $filter('currency')(this.point.y);
@@ -231,7 +254,7 @@ angular.module('charts', [])
                                 return '<b>{0}</b> <br/>{1} ({2}%)'.format(name, value, percentage);
                             }
                         },
-                        showInLegend: false
+                        showInLegend: true
                     }
                 }
             }
