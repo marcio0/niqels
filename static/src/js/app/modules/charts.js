@@ -214,28 +214,6 @@ angular.module('charts', [])
 
                     options.series = [{data: series}];
 
-                    var cb = function (chart) {
-                        for (var i in chart.legend.allItems) {
-                            var legend = chart.legend.allItems[i];
-                            for (var j in legend.series.data) {
-                                var s = legend.series.data[j];
-                                if (s.name !== legend.name) continue;
-
-                                $(s.legendGroup.element).on('mouseenter', {s: s},function (ev) {
-                                    var s =  ev.data.s;
-                                    s.slice(true);
-                                });
-
-                                $(s.legendGroup.element).on('mouseleave', {s: s},function (ev) {
-                                    var s =  ev.data.s;
-                                    s.slice(false);
-                                });
-                            }
-                        }
-                    };
-
-                    options._loadCb = cb;
-
                     deferred.resolve({options: options, result: result});
                 },
                 function failure (result) {
@@ -256,15 +234,7 @@ angular.module('charts', [])
                     layout: 'vertical',
                     align: 'left',
                     verticalAlign: 'top',
-                    //floating: true,
-                    borderWidth: 0,
-                    labelFormatter: function () {
-                        var value = $filter('currency')(this.y);
-                        var percentage = this.percentage.toFixed(2);
-                        var name = this.name;
-                        return '<b>{0}</b> <br/>{1} ({2}%)'.format(name, value, percentage);
-                    }
-
+                    borderWidth: 0
                 },
                 tooltip: {
                     enabled: false
@@ -275,8 +245,8 @@ angular.module('charts', [])
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: "<b>{point.name}</b>: ({point.percentage:.1f}%)",
-                            _formatter: function () {
+                            //format: "<b>{point.name}</b>: ({point.percentage:.1f}%)",
+                            formatter: function () {
                                 var value = $filter('currency')(this.point.y);
                                 var percentage = this.point.percentage.toFixed(2);
                                 var name = this.point.name;
