@@ -67,7 +67,7 @@ angular.module('charts', [])
                             expenses = parseFloat(month.expenses),
                             total = renevues + expenses,
                             avg = 0,
-                            realLength = 0;
+                            realLength = 1;
 
                         avgValues.push(total);
 
@@ -77,7 +77,7 @@ angular.module('charts', [])
                                 realLength++;
                             }
                             return sum;
-                        }) / (realLength || 1);
+                        }) / realLength;
 
                         months.push(moment(month.period, 'YYYY-MM-DD'));
 
@@ -148,8 +148,16 @@ angular.module('charts', [])
                     useHTML: true
                 },
                 plotOptions: {
+                    spline: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return this.y !== 0 ? $filter('currency')(this.y) : '';
+                            }
+                        }
+                    },
                     column: {
-                        pointPadding: 0.2,
+                        pointPadding: 0.1,
                         borderWidth: 0,
                         dataLabels: {
                             enabled: true,
@@ -162,7 +170,6 @@ angular.module('charts', [])
                         fillOpacity: 0.1,
                         lineWidth: 1,
                         lineColor: '#ccc',
-                        marker: {enabled: true},
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
