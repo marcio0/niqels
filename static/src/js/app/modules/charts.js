@@ -256,7 +256,7 @@ angular.module('charts', [])
                     layout: 'vertical',
                     align: 'left',
                     verticalAlign: 'top',
-                    floating: true,
+                    //floating: true,
                     borderWidth: 0,
                     labelFormatter: function () {
                         var value = $filter('currency')(this.y);
@@ -274,9 +274,9 @@ angular.module('charts', [])
                         allowPointSelect: true,
                         cursor: 'pointer',
                         dataLabels: {
-                            enabled: false,
-                            //format: '<b>{point.name}</b>: <br/> {point.value} ({point.percentage:.1f}%)'
-                            formatter: function () {
+                            enabled: true,
+                            format: "<b>{point.name}</b>: ({point.percentage:.1f}%)",
+                            _formatter: function () {
                                 var value = $filter('currency')(this.point.y);
                                 var percentage = this.point.percentage.toFixed(2);
                                 var name = this.point.name;
