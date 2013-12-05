@@ -84,6 +84,11 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
         });
 
         $rootScope.$state = $state;
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+            if (toState.name === 'reports') {
+                $state.go('reports.balance');
+            }
+        });
 
         //configuring toastr
         toastr.options = {
