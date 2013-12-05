@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-03 01:30-0200\n"
+"POT-Creation-Date: 2013-12-05 19:52-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -272,9 +272,8 @@ msgid "Create account"
 msgstr "Criar conta"
 
 #: templates/access/change_password.html:7
-#, fuzzy
 msgid "Password change"
-msgstr "Senha"
+msgstr "Redefinir senha"
 
 #: templates/access/change_password.html:13
 msgid "Old password"
@@ -439,7 +438,7 @@ msgstr "Comparação de categorias"
 msgid "Category 1"
 msgstr "Categoria 1"
 
-#: templates/webapp/reports/category-comparison.html:21
+#: templates/webapp/reports/category-comparison.html:23
 msgid "Category 2"
 msgstr "Categoria 2"
 
@@ -453,9 +452,8 @@ msgid "Category comparison"
 msgstr "Comparação de categorias"
 
 #: templates/webapp/reports/reports.html:19
-#, fuzzy
 msgid "Period:"
-msgstr "Período"
+msgstr "Período:"
 
 #: templates/webapp/reports/reports.html:35
 msgid "Update"
@@ -463,11 +461,11 @@ msgstr "Atualizar"
 
 #: templates/webapp/reports/reports.html:45
 msgid "Show data between"
-msgstr ""
+msgstr "Mostrar dados entre"
 
 #: templates/webapp/reports/reports.html:47
 msgid "and"
-msgstr ""
+msgstr "e"
 
 #: templates/webapp/settings/settings.html:4
 msgid "Menu"

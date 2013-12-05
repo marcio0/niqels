@@ -15,7 +15,7 @@ function ReportsCtrl ($scope, $rootScope) {
         {name: gettext('Three months'), value: 1},
         {name: gettext('Six months'), value: 2},
         {name: gettext('A year'), value: 3},
-        {name: gettext('Custom...'), value: 4}
+        {name: gettext('Custom') + '...', value: 4}
     ];
 
     $scope._getInterval = function (months) {
