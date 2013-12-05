@@ -7412,25 +7412,35 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   border-radius: 0px !important;
   background-color: #fdfdfd;
 }
-.datepicker td,
-.datepicker th,
-.datepicker .active,
-.datepicker .today,
-.datepicker tr > td > span {
+.datepicker.datepicker-inline {
+  width: 100%;
+}
+.datepicker table {
+  width: 100%;
+}
+.datepicker table td,
+.datepicker table th,
+.datepicker table .active,
+.datepicker table .today,
+.datepicker table tr > td > span {
   border-radius: 0px !important;
 }
-.datepicker:before {
-  visibility: hidden;
+.datepicker table tr td.today {
+  background-color: inherit;
+  box-shadow: inset 0px 0px 0px 1px #4a4c78;
 }
-.datepicker td.active {
+.datepicker table tr td.active {
   background-color: #4a4c78 !important;
   background-image: none !important;
 }
-.datepicker td.active:hover {
+.datepicker table tr td.active:hover {
   background-color: #373858 !important;
 }
-.datepicker thead th.datepicker-switch {
+.datepicker table thead th.datepicker-switch {
   font-style: normal !important;
+}
+.datepicker:before {
+  visibility: hidden;
 }
 .datepicker.datepicker-dropdown {
   width: 230px;
