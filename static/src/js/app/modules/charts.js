@@ -80,7 +80,7 @@ angular.module('charts', [])
                             smartAvg += sum;
                         }
 
-                        console.log(smartAvg / realLength);
+                        smartAvg = smartAvg / realLength;
 
                         months.push(moment(month.period, 'YYYY-MM-DD'));
 
