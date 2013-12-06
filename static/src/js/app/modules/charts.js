@@ -67,30 +67,27 @@ angular.module('charts', [])
                             renevues = parseFloat(month.renevues),
                             expenses = parseFloat(month.expenses),
                             total = renevues + expenses,
-                            avg = 0, smartAvg = 0,
+                            smartAvg = 0,
                             realLength = 1;
 
                         avgValues.push(total);
 
-                        avg = avgValues.reduce(function (previous, current) {
-                            var sum = previous + current;
+                        for (var j=(i<5 ? 0 : i-5); (j<=i); j++) {
+                            var sum = parseFloat(result.data[j].renevues) + parseFloat(result.data[j].expenses);
                             if (sum != 0) {
                                 realLength++;
                             }
-                            return sum;
-                        }) / realLength;
-
-                        for (var j=(i<5 ? 0 : i-5); (j<=i); j++) {
-                            smartAvg += parseFloat(result.data[j].renevues) + parseFloat(result.data[j].expenses);
+                            smartAvg += sum;
                         }
-                        console.log(smartAvg);
+
+                        console.log(smartAvg / realLength);
 
                         months.push(moment(month.period, 'YYYY-MM-DD'));
 
                         renevuesSeries.data.push(renevues);
                         expensesSeries.data.push(Math.abs(expenses));
                         balanceSeries.data.push(total);
-                        avgSeries.data.push(avg);
+                        avgSeries.data.push(smartAvg);
                     }
 
                     options.xAxis.categories = xAxisMonthParser(months);
