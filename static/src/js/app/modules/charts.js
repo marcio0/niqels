@@ -67,7 +67,7 @@ angular.module('charts', [])
                             renevues = parseFloat(month.renevues),
                             expenses = parseFloat(month.expenses),
                             total = renevues + expenses,
-                            avg = 0,
+                            avg = 0, smartAvg = 0,
                             realLength = 1;
 
                         avgValues.push(total);
@@ -79,6 +79,11 @@ angular.module('charts', [])
                             }
                             return sum;
                         }) / realLength;
+
+                        for (var j=(i<5 ? 0 : i-5); (j<=i); j++) {
+                            smartAvg += parseFloat(result.data[j].renevues) + parseFloat(result.data[j].expenses);
+                        }
+                        console.log(smartAvg);
 
                         months.push(moment(month.period, 'YYYY-MM-DD'));
 
