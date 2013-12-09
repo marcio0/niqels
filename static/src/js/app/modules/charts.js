@@ -179,7 +179,7 @@ angular.module('charts', [])
                                 return this.y !== 0 ? $filter('currency')(this.y) : '';
                             }
                         }
-                    },
+                    }
                 }
             }
         };
