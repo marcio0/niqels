@@ -1,4 +1,5 @@
 from decimal import Decimal
+import datetime
 
 from django import forms
 from tastypie.constants import ALL
@@ -111,6 +112,20 @@ class GroupedTransactionResource(ModelResource):
             'sum': Sum('value')
         }
 
+    def _truncate_date_tzinfo(self, objects):
+        for obj in objects:
+            if 'date__day' in obj:
+                attr =  'date__day'
+            if 'date__month' in obj:
+                attr =  'date__month'
+            if 'date__year' in obj:
+                attr =  'date__year'
+
+            if isinstance(obj[attr], unicode):
+                obj[attr] = obj[attr].split(' ')[0]
+            elif isinstance(obj[attr], datetime.datetime):
+                obj[attr] = obj[attr].replace(tzinfo=None)
+
     def get_list(self, request, **kwargs):
         groups = request.GET.get('group_by')
 
@@ -123,11 +138,14 @@ class GroupedTransactionResource(ModelResource):
 
         values = []
 
+        must_truncate_date = False
+
         for group in groups:
             if group not in self._meta.grouping:
                 raise BadRequest(_("This resource does not allow grouping by %s.") % group)
 
             if group.startswith('date'):
+                must_truncate_date = True
                 attr = group.split('__')[1]
 
                 truncate_date = connections[objects.model.objects.db].ops.date_trunc_sql(attr, 'date')
@@ -136,6 +154,9 @@ class GroupedTransactionResource(ModelResource):
             values.append(group)
 
         objects = objects.values(*values).annotate(**self._meta.annotations).order_by(*values)
+
+        if must_truncate_date:
+            self._truncate_date_tzinfo(objects)
 
         sorted_objects = self.apply_sorting(objects, options=request.GET)
         paginator = self._meta.paginator_class(request.GET, sorted_objects, resource_uri=self.get_resource_uri(), limit=self._meta.limit, max_limit=self._meta.max_limit, collection_name=self._meta.collection_name)
