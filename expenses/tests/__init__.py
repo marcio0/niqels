@@ -3,4 +3,3 @@ from model import *
 from view import *
 from other import *
 from calculator import *
-from command import *
