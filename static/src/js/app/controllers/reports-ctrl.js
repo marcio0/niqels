@@ -30,19 +30,20 @@ function ReportsCtrl ($scope, $rootScope) {
     };
 
     var periodIntervals = {
-        0: function () {return $scope._getInterval(0)},
-        1: function () {return $scope._getInterval(2)},
-        2: function () {return $scope._getInterval(5)},
-        3: function () {return $scope._getInterval(12)},
+        0: function () {return $scope._getInterval(0);},
+        1: function () {return $scope._getInterval(2);},
+        2: function () {return $scope._getInterval(5);},
+        3: function () {return $scope._getInterval(12);},
         4: $scope._getCustomIntervals
     };
 
     $scope.$watch('period', function (newValue) {
         if (newValue === undefined) return;
+        var action = "";
         if (newValue === 4) {
-            var action = 'show';
+            action = 'show';
         } else {
-            var action = 'hide';
+            action = 'hide';
         }
         $('#custom-period-panel').collapse(action);
     });
@@ -132,7 +133,7 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
             c1.data.push(0);
             //c2.data.push(0);
         }
-        for (var i=c2.data.length; i< diffMonths + 1; i++) {
+        for (var j=c2.data.length; j< diffMonths + 1; j++) {
             c2.data.push(0);
         }
 

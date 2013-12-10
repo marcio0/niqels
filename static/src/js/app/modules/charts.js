@@ -74,7 +74,7 @@ angular.module('charts', [])
 
                         for (var j=(i<5 ? 0 : i-5); (j<=i); j++) {
                             var sum = parseFloat(result.data[j].renevues) + parseFloat(result.data[j].expenses);
-                            if (sum != 0) {
+                            if (sum !== 0) {
                                 realLength++;
                             }
                             smartAvg += sum;

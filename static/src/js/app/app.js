@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.router', 'charts', 'ga'])
+var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives', 'ui.router', 'charts', 'ga', 'hashtags'])
 
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
         $urlRouterProvider.otherwise("/transactions");

@@ -86,7 +86,7 @@
 
                                     <td class="date-column" ng-bind="transaction.date | date:'dd/MM'" style="font-weight: bold"></td>
 
-                                    <td class="description-column" ng-bind="transaction.description"></td>
+                                    <td class="description-column" ng-bind="transaction.description" hashtagged></td>
 
                                     <td class="value-column" is-positive-class="transaction.value">
                                         <span ng-bind="transaction.value | currency"></span>

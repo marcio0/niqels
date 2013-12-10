@@ -7840,6 +7840,24 @@ a[data-toggle="collapse"] {
 #empty-msg {
   text-align: center;
 }
+#reports #period-form {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: auto;
+  float: none !important;
+}
+@media (min-width: 768px) {
+  #reports #period-form {
+    float: left;
+    width: 58.333333333333336%;
+  }
+}
+#reports #custom-period-panel {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .options-panel {
   background-color: transparent;
   border: 1px solid #e6e4eb;
@@ -7861,23 +7879,9 @@ a[data-toggle="collapse"] {
 .options-panel .option .toggle-selector .active i {
   display: inline !important;
 }
-#reports #period-form {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: auto;
-  float: none !important;
-}
-@media (min-width: 768px) {
-  #reports #period-form {
-    float: left;
-    width: 58.333333333333336%;
-  }
-}
-#reports #custom-period-panel {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.label {
+  font-weight: normal;
+  font-size: 90%;
 }
 html,
 body,
