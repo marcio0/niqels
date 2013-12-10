@@ -114,12 +114,16 @@ class GroupedTransactionResource(ModelResource):
 
     def _truncate_date_tzinfo(self, objects):
         for obj in objects:
+            attr = None
             if 'date__day' in obj:
-                attr =  'date__day'
+                attr = 'date__day'
             if 'date__month' in obj:
-                attr =  'date__month'
+                attr = 'date__month'
             if 'date__year' in obj:
-                attr =  'date__year'
+                attr = 'date__year'
+
+            if not attr:
+                continue
 
             if isinstance(obj[attr], unicode):
                 obj[attr] = obj[attr].split(' ')[0]

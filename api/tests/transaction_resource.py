@@ -1,10 +1,13 @@
-import datetime
 from decimal import Decimal
+import datetime
 
 from tastypie.test import ResourceTestCase
+from django.test import TestCase
+from django.utils import timezone
 
 from access.models import User
-from expenses.models import Transaction, Category
+from expenses.models import Transaction
+from api.resources.transaction_resource import GroupedTransactionResource
 
 
 class TransactionResourceTest(ResourceTestCase):
@@ -467,9 +470,9 @@ class GroupedTransactionResourceTest(ResourceTestCase):
                 'total_count': 3
             },
             'objects': [
-                {'sum': '150.00', 'total': 6, 'date__month': u'2010-01-01 00:00:00'},
-                {'sum': '120.00', 'total': 6, 'date__month': u'2010-02-01 00:00:00'},
-                {'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01 00:00:00'}
+                {'sum': '150.00', 'total': 6, 'date__month': u'2010-01-01'},
+                {'sum': '120.00', 'total': 6, 'date__month': u'2010-02-01'},
+                {'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01'}
             ]
         })
 
@@ -486,20 +489,20 @@ class GroupedTransactionResourceTest(ResourceTestCase):
                 'total_count': 14
             },
             'objects': [
-                {'date__day': u'2010-01-01 00:00:00', 'sum': '-100.00', 'total': 1},
-                {'date__day': u'2010-01-02 00:00:00', 'sum': '-100.00', 'total': 1},
-                {'date__day': u'2010-01-03 00:00:00', 'sum': '-100.00', 'total': 1},
-                {'date__day': u'2010-01-04 00:00:00', 'sum': '150.00', 'total': 1},
-                {'date__day': u'2010-01-11 00:00:00', 'sum': '150.00', 'total': 1},
-                {'date__day': u'2010-01-15 00:00:00', 'sum': '150.00', 'total': 1},
-                {'date__day': u'2010-02-01 00:00:00', 'sum': '40.00', 'total': 2},
-                {'date__day': u'2010-02-02 00:00:00', 'sum': '-120.00', 'total': 1},
-                {'date__day': u'2010-02-03 00:00:00', 'sum': '-120.00', 'total': 1},
-                {'date__day': u'2010-02-11 00:00:00', 'sum': '160.00', 'total': 1},
-                {'date__day': u'2010-02-15 00:00:00', 'sum': '160.00', 'total': 1},
-                {'date__day': u'2010-03-02 00:00:00', 'sum': '50.00', 'total': 2},
-                {'date__day': u'2010-03-11 00:00:00', 'sum': '50.00', 'total': 2},
-                {'date__day': u'2010-03-15 00:00:00', 'sum': '50.00', 'total': 2}
+                {'date__day': u'2010-01-01', 'sum': '-100.00', 'total': 1},
+                {'date__day': u'2010-01-02', 'sum': '-100.00', 'total': 1},
+                {'date__day': u'2010-01-03', 'sum': '-100.00', 'total': 1},
+                {'date__day': u'2010-01-04', 'sum': '150.00', 'total': 1},
+                {'date__day': u'2010-01-11', 'sum': '150.00', 'total': 1},
+                {'date__day': u'2010-01-15', 'sum': '150.00', 'total': 1},
+                {'date__day': u'2010-02-01', 'sum': '40.00', 'total': 2},
+                {'date__day': u'2010-02-02', 'sum': '-120.00', 'total': 1},
+                {'date__day': u'2010-02-03', 'sum': '-120.00', 'total': 1},
+                {'date__day': u'2010-02-11', 'sum': '160.00', 'total': 1},
+                {'date__day': u'2010-02-15', 'sum': '160.00', 'total': 1},
+                {'date__day': u'2010-03-02', 'sum': '50.00', 'total': 2},
+                {'date__day': u'2010-03-11', 'sum': '50.00', 'total': 2},
+                {'date__day': u'2010-03-15', 'sum': '50.00', 'total': 2}
             ]
         })
 
@@ -516,7 +519,7 @@ class GroupedTransactionResourceTest(ResourceTestCase):
                 'offset': 0,
                 'total_count': 1
             },
-            'objects': [{'sum': '420.00', 'total': 18, 'date__year': u'2010-01-01 00:00:00'}]
+            'objects': [{'sum': '420.00', 'total': 18, 'date__year': u'2010-01-01'}]
         })
 
     def test_two_groups(self):
@@ -532,18 +535,18 @@ class GroupedTransactionResourceTest(ResourceTestCase):
                 'total_count': 12
             },
             'objects': [
-                {'category__name': u'group1', 'sum': '150.00', 'total': 1, 'date__month': u'2010-01-01 00:00:00'},
-                {'category__name': u'group2', 'sum': '50.00', 'total': 2, 'date__month': u'2010-01-01 00:00:00'},
-                {'category__name': u'group3', 'sum': '50.00', 'total': 2, 'date__month': u'2010-01-01 00:00:00'},
-                {'category__name': u'group4', 'sum': '-100.00', 'total': 1, 'date__month': u'2010-01-01 00:00:00'},
-                {'category__name': u'group1', 'sum': '-120.00', 'total': 1, 'date__month': u'2010-02-01 00:00:00'},
-                {'category__name': u'group2', 'sum': '160.00', 'total': 1, 'date__month': u'2010-02-01 00:00:00'},
-                {'category__name': u'group3', 'sum': '-120.00', 'total': 1, 'date__month': u'2010-02-01 00:00:00'},
-                {'category__name': u'group4', 'sum': '200.00', 'total': 3, 'date__month': u'2010-02-01 00:00:00'},
-                {'category__name': u'group1', 'sum': '-150.00', 'total': 1, 'date__month': u'2010-03-01 00:00:00'},
-                {'category__name': u'group2', 'sum': '50.00', 'total': 2, 'date__month': u'2010-03-01 00:00:00'},
-                {'category__name': u'group3', 'sum': '400.00', 'total': 2, 'date__month': u'2010-03-01 00:00:00'},
-                {'category__name': u'group4', 'sum': '-150.00', 'total': 1, 'date__month': u'2010-03-01 00:00:00'}
+                {'category__name': u'group1', 'sum': '150.00', 'total': 1, 'date__month': u'2010-01-01'},
+                {'category__name': u'group2', 'sum': '50.00', 'total': 2, 'date__month': u'2010-01-01'},
+                {'category__name': u'group3', 'sum': '50.00', 'total': 2, 'date__month': u'2010-01-01'},
+                {'category__name': u'group4', 'sum': '-100.00', 'total': 1, 'date__month': u'2010-01-01'},
+                {'category__name': u'group1', 'sum': '-120.00', 'total': 1, 'date__month': u'2010-02-01'},
+                {'category__name': u'group2', 'sum': '160.00', 'total': 1, 'date__month': u'2010-02-01'},
+                {'category__name': u'group3', 'sum': '-120.00', 'total': 1, 'date__month': u'2010-02-01'},
+                {'category__name': u'group4', 'sum': '200.00', 'total': 3, 'date__month': u'2010-02-01'},
+                {'category__name': u'group1', 'sum': '-150.00', 'total': 1, 'date__month': u'2010-03-01'},
+                {'category__name': u'group2', 'sum': '50.00', 'total': 2, 'date__month': u'2010-03-01'},
+                {'category__name': u'group3', 'sum': '400.00', 'total': 2, 'date__month': u'2010-03-01'},
+                {'category__name': u'group4', 'sum': '-150.00', 'total': 1, 'date__month': u'2010-03-01'}
             ]
         })
 
@@ -563,5 +566,50 @@ class GroupedTransactionResourceTest(ResourceTestCase):
                 'offset': 0,
                 'total_count': 1
             },
-            'objects': [{'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01 00:00:00'}]
+            'objects': [{'sum': '150.00', 'total': 6, 'date__month': u'2010-03-01'}]
         })
+
+class DateGroupTruncateTest(TestCase):
+    def test_truncate_unicode(self):
+        objects = [
+            {'date__day': u'2010-10-10 00:00:00'},
+            {'date__month': u'2010-10-11 00:00:00'},
+            {'date__year': u'2010-10-12 00:00:00'}
+        ]
+
+        resource = GroupedTransactionResource()
+        resource._truncate_date_tzinfo(objects)
+
+        self.assertEquals(objects, [
+            {'date__day': u'2010-10-10'},
+            {'date__month': u'2010-10-11'},
+            {'date__year': u'2010-10-12'}
+        ])
+
+    def test_no_date_group(self):
+        objects = [
+            {'some_group': 'value'}
+        ]
+
+        resource = GroupedTransactionResource()
+        resource._truncate_date_tzinfo(objects)
+
+        self.assertEquals(objects, [
+            {'some_group': 'value'}
+        ])
+
+    def test_truncate_timezone(self):
+        objects = [
+            {'date__day': timezone.make_aware(datetime.datetime(2010, 10, 10), timezone.utc)},
+            {'date__month': timezone.make_aware(datetime.datetime(2010, 10, 10), timezone.utc)},
+            {'date__year': timezone.make_aware(datetime.datetime(2010, 10, 10), timezone.utc)}
+        ]
+
+        resource = GroupedTransactionResource()
+        resource._truncate_date_tzinfo(objects)
+
+        self.assertEquals(objects, [
+            {'date__day': datetime.datetime(2010, 10, 10)},
+            {'date__month': datetime.datetime(2010, 10, 10)},
+            {'date__year': datetime.datetime(2010, 10, 10)}
+        ])
