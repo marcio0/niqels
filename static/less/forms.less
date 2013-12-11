@@ -49,3 +49,19 @@ i.input-error {
         font-family: @font-family-sans-serif;
     }
 }
+
+.animate-show {
+    transition: all linear 0.5s;
+    max-height: 3000px;
+    opacity: 1;
+
+    &.ng-hide-add, &.ng-hide-remove {
+        display: block !important;
+    }
+
+    &.ng-hide {
+        opacity: 0;
+        height: 0px;
+        overflow: hidden;
+    }
+}

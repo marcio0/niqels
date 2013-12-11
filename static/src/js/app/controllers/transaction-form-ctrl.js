@@ -1,8 +1,10 @@
 function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category) {
     'use strict';
+
     $scope.formData = {};
     $scope.selected_category = null;
     $scope.formData.date = moment();
+    $scope.is_installment = false;
 
     var resetForm = function resetForm () {
         $scope.sending = false;

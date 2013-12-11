@@ -7718,6 +7718,20 @@ i.input-error {
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
+.animate-show {
+  transition: all linear 0.5s;
+  max-height: 3000px;
+  opacity: 1;
+}
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+  display: block !important;
+}
+.animate-show.ng-hide {
+  opacity: 0;
+  height: 0px;
+  overflow: hidden;
+}
 /*
  * transaction-list.less
  * styles for the transaction list.
