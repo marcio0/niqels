@@ -51,6 +51,15 @@
             autocomplete="off"
             />
     </div>
+    <div class="checkbox" ng-controller="InstallmentFormCtrl">
+        <input
+            type="checkbox"
+            ng-model="is_installment"
+            ng-false-value="false"
+            ng-true-value="true"
+            ng-change="selectInstallment()"
+            >{% trans "Esta é uma compra parcelada" %} <a>(editar)</a>
+    </div>
 
     <div class="form-group input-icon">
         <label for="id_description" class="form-label">{% trans "Description" %}</label>
