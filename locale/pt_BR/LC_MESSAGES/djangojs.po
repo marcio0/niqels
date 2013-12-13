@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 19:52-0200\n"
+"POT-Creation-Date: 2013-12-12 23:04-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/src/js/app/app.js:98
+#: static/src/js/app/app.js:103
 #, c-format
 msgid "%s sucessfuly created!"
 msgstr "%s criada com sucesso!"
 
-#: static/src/js/app/app.js:102
+#: static/src/js/app/app.js:107
 #, c-format
 msgid "%s sucessfuly updated!"
 msgstr "%s atualizada com sucesso!"
 
-#: static/src/js/app/app.js:106
+#: static/src/js/app/app.js:111
 #, c-format
 msgid "An error ocurred creating %s."
 msgstr "Um erro ocorreu ao criado %s."
 
-#: static/src/js/app/app.js:110
+#: static/src/js/app/app.js:115
 #, c-format
 msgid "%s sucessfuly removed."
 msgstr "%s removida com sucesso."
@@ -51,7 +51,7 @@ msgid "Oops! Something went wrong. Please try again later."
 msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
 
 #: static/src/js/app/controllers/category-edit-ctrl.js:26
-#: static/src/js/app/controllers/transaction-form-ctrl.js:51
+#: static/src/js/app/controllers/transaction-form-ctrl.js:53
 msgid "Please fill in the fields correctly."
 msgstr "Por favor, preencha os campos corretamente."
 
@@ -75,42 +75,42 @@ msgstr "Um ano"
 msgid "Custom"
 msgstr "Personalizado"
 
-#: static/src/js/app/controllers/reports-ctrl.js:68
+#: static/src/js/app/controllers/reports-ctrl.js:69
 msgid "The period must be 12 months or lower."
 msgstr "O período deve ser de 12 meses ou menos"
 
-#: static/src/js/app/controllers/reports-ctrl.js:72
+#: static/src/js/app/controllers/reports-ctrl.js:73
 msgid "The start date must be lower than the end date."
 msgstr "A data de início deve ser menor que a data final do período."
 
-#: static/src/js/app/controllers/reports-ctrl.js:91
-#: static/src/js/app/controllers/reports-ctrl.js:149
-#: static/src/js/app/modules/charts.js:56
-#: static/src/js/app/modules/charts.js:293
+#: static/src/js/app/controllers/reports-ctrl.js:92
+#: static/src/js/app/controllers/reports-ctrl.js:150
+#: static/src/js/app/modules/charts.js:57
+#: static/src/js/app/modules/charts.js:296
 msgid "Renevues"
 msgstr "Receitas"
 
-#: static/src/js/app/controllers/reports-ctrl.js:92
-#: static/src/js/app/controllers/reports-ctrl.js:153
-#: static/src/js/app/modules/charts.js:57
-#: static/src/js/app/modules/charts.js:292
+#: static/src/js/app/controllers/reports-ctrl.js:93
+#: static/src/js/app/controllers/reports-ctrl.js:154
+#: static/src/js/app/modules/charts.js:58
+#: static/src/js/app/modules/charts.js:295
 msgid "Expenses"
 msgstr "Despesas"
 
-#: static/src/js/app/controllers/reports-ctrl.js:150
-#: static/src/js/app/controllers/reports-ctrl.js:154
+#: static/src/js/app/controllers/reports-ctrl.js:151
+#: static/src/js/app/controllers/reports-ctrl.js:155
 msgid "Balance data"
 msgstr "Balanço"
 
-#: static/src/js/app/controllers/transaction-form-ctrl.js:16
+#: static/src/js/app/controllers/transaction-form-ctrl.js:18
 msgid "Select a category"
 msgstr "Selecione uma categoria"
 
-#: static/src/js/app/modules/charts.js:58
+#: static/src/js/app/modules/charts.js:59
 msgid "Total"
 msgstr "Total"
 
-#: static/src/js/app/modules/charts.js:59
+#: static/src/js/app/modules/charts.js:60
 msgid "Average"
 msgstr "Média"
 

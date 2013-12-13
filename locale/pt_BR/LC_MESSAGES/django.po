@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 19:52-0200\n"
+"POT-Creation-Date: 2013-12-12 23:04-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgstr "A data final deve estar no formato AAAA-MM-DD."
 msgid "The `day` parameter must be an integer."
 msgstr "O dia precisa ser um número inteiro"
 
-#: api/resources/transaction_resource.py:128
+#: api/resources/transaction_resource.py:149
 #, python-format
 msgid "This resource does not allow grouping by %s."
 msgstr "Este recurso não permite agrupamento por %s"
@@ -412,7 +412,7 @@ msgstr "Siga as instruções neste email para escolher uma nova senha."
 msgid "Reports"
 msgstr "Relatórios"
 
-#: templates/webapp/index.html:123
+#: templates/webapp/index.html:127
 msgid "Welcome to Niqels, {0}!"
 msgstr "Bem vindo ao Niqels, {0}!"
 
@@ -497,22 +497,38 @@ msgstr "Nova movimentação"
 msgid "Value"
 msgstr "Valor"
 
-#: templates/webapp/transactions/transaction-form.html:56
+#: templates/webapp/transactions/transaction-form.html:57
+msgid "Installment value"
+msgstr "Valor da parcela"
+
+#: templates/webapp/transactions/transaction-form.html:73
+msgid "Total value"
+msgstr "Valor total"
+
+#: templates/webapp/transactions/transaction-form.html:90
+msgid "Number of installments"
+msgstr "Número de parcelas"
+
+#: templates/webapp/transactions/transaction-form.html:116
+msgid "This is an installment purchase"
+msgstr "Esta é uma compra parcelada"
+
+#: templates/webapp/transactions/transaction-form.html:120
 #: templates/webapp/transactions/transaction-list.html:75
 #: templates/webapp/transactions/transaction-list.html:128
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/webapp/transactions/transaction-form.html:67
+#: templates/webapp/transactions/transaction-form.html:131
 msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
-#: templates/webapp/transactions/transaction-form.html:73
+#: templates/webapp/transactions/transaction-form.html:137
 #: templates/webapp/transactions/transaction-list.html:72
 msgid "Date"
 msgstr "Data"
 
-#: templates/webapp/transactions/transaction-form.html:84
+#: templates/webapp/transactions/transaction-form.html:148
 msgid "Submit"
 msgstr "Enviar"
 
