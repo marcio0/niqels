@@ -35,7 +35,7 @@
             ></i>
     </div>
 
-    <div class="form-group input-icon animate-show" ng-hide="is_installment">
+    <div class="form-group input-icon animate-show animate-show-normal" ng-hide="is_installment">
         <label for="id_value" class="form-label">{% trans "Value" %}</label>
         <i class="fa fa-dollar input-icon-prepend"></i>
         <input
@@ -51,16 +51,8 @@
             autocomplete="off"
             />
     </div>
-    <div class="checkbox">
-        <input
-            type="checkbox"
-            ng-model="is_installment"
-            ng-false-value="false"
-            ng-true-value="true"
-            ng-change="selectInstallment()"
-            >{% trans "Esta é uma compra parcelada" %}
-    </div>
-    <div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show">
+
+    <div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall" ng-form="installment-form">
         <div class="form-group input-icon">
             <label for="id_value" class="form-label">{% trans "Installment value" %}</label>
             <i class="fa fa-dollar input-icon-prepend"></i>
@@ -69,30 +61,59 @@
                 name="value"
                 class="form-control"
 
-                ng-model="formData.value"
+                ng-model="installment.installmentValue"
+                ng-required="is_installment"
+                ng-change="updateInstallmentValue()"
                 value-field
-
-                required
 
                 autocomplete="off"
                 />
         </div>
         <div class="form-group input-icon">
-            <label for="id_value" class="form-label">{% trans "Total value" %}</label>
+            <label for="id_total_value" class="form-label">{% trans "Total value" %}</label>
             <i class="fa fa-dollar input-icon-prepend"></i>
             <input
                 id="id_total_value"
                 name="total-value"
                 class="form-control"
 
-                ng-model="total_value"
+                ng-model="installment.totalValue"
+                ng-change="updateTotalValue()"
                 value-field
 
-                required
+                ng-required="is_installment"
 
                 autocomplete="off"
                 />
         </div>
+        <div class="form-group input-icon">
+            <label for="id_qty_installments" class="form-label">{% trans "Number of installments" %}</label>
+            <i class="fa fa-calendar-o input-icon-prepend"></i>
+            <input
+                id="id_qty_installments"
+                name="qty-installments"
+                class="form-control"
+                type="number"
+                min="1"
+
+                ng-model="installment.qtyInstallments"
+                ng-required="is_installment"
+                ng-pattern="/\d+/"
+                ng-change="updateQtyInstallments()"
+
+                autocomplete="off"
+                />
+        </div>
+    </div>
+
+    <div class="checkbox">
+        <input
+            type="checkbox"
+            ng-model="is_installment"
+            ng-false-value="false"
+            ng-true-value="true"
+            ng-change="selectInstallment()"
+            >{% trans "Esta é uma compra parcelada" %}
     </div>
 
     <div class="form-group input-icon">
