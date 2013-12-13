@@ -5,9 +5,12 @@ function InstallmentFormCtrl ($scope, $filter) {
         qtyInstallments: 1
     };
 
-    $scope.selectInstallment = function selectInstallment () {
-
-    };
+    $scope.$watch('is_installment', function selectInstallment (is_installment) {
+        if (is_installment) {
+            $scope.installment.totalValue = $scope.formData.value;
+            $scope.updateTotalValue();
+        }
+    });
 
     $scope.updateQtyInstallments = function () {
         if ($scope.installment.totalValue) {
