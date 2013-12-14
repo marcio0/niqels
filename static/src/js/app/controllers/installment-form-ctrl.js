@@ -1,4 +1,4 @@
-function InstallmentFormCtrl ($scope, $filter) {
+function InstallmentFormCtrl ($scope) {
     "use strict";
 
     $scope.installment = {
@@ -12,23 +12,36 @@ function InstallmentFormCtrl ($scope, $filter) {
         }
     });
 
-    $scope.updateQtyInstallments = function () {
-        if ($scope.installment.totalValue) {
-            var totalValue = parseFloat($scope.installment.totalValue.replace(',', '.'), 2);
-            var installmentValue = (totalValue / $scope.installment.qtyInstallments).toFixed(2);
-            $scope.installment.installmentValue = installmentValue;
-        }
-    };
-
-    $scope.updateInstallmentValue = function () {
-        var installmentValue = parseFloat($scope.installment.installmentValue.replace(',', '.'), 2);
-        $scope.installment.totalValue = (installmentValue * $scope.installment.qtyInstallments).toFixed(2).toString();
-    };
-
-    $scope.updateTotalValue = function () {
-        var totalValue = parseFloat($scope.installment.totalValue.replace(',', '.'), 2);
-        $scope.installment.installmentValue = (totalValue / $scope.installment.qtyInstallments).toFixed(2).toString();
+    function getTotalValue () {
+        var installmentValue = $scope.installment.installmentValue;
+        return accounting.toFixed(installmentValue * $scope.installment.qtyInstallments, 2);
     }
+
+    function getInstallmentValue () {
+        var totalValue = $scope.installment.totalValue;
+        return accounting.toFixed(totalValue / $scope.installment.qtyInstallments, 2);
+    }
+
+    /*
+     * Updates the installment value when the number of installments changes.
+     */
+    $scope.updateQtyInstallments = function () {
+        $scope.installment.installmentValue = getInstallmentValue();
+    };
+
+    /*
+     * Updates the total value when the installment value changes.
+     */
+    $scope.updateInstallmentValue = function () {
+        $scope.installment.totalValue = getTotalValue();
+    };
+
+    /*
+     * Updates the installment value when the total value changes.
+     */
+    $scope.updateTotalValue = function () {
+        $scope.installment.installmentValue = getInstallmentValue();
+    };
 }
 
 InstallmentFormCtrl.$inject = ['$scope', '$filter'];

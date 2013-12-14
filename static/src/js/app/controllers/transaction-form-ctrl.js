@@ -28,7 +28,13 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
 
         if (form.$valid) {
             $scope.sending = true;
-            transaction_data.date = transaction_data.date.format('DD/MM/YYYY');
+
+
+            (function () {
+                // hotfix for the date and value formats
+                transaction_data.value = accounting.formatNumber(transaction_data.value);
+                transaction_data.date = transaction_data.date.format('DD/MM/YYYY');
+            })();
 
             var cls, promise;
 
