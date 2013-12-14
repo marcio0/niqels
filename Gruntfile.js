@@ -19,7 +19,6 @@ module.exports = function(grunt) {
                     'static/dist/js/webapp-libs.min.tmp.js': [
                         // libs
                         'static/src/js/lib/bootstrap-datepicker.js',
-                        'static/src/js/lib/jquery.maskMoney.js',
 
                         // i18n code
                         'static/src/js/locales/*.js'

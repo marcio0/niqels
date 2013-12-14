@@ -194,41 +194,5 @@ angular.module('webapp')
         };
     }])
 
-    .directive('valueField', ['$rootScope', function ($rootScope) {
-        var mobile = $rootScope.mobile,
-            template, linkFn;
-
-        if (mobile) {
-            template = '<input type="tel"></input>';
-        }
-        else {
-            template = '<input type="text"></input>';
-        }
-
-        return {
-            require: '?ngModel',
-            restrict: 'A',
-            replace: true,
-            template: template,
-            link: function (scope, element, attrs, controller) {
-                function updateModel () {
-                    return scope.$apply(function () {
-                        return controller.$setViewValue(element.val());
-                    });
-                }
-
-                element.maskMoney({
-                    allowNegative: false,
-                    allowZero: true,
-                    thousands:'.',
-                    decimal:','
-                });
-
-                element.keyup(updateModel);
-            }
-        };
-    }])
-
-
     ;
 })();
