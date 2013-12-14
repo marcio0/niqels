@@ -69,6 +69,7 @@ module.exports = function(grunt) {
                         'static/src/js/lib/min/highcharts.js',
                         'static/src/js/lib/min/bootstrap-select.min.js',
                         'static/src/js/lib/min/modernizr.custom.19405.js',
+                        'static/src/js/lib/min/accounting.min.js',
 
                         'static/dist/js/webapp-libs.min.tmp.js'
                     ],

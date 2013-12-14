@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall" ng-form="installment-form">
+<div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall ng-hide" ng-form="installment-form">
     <div class="form-group input-icon">
         <label for="id_total_value" class="form-label">{% trans "Total value" %}</label>
         <i class="fa fa-dollar input-icon-prepend"></i>
@@ -52,4 +52,14 @@
                 autocomplete="off"
                 />
     </div>
+</div>
+
+
+<div class="checkbox">
+    <input
+        type="checkbox"
+        ng-model="is_installment"
+        ng-false-value="false"
+        ng-true-value="true"
+        >{% trans "This is an installment purchase" %}
 </div>
