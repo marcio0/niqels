@@ -7,7 +7,8 @@ from django.utils import timezone
 
 from access.models import User
 from expenses.models import Transaction
-from api.resources.transaction_resource import GroupedTransactionResource
+from api.resources.transaction_resource import GroupedTransactionResource, _truncate_date_tzinfo
+
 
 
 class TransactionResourceTest(ResourceTestCase):
@@ -39,26 +40,26 @@ class TransactionResourceTest(ResourceTestCase):
 
     # General tests.
     def test_basic_auth_ok(self):
-        '''
+        """
         Testing auth with basic HTTP authentication.
-        '''
+        """
         resp = self.api_client.get('/api/v1/transaction/', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
     def test_session_auth_ok(self):
-        '''
+        """
         Testing auth with django's session authentication.
         User is alread logged in, so there's no need for auth data on requisition.
-        '''
+        """
         self.assertTrue(self.api_client.client.login(email=self.email, password=self.password))
         resp = self.api_client.get('/api/v1/transaction/', format='json')
         self.assertValidJSONResponse(resp)
 
     # List tests: GET.
     def test_get_list_unauthorized(self):
-        '''
+        """
         Must be authenticated to GET to a list endpoint.
-        '''
+        """
         self.assertHttpUnauthorized(self.api_client.get('/api/v1/transaction/', format='json'))
 
     def test_get_list_json(self):
@@ -577,8 +578,7 @@ class DateGroupTruncateTest(TestCase):
             {'date__year': u'2010-10-12 00:00:00'}
         ]
 
-        resource = GroupedTransactionResource()
-        resource._truncate_date_tzinfo(objects)
+        _truncate_date_tzinfo(objects)
 
         self.assertEquals(objects, [
             {'date__day': u'2010-10-10'},
@@ -591,8 +591,7 @@ class DateGroupTruncateTest(TestCase):
             {'some_group': 'value'}
         ]
 
-        resource = GroupedTransactionResource()
-        resource._truncate_date_tzinfo(objects)
+        _truncate_date_tzinfo(objects)
 
         self.assertEquals(objects, [
             {'some_group': 'value'}
@@ -605,8 +604,7 @@ class DateGroupTruncateTest(TestCase):
             {'date__year': timezone.make_aware(datetime.datetime(2010, 10, 10), timezone.utc)}
         ]
 
-        resource = GroupedTransactionResource()
-        resource._truncate_date_tzinfo(objects)
+        _truncate_date_tzinfo(objects)
 
         self.assertEquals(objects, [
             {'date__day': datetime.datetime(2010, 10, 10)},

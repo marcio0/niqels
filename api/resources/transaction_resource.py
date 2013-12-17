@@ -1,32 +1,28 @@
 from decimal import Decimal
 import datetime
-
 from django import forms
 from tastypie.constants import ALL
-from tastypie.resources import ModelResource, Resource
+from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation
 from tastypie import fields
 from tastypie import http
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
-from tastypie.authorization import Authorization
 from tastypie.exceptions import BadRequest
-from django.conf.urls import url
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.db.models import Count, Sum
 from django.db import connections
+from babel.numbers import parse_decimal
 
-from expenses.models import Transaction, Category
+from expenses.models import Transaction
 from api.authorization import UserObjectsOnlyAuthorization
 from api.resources import CategoryResource
-
-from babel.numbers import parse_decimal
 
 
 class TransactionApiForm(forms.ModelForm):
     def full_clean(self):
-        '''
+        """
         Converting Tastypie's uri to the model pk.
-        '''
+        """
         category = self.data.get('category')
 
         if category and isinstance(category, basestring):
@@ -91,6 +87,26 @@ class TransactionResource(ModelResource):
 
         return bundle
 
+
+def _truncate_date_tzinfo(objects):
+    for obj in objects:
+        attr = None
+        if 'date__day' in obj:
+            attr = 'date__day'
+        if 'date__month' in obj:
+            attr = 'date__month'
+        if 'date__year' in obj:
+            attr = 'date__year'
+
+        if not attr:
+            continue
+
+        if isinstance(obj[attr], unicode):
+            obj[attr] = obj[attr].split(' ')[0]
+        elif isinstance(obj[attr], datetime.datetime):
+            obj[attr] = obj[attr].replace(tzinfo=None)
+
+
 class GroupedTransactionResource(ModelResource):
     class Meta:
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
@@ -111,24 +127,6 @@ class GroupedTransactionResource(ModelResource):
             'total': Count('pk'),
             'sum': Sum('value')
         }
-
-    def _truncate_date_tzinfo(self, objects):
-        for obj in objects:
-            attr = None
-            if 'date__day' in obj:
-                attr = 'date__day'
-            if 'date__month' in obj:
-                attr = 'date__month'
-            if 'date__year' in obj:
-                attr = 'date__year'
-
-            if not attr:
-                continue
-
-            if isinstance(obj[attr], unicode):
-                obj[attr] = obj[attr].split(' ')[0]
-            elif isinstance(obj[attr], datetime.datetime):
-                obj[attr] = obj[attr].replace(tzinfo=None)
 
     def get_list(self, request, **kwargs):
         groups = request.GET.get('group_by')
@@ -160,7 +158,7 @@ class GroupedTransactionResource(ModelResource):
         objects = objects.values(*values).annotate(**self._meta.annotations).order_by(*values)
 
         if must_truncate_date:
-            self._truncate_date_tzinfo(objects)
+            _truncate_date_tzinfo(objects)
 
         sorted_objects = self.apply_sorting(objects, options=request.GET)
         paginator = self._meta.paginator_class(request.GET, sorted_objects, resource_uri=self.get_resource_uri(), limit=self._meta.limit, max_limit=self._meta.max_limit, collection_name=self._meta.collection_name)
