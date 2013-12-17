@@ -1,11 +1,15 @@
 import datetime
 import calendar
 import decimal
-from dateutil.relativedelta import relativedelta
 
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils import timezone
+
+
+class SplitTransaction(models.Model):
+    def get_total_value(self):
+        return sum(transaction.value for transaction in self.transactions)
 
 
 class CategoryGroupManager(models.Manager):
@@ -147,6 +151,13 @@ class Transaction(models.Model):
     created = models.DateTimeField(_('creation date'),
         help_text=_("When this transaction was created."),
         default=timezone.now())
+
+    installment_of = models.ForeignKey(SplitTransaction,
+        verbose_name=_('installment of'),
+        help_text=_('Which transaction this is a installment of.'),
+        null=True,
+        blank=True,
+        related_name="transactions")
 
     objects = TransactionManager()
 

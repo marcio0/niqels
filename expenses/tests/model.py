@@ -1,15 +1,34 @@
 import mock
 import datetime
+import factory
 from decimal import Decimal
-import unittest
 
-import django.forms
 from django.test import TestCase
 
 import expenses.models
-from expenses.models import Category, Transaction, CategoryGroup
-from expenses import forms
-from access.models import User
+from expenses.models import Category, Transaction, CategoryGroup, SplitTransaction
+
+
+class TransactionFactory(factory.Factory):
+    FACTORY_FOR = Transaction
+
+    description = "a transaction"
+    date = datetime.date.today()
+    value = Decimal(10)
+
+
+class InstallmentPurchaseTest(TestCase):
+    @mock.patch.object(SplitTransaction, 'transactions')
+    def test_total_value(self, *args):
+        split = SplitTransaction()
+
+        t1 = TransactionFactory.build()
+        t2 = TransactionFactory.build()
+        t3 = TransactionFactory.build()
+
+        split.transactions = [t1, t2, t3]
+
+        self.assertEquals(split.get_total_value(), Decimal(30))
 
 
 class TransactionUpToDayTest(TestCase):
@@ -32,9 +51,9 @@ class TransactionUpToDayTest(TestCase):
         expenses.models.datetime = datetime
 
     def test_day_greater_than_month_days(self):
-        '''
+        """
         Must use last day of months if `day` is greater than the amount of days of that month.
-        '''
+        """
         result = Transaction.objects.up_to_day(months=['2010-02'], day=31)
 
         self.assertEquals(len(result), 1)
