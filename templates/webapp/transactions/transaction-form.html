@@ -21,6 +21,7 @@
             class="form-control"
 
             ng-model="formData.category"
+            category-field
             required
 
             ng-options="c.resource_uri as c.name group by c.group for c in categories"
