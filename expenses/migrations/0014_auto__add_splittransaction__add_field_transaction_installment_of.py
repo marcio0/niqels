@@ -11,12 +11,13 @@ class Migration(SchemaMigration):
         # Adding model 'SplitTransaction'
         db.create_table(u'expenses_splittransaction', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['access.User'])),
         ))
         db.send_create_signal(u'expenses', ['SplitTransaction'])
 
         # Adding field 'Transaction.installment_of'
         db.add_column(u'expenses_transaction', 'installment_of',
-                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='transactions', null=True, to=orm['expenses.SplitTransaction']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='transactions', null=True, to=orm['expenses.SplitTransaction']),
                       keep_default=False)
 
 
@@ -78,7 +79,8 @@ class Migration(SchemaMigration):
         },
         u'expenses.splittransaction': {
             'Meta': {'object_name': 'SplitTransaction'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['access.User']"})
         },
         u'expenses.transaction': {
             'Meta': {'ordering': "['-date', '-created']", 'object_name': 'Transaction'},
@@ -87,7 +89,7 @@ class Migration(SchemaMigration):
             'date': ('django.db.models.fields.DateField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'installment_of': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'transactions'", 'null': 'True', 'to': u"orm['expenses.SplitTransaction']"}),
+            'installment_of': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'transactions'", 'null': 'True', 'to': u"orm['expenses.SplitTransaction']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['access.User']"}),
             'value': ('django.db.models.fields.DecimalField', [], {'default': "'0'", 'max_digits': '7', 'decimal_places': '2'})
         }

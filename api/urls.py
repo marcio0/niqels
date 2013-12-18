@@ -8,6 +8,7 @@ v1_api.register(resources.TransactionResource())
 v1_api.register(resources.CategoryResource())
 v1_api.register(resources.UserResource())
 v1_api.register(resources.BalanceResource())
+v1_api.register(resources.SplitTransactionResource())
 
 urlpatterns = patterns('',
     (r'^', include(v1_api.urls)),

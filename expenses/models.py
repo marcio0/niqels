@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 import datetime
 import calendar
 import decimal
@@ -8,6 +10,10 @@ from django.utils import timezone
 
 
 class SplitTransaction(models.Model):
+    user = models.ForeignKey('access.User',
+        verbose_name=_('usuário'),
+        help_text=_('O dono desta movimentação.')
+    )
     def get_total_value(self):
         return sum(transaction.value for transaction in self.transactions)
 
