@@ -30,7 +30,6 @@ class TransactionApiForm(forms.ModelForm):
 
         super(TransactionApiForm, self).full_clean()
 
-
     class Meta:
         model = Transaction
         exclude = ('user',)
