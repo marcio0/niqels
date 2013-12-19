@@ -1,5 +1,6 @@
 from babel.numbers import parse_decimal
 from decimal import Decimal
+from dateutil.relativedelta import relativedelta
 
 from django import forms
 from django.utils import timezone
@@ -40,7 +41,7 @@ class SplitTransactionResource(ModelResource):
     installments = fields.IntegerField()
     first_installment_date = fields.DateField()
     category = fields.ForeignKey(CategoryResource, 'category', full=True, null=True)
-    transactions = fields.ToManyField(TransactionResource, attribute=lambda bundle: Transaction.objects.filter(installment_of=bundle.obj), full=True, null=True)
+    transactions = fields.ToManyField(TransactionResource, attribute=lambda bundle: Transaction.objects.filter(installment_of=bundle.obj).order_by('date'), full=True, null=True)
 
     class Meta:
         resource_name = "split_transaction"
@@ -68,6 +69,8 @@ class SplitTransactionResource(ModelResource):
 
         for i in range(0, data['installments']):
             transactions.append(Transaction.objects.create(**transaction_data))
+
+            transaction_data['date'] += relativedelta(months=1)
 
         return transactions
 

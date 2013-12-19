@@ -143,7 +143,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
         bundle.obj.user = self.user
 
         bundle.data['total_value'] = Decimal(bundle.data['total_value'])
-        bundle.data['first_installment_date'] = datetime.date(2010, 10, 10)
+        bundle.data['first_installment_date'] = datetime.date(2010, 5, 10)
         bundle.data['category'] = 2
 
         self.assertEquals(Transaction.objects.count(), 0)
@@ -152,16 +152,20 @@ class SplitTransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(len(transactions), 3)
 
+        month = 5
         for transaction in transactions:
             self.assertEquals(transaction.value, Decimal(30))
             self.assertEquals(transaction.category_id, 2)
-            self.assertEquals(transaction.date, datetime.date(2010, 10, 10))
+            self.assertEquals(transaction.date, datetime.date(2010, month, 10))
+
+            month += 1
 
         self.assertEquals(Transaction.objects.count(), 3)
 
-    def test_post_list(self):
+    def test_post_list_negative_transaction(self):
         """
         Sucessfuly creating a split transaction and it's installments.
+        Testing negative values.
         """
 
         self.assertEquals(SplitTransaction.objects.count(), 0)
@@ -171,6 +175,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         split = self.deserialize(resp)
+        self.maxDiff = None
         self.assertEquals(split, {u'category': {u'group': u'group',
                                                 u'id': 2,
                                                 u'is_negative': True,
@@ -196,7 +201,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                                    u'is_negative': True,
                                                                    u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
-                                                     u'date': u'2010-03-03',
+                                                     u'date': u'2010-04-03',
                                                      u'description': u'',
                                                      u'id': 2,
                                                      u'resource_uri': u'/api/v1/transaction/2',
@@ -206,7 +211,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                                    u'is_negative': True,
                                                                    u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
-                                                     u'date': u'2010-03-03',
+                                                     u'date': u'2010-05-03',
                                                      u'description': u'',
                                                      u'id': 3,
                                                      u'resource_uri': u'/api/v1/transaction/3',
@@ -217,3 +222,124 @@ class SplitTransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(SplitTransaction.objects.count(), 1)
         self.assertEquals(Transaction.objects.filter(installment_of__id=split_id).count(), 3)
+
+    def test_post_list_positive_transaction(self):
+        """
+        Sucessfuly creating a split transaction and it's installments.
+        Testing positive values.
+        """
+
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+        self.assertEquals(Transaction.objects.count(), 0)
+
+        data = self.post_data.copy()
+        data['category'] = '/api/v1/category/1'
+
+        resp = self.api_client.post('/api/v1/split_transaction/', data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        split = self.deserialize(resp)
+        self.maxDiff = None
+        self.assertEquals(split, {u'category': {u'group': u'group',
+                                                u'id': 1,
+                                                u'is_negative': False,
+                                                u'name': u'cat1',
+                                                u'resource_uri': u'/api/v1/category/1'},
+                                  u'first_installment_date': None,
+                                  u'id': 1,
+                                  u'installments': None,
+                                  u'resource_uri': u'/api/v1/split_transaction/1',
+                                  u'total_value': None,
+                                  u'transactions': [{u'category': {u'group': u'group',
+                                                                   u'id': 1,
+                                                                   u'is_negative': False,
+                                                                   u'name': u'cat1',
+                                                                   u'resource_uri': u'/api/v1/category/1'},
+                                                     u'date': u'2010-03-03',
+                                                     u'description': u'',
+                                                     u'id': 1,
+                                                     u'resource_uri': u'/api/v1/transaction/1',
+                                                     u'value': u'30'},
+                                                    {u'category': {u'group': u'group',
+                                                                   u'id': 1,
+                                                                   u'is_negative': False,
+                                                                   u'name': u'cat1',
+                                                                   u'resource_uri': u'/api/v1/category/1'},
+                                                     u'date': u'2010-04-03',
+                                                     u'description': u'',
+                                                     u'id': 2,
+                                                     u'resource_uri': u'/api/v1/transaction/2',
+                                                     u'value': u'30'},
+                                                    {u'category': {u'group': u'group',
+                                                                   u'id': 1,
+                                                                   u'is_negative': False,
+                                                                   u'name': u'cat1',
+                                                                   u'resource_uri': u'/api/v1/category/1'},
+                                                     u'date': u'2010-05-03',
+                                                     u'description': u'',
+                                                     u'id': 3,
+                                                     u'resource_uri': u'/api/v1/transaction/3',
+                                                     u'value': u''
+                                                               u'30'}]
+        })
+
+        split_id = split['id']
+
+        self.assertEquals(SplitTransaction.objects.count(), 1)
+        self.assertEquals(Transaction.objects.filter(installment_of__id=split_id).count(), 3)
+
+    def test_post_category_does_not_exist(self):
+        """
+        Should return HTTP 400 Bad Request.
+        """
+
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+        self.assertEquals(Transaction.objects.count(), 0)
+
+        data = self.post_data.copy()
+        data['category'] = '/api/v1/category/3'
+
+        resp = self.api_client.post('/api/v1/split_transaction/', data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+        self.assertEquals(Transaction.objects.count(), 0)
+
+    def test_post_missing_date(self):
+        """
+        Should return HTTP 400 Bad Request.
+        """
+
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+        self.assertEquals(Transaction.objects.count(), 0)
+
+        data = self.post_data.copy()
+        del data['first_installment_date']
+
+        resp = self.api_client.post('/api/v1/split_transaction/', data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertTrue('first_installment_date' in content['split_transaction'])
+
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+        self.assertEquals(Transaction.objects.count(), 0)
+
+    def test_post_installments_greater_than_zero(self):
+        """
+        Should return HTTP 400 Bad Request.
+        """
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+        self.assertEquals(Transaction.objects.count(), 0)
+
+        data = self.post_data.copy()
+        data['installments'] = 0
+
+        resp = self.api_client.post('/api/v1/split_transaction/', data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertTrue('installments' in content['split_transaction'])
+
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+        self.assertEquals(Transaction.objects.count(), 0)
