@@ -7,7 +7,7 @@ from tastypie.test import ResourceTestCase
 
 from access.models import User
 from api.resources import SplitTransactionResource
-from expenses.models import Transaction, Category, SplitTransaction
+from expenses.models import Transaction, Category, SplitTransaction, CategoryGroup
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -28,10 +28,14 @@ class TransactionFactory(factory.Factory):
 
 
 class SplitTransactionResourceTest(ResourceTestCase):
-    fixtures = ['testserver_data']
 
     def setUp(self):
         super(SplitTransactionResourceTest, self).setUp()
+
+        CategoryGroup.objects.create(name="group")
+        Category.objects.create(name="cat1", is_negative=False, group_id=1)
+        Category.objects.create(name="cat2", is_negative=True, group_id=1)
+
 
         #self.user = UserFactory.create()
         self.email = 'user@example.com'
@@ -96,30 +100,30 @@ class SplitTransactionResourceTest(ResourceTestCase):
                             u'installments': None,
                             u'resource_uri': u'/api/v1/split_transaction/1',
                             u'total_value': None,
-                            u'transactions': [{u'category': {u'group': u'Receitas',
+                            u'transactions': [{u'category': {u'group': u'group',
                                                              u'id': 1,
                                                              u'is_negative': False,
-                                                             u'name': u'Sal\xe1rio',
+                                                             u'name': u'cat1',
                                                              u'resource_uri': u'/api/v1/category/1'},
                                                u'date': u'2010-10-10',
                                                u'description': u'',
                                                u'id': 1,
                                                u'resource_uri': u'/api/v1/transaction/1',
                                                u'value': u'10'},
-                                              {u'category': {u'group': u'Receitas',
+                                              {u'category': {u'group': u'group',
                                                              u'id': 1,
                                                              u'is_negative': False,
-                                                             u'name': u'Sal\xe1rio',
+                                                             u'name': u'cat1',
                                                              u'resource_uri': u'/api/v1/category/1'},
                                                u'date': u'2010-10-10',
                                                u'description': u'',
                                                u'id': 2,
                                                u'resource_uri': u'/api/v1/transaction/2',
                                                u'value': u'10'},
-                                              {u'category': {u'group': u'Receitas',
+                                              {u'category': {u'group': u'group',
                                                              u'id': 1,
                                                              u'is_negative': False,
-                                                             u'name': u'Sal\xe1rio',
+                                                             u'name': u'cat1',
                                                              u'resource_uri': u'/api/v1/category/1'},
                                                u'date': u'2010-10-10',
                                                u'description': u'',
@@ -167,46 +171,46 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         split = self.deserialize(resp)
-        self.assertEquals(split, {u'category': {u'group': u'Receitas',
+        self.assertEquals(split, {u'category': {u'group': u'group',
                                                 u'id': 2,
-                                                u'is_negative': False,
-                                                u'name': u'Extras',
+                                                u'is_negative': True,
+                                                u'name': u'cat2',
                                                 u'resource_uri': u'/api/v1/category/2'},
                                   u'first_installment_date': None,
                                   u'id': 1,
                                   u'installments': None,
                                   u'resource_uri': u'/api/v1/split_transaction/1',
                                   u'total_value': None,
-                                  u'transactions': [{u'category': {u'group': u'Receitas',
+                                  u'transactions': [{u'category': {u'group': u'group',
                                                                    u'id': 2,
-                                                                   u'is_negative': False,
-                                                                   u'name': u'Extras',
+                                                                   u'is_negative': True,
+                                                                   u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
                                                      u'date': u'2010-03-03',
                                                      u'description': u'',
                                                      u'id': 1,
                                                      u'resource_uri': u'/api/v1/transaction/1',
-                                                     u'value': u'30'},
-                                                    {u'category': {u'group': u'Receitas',
+                                                     u'value': u'-30'},
+                                                    {u'category': {u'group': u'group',
                                                                    u'id': 2,
-                                                                   u'is_negative': False,
-                                                                   u'name': u'Extras',
+                                                                   u'is_negative': True,
+                                                                   u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
                                                      u'date': u'2010-03-03',
                                                      u'description': u'',
                                                      u'id': 2,
                                                      u'resource_uri': u'/api/v1/transaction/2',
-                                                     u'value': u'30'},
-                                                    {u'category': {u'group': u'Receitas',
+                                                     u'value': u'-30'},
+                                                    {u'category': {u'group': u'group',
                                                                    u'id': 2,
-                                                                   u'is_negative': False,
-                                                                   u'name': u'Extras',
+                                                                   u'is_negative': True,
+                                                                   u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
                                                      u'date': u'2010-03-03',
                                                      u'description': u'',
                                                      u'id': 3,
                                                      u'resource_uri': u'/api/v1/transaction/3',
-                                                     u'value': u'30'}]
+                                                     u'value': u'-30'}]
         })
 
         split_id = split['id']

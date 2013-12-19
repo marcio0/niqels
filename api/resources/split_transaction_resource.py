@@ -13,7 +13,7 @@ from api.resources import CategoryResource, TransactionResource
 
 
 class SplitTransactionApiForm(forms.ModelForm):
-    total_value = forms.DecimalField(min_value=Decimal(0), decimal_places=2, max_digits=7)
+    total_value = forms.DecimalField(decimal_places=2, max_digits=7)
     description = forms.TextInput()
     first_installment_date = forms.DateField()
     installments = forms.IntegerField(min_value=1)
@@ -83,7 +83,7 @@ class SplitTransactionResource(ModelResource):
         bundle = super(SplitTransactionResource, self).full_hydrate(bundle)
 
         # this must happen after all hydrations because order isn't garanteed
-        value = bundle.data.get('value')
+        value = bundle.data.get('total_value')
         if value:
             # casting value to str to avoid repeating decimals
             value = Decimal(str(value)).copy_abs()
@@ -91,7 +91,7 @@ class SplitTransactionResource(ModelResource):
             if bundle.obj.category.is_negative:
                 value = value.copy_negate()
 
-            bundle.data['value'] = value
+            bundle.data['total_value'] = value
 
         return bundle
 
