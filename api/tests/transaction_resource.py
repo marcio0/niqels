@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from access.models import User
 from expenses.models import Transaction
-from api.resources.transaction_resource import GroupedTransactionResource, _truncate_date_tzinfo
+from api.resources.transaction_resource import _truncate_date_tzinfo
 
 
 
@@ -33,9 +33,9 @@ class TransactionResourceTest(ResourceTestCase):
         self.detail_url = '/api/v1/transaction/{0}'.format(self.transaction.id)
 
     def get_credentials(self):
-        '''
+        """
         Get the credentials for basic http authentication.
-        '''
+        """
         return self.create_basic(username=self.email, password=self.password)
 
     # General tests.
@@ -63,9 +63,9 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertHttpUnauthorized(self.api_client.get('/api/v1/transaction/', format='json'))
 
     def test_get_list_json(self):
-        '''
+        """
         Successful GET to a list endpoint.
-        '''
+        """
         resp = self.api_client.get('/api/v1/transaction/', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
@@ -90,15 +90,15 @@ class TransactionResourceTest(ResourceTestCase):
 
     # List tests: POST
     def test_post_list_unauthorized(self):
-        '''
+        """
         Must be authenticated to POST a list endpoint.
-        '''
+        """
         self.assertHttpUnauthorized(self.api_client.post('/api/v1/transaction/', format='json'))
 
     def test_post_negative_transaction(self):
-        '''
+        """
         If category.is_negative, the value must be negative.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -126,10 +126,10 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(-40))
 
     def test_post_repeating_decimal(self):
-        '''
+        """
         In [2]: Decimal(3232.32)
         Out[2]: Decimal('3232.32000000000016370904631912708282470703125')
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -160,9 +160,9 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal("-3232.32"))
 
     def test_post_positive_transaction(self):
-        '''
+        """
         If not category.is_negative, the value must be positive.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -192,9 +192,9 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(40))
 
     def test_post_value_signal_irrelevant(self):
-        '''
+        """
         Even if the value on request data is negative, use transaction to set it as positive/negative.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -225,9 +225,9 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(40))
 
     def test_post_with_int_as_value(self):
-        '''
+        """
         The resource should also accept integer as a value.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -244,9 +244,9 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
     def test_post_list_category_doesnt_exist(self):
-        '''
+        """
         If the category does not exist, the api must return a 400 Bad Request.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -255,14 +255,13 @@ class TransactionResourceTest(ResourceTestCase):
 
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
         self.assertHttpBadRequest(resp)
-        content = self.deserialize(resp)
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
     def test_post_value_another_format(self):
-        '''
+        """
         Must try to fix the number format.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -272,15 +271,13 @@ class TransactionResourceTest(ResourceTestCase):
         resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
         self.assertHttpCreated(resp)
 
-        content = self.deserialize(resp)
-
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
     def test_post_value_default(self):
-        '''
+        """
         The default value for the value attribute is zero.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -297,46 +294,50 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
     def test_post_bad_data_missing_date(self):
-        '''
+        """
         Unsuccessful POST to a list endpoint.
-        '''
+        """
         # Check how many are there first.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
         data = self.post_data.copy()
         del data['date']
 
-        self.assertHttpBadRequest(self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials()))
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertTrue('date' in content['transaction'])
 
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
     # List tests: PUT
     def test_put_list_not_allowed(self):
-        '''
+        """
         Cannot update a list of transactions.
-        '''
+        """
         self.assertHttpMethodNotAllowed(self.api_client.put('/api/v1/transaction/', format='json', authentication=self.get_credentials()))
 
     # List tests: DELETE
     def test_delete_list_not_allowed(self):
-        '''
+        """
         Must be authenticated to DELETE to a list endpoint.
-        '''
+        """
         self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/transaction/', format='json', authentication=self.get_credentials()))
 
 
     # Detail tests: GET.
     def test_get_detail_unauthorized(self):
-        '''
+        """
         Must be authenticated to GET to a detail endpoint.
-        '''
+        """
         self.assertHttpUnauthorized(self.api_client.get(self.detail_url, format='json'))
 
     def test_get_detail(self):
-        '''
+        """
         Successful GET to a detail endpoint.
-        '''
+        """
         resp = self.api_client.get(self.detail_url, format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
@@ -357,9 +358,9 @@ class TransactionResourceTest(ResourceTestCase):
         })
 
     def test_get_detail_own_obj_only(self):
-        '''
+        """
         Can only retrieve own transactions.
-        '''
+        """
         detail_url = '/api/v1/transaction/3'
         resp = self.api_client.get(detail_url, format='json', authentication=self.get_credentials())
         self.assertHttpNotFound(resp)
@@ -367,37 +368,37 @@ class TransactionResourceTest(ResourceTestCase):
 
     # Detail tests: POST
     def test_post_detail_not_allowed(self):
-        '''
+        """
         Cannot POST to a detail endpoint.
-        '''
+        """
         self.assertHttpMethodNotAllowed(self.api_client.post(self.detail_url, format='json', authentication=self.get_credentials()))
 
 
     # Detail tests: PUT
     def test_put_detail_unauthorized(self):
-        '''
+        """
         Must be authenticated to PUT to a detail  endpoint.
-        '''
+        """
         self.assertHttpUnauthorized(self.api_client.put(self.detail_url, format='json'))
 
     def test_put_detail_not_implemented(self):
-        '''
+        """
         Successful PUT to a detail endpoint.
-        '''
+        """
         self.assertHttpNotImplemented(self.api_client.put(self.detail_url, format='json', authentication=self.get_credentials()))
 
 
     # Detail  tests: DELETE
     def test_delete_detail_unauthorized(self):
-        '''
+        """
         Must be authenticated to DELETE to a detail endpoint.
-        '''
+        """
         self.assertHttpUnauthorized(self.api_client.delete(self.detail_url, format='json'))
 
     def test_delete_detail(self):
-        '''
+        """
         Successful DELETE to a detail endpoint.
-        '''
+        """
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
         self.assertHttpAccepted(self.api_client.delete(self.detail_url, format='json', authentication=self.get_credentials()))
@@ -416,24 +417,24 @@ class GroupedTransactionResourceTest(ResourceTestCase):
         self.password = 'password'
 
     def get_credentials(self):
-        '''
+        """
         Get the credentials for basic http authentication.
-        '''
+        """
         return self.create_basic(username=self.email, password=self.password)
 
     # General tests.
     def test_basic_auth_ok(self):
-        '''
+        """
         Testing auth with basic HTTP authentication.
-        '''
+        """
         resp = self.api_client.get('/api/v1/transaction/?group_by=category__name', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
     def test_session_auth_ok(self):
-        '''
+        """
         Testing auth with django's session authentication.
         User is alread logged in, so there's no need for auth data on requisition.
-        '''
+        """
         self.assertTrue(self.api_client.client.login(email=self.email, password=self.password))
         resp = self.api_client.get('/api/v1/transaction/?group_by=category__name', format='json')
         self.assertValidJSONResponse(resp)
@@ -508,7 +509,6 @@ class GroupedTransactionResourceTest(ResourceTestCase):
         })
 
     def test_group_by_date_year(self):
-        self.maxDiff = None
         resp = self.api_client.get('/api/v1/transaction/?group_by=date__year', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
