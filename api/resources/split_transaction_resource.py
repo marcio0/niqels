@@ -4,11 +4,11 @@ from dateutil.relativedelta import relativedelta
 
 from django import forms
 from django.utils import timezone
-from tastypie.resources import ModelResource, Resource, fields
+from tastypie.resources import ModelResource, fields
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
-from tastypie.validation import FormValidation, CleanedDataFormValidation
+from tastypie.validation import CleanedDataFormValidation
 
-from expenses.models import SplitTransaction, Transaction, Category
+from expenses.models import SplitTransaction, Transaction
 from api.authorization import UserObjectsOnlyAuthorization
 from api.resources import CategoryResource, TransactionResource
 
