@@ -16,6 +16,31 @@ var tastypieDataTransformer = function ($http) {
 
 angular.module('models', ['ngResource'])
 
+    .factory('SplitTransaction', ['$resource', '$rootScope', '$http', function ($resource, $rootScope, $http) {
+        var SplitTransaction = $resource('/api/v1/split_transaction/:id', {}, {
+            query: {
+                method: 'GET',
+                isArray: true,
+                transformResponse: tastypieDataTransformer($http).concat(function (data, headersGetter) {
+                    for (var idx in data) {
+                        data[idx].total_value = parseFloat(data[idx].total_value);
+                        // TODO setar valor das transações tb
+                    }
+                    return data;
+                })
+            }
+        });
+
+        $rootScope.$on('split-transaction-created', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyCreationSuccess(gettext('Movimentação parcelada'));
+            }
+        });
+
+        return SplitTransaction;
+    }])
+
     .factory('Transaction', ['$resource', '$http', '$rootScope', function($resource, $http, $rootScope){
         var Transaction = $resource('/api/v1/transaction/:id', {}, {
             query: {

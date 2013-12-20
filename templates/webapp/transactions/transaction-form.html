@@ -3,89 +3,89 @@
 <h4 class="area-header">{% trans "New transaction" %}</h4>
 
 <div ng-controller="TransactionFormCtrl" class="">
-<form
-    class="transaction-form"
-    name="transactionForm"
-    method="post"
-    id="transaction-form"
+    <form
+            class="transaction-form"
+            name="transactionForm"
+            method="post"
+            id="transaction-form"
 
-    novalidate
-    >
-
-    <div class="form-group input-icon">
-        <label for="id_category" class="form-label">{% trans "Category" %}</label>
-        <i class="fa fa-tag input-icon-prepend"></i>
-        <select
-            id="id_category"
-            name="category"
-            class="form-control"
-
-            ng-model="formData.category"
-            category-field
-            required
-
-            ng-options="c.resource_uri as c.name group by c.group for c in categories"
+            novalidate
             >
-        </select>
-        <i
-            class="fa fa-exclamation fa-lg input-icon-append input-error"
-            ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"
-            ></i>
-    </div>
 
-    <div class="form-group input-icon animate-show animate-show-normal" ng-hide="is_installment">
-        <label for="id_value" class="form-label">{% trans "Value" %}</label>
-        <i class="fa fa-dollar input-icon-prepend"></i>
-        <input
-                id="id_value"
-                name="value"
-                class="form-control"
+        <div class="form-group input-icon">
+            <label for="id_category" class="form-label">{% trans "Category" %}</label>
+            <i class="fa fa-tag input-icon-prepend"></i>
+            <select
+                    id="id_category"
+                    name="category"
+                    class="form-control"
 
-                ng-model="formData.value"
-                currency-field
+                    ng-model="formData.category"
+                    category-field
+                    required
 
-                required
+                    ng-options="c.resource_uri as c.name group by c.group for c in categories"
+                    >
+            </select>
+            <i
+                    class="fa fa-exclamation fa-lg input-icon-append input-error"
+                    ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"
+                    ></i>
+        </div>
 
-                autocomplete="off"
-                />
-    </div>
+        <div class="form-group input-icon animate-show animate-show-normal" ng-hide="is_installment">
+            <label for="id_value" class="form-label">{% trans "Value" %}</label>
+            <i class="fa fa-dollar input-icon-prepend"></i>
+            <input
+                    id="id_value"
+                    name="value"
+                    class="form-control"
 
-    {% include "webapp/transactions/installment-form.html" %}
+                    ng-model="formData.value"
+                    currency-field
 
-    <div class="form-group input-icon">
-        <label for="id_description" class="form-label">{% trans "Description" %}</label>
-        <i class="fa fa-pencil input-icon-prepend"></i>
-        <input
-            id="id_description"
-            maxlength="200"
-            name="description"
-            type="text"
-            class="form-control"
+                    required
 
-            ng-model="formData.description"
+                    autocomplete="off"
+                    />
+        </div>
 
-            placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
-            autocomplete="off"
-            />
-    </div>
+        <div class="form-group input-icon">
+            <label for="id_description" class="form-label">{% trans "Description" %}</label>
+            <i class="fa fa-pencil input-icon-prepend"></i>
+            <input
+                    id="id_description"
+                    maxlength="200"
+                    name="description"
+                    type="text"
+                    class="form-control"
 
-    <div class="form-group input-icon">
-        <label for="id_date" class="form-label">{% trans "Date" %}</label>
-        <div
-            date-field
-            date-field-model="formData.date"
-            id="id_date"
-            name="date"
+                    ng-model="formData.description"
 
-        ></div>
-    </div>
+                    placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
+                    autocomplete="off"
+                    />
+        </div>
 
-    <button ng-click="submit()" class="btn btn-block btn-primary" ng-disabled="sending">
-    {% trans "Submit" %}
-    <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
-    <i ng-hide="sending" class="fa fa-check fa-lg"></i>
-    </button>
-</form>
+        <div class="form-group input-icon">
+            <label for="id_date" class="form-label">{% trans "Date" %}</label>
+            <div
+                    date-field
+                    date-field-model="formData.date"
+                    id="id_date"
+                    name="date"
 
+                    ></div>
+        </div>
+
+        {% include "webapp/transactions/installment-form.html" %}
+
+        <button ng-click="submit()" class="btn btn-block btn-primary" ng-disabled="sending">
+            {% trans "Submit" %}
+            <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
+            <i ng-hide="sending" class="fa fa-check fa-lg"></i>
+        </button>
+
+    </form>
 
 </div>

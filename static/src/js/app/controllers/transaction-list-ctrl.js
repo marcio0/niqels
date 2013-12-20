@@ -74,15 +74,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
         $scope.filterDate = $scope.filterDate.clone()[dir]('month', 1);
     };
 
-    $rootScope.$on('transaction-created', function (event, transaction) {
-        var showingMonth = $scope.filterDate.month() + 1;
-        var transactionMonth = parseInt(transaction.date.split('-')[1]);
-
-        if (showingMonth !== transactionMonth) {
-            // the transaction is not for this month, getting out
-            return;
-        }
-
+    function addTransactionToList(transaction) {
         $scope.allTransactions.push(transaction);
 
         // when a transaction is created, add it to the list
@@ -101,6 +93,33 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
             transactions: [transaction],
             total: parseFloat(transaction.value)
         });
+    }
+
+    $rootScope.$on('transaction-created', function (event, transaction) {
+        var showingMonth = $scope.filterDate.month() + 1;
+        var transactionMonth = parseInt(transaction.date.split('-')[1]);
+
+        if (showingMonth !== transactionMonth) {
+            // the transaction is not for this month, getting out
+            return;
+        }
+
+        addTransactionToList(transaction);
+    });
+
+    $rootScope.$on('split-transaction-created', function (e, split_transaction) {
+        var showingMonth = $scope.filterDate.month() + 1;
+
+        for (var i in split_transaction.transactions) {
+            var transaction = split_transaction.transactions[i];
+
+            var transactionMonth = parseInt(transaction.date.split('-')[1]);
+
+            if (transactionMonth === showingMonth) {
+                addTransactionToList(transaction);
+                break;
+            }
+        }
     });
 
     // callbacks

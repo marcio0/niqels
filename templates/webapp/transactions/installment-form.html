@@ -1,15 +1,26 @@
 {% load i18n %}
 
-<div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall ng-hide" ng-form="installment-form">
+<div class="checkbox">
+    <input
+        id="installment_select"
+        type="checkbox"
+        ng-model="is_installment"
+        ng-false-value="false"
+        ng-true-value="true"
+        >
+    <label for="installment_select">{% trans "This is an installment purchase" %}</label>
+</div>
+
+<div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall ng-hide">
     <div class="form-group input-icon">
         <label for="id_total_value" class="form-label">{% trans "Total value" %}</label>
         <i class="fa fa-dollar input-icon-prepend"></i>
         <input
                 id="id_total_value"
-                name="total-value"
+                name="total_value"
                 class="form-control"
 
-                ng-model="installment.totalValue"
+                ng-model="installment.total_value"
                 ng-change="updateTotalValue()"
                 currency-field
 
@@ -26,7 +37,7 @@
                 name="value"
                 class="form-control"
 
-                ng-model="installment.installmentValue"
+                ng-model="installment.installment_value"
                 ng-required="is_installment"
                 ng-change="updateInstallmentValue()"
                 currency-field
@@ -44,7 +55,7 @@
                 type="number"
                 min="1"
 
-                ng-model="installment.qtyInstallments"
+                ng-model="installment.installments"
                 ng-required="is_installment"
                 ng-pattern="/\d+/"
                 ng-change="updateQtyInstallments()"
@@ -52,16 +63,4 @@
                 autocomplete="off"
                 />
     </div>
-</div>
-
-
-<div class="checkbox">
-    <input
-        id="installment_select"
-        type="checkbox"
-        ng-model="is_installment"
-        ng-false-value="false"
-        ng-true-value="true"
-        >
-    <label for="installment_select">{% trans "This is an installment purchase" %}</label>
 </div>
