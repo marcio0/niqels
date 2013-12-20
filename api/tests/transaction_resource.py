@@ -10,7 +10,6 @@ from expenses.models import Transaction
 from api.resources.transaction_resource import _truncate_date_tzinfo
 
 
-
 class TransactionResourceTest(ResourceTestCase):
     fixtures = ['TransactionResourceTest']
 
