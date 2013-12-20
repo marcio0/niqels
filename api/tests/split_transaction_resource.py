@@ -91,7 +91,6 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertValidJSONResponse(resp)
 
         content = self.deserialize(resp)['objects']
-        self.maxDiff = None
 
         self.assertEquals(content,
                           [{u'category': None,
@@ -175,7 +174,6 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         split = self.deserialize(resp)
-        self.maxDiff = None
         self.assertEquals(split, {u'category': {u'group': u'group',
                                                 u'id': 2,
                                                 u'is_negative': True,
@@ -239,7 +237,6 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         split = self.deserialize(resp)
-        self.maxDiff = None
         self.assertEquals(split, {u'category': {u'group': u'group',
                                                 u'id': 1,
                                                 u'is_negative': False,
@@ -343,3 +340,71 @@ class SplitTransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(SplitTransaction.objects.count(), 0)
         self.assertEquals(Transaction.objects.count(), 0)
+
+    # List tests: PUT
+    def test_put_list_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.put('/api/v1/split_transaction/', format='json', authentication=self.get_credentials()))
+
+    # List tests: DELETE
+    def test_delete_list_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/split_transaction/', format='json', authentication=self.get_credentials()))
+
+    # Detail tests: GET
+    def test_get_detail(self):
+        split = SplitTransaction.objects.create(user=self.user)
+        split.transactions = TransactionFactory.create_batch(3, user=self.user, category_id=1, date=datetime.date(2010, 10, 10))
+
+        resp = self.api_client.get('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEquals(content,
+                          {u'category': None,
+                           u'first_installment_date': None,
+                           u'id': 1,
+                           u'installments': None,
+                           u'resource_uri': u'/api/v1/split_transaction/1',
+                           u'total_value': None,
+                           u'transactions': [{u'category': {u'group': u'group',
+                                                            u'id': 1,
+                                                            u'is_negative': False,
+                                                            u'name': u'cat1',
+                                                            u'resource_uri': u'/api/v1/category/1'},
+                                              u'date': u'2010-10-10',
+                                              u'description': u'',
+                                              u'id': 1,
+                                              u'resource_uri': u'/api/v1/transaction/1',
+                                              u'value': u'10'},
+                                             {u'category': {u'group': u'group',
+                                                            u'id': 1,
+                                                            u'is_negative': False,
+                                                            u'name': u'cat1',
+                                                            u'resource_uri': u'/api/v1/category/1'},
+                                              u'date': u'2010-10-10',
+                                              u'description': u'',
+                                              u'id': 2,
+                                              u'resource_uri': u'/api/v1/transaction/2',
+                                              u'value': u'10'},
+                                             {u'category': {u'group': u'group',
+                                                            u'id': 1,
+                                                            u'is_negative': False,
+                                                            u'name': u'cat1',
+                                                            u'resource_uri': u'/api/v1/category/1'},
+                                              u'date': u'2010-10-10',
+                                              u'description': u'',
+                                              u'id': 3,
+                                              u'resource_uri': u'/api/v1/transaction/3',
+                                              u'value': u'10'}]})
+
+    # Detail tests: POST
+    def test_post_detail_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.post('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials()))
+
+    # Detail tests: PUT
+    def test_put_detail_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.put('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials()))
+
+    # Detail tests: DELETE
+    def test_delete_detail_not_allowed(self):
+        self.assertHttpMethodNotAllowed(self.api_client.delete('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials()))

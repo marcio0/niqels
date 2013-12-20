@@ -51,7 +51,7 @@ class SplitTransactionResource(ModelResource):
         authorization = UserObjectsOnlyAuthorization()
         validation = CleanedDataFormValidation(form_class=SplitTransactionApiForm)
         list_allowed_methods = ['get', 'post']
-        detail_allowed_methods = []
+        detail_allowed_methods = ['get']
 
     def _create_installments(self, bundle):
         data = bundle.data
