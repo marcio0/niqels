@@ -43,10 +43,11 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.user = User.objects.create_user(self.email, self.password)
 
         self.post_data = {
-            'first_installment_date': '03/03/2010',
+            'first_installment_date': '2010-03-03',
             'total_value': '90',
             'installments': 3,
-            'category': '/api/v1/category/2'
+            'category': '/api/v1/category/2',
+            'description': 'a split transaction'
         }
 
     def get_credentials(self):
@@ -105,7 +106,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                              u'name': u'cat1',
                                                              u'resource_uri': u'/api/v1/category/1'},
                                                u'date': u'2010-10-10',
-                                               u'description': u'',
+                                               u'description': u'a split transaction',
                                                u'id': 1,
                                                u'resource_uri': u'/api/v1/transaction/1',
                                                u'value': u'10'},
@@ -115,7 +116,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                              u'name': u'cat1',
                                                              u'resource_uri': u'/api/v1/category/1'},
                                                u'date': u'2010-10-10',
-                                               u'description': u'',
+                                               u'description': u'a split transaction',
                                                u'id': 2,
                                                u'resource_uri': u'/api/v1/transaction/2',
                                                u'value': u'10'},
@@ -125,7 +126,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                              u'name': u'cat1',
                                                              u'resource_uri': u'/api/v1/category/1'},
                                                u'date': u'2010-10-10',
-                                               u'description': u'',
+                                               u'description': u'a split transaction',
                                                u'id': 3,
                                                u'resource_uri': u'/api/v1/transaction/3',
                                                u'value': u'10'}]}])
@@ -174,6 +175,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         split = self.deserialize(resp)
+        self.maxDiff = None
         self.assertEquals(split, {u'category': {u'group': u'group',
                                                 u'id': 2,
                                                 u'is_negative': True,
@@ -184,13 +186,14 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                   u'installments': None,
                                   u'resource_uri': u'/api/v1/split_transaction/1',
                                   u'total_value': None,
+                                  u'description': u'a split transaction',
                                   u'transactions': [{u'category': {u'group': u'group',
                                                                    u'id': 2,
                                                                    u'is_negative': True,
                                                                    u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
                                                      u'date': u'2010-03-03',
-                                                     u'description': u'',
+                                                     u'description': u'a split transaction',
                                                      u'id': 1,
                                                      u'resource_uri': u'/api/v1/transaction/1',
                                                      u'value': u'-30'},
@@ -200,7 +203,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                                    u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
                                                      u'date': u'2010-04-03',
-                                                     u'description': u'',
+                                                     u'description': u'a split transaction',
                                                      u'id': 2,
                                                      u'resource_uri': u'/api/v1/transaction/2',
                                                      u'value': u'-30'},
@@ -210,7 +213,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                                    u'name': u'cat2',
                                                                    u'resource_uri': u'/api/v1/category/2'},
                                                      u'date': u'2010-05-03',
-                                                     u'description': u'',
+                                                     u'description': u'a split transaction',
                                                      u'id': 3,
                                                      u'resource_uri': u'/api/v1/transaction/3',
                                                      u'value': u'-30'}]
@@ -244,6 +247,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                 u'resource_uri': u'/api/v1/category/1'},
                                   u'first_installment_date': None,
                                   u'id': 1,
+                                  u'description': u'a split transaction',
                                   u'installments': None,
                                   u'resource_uri': u'/api/v1/split_transaction/1',
                                   u'total_value': None,
@@ -253,7 +257,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                                    u'name': u'cat1',
                                                                    u'resource_uri': u'/api/v1/category/1'},
                                                      u'date': u'2010-03-03',
-                                                     u'description': u'',
+                                                     u'description': u'a split transaction',
                                                      u'id': 1,
                                                      u'resource_uri': u'/api/v1/transaction/1',
                                                      u'value': u'30'},
@@ -263,7 +267,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                                    u'name': u'cat1',
                                                                    u'resource_uri': u'/api/v1/category/1'},
                                                      u'date': u'2010-04-03',
-                                                     u'description': u'',
+                                                     u'description': u'a split transaction',
                                                      u'id': 2,
                                                      u'resource_uri': u'/api/v1/transaction/2',
                                                      u'value': u'30'},
@@ -273,8 +277,8 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                                    u'name': u'cat1',
                                                                    u'resource_uri': u'/api/v1/category/1'},
                                                      u'date': u'2010-05-03',
-                                                     u'description': u'',
                                                      u'id': 3,
+                                                     u'description': u'a split transaction',
                                                      u'resource_uri': u'/api/v1/transaction/3',
                                                      u'value': u''
                                                                u'30'}]
@@ -355,9 +359,11 @@ class SplitTransactionResourceTest(ResourceTestCase):
         split.transactions = TransactionFactory.create_batch(3, user=self.user, category_id=1, date=datetime.date(2010, 10, 10))
 
         resp = self.api_client.get('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials())
+        print resp
         self.assertValidJSONResponse(resp)
 
         content = self.deserialize(resp)
+        self.maxDiff = None
 
         self.assertEquals(content,
                           {u'category': None,
@@ -366,13 +372,14 @@ class SplitTransactionResourceTest(ResourceTestCase):
                            u'installments': None,
                            u'resource_uri': u'/api/v1/split_transaction/1',
                            u'total_value': None,
+                           u'description': u'a split transaction',
                            u'transactions': [{u'category': {u'group': u'group',
                                                             u'id': 1,
                                                             u'is_negative': False,
                                                             u'name': u'cat1',
                                                             u'resource_uri': u'/api/v1/category/1'},
                                               u'date': u'2010-10-10',
-                                              u'description': u'',
+                                              u'description': u'a split transaction',
                                               u'id': 1,
                                               u'resource_uri': u'/api/v1/transaction/1',
                                               u'value': u'10'},
@@ -382,7 +389,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                             u'name': u'cat1',
                                                             u'resource_uri': u'/api/v1/category/1'},
                                               u'date': u'2010-10-10',
-                                              u'description': u'',
+                                              u'description': u'a split transaction',
                                               u'id': 2,
                                               u'resource_uri': u'/api/v1/transaction/2',
                                               u'value': u'10'},
@@ -392,7 +399,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                             u'name': u'cat1',
                                                             u'resource_uri': u'/api/v1/category/1'},
                                               u'date': u'2010-10-10',
-                                              u'description': u'',
+                                              u'description': u'a split transaction',
                                               u'id': 3,
                                               u'resource_uri': u'/api/v1/transaction/3',
                                               u'value': u'10'}]})

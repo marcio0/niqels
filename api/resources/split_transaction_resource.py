@@ -6,19 +6,19 @@ from django import forms
 from django.utils import timezone
 from tastypie.resources import ModelResource, fields
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
-from tastypie.validation import CleanedDataFormValidation
+from tastypie.validation import CleanedDataFormValidation, FormValidation
 
-from expenses.models import SplitTransaction, Transaction
+from expenses.models import SplitTransaction, Transaction, Category
 from api.authorization import UserObjectsOnlyAuthorization
 from api.resources import CategoryResource, TransactionResource
 
 
-class SplitTransactionApiForm(forms.ModelForm):
+class SplitTransactionApiForm(forms.Form):
     total_value = forms.DecimalField(decimal_places=2, max_digits=7)
-    description = forms.TextInput()
+    description = forms.CharField()
     first_installment_date = forms.DateField()
     installments = forms.IntegerField(min_value=1)
-    category = forms.CharField()
+    category = forms.ModelChoiceField(Category.objects.all())
 
     def full_clean(self):
         """
@@ -41,6 +41,7 @@ class SplitTransactionResource(ModelResource):
     installments = fields.IntegerField()
     first_installment_date = fields.DateField()
     category = fields.ForeignKey(CategoryResource, 'category', full=True, null=True)
+    description = fields.CharField(attribute='description', null=True, blank=True)
     transactions = fields.ToManyField(TransactionResource, attribute=lambda bundle: Transaction.objects.filter(installment_of=bundle.obj).order_by('date'), full=True, null=True)
 
     class Meta:
@@ -62,11 +63,10 @@ class SplitTransactionResource(ModelResource):
             'user': bundle.obj.user,
             'description': data.get('description'),
             'created': timezone.now(),
-            'category_id': data.get('category')
+            'category': bundle.obj.category
         }
 
         transactions = []
-
         for i in range(0, data['installments']):
             transactions.append(Transaction.objects.create(**transaction_data))
 
@@ -99,7 +99,7 @@ class SplitTransactionResource(ModelResource):
         return bundle
 
     def obj_create(self, bundle, **kwargs):
-        bundle = super(SplitTransactionResource, self).obj_create(bundle, user=bundle.request.user)
+        bundle = super(SplitTransactionResource, self).obj_create(bundle, user=bundle.request.user, **kwargs)
 
         bundle.obj.transactions = self._create_installments(bundle)
 
