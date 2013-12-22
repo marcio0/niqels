@@ -15,7 +15,7 @@ from api.resources import CategoryResource, TransactionResource
 
 class SplitTransactionApiForm(forms.Form):
     total_value = forms.DecimalField(decimal_places=2, max_digits=7)
-    description = forms.CharField()
+    description = forms.CharField(required=False)
     first_installment_date = forms.DateField()
     installments = forms.IntegerField(min_value=1)
     category = forms.ModelChoiceField(Category.objects.all())

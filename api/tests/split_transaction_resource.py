@@ -226,6 +226,21 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertEquals(SplitTransaction.objects.count(), 1)
         self.assertEquals(Transaction.objects.filter(installment_of__id=split_id).count(), 3)
 
+    def test_post_list_description_optional(self):
+        """
+        Description is not obligatory.
+        """
+
+        self.assertEquals(SplitTransaction.objects.count(), 0)
+
+        data = self.post_data.copy()
+        del data['description']
+
+        resp = self.api_client.post('/api/v1/split_transaction/', data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        self.assertEquals(SplitTransaction.objects.count(), 1)
+
     def test_post_list_positive_transaction(self):
         """
         Sucessfuly creating a split transaction and it's installments.
