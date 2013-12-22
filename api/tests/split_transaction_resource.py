@@ -25,6 +25,7 @@ class TransactionFactory(factory.Factory):
     user = factory.SubFactory(UserFactory)
     date = datetime.date.today()
     created = datetime.datetime.now()
+    description = 'a split transaction'
 
 
 class SplitTransactionResourceTest(ResourceTestCase):
@@ -100,6 +101,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                             u'installments': None,
                             u'resource_uri': u'/api/v1/split_transaction/1',
                             u'total_value': None,
+                            u'description': u'a split transaction',
                             u'transactions': [{u'category': {u'group': u'group',
                                                              u'id': 1,
                                                              u'is_negative': False,
@@ -141,10 +143,10 @@ class SplitTransactionResourceTest(ResourceTestCase):
         bundle = mock.Mock()
         bundle.data = self.post_data.copy()
         bundle.obj.user = self.user
+        bundle.obj.category = Category.objects.get(pk=2)
 
         bundle.data['total_value'] = Decimal(bundle.data['total_value'])
         bundle.data['first_installment_date'] = datetime.date(2010, 5, 10)
-        bundle.data['category'] = 2
 
         self.assertEquals(Transaction.objects.count(), 0)
 
@@ -359,11 +361,9 @@ class SplitTransactionResourceTest(ResourceTestCase):
         split.transactions = TransactionFactory.create_batch(3, user=self.user, category_id=1, date=datetime.date(2010, 10, 10))
 
         resp = self.api_client.get('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials())
-        print resp
         self.assertValidJSONResponse(resp)
 
         content = self.deserialize(resp)
-        self.maxDiff = None
 
         self.assertEquals(content,
                           {u'category': None,

@@ -98,6 +98,15 @@ class SplitTransactionResource(ModelResource):
 
         return bundle
 
+    def full_dehydrate(self, bundle, for_list=False):
+        bundle = super(SplitTransactionResource, self).full_dehydrate(bundle, for_list)
+
+        if bundle.obj.transactions.count() > 0:
+            bundle.data['description'] = bundle.obj.transactions.all()[0].description
+        else:
+            bundle.data['description'] = ''
+        return bundle
+
     def obj_create(self, bundle, **kwargs):
         bundle = super(SplitTransactionResource, self).obj_create(bundle, user=bundle.request.user, **kwargs)
 
