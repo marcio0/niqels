@@ -14,6 +14,11 @@ class SplitTransaction(models.Model):
         verbose_name=_('usuário'),
         help_text=_('O dono desta movimentação.')
     )
+    description = models.TextField(_('description'),
+        null=True,
+        blank=True,
+        help_text=_('The description for this transaction. Ex.: "Lunch with friends".')
+    )
     def get_total_value(self):
         return sum(transaction.value for transaction in self.transactions)
 
@@ -164,6 +169,9 @@ class Transaction(models.Model):
         null=True,
         blank=True,
         related_name="transactions")
+    installment_number = models.IntegerField(_('parcela'),
+                                             help_text=_("Numero da parcela"),
+                                             null=True, blank=True)
 
     objects = TransactionManager()
 

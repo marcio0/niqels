@@ -103,19 +103,6 @@ class SplitTransactionResource(ModelResource):
 
         return bundle
 
-    def dehydrate(self, bundle):
-        """
-        Adding final fields before serialization.
-        dehydrate() happens at the end of full_dehydrate().
-        """
-        if bundle.obj.transactions.count() > 0:
-            first_transaction = bundle.obj.transactions.all().reverse()[0]  # transactions are not ordered by date yet, so I'm getting the last one as the first
-            bundle.data['description'] = first_transaction.description
-        else:
-            bundle.data['description'] = ''
-
-        return bundle
-
     def alter_detail_data_to_serialize(self, request, bundle):
         data = bundle.data
         del data['category']
