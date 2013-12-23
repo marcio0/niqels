@@ -42,7 +42,7 @@ class SplitTransactionResource(ModelResource):
     first_installment_date = fields.DateField()
     category = fields.ForeignKey(CategoryResource, 'category', full=True, null=True)
     description = fields.CharField(attribute='description', null=True, blank=True)
-    transactions = fields.ToManyField(TransactionResource, attribute=lambda bundle: Transaction.objects.filter(installment_of=bundle.obj).order_by('date'), full=True, null=True)
+    transactions = fields.ToManyField(TransactionResource, attribute=lambda bundle: Transaction.objects.filter(installment_of=bundle.obj).order_by('installment_number'), full=True, null=True)
 
     class Meta:
         resource_name = "split_transaction"
