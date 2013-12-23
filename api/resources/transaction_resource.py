@@ -86,6 +86,24 @@ class TransactionResource(ModelResource):
 
         return bundle
 
+    def alter_list_data_to_serialize(self, request, data):
+        """
+        Removing installment data if this transaction is not an installment.
+        """
+        for bundle in data['objects']:
+            if bundle.data.get('installment_of') is None:
+                del bundle.data['installment_number']
+
+        return data
+
+    def alter_detail_data_to_serialize(self, request, bundle):
+        """
+        Removing installment data if this transaction is not an installment.
+        """
+        if bundle.data.get('installment_of') is None:
+            del bundle.data['installment_number']
+        return bundle
+
 
 def _truncate_date_tzinfo(objects):
     for obj in objects:

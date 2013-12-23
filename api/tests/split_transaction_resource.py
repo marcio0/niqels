@@ -38,7 +38,6 @@ class SplitTransactionResourceTest(ResourceTestCase):
         Category.objects.create(name="cat1", is_negative=False, group_id=1)
         Category.objects.create(name="cat2", is_negative=True, group_id=1)
 
-        #self.user = UserFactory.create()
         self.email = 'user@example.com'
         self.password = 'password'
         self.user = User.objects.create_user(self.email, self.password)

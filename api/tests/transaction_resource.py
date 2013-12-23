@@ -108,7 +108,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'description': u'',
-            u'value': u'-40.0',
+            u'value': u'-40',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
@@ -174,7 +174,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'description': u'',
-            u'value': u'40.0',
+            u'value': u'40',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
@@ -207,7 +207,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content, {
             u'description': u'',
-            u'value': u'40.0',
+            u'value': u'40',
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
@@ -238,7 +238,7 @@ class TransactionResourceTest(ResourceTestCase):
 
         content = self.deserialize(resp)
 
-        self.assertEquals(content['value'], u'-5.0')
+        self.assertEquals(content['value'], u'-5')
 
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
 
@@ -363,7 +363,6 @@ class TransactionResourceTest(ResourceTestCase):
         detail_url = '/api/v1/transaction/3'
         resp = self.api_client.get(detail_url, format='json', authentication=self.get_credentials())
         self.assertHttpNotFound(resp)
-
 
     # Detail tests: POST
     def test_post_detail_not_allowed(self):
