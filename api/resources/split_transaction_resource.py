@@ -36,7 +36,6 @@ class SplitTransactionApiForm(forms.Form):
         model = SplitTransaction
         exclude = ('user',)
 
-
 class SplitTransactionResource(ModelResource):
     total_value = fields.DecimalField(attribute='total_value')
     installments = fields.IntegerField(attribute='installments')
@@ -58,6 +57,9 @@ class SplitTransactionResource(ModelResource):
         detail_allowed_methods = ['get']
 
     def _create_installments(self, bundle):
+        """
+        Creates the installments for this split transaction.
+        """
         data = bundle.data
 
         transaction_data = {
@@ -109,12 +111,22 @@ class SplitTransactionResource(ModelResource):
         if bundle.obj.transactions.count() > 0:
             first_transaction = bundle.obj.transactions.all().reverse()[0]  # transactions are not ordered by date yet, so I'm getting the last one as the first
             bundle.data['description'] = first_transaction.description
-            bundle.data['first_installment_date'] = first_transaction.date
         else:
             bundle.data['description'] = ''
-            bundle.data['first_installment_date'] = ''
 
         return bundle
+
+    def alter_detail_data_to_serialize(self, request, bundle):
+        data = bundle.data
+        del data['category']
+        del data['first_installment_date']
+        return bundle
+
+    def alter_list_data_to_serialize(self, request, data):
+        for bundle in data['objects']:
+            del bundle.data['category']
+            del bundle.data['first_installment_date']
+        return data
 
     def obj_create(self, bundle, **kwargs):
         bundle = super(SplitTransactionResource, self).obj_create(bundle, user=bundle.request.user, **kwargs)
