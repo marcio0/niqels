@@ -73,7 +73,7 @@ class SplitTransactionResource(ModelResource):
 
         transactions = []
         for i in range(0, data['installments']):
-            transactions.append(Transaction.objects.create(**transaction_data))
+            transactions.append(Transaction.objects.create(installment_number=(i+1), **transaction_data))
 
             transaction_data['date'] += relativedelta(months=1)
 
