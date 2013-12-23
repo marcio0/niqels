@@ -3,6 +3,7 @@ from decimal import Decimal
 from dateutil.relativedelta import relativedelta
 
 from django import forms
+from django.db.models import Sum, Count
 from django.utils import timezone
 from tastypie.resources import ModelResource, fields
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
@@ -37,8 +38,8 @@ class SplitTransactionApiForm(forms.Form):
 
 
 class SplitTransactionResource(ModelResource):
-    total_value = fields.DecimalField()
-    installments = fields.IntegerField()
+    total_value = fields.DecimalField(attribute='total_value')
+    installments = fields.IntegerField(attribute='installments')
     first_installment_date = fields.DateField()
     category = fields.ForeignKey(CategoryResource, 'category', full=True, null=True)
     description = fields.CharField(attribute='description', null=True, blank=True)
@@ -46,7 +47,9 @@ class SplitTransactionResource(ModelResource):
 
     class Meta:
         resource_name = "split_transaction"
-        queryset = SplitTransaction.objects.all()
+        queryset = SplitTransaction.objects.all()\
+            .annotate(total_value=Sum('transactions__value'))\
+            .annotate(installments=Count('transactions'))
         always_return_data = True
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = UserObjectsOnlyAuthorization()
@@ -98,13 +101,19 @@ class SplitTransactionResource(ModelResource):
 
         return bundle
 
-    def full_dehydrate(self, bundle, for_list=False):
-        bundle = super(SplitTransactionResource, self).full_dehydrate(bundle, for_list)
-
+    def dehydrate(self, bundle):
+        """
+        Adding final fields before serialization.
+        dehydrate() happens at the end of full_dehydrate().
+        """
         if bundle.obj.transactions.count() > 0:
-            bundle.data['description'] = bundle.obj.transactions.all()[0].description
+            first_transaction = bundle.obj.transactions.all().reverse()[0]  # transactions are not ordered by date yet, so I'm getting the last one as the first
+            bundle.data['description'] = first_transaction.description
+            bundle.data['first_installment_date'] = first_transaction.date
         else:
             bundle.data['description'] = ''
+            bundle.data['first_installment_date'] = ''
+
         return bundle
 
     def obj_create(self, bundle, **kwargs):

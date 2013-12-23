@@ -32,6 +32,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
 
     def setUp(self):
         super(SplitTransactionResourceTest, self).setUp()
+        self.maxDiff = None
 
         CategoryGroup.objects.create(name="group")
         Category.objects.create(name="cat1", is_negative=False, group_id=1)
@@ -96,11 +97,11 @@ class SplitTransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content,
                           [{u'category': None,
-                            u'first_installment_date': None,
+                            u'first_installment_date': u'2010-10-10',
                             u'id': 1,
-                            u'installments': None,
+                            u'installments': 3,
                             u'resource_uri': u'/api/v1/split_transaction/1',
-                            u'total_value': None,
+                            u'total_value': u'30.00',
                             u'description': u'a split transaction',
                             u'transactions': [{u'category': {u'group': u'group',
                                                              u'id': 1,
@@ -177,17 +178,16 @@ class SplitTransactionResourceTest(ResourceTestCase):
         self.assertHttpCreated(resp)
 
         split = self.deserialize(resp)
-        self.maxDiff = None
         self.assertEquals(split, {u'category': {u'group': u'group',
                                                 u'id': 2,
                                                 u'is_negative': True,
                                                 u'name': u'cat2',
                                                 u'resource_uri': u'/api/v1/category/2'},
-                                  u'first_installment_date': None,
+                                  u'first_installment_date': u'2010-03-03',
                                   u'id': 1,
-                                  u'installments': None,
+                                  u'installments': 3,
                                   u'resource_uri': u'/api/v1/split_transaction/1',
-                                  u'total_value': None,
+                                  u'total_value': u'90',
                                   u'description': u'a split transaction',
                                   u'transactions': [{u'category': {u'group': u'group',
                                                                    u'id': 2,
@@ -262,12 +262,12 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                 u'is_negative': False,
                                                 u'name': u'cat1',
                                                 u'resource_uri': u'/api/v1/category/1'},
-                                  u'first_installment_date': None,
+                                  u'first_installment_date': u'2010-03-03',
                                   u'id': 1,
                                   u'description': u'a split transaction',
-                                  u'installments': None,
+                                  u'installments': 3,
                                   u'resource_uri': u'/api/v1/split_transaction/1',
-                                  u'total_value': None,
+                                  u'total_value': u'90',
                                   u'transactions': [{u'category': {u'group': u'group',
                                                                    u'id': 1,
                                                                    u'is_negative': False,
@@ -382,11 +382,11 @@ class SplitTransactionResourceTest(ResourceTestCase):
 
         self.assertEquals(content,
                           {u'category': None,
-                           u'first_installment_date': None,
+                           u'first_installment_date': u'2010-10-10',
                            u'id': 1,
-                           u'installments': None,
+                           u'installments': 3,
                            u'resource_uri': u'/api/v1/split_transaction/1',
-                           u'total_value': None,
+                           u'total_value': u'30.00',
                            u'description': u'a split transaction',
                            u'transactions': [{u'category': {u'group': u'group',
                                                             u'id': 1,
