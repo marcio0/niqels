@@ -78,6 +78,8 @@ class TransactionResourceTest(ResourceTestCase):
             u'description': u'',
             u'value': unicode(self.transaction.value),
             u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
+            u'installment_of': None,
+            u'installment_number': None,
             u'category': {
                 u'id': 1,
                 u'is_negative': True,
@@ -112,6 +114,8 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
+            u'installment_of': None,
+            u'installment_number': None,
             u'category': {
                 u'id': 2,
                 u'is_negative': True,
@@ -146,6 +150,8 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
+            u'installment_of': None,
+            u'installment_number': None,
             u'category': {
                 u'id': 2,
                 u'is_negative': True,
@@ -178,6 +184,8 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
+            u'installment_of': None,
+            u'installment_number': None,
             u'category': {
                 u'id': 5,
                 u'is_negative': False,
@@ -211,6 +219,8 @@ class TransactionResourceTest(ResourceTestCase):
             u'date': u'2010-03-03',
             u'id': 4,
             u'resource_uri': u'/api/v1/transaction/4',
+            u'installment_of': None,
+            u'installment_number': None,
             u'category': {
                 u'id': 5,
                 u'is_negative': False,
@@ -347,6 +357,8 @@ class TransactionResourceTest(ResourceTestCase):
             u'description': u'',
             u'value': unicode(self.transaction.value),
             u'resource_uri': u'/api/v1/transaction/%d' % self.transaction.id,
+            u'installment_of': None,
+            u'installment_number': None,
             u'category': {
                 u'is_negative': True,
                 u'id': 1,

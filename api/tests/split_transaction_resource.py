@@ -109,6 +109,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                u'id': 1,
                                                u'installment_number': None,
                                                u'resource_uri': u'/api/v1/transaction/1',
+                                               u'installment_of': u'/api/v1/split_transaction/1',
                                                u'value': u'10'},
                                               {u'category': {u'group': u'group',
                                                              u'id': 1,
@@ -120,6 +121,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                u'id': 2,
                                                u'installment_number': None,
                                                u'resource_uri': u'/api/v1/transaction/2',
+                                               u'installment_of': u'/api/v1/split_transaction/1',
                                                u'value': u'10'},
                                               {u'category': {u'group': u'group',
                                                              u'id': 1,
@@ -131,6 +133,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                                u'id': 3,
                                                u'installment_number': None,
                                                u'resource_uri': u'/api/v1/transaction/3',
+                                               u'installment_of': u'/api/v1/split_transaction/1',
                                                u'value': u'10'}]}])
 
     def test_post_list_unauthorized(self):
@@ -193,6 +196,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 1,
                                               u'installment_number': 1,
                                               u'resource_uri': u'/api/v1/transaction/1',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'-30'},
                                              {u'category': {u'group': u'group',
                                                             u'id': 2,
@@ -204,6 +208,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 2,
                                               u'installment_number': 2,
                                               u'resource_uri': u'/api/v1/transaction/2',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'-30'},
                                              {u'category': {u'group': u'group',
                                                             u'id': 2,
@@ -215,6 +220,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 3,
                                               u'installment_number': 3,
                                               u'resource_uri': u'/api/v1/transaction/3',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'-30'}]
                           })
 
@@ -270,6 +276,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 1,
                                               u'installment_number': 1,
                                               u'resource_uri': u'/api/v1/transaction/1',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'30'},
                                              {u'category': {u'group': u'group',
                                                             u'id': 1,
@@ -281,6 +288,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 2,
                                               u'installment_number': 2,
                                               u'resource_uri': u'/api/v1/transaction/2',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'30'},
                                              {u'category': {u'group': u'group',
                                                             u'id': 1,
@@ -292,6 +300,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'installment_number': 3,
                                               u'description': u'a split transaction',
                                               u'resource_uri': u'/api/v1/transaction/3',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u''
                                                         u'30'}]
                           })
@@ -391,6 +400,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 1,
                                               u'installment_number': None,
                                               u'resource_uri': u'/api/v1/transaction/1',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'10',},
                                              {u'category': {u'group': u'group',
                                                             u'id': 1,
@@ -402,6 +412,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 2,
                                               u'installment_number': None,
                                               u'resource_uri': u'/api/v1/transaction/2',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'10'},
                                              {u'category': {u'group': u'group',
                                                             u'id': 1,
@@ -413,6 +424,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'id': 3,
                                               u'installment_number': None,
                                               u'resource_uri': u'/api/v1/transaction/3',
+                                              u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'10'}]})
 
     # Detail tests: POST

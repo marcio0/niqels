@@ -37,6 +37,7 @@ class TransactionApiForm(forms.ModelForm):
 
 class TransactionResource(ModelResource):
     category = fields.ForeignKey(CategoryResource, 'category', full=True)
+    installment_of = fields.ForeignKey('api.resources.SplitTransactionResource', 'installment_of', null=True)
 
     class Meta:
         queryset = Transaction.objects.all()
@@ -84,24 +85,6 @@ class TransactionResource(ModelResource):
 
             bundle.data['value'] = value
 
-        return bundle
-
-    def alter_list_data_to_serialize(self, request, data):
-        """
-        Removing installment data if this transaction is not an installment.
-        """
-        for bundle in data['objects']:
-            if bundle.data.get('installment_of') is None:
-                del bundle.data['installment_number']
-
-        return data
-
-    def alter_detail_data_to_serialize(self, request, bundle):
-        """
-        Removing installment data if this transaction is not an installment.
-        """
-        if bundle.data.get('installment_of') is None:
-            del bundle.data['installment_number']
         return bundle
 
 
