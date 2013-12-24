@@ -7700,6 +7700,9 @@ p.expenses {
   width: 100% !important;
   margin-bottom: 0 !important;
 }
+.input-icon .bootstrap-select ~ i.input-icon-append {
+  right: 25px;
+}
 .input-icon .bootstrap-select .filter-option {
   margin-left: 20px !important;
 }
