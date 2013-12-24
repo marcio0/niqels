@@ -1,9 +1,12 @@
+# encoding: utf-8
+
 import mock
 import datetime
 import factory
 from decimal import Decimal
 
 from django.test import TestCase
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 import expenses.models
 from expenses.models import Category, Transaction, CategoryGroup, SplitTransaction
@@ -17,7 +20,7 @@ class TransactionFactory(factory.Factory):
     value = Decimal(10)
 
 
-class InstallmentPurchaseTest(TestCase):
+class SplitTransactionTest(TestCase):
     @mock.patch.object(SplitTransaction, 'transactions')
     def test_total_value(self, *args):
         split = SplitTransaction()
@@ -29,6 +32,13 @@ class InstallmentPurchaseTest(TestCase):
         split.transactions = [t1, t2, t3]
 
         self.assertEquals(split.get_total_value(), Decimal(30))
+
+    @mock.patch.object(SplitTransaction, 'transactions')
+    def test_unicode(self, *args):
+        split = SplitTransaction()
+        split.transactions.count.return_value = 3
+
+        self.assertEquals(unicode(split), _(u'Movimentação em 3 parcelas'))
 
 
 class TransactionUpToDayTest(TestCase):

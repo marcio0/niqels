@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 
 import datetime
 import calendar
@@ -11,8 +11,8 @@ from django.utils import timezone
 
 class SplitTransaction(models.Model):
     user = models.ForeignKey('access.User',
-        verbose_name=_('usuário'),
-        help_text=_('O dono desta movimentação.')
+        verbose_name=ugettext(u'usuário'),
+        help_text=ugettext(u'O dono desta movimentação.')
     )
     description = models.TextField(_('description'),
         null=True,
@@ -21,6 +21,15 @@ class SplitTransaction(models.Model):
     )
     def get_total_value(self):
         return sum(transaction.value for transaction in self.transactions)
+
+    class Meta:
+        verbose_name = ugettext(u'Movimentação parcelada')
+        verbose_name_plural = ugettext(u'Movimentações parceladas')
+
+    def __unicode__(self):
+        return _(u'Movimentação em %d parcelas') % (
+            self.transactions.count(),
+        )
 
 
 class CategoryGroupManager(models.Manager):
