@@ -3,6 +3,24 @@
 
 angular.module('webapp')
 
+    .directive('categoryCollapse', ['$rootScope', '$parse', function ($rootScope, $parse) {
+        return {
+            link: function (scope, element, attrs) {
+                $rootScope.$on('transaction-created', function (e, transaction) {
+                    element.collapse({toggle: false});
+
+                    var groupName = $parse(attrs.categoryCollapse)(scope);
+                    if (transaction.category.name === groupName) {
+                        element.collapse('show');
+                    }
+                    else {
+                        element.collapse('hide');
+                    }
+                });
+            }
+        };
+    }])
+
     .directive('monthSelector', ['$locale', function ($locale) {
         return {
             scope: {
