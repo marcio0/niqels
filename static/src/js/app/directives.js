@@ -12,6 +12,9 @@ angular.module('webapp')
             function doCollapse (transaction) {
                 if (!transaction) return;
 
+                // if the transaction is in another month, do nothing
+                if (moment(transaction.date).month() !== $rootScope.filterDate.month()) return;
+
                 var groupName = $parse(attrs.categoryCollapse)(scope);
                 if (transaction.category.name === groupName) {
                     element.collapse('show');
@@ -26,7 +29,7 @@ angular.module('webapp')
                 doCollapse(transaction);
             });
 
-            // when rendering a new group, check if it's because a new transaction created
+            // when rendering a new group, check if it's because a new transaction was created
             doCollapse($rootScope.lastCreatedTransaction);
         }
 
