@@ -4,20 +4,42 @@
 angular.module('webapp')
 
     .directive('categoryCollapse', ['$rootScope', '$parse', function ($rootScope, $parse) {
-        return {
-            link: function (scope, element, attrs) {
-                $rootScope.$on('transaction-created', function (e, transaction) {
-                    element.collapse({toggle: false});
+        $rootScope.lastCreatedTransaction = null;
 
-                    var groupName = $parse(attrs.categoryCollapse)(scope);
-                    if (transaction.category.name === groupName) {
-                        element.collapse('show');
-                    }
-                    else {
-                        element.collapse('hide');
-                    }
-                });
+        function linkFn (scope, element, attrs) {
+            element.collapse({toggle: false});
+
+            function doCollapse (transaction) {
+                if (!transaction) return;
+
+                var groupName = $parse(attrs.categoryCollapse)(scope);
+                if (transaction.category.name === groupName) {
+                    element.collapse('show');
+                }
+                else {
+                    element.collapse('hide');
+                }
             }
+
+            $rootScope.$on('transaction-created', function (e, transaction) {
+                // When a transaction is created, check if is on this group.
+                doCollapse(transaction);
+            });
+
+            // when rendering a new group, check if it's because a new transaction created
+            doCollapse($rootScope.lastCreatedTransaction);
+        }
+
+        function compileFn (element, attrs) {
+            $rootScope.$on('transaction-created', function (e, transaction) {
+                $rootScope.lastCreatedTransaction = transaction;
+            });
+
+            return linkFn;
+        }
+
+        return {
+            compile: compileFn
         };
     }])
 
