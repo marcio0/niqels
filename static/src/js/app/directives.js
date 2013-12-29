@@ -24,9 +24,13 @@ angular.module('webapp')
                 }
             }
 
-            $rootScope.$on('transaction-created', function (e, transaction) {
+            var deReg = $rootScope.$on('transaction-created', function (e, transaction) {
                 // When a transaction is created, check if is on this group.
                 doCollapse(transaction);
+            });
+
+            scope.$on('$destroy', function () {
+                deReg();  // unregistering the listener when the scope is destroyed
             });
 
             // when rendering a new group, check if it's because a new transaction was created
