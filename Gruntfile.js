@@ -117,7 +117,7 @@ module.exports = function(grunt) {
 
         watch: {
             webapp: {
-                files: ['static/less/*.less', 'static/less/webapp/*.less', 'static/less/components/*.less'],
+                files: ['static/less/*.less', 'static/less/webapp/*.less', 'static/less/components/*.less', 'static/less/lib/*.less'],
                 tasks: ['less:webapp']
             },
             landing: {
