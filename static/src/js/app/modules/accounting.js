@@ -33,14 +33,24 @@
                         thousandSymbol = accounting.settings.currency.thousand;
 
                     element.on('keydown', function (ev) {
-                        ev.preventDefault();
                         var key = ev.keyCode,
                             actualVal = accounting.toFixed(accounting.unformat(element.val(), decimalSymbol), 2).replace('.', ''),
-                            length = actualVal.length,
-                            val;
+                            val, value;
+
+                        if (key == 9 || key == 13) {
+                            // tab or enter
+                            return;
+                        }
+
+                        ev.preventDefault();
 
                         if ((key >= 48) && (key <= 57)) {
-                            var value = ev.keyCode - 48;
+                            value = ev.keyCode - 48;
+                            val = actualVal + value;
+                        }
+                        else if ((key >= 96) && (key <= 105)) {
+                            // numeric pad
+                            value = ev.keyCode - 96;
                             val = actualVal + value;
                         }
                         else if (key === 8) {
