@@ -23,6 +23,11 @@ html, body, .container, .row {
     height: 100%;
 }
 
+#ng-app > .container {
+    height: calc(~"100% - "(@navbar-height + 1px));
+
+}
+
 body {
     overflow-y: scroll;
     background-color: @component-bg-color;
@@ -31,6 +36,9 @@ body {
 .navbar {
     background-color: @white;
     margin-bottom: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
 
     .container {
         padding: 0;

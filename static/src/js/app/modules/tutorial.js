@@ -2,12 +2,9 @@
     "use strict";
     var tutorials = {};
 
-
     angular.module('tutorial', [])
         .run(['$rootScope', function ($rootScope) {
             var config, tutorialState;
-
-            tutorialState = {};
 
             config = {
                 backdrop: true,
@@ -33,14 +30,6 @@
 
             function startInterfaceTutorial () {
                 var interfaceTutorialConfig = angular.copy(config);
-                interfaceTutorialConfig.onEnd = function () {
-                    tutorialState.interfaceTutorial = true;
-
-                    var de = $rootScope.$on('transaction-created', function () {
-                        startTransactionListTutorial();
-                        de();
-                    });
-                };
 
                 var interfaceTutorial = new Tour(interfaceTutorialConfig);
                 interfaceTutorial.addSteps([
@@ -50,37 +39,49 @@
                         content: gettext("Seja bem vindo ao Niqels! Vamos lhe mostrar um breve tutorial sobre como utilizar o site.")
                     },
                     {
-                        element: ".left-column",
+                        element: "#transaction-form-column",
                         title: gettext("Nova movimentação"),
                         content: gettext("Utilize este formulário para criar novas movimentaçoes.")
                     },
                     {
-                        element: "form#transaction-form button.btn-primary",
+                        element: "#transaction-list-panel",
+                        title: gettext("Lista de movimentações"),
+                        content: gettext("Aqui você verá suas movimentações. Utilize os controles para customizar a listagem.")
+                    },
+                    {
+                        element: "#balance-panel",
+                        title: gettext("Balanço"),
+                        content: gettext("Este painel mostrará seu balanço do mes atual."),
+                        placement: 'left'
+                    },
+                    {
+                        element: "#reports-link",
+                        title: gettext("Seção de relatórios"),
+                        content: gettext("Nesta seção do site você contrará relatórios."),
+                        backdrop: false,
+                        placement: 'bottom'
+                    },
+                    {
+                        element: "#transaction-form-column",
                         title: gettext("Criar nova movimentação"),
                         content: gettext("Experimente criar sua primeira movimentação!")
                     }
                 ]);
-                interfaceTutorial.init();
-                interfaceTutorial.start();
-            }
 
-            function startTransactionListTutorial () {
-                var transactionListTutorial = new Tour(config);
-                transactionListTutorial.addSteps([
-                    {
-                        element: '#transaction-groups',
-                        title: gettext('Lista de movimentações'),
-                        content: gettext('Essas são suas movimentações desde mês.')
-                    }
-                ]);
+                var html = '<div>Welcome to Niqels, {0}!<br/>Gostaria de ver um tutorial?</div><div><button type="button" id="watch-tutorial" class="btn btn-primary">Sim</button><button type="button" id="do-nothing" class="btn btn-default">Não</button></div>'.format(window.userName);
+                var toast = toastr.info(html, null, {"timeOut": "0", "extendedTimeOut": "0"});
 
-                transactionListTutorial.init();
-                transactionListTutorial.start();
-
+                $('#watch-tutorial', toast).click(function () {
+                    toast.remove();
+                    interfaceTutorial.init();
+                    interfaceTutorial.start();
+                });
+                $('#do-nothing', toast).click(function () {
+                    toast.remove();
+                });
             }
 
             tutorials.interfaceTutorial = startInterfaceTutorial;
-            tutorials.transactionListTutorial = startTransactionListTutorial;
         }])
 
         .directive('showTutorial', [function () {

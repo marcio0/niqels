@@ -81,7 +81,7 @@
 
         {% include "webapp/transactions/installment-form.html" %}
 
-        <button ng-click="submit()" class="btn btn-block btn-primary" ng-disabled="sending">
+        <button ng-click="submit()" class="btn btn-block btn-primary" ng-disabled="sending" id="create-transaction">
             {% trans "Submit" %}
             <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
             <i ng-hide="sending" class="fa fa-check fa-lg"></i>

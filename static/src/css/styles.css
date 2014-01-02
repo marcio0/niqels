@@ -7413,6 +7413,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .tour-step-backdrop {
   position: relative;
   z-index: 1031;
+  background: inherit;
 }
 .tour-step-background {
   position: absolute;
@@ -7922,6 +7923,8 @@ a[data-toggle="collapse"] {
   text-align: center;
 }
 #empty-msg {
+  padding-top: 75px;
+  padding-bottom: 75px;
   text-align: center;
 }
 #reports #period-form {
@@ -7973,6 +7976,9 @@ body,
 .row {
   height: 100%;
 }
+#ng-app > .container {
+  height: calc(100% -  51px);
+}
 body {
   overflow-y: scroll;
   background-color: #e6e4eb;
@@ -7980,6 +7986,9 @@ body {
 .navbar {
   background-color: #fdfdfd;
   margin-bottom: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
 }
 .navbar .container {
   padding: 0;

@@ -15,8 +15,8 @@
 {% block webapp-menu %}
 <div class="collapse navbar-collapse" id="navbar-menu">
     <ul class="nav navbar-nav">
-        <li ng-class="{active: $state.includes('transactions')}"><a href="#/transactions">{% trans "Transactions" %}</a></li>
-        <li ng-class="{active: $state.includes('reports')}"><a href="#/reports">{% trans "Reports" %}</a></li>
+        <li ng-class="{active: $state.includes('transactions')}" id="transaction-list-link"><a href="#/transactions">{% trans "Transactions" %}</a></li>
+        <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a href="#/reports">{% trans "Reports" %}</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
         {% include "webapp/user-menu.html" %}
@@ -122,13 +122,12 @@
 
 {% endif %}
 
+<script type="text/javascript">
 {% if FIRST_LOGIN %}
-    <script type="text/javascript">
-        window.isUserFirstLogin = true;
-        $(function () {
-            toastr.info("{% trans "Welcome to Niqels, {0}!"%}".format('{{ user.name }}'), null, {positionClass: "toast-bottom-full-width"});
-        });
-    </script>
+    window.isUserFirstLogin = true;
 {% endif %}
+    window.userName = "{{ user.name }}";
+    window.isUserFirstLogin = true;
+</script>
 
 {% endblock bodyend %}
