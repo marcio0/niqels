@@ -41,25 +41,70 @@
                     {
                         element: "#transaction-form-column",
                         title: gettext("Nova movimentação"),
-                        content: gettext("Utilize este formulário para criar novas movimentaçoes.")
+                        content: gettext("Utilize este formulário para criar novas movimentaçoes."),
+                        onShow: function () {
+                            var form = $('form#transaction-form');
+
+                            var select = $('select', form);
+                            select.prop('disabled', true);
+                            select.data('selectpicker').refresh();
+
+                            $('input, button', form).prop('disabled', true);
+                        },
+                        onHidden: function () {
+                            var form = $('form#transaction-form');
+
+                            var select = $('select', form);
+                            select.prop('disabled', false);
+                            select.data('selectpicker').refresh();
+
+                            $('input, button', form).prop('disabled', false);
+                        }
                     },
                     {
                         element: "#transaction-list-panel",
                         title: gettext("Lista de movimentações"),
-                        content: gettext("Aqui você verá suas movimentações. Utilize os controles para customizar a listagem.")
+                        content: gettext("Aqui você verá suas movimentações. Utilize os controles para customizar a listagem."),
+                        placement: 'bottom',
+                        onShow: function () {
+                            $('#transaction-list-panel .area-header a').prop('disabled', true);
+                            $('#transaction-list-panel .month-selector button').prop('disabled', true);
+                        },
+                        onHidden: function () {
+                            $('#transaction-list-panel .area-header a').prop('disabled', false);
+                            $('#transaction-list-panel .month-selector button').prop('disabled', false);
+                        }
                     },
                     {
                         element: "#balance-panel",
                         title: gettext("Balanço"),
                         content: gettext("Este painel mostrará seu balanço do mes atual."),
-                        placement: 'left'
+                        placement: 'left',
+                        onShow: function (tour) {
+                            var balanceLink = $('#balance-panel a');
+                            tour.balanceLinkHref = balanceLink.prop('href');
+                            balanceLink.prop('href', '');
+                        },
+                        onHidden: function (tour) {
+                            var balanceLink = $('#balance-panel a');
+                            balanceLink.prop('href', tour.balanceLinkHref);
+                        }
                     },
                     {
                         element: "#reports-link",
                         title: gettext("Seção de relatórios"),
                         content: gettext("Nesta seção do site você contrará relatórios."),
                         backdrop: false,
-                        placement: 'bottom'
+                        placement: 'bottom',
+                        onShow: function (tour) {
+                            var reportsLink = $('.navbar #reports-link a');
+                            tour.reportsLinkHref = reportsLink.prop('href');
+                            reportsLink.prop('href', '');
+                        },
+                        onHidden: function (tour) {
+                            var reportsLink = $('.navbar #reports-link a');
+                            reportsLink.prop('href', tour.reportsLinkHref);
+                        }
                     },
                     {
                         element: "#transaction-form-column",
