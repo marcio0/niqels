@@ -8,20 +8,19 @@
         var tourName = stepName.splice(0, 1);
         var action = stepName.join('_');
 
-        //console.log(tourName, stepValue, action);
-        // IDENTIFY WHEN ITS A PREMATURE END
-
         if (action === 'current_step' && stepValue === 0){
             //tutorial started
+            ga('send', 'event', 'Tutorial', 'started', tourName);
         }
         else if (action === 'end' && stepValue === 'yes') {
-            //end of tutorial
-        }
-        else {
-            // normal flow
+            // end of tutorial
+            ga('send', 'event', 'Tutorial', 'finish', tourName);
+            return;
         }
 
-        //ga('send', 'pageview', 0);
+        // faking a pageview to notify GA of the navigation on a tutorial
+        var path = tutorialPath + tourName + '/' + stepValue;
+        ga('send', 'pageview', path);
     }
 
     angular.module('tutorial', [])
@@ -47,16 +46,13 @@
                         "</div>" +
                         "</div>"
                 },
-                onStart: function (tour) {
-                    return;
-                    var name = tour._options.name;
-                    var keyName = name + '_current_step';
-                    trackStep(name, window.localStorage[keyName], tour);
-                },
                 afterSetState: trackStep
             };
 
             function startInterfaceTutorial () {
+
+                if ($rootScope.mobile) return;
+
                 var interfaceTutorialConfig = angular.copy(config);
                 interfaceTutorialConfig.name = "interface-tutorial";
 
@@ -141,6 +137,9 @@
                         content: gettext("Experimente criar sua primeira movimentação!")
                     }
                 ]);
+
+                // saving the amount of steps to identify a premature ending of the tutorial
+                // window.localStorage[interfaceTutorialConfig.name + '_steps'] = interfaceTutorial._steps.length;
 
                 var html = '<div>Welcome to Niqels, {0}!<br/>Gostaria de ver um tutorial?</div><div><button type="button" id="watch-tutorial" class="btn btn-primary">Sim</button><button type="button" id="do-nothing" class="btn btn-default">Não</button></div>'.format(window.userName);
                 var toast = toastr.info(html, null, {
