@@ -1,14 +1,35 @@
 (function () {
     "use strict";
     var tutorials = {};
+    var tutorialPath = '/tutorial/';
+
+    function trackStep (stepName, stepValue) {
+        stepName = stepName.split('_');
+        var tourName = stepName.splice(0, 1);
+        var action = stepName.join('_');
+
+        //console.log(tourName, stepValue, action);
+        // IDENTIFY WHEN ITS A PREMATURE END
+
+        if (action === 'current_step' && stepValue === 0){
+            //tutorial started
+        }
+        else if (action === 'end' && stepValue === 'yes') {
+            //end of tutorial
+        }
+        else {
+            // normal flow
+        }
+
+        //ga('send', 'pageview', 0);
+    }
 
     angular.module('tutorial', [])
         .run(['$rootScope', function ($rootScope) {
-            var config, tutorialState;
+            var config;
 
             config = {
                 backdrop: true,
-                storage: false,
                 template: function () {
                     var previousText = gettext('Anterior'),
                         nextText = gettext('Próximo'),
@@ -25,11 +46,19 @@
                         "<button class='btn btn-link' data-role='end'>" + endText + "</button>" +
                         "</div>" +
                         "</div>"
-                }
+                },
+                onStart: function (tour) {
+                    return;
+                    var name = tour._options.name;
+                    var keyName = name + '_current_step';
+                    trackStep(name, window.localStorage[keyName], tour);
+                },
+                afterSetState: trackStep
             };
 
             function startInterfaceTutorial () {
                 var interfaceTutorialConfig = angular.copy(config);
+                interfaceTutorialConfig.name = "interface-tutorial";
 
                 var interfaceTutorial = new Tour(interfaceTutorialConfig);
                 interfaceTutorial.addSteps([
@@ -114,7 +143,14 @@
                 ]);
 
                 var html = '<div>Welcome to Niqels, {0}!<br/>Gostaria de ver um tutorial?</div><div><button type="button" id="watch-tutorial" class="btn btn-primary">Sim</button><button type="button" id="do-nothing" class="btn btn-default">Não</button></div>'.format(window.userName);
-                var toast = toastr.info(html, null, {"timeOut": "0", "extendedTimeOut": "0"});
+                var toast = toastr.info(html, null, {
+                    "timeOut": "0",
+                    "extendedTimeOut": "0",
+                    "onclick": function (e) {
+                        // stopping toast dismissing on click
+                        e.stopPropagation();
+                    }
+                });
 
                 $('#watch-tutorial', toast).click(function () {
                     toast.remove();
