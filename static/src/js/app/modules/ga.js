@@ -46,13 +46,8 @@ angular.module('ga', [])
 
         var transactionTypeDimension = 'dimension1';
 
-        //ga('set', userAccessMetric, 1);
-        //_gaq.push(['_trackEvent', accountsCategory, 'login']);
         ga('send', 'event', accountsCategory, 'login', {'metric2': 1});
         if (window.isUserFirstLogin){
-            //_gaq.push(['set', 'metric1', 1]);
-            //_gaq.push(['_trackEvent', accountsCategory, 'create']);
-            //ga('set', createdAccountsMetric, 1);
             ga('send', 'event', accountsCategory, 'create', {'metric1': 1});
             window.isUserFirstTransaction = true;
         }
@@ -61,18 +56,11 @@ angular.module('ga', [])
         }
 
 
-        $rootScope.$on('$stateChangeSuccess', function () {
-            //_gaq.push(['_trackPageview', $location.path()]);
-            ga('send', 'pageview', $location.path());
-        });
-
-
         $rootScope.$on('transaction-created', function (ev, transaction) {
             if (window.isUserFirstTransaction) {
                 ga('send', 'event', transactionsCategory, 'create-first');
                 window.isUserFirstTransaction = false;
             }
-            //ga('set', );
             ga('send', 'event', transactionsCategory, 'create', transaction.category.name, {
                 'metric3': 1, //createdTransactionsMetric
                 'dimension1': transaction.category.name //transactionTypeDimension
@@ -89,6 +77,11 @@ angular.module('ga', [])
         $rootScope.$on('category-comparison-category-selected', function (event, category) {
             // tracking when a user changes the category on comparison report
             ga('send', 'event', reportsCategory, 'comparison-category-selection', category);
+        });
+
+
+        $rootScope.$on('$stateChangeSuccess', function () {
+            ga('send', 'pageview', $location.path());
         });
     }])
 
