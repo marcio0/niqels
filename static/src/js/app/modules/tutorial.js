@@ -180,7 +180,7 @@
                 });
                 $('#do-nothing', toast).click(function () {
                     toast.remove();
-                    ga('send', 'event', 'Tutorial', 'finish', interfaceTutorialConfig.name);
+                    ga('send', 'event', 'Tutorial', 'skip', interfaceTutorialConfig.name);
                 });
             }
 
