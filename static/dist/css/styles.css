@@ -7636,6 +7636,12 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   -webkit-box-shadow: 2px 2px 5px #cccccc !important;
   box-shadow: 2px 2px 5px #cccccc !important;
 }
+#toast-container div.action-bar {
+  margin-top: 10px;
+}
+#toast-container div.action-bar button {
+  margin-right: 5px;
+}
 .category-table tbody tr {
   cursor: pointer;
 }

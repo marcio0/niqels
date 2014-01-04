@@ -29,22 +29,47 @@
 
             config = {
                 backdrop: true,
-                template: function () {
+                template: function (idx, step) {
+                    console.log(idx, step);
                     var previousText = gettext('Anterior'),
-                        nextText = gettext('Próximo'),
-                        endText = gettext('Sair');
+                        endText;
 
-                    return "<div class='popover tour'>" +
+
+                    var html = "<div class='popover tour'>" +
                         "<div class='arrow'></div>" +
                         "<h3 class='popover-title'></h3>" +
                         "<div class='popover-content'></div>" +
-                        "<div class='popover-navigation'>" +
-                        "<button class='btn btn-link' data-role='prev'>« " + previousText + "</button>" +
-                        "<span data-role='separator'>|</span>" +
-                        "<button class='btn btn-link' data-role='next'>" + nextText + " »</button>" +
-                        "<button class='btn btn-link' data-role='end'>" + endText + "</button>" +
+                        "<div class='popover-navigation'>";
+
+                    if (step.prev !== -1) {
+                        html += "<button class='btn btn-link' data-role='prev'>« " + previousText + "</button>";
+                    }
+
+                    if (step.next !== -1 && step.prev !== -1) {
+                        html += "<span data-role='separator'>|</span>";
+                    }
+
+                    if (step.next !== -1) {
+                        var nextText;
+                        endText = gettext('Sair');
+                        if (step.next === 0) {
+                            nextText = gettext('Iniciar');
+                        }
+                        else {
+                            nextText = gettext('Próximo');
+                        }
+
+                        html += "<button class='btn btn-link' data-role='next'>" + nextText + " »</button>";
+                    }
+                    else {
+                        endText = gettext('Finalizar');
+                    }
+
+                    html += "<button class='btn btn-link' data-role='end'>" + endText + "</button>" +
                         "</div>" +
-                        "</div>"
+                        "</div>";
+
+                    return html;
                 },
                 afterSetState: trackStep
             };
@@ -138,10 +163,7 @@
                     }
                 ]);
 
-                // saving the amount of steps to identify a premature ending of the tutorial
-                // window.localStorage[interfaceTutorialConfig.name + '_steps'] = interfaceTutorial._steps.length;
-
-                var html = '<div>Welcome to Niqels, {0}!<br/>Gostaria de ver um tutorial?</div><div><button type="button" id="watch-tutorial" class="btn btn-primary">Sim</button><button type="button" id="do-nothing" class="btn btn-default">Não</button></div>'.format(window.userName);
+                var html = '<div>Welcome to Niqels, {0}!<br/>Gostaria de ver um tutorial?</div><div class="action-bar"><button type="button" id="watch-tutorial" class="btn btn-primary btn-sm">Sim</button><button type="button" id="do-nothing" class="btn btn-default btn-sm">Não</button></div>'.format(window.userName);
                 var toast = toastr.info(html, null, {
                     "timeOut": "0",
                     "extendedTimeOut": "0",
