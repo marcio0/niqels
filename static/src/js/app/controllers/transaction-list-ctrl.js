@@ -82,7 +82,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
         var attr = $parse($scope.groupBy)(transaction);
         for (var i in $scope.transactionGroups) {
             var group = $scope.transactionGroups[i];
-            if (group.name == attr) {
+            if (group.name === attr) {
                 group.transactions.unshift(transaction);
                 group.total += parseFloat(transaction.value);
                 return;

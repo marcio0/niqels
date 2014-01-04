@@ -30,10 +30,8 @@
             config = {
                 backdrop: true,
                 template: function (idx, step) {
-                    console.log(idx, step);
                     var previousText = gettext('Anterior'),
                         endText;
-
 
                     var html = "<div class='popover tour'>" +
                         "<div class='arrow'></div>" +
@@ -76,7 +74,9 @@
 
             function startInterfaceTutorial () {
 
-                if ($rootScope.mobile) return;
+                if ($rootScope.mobile) {
+                    return;
+                }
 
                 var interfaceTutorialConfig = angular.copy(config);
                 interfaceTutorialConfig.name = "interface-tutorial";
@@ -180,6 +180,7 @@
                 });
                 $('#do-nothing', toast).click(function () {
                     toast.remove();
+                    ga('send', 'event', 'Tutorial', 'finish', interfaceTutorialConfig.name);
                 });
             }
 

@@ -38,7 +38,9 @@ function ReportsCtrl ($scope, $rootScope) {
     };
 
     $scope.$watch('period', function (newValue) {
-        if (newValue === undefined) return;
+        if (newValue === undefined) {
+            return;
+        }
         var action = "";
         if (newValue === 4) {
             action = 'show';
@@ -110,7 +112,9 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
 
 
     function selectCategory (category) {
-        if (!category) return;
+        if (!category) {
+            return;
+        }
 
         var c1 = allSeries[$scope.category1.name];
         var c2 = allSeries[$scope.category2.name];
@@ -166,7 +170,10 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
 
     var c1Flag = false;
     $scope.$watch('category1', function (category) {
-        if (!category) return;
+        if (!category) {
+            return;
+        }
+
         if (!c1Flag) {
             c1Flag = true;
             return;
@@ -176,7 +183,10 @@ function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Cat
 
     var c2Flag = false;
     $scope.$watch('category2', function (category) {
-        if (!category) return;
+        if (!category) {
+            return;
+        }
+
         if (!c2Flag) {
             c2Flag = true;
             return;

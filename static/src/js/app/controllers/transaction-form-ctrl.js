@@ -1,4 +1,4 @@
-function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, Category, SplitTransaction) {
+function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTransaction) {
     'use strict';
 
     $scope.formData = {};
@@ -36,11 +36,7 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                 $rootScope.$emit('transaction-created', value);
                 return value;
             });
-
-        promise.finally(function () {
-            form.$setPristine();
-            $scope.sending = false;
-        });
+        return promise;
     }
 
     function handleSplitTransaction (data, installment_data) {
@@ -60,16 +56,15 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
                 $rootScope.$emit('split-transaction-created', value);
                 return value;
             });
+        return promise;
 
-        promise.finally(function () {
-            form.$setPristine();
-            $scope.sending = false;
-        });
+
     }
 
     $scope.submit = function () {
         var transaction_data = angular.copy($scope.formData),
-            form = this.transactionForm;
+            form = this.transactionForm,
+            promise;
 
         if (form.$valid) {
             $scope.sending = true;
@@ -81,11 +76,16 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
             })();
 
             if (!$scope.is_installment) {
-                handleTransaction(transaction_data);
+                promise = handleTransaction(transaction_data);
             }
             else {
-                handleSplitTransaction(transaction_data, $scope.installment);
+                promise = handleSplitTransaction(transaction_data, $scope.installment);
             }
+
+            promise.finally(function () {
+                form.$setPristine();
+                $scope.sending = false;
+            });
         }
         else {
             // forcing the error icon
@@ -95,4 +95,4 @@ function TransactionFormCtrl ($scope, $element, $http, $rootScope, Transaction, 
     };
 }
 
-TransactionFormCtrl.$inject = ['$scope', '$element', '$http', '$rootScope', 'Transaction', 'Category', 'SplitTransaction'];
+TransactionFormCtrl.$inject = ['$scope', '$rootScope', 'Transaction', 'Category', 'SplitTransaction'];

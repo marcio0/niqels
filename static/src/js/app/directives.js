@@ -10,10 +10,14 @@ angular.module('webapp')
             element.collapse({toggle: false});
 
             function doCollapse (transaction) {
-                if (!transaction) return;
+                if (!transaction) {
+                    return;
+                }
 
                 // if the transaction is in another month, do nothing
-                if (moment(transaction.date).month() !== $rootScope.filterDate.month()) return;
+                if (moment(transaction.date).month() !== $rootScope.filterDate.month()) {
+                    return;
+                }
 
                 var groupName = $parse(attrs.categoryCollapse)(scope);
                 if (transaction.category.name === groupName) {
@@ -145,7 +149,10 @@ angular.module('webapp')
             require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, controller) {
-                if ($rootScope.mobile) return; // don't use fancy selectpicker on mobile screens
+                if ($rootScope.mobile) {
+                    // don't use fancy selectpicker on mobile screens
+                    return;
+                }
 
                 element.removeClass('form-control');
                 element.addClass('selectpicker');

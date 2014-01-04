@@ -37,7 +37,7 @@
                             actualVal = accounting.toFixed(accounting.unformat(element.val(), decimalSymbol), 2).replace('.', ''),
                             val, value;
 
-                        if (key == 9 || key == 13) {
+                        if (key === 9 || key === 13) {
                             // tab or enter
                             return;
                         }

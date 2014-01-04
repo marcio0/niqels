@@ -35,6 +35,17 @@ angular.module('ga', [])
         };
     })
 
+    .factory('Tracker', function () {
+        return {
+            event: function trackEvent (category, action, label, value) {
+                ga('send', 'event', category, action, label, value);
+            },
+            pageview: function (path) {
+                ga('send', 'pageview', path);
+            }
+        };
+    })
+
     .run(['$rootScope', '$location', function setupGoogleAnalytics ($rootScope, $location) {
         var transactionsCategory = "Transactions";
         var reportsCategory = 'Reports';

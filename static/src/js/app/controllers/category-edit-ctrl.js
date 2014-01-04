@@ -16,7 +16,7 @@ function CategoryEditCtrl ($scope) {
             this.editing_category[action](
                 function success (value) {
                     scope.hide();
-                    var eventName = (action == '$save') ? 'categoryCreated' : 'categoryUpdated';
+                    var eventName = (action === '$save') ? 'categoryCreated' : 'categoryUpdated';
                     scope.$emit(eventName, value);
                     scope.loadCategories();
                 }

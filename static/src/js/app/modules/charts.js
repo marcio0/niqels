@@ -9,7 +9,7 @@ function xAxisMonthParser (months) {
         var month = months[i];
         var format = 'MMM';
 
-        if (month.year() != actualYear) {
+        if (month.year() !== actualYear) {
             actualYear = month.year();
             format = 'MMM YYYY';
         }
@@ -420,7 +420,9 @@ angular.module('charts', [])
 
                 //Update when charts data changes
                 scope.$watch('chartData', function(value) {
-                    if(!value) return;
+                    if(!value) {
+                        return;
+                    }
                     // We need deep copy in order to NOT override original chart object.
                     // This allows us to override chart data member and still the keep
                     // our original renderTo will be the same

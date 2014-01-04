@@ -151,7 +151,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 device = 'desktop-lg';
             }
 
-            if (device != $rootScope.device) {
+            if (device !== $rootScope.device) {
                 $rootScope.device = device;
                 if (device !== '') {
                     $rootScope.$broadcast('devicechanged', device);
