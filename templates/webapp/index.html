@@ -30,25 +30,18 @@
 <div class="row" ui-view role="transactions">
 </div>
 
-<script type="text/ng-template" id="transaction-list.html">
+<script type="text/ng-template" id="/partials/transaction-list">
 {% include "webapp/transactions/transaction-list.html" %}
 </script>
 
-<script type="text/ng-template" id="reports.html">
+<script type="text/ng-template" id="/partials/reports">
 {% include "webapp/reports/reports.html" %}
 </script>
 
-<script type="text/ng-template" id="balance.html">
+<script type="text/ng-template" id="/partials/reports/balance">
 {% include "webapp/reports/balance.html" %}
 </script>
 
-<script type="text/ng-template" id="top-categories.html">
-{% include "webapp/reports/top-categories.html" %}
-</script>
-
-<script type="text/ng-template" id="category-comparison.html">
-{% include "webapp/reports/category-comparison.html" %}
-</script>
 
 {% if FIRST_LOGIN %}
     {% if USE_GA %}

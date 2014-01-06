@@ -10,7 +10,7 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
             // Transaction list view.
             .state('transactions', {
                 url: "/transactions",
-                templateUrl: "transaction-list.html"
+                templateUrl: "/partials/transaction-list"
             })
 
             // Settings view.
@@ -18,34 +18,28 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 url: "/settings",
                 templateUrl: "settings.html"
             })
-            // Settings view -> category list.
-            .state('settings.categories', {
-                url: "/categories",
-                templateUrl: "/partials/category-list/",
-                controller: "CategoryListCtrl"
-            })
 
             // Reports view.
             .state('reports', {
                 url: "/reports",
-                templateUrl: "reports.html"
+                templateUrl: "/partials/reports"
             })
             // Reports view -> balance report.
             .state('reports.balance', {
                 url: "/balance",
-                templateUrl: "balance.html",
+                templateUrl: "/partials/reports/balance",
                 controller: 'BalanceChartCtrl'
             })
             // Reports view -> top categories report.
             .state('reports.top-categories', {
                 url: "/top-categories",
-                templateUrl: "top-categories.html",
+                templateUrl: "/partials/reports/top-categories",
                 controller: 'TopCategoriesChartCtrl'
             })
             // Reports view -> category comparison report.
             .state('reports.category-comparison', {
                 url: "/category-comparison",
-                templateUrl: "category-comparison.html",
+                templateUrl: "/partials/reports/category-comparison",
                 controller: 'CategoryComparisonCtrl'
             })
             ;
