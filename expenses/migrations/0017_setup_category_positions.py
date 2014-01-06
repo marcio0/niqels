@@ -20,7 +20,7 @@ class Migration(DataMigration):
             u'Vestuário': 16,
             u'Educação': 17,
             u'Saúde': 18,
-            u'Utensílios domésticos': 19,
+            u'Despesas domésticas': 19,
             u'Eletrônicos e Acessórios': 20,
             u'Tarifas bancárias/Juros': 21,
             u'Outros': 22,
