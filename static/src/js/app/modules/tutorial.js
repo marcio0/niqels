@@ -24,6 +24,7 @@
     }
 
     angular.module('tutorial', [])
+
         .run(['$rootScope', function ($rootScope) {
             var config;
 
@@ -73,10 +74,18 @@
             };
 
             function startInterfaceTutorial () {
-
                 if ($rootScope.mobile) {
+                    // does not show on mobiles for now
                     return;
                 }
+
+                if (!window.isUserFirstLogin) {
+                    // only shows the first time the user enters the web app
+                    return;
+                }
+
+                // choosing a variation for the experiment id r7gmClAuSQCDnBgnmyvI5w
+                var tutorialVariation = cxApi.chooseVariation();
 
                 var interfaceTutorialConfig = angular.copy(config);
                 interfaceTutorialConfig.name = "interface-tutorial";
@@ -86,7 +95,7 @@
                     {
                         title: gettext("Bem vindo!"),
                         orphan: true,
-                        content: gettext("Seja bem vindo ao Niqels! Vamos lhe mostrar um breve tutorial sobre como utilizar o site.")
+                        content: gettext('Seja bem vindo ao Niqels! Vamos lhe mostrar um breve tutorial sobre como utilizar o site. Clique em "Próximo" para começar.')
                     },
                     {
                         element: "#transaction-form-column",
@@ -128,7 +137,7 @@
                     {
                         element: "#balance-panel",
                         title: gettext("Balanço"),
-                        content: gettext("Este painel mostrará seu balanço do mes atual."),
+                        content: gettext('Este painel mostrará seu balanço do mes atual. Para saber mais detalhes, use o link "Ver relatório completo..."'),
                         placement: 'left',
                         onShow: function (tour) {
                             var balanceLink = $('#balance-panel a');
@@ -143,7 +152,7 @@
                     {
                         element: "#reports-link",
                         title: gettext("Seção de relatórios"),
-                        content: gettext("Nesta seção do site você contrará relatórios."),
+                        content: gettext("Nesta seção do site você contrará relatórios para ajudar a entender suas finanças."),
                         backdrop: false,
                         placement: 'bottom',
                         onShow: function (tour) {
@@ -159,29 +168,40 @@
                     {
                         element: "#transaction-form-column",
                         title: gettext("Criar nova movimentação"),
-                        content: gettext("Experimente criar sua primeira movimentação!")
+                        content: gettext("Você está pronto para usar o site! Experimente criar sua primeira movimentação.")
                     }
                 ]);
 
-                var html = '<div>Welcome to Niqels, {0}!<br/>Gostaria de ver um tutorial?</div><div class="action-bar"><button type="button" id="watch-tutorial" class="btn btn-primary btn-sm">Sim</button><button type="button" id="do-nothing" class="btn btn-default btn-sm">Não</button></div>'.format(window.userName);
-                var toast = toastr.info(html, null, {
-                    "timeOut": "0",
-                    "extendedTimeOut": "0",
-                    "onclick": function (e) {
-                        // stopping toast dismissing on click
-                        e.stopPropagation();
-                    }
-                });
+                if (tutorialVariation === 0) {
+                    // tutorial opt-in (original variation)
+                    // experiment id r7gmClAuSQCDnBgnmyvI5w
 
-                $('#watch-tutorial', toast).click(function () {
-                    toast.remove();
+                    var html = '<div>Welcome to Niqels, {0}!<br/>Gostaria de ver um tutorial?</div><div class="action-bar"><button type="button" id="watch-tutorial" class="btn btn-primary btn-sm">Sim</button><button type="button" id="do-nothing" class="btn btn-default btn-sm">Não</button></div>'.format(window.userName);
+                    var toast = toastr.info(html, null, {
+                        "timeOut": "0",
+                        "extendedTimeOut": "0",
+                        "onclick": function (e) {
+                            // stopping toast dismissing on click
+                            e.stopPropagation();
+                        }
+                    });
+
+                    $('#watch-tutorial', toast).click(function () {
+                        toast.remove();
+                        interfaceTutorial.init();
+                        interfaceTutorial.start();
+                    });
+                    $('#do-nothing', toast).click(function () {
+                        toast.remove();
+                        ga('send', 'event', 'Tutorial', 'skip', interfaceTutorialConfig.name);
+                    });
+                }
+                else if (tutorialVariation === 1) {
+                    // mandatory tutorial
+                    // experiment id r7gmClAuSQCDnBgnmyvI5w
                     interfaceTutorial.init();
                     interfaceTutorial.start();
-                });
-                $('#do-nothing', toast).click(function () {
-                    toast.remove();
-                    ga('send', 'event', 'Tutorial', 'skip', interfaceTutorialConfig.name);
-                });
+                }
             }
 
             tutorials.interfaceTutorial = startInterfaceTutorial;

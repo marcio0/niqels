@@ -125,9 +125,13 @@
 <script type="text/javascript">
 {% if FIRST_LOGIN %}
     window.isUserFirstLogin = true;
+{% else %}
+    window.isUserFirstLogin = false;
 {% endif %}
+
     window.userName = "{{ user.name }}";
-    window.isUserFirstLogin = true;
 </script>
+
+<script src="//www.google-analytics.com/cx/api.js?experiment=r7gmClAuSQCDnBgnmyvI5w"></script>
 
 {% endblock bodyend %}
