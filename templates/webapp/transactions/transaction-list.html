@@ -38,6 +38,32 @@
                         </ul>
                     </li>
                 </ul>
+                <ul class="list-inline option">
+                    <li>{% trans "Ordenar:" %}</li>
+                    <li>
+                        <ul class="list-inline toggle-selector">
+                            <li>
+                                <a
+                                    ng-click="orderDesc = false"
+                                    ng-class="{active: orderDesc == false}"
+                                    >
+                                    <i class="fa fa-check"></i>
+                                    {% trans "crescente" %}
+                                </a>
+                            </li>
+                            <li>/</li>
+                            <li>
+                                <a
+                                    ng-class="{active: orderDesc == true}"
+                                    ng-click="orderDesc = true"
+                                    >
+                                    <i class="fa fa-check"></i>
+                                    {% trans "decrescente" %}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -50,7 +76,7 @@
         </div>
 
         <div class="panel-group" id="transaction-groups" ng-if="groupBy == 'category.name'">
-            <div id="transaction-group-(($index))" class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:true">
+            <div id="transaction-group-(($index))" class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:orderDesc">
 
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -113,7 +139,7 @@
         </div>
 
         <div class="panel-group" ng-if="groupBy == 'date'">
-            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups">
+            <div class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:'name':orderDesc">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a ng-bind="group.name | date:'longDate'"></a>

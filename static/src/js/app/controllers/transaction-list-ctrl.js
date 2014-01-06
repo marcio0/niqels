@@ -8,6 +8,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
     $scope.loading = true;
     $scope.allTransactions = [];
     $scope.transactionGroups = [];
+    $scope.orderDesc = true;
 
     $scope.getAbsTotal = function getAbsTotal (group) {
         return Math.abs(group.total);
