@@ -6,9 +6,9 @@
     
 <h2 class="area-header">{% trans "Please sign in" %}</h2>
 
-<div class="panel panel-default center-panel">
+<div class="panel panel-default center-panel access-form-panel">
     <div class="panel-body">
-        <form id="signin-form" method="POST" action="{% url "login" %}" class="form-horizontal">{% csrf_token %}
+        <form id="signin-form" method="POST" action="{% url "login" %}" class="form-horizontal access-form">{% csrf_token %}
 
             {% if messages %}
                 {% for message in messages %}
@@ -70,10 +70,10 @@
                 </div>
             </div>
         </form>
-         
+
         <hr>
 
-        <div class="col-lg-offset-3 col-lg-9">
+        <div class="col-lg-offset-3 col-lg-9 links">
             <p><a href="{% url "password_reset_recover" %}">{% trans "Forgot your password?" %}</a></p>
             <p>{% trans "Not a user yet?" %} <a href="{% url "register" %}">{% trans "Sign up here!" %}</a></p>
         </div>

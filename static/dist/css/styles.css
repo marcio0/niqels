@@ -7809,6 +7809,9 @@ input.ng-invalid.ng-dirty .input-group-addon {
   max-height: 0px;
   overflow: hidden;
 }
+.access-form-panel .links a {
+  font-weight: bold;
+}
 /*
  * transaction-list.less
  * styles for the transaction list.
