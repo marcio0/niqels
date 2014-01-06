@@ -25,7 +25,7 @@
                     data-live-search="true"
                     required
 
-                    ng-options="c.resource_uri as c.name group by c.group for c in categories"
+                    ng-options="c.resource_uri as c.name group by c.group for c in categories | orderBy:c.position:true"
                     >
             </select>
             <i

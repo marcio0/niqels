@@ -67,10 +67,10 @@ admin.site.register(SplitTransaction, SplitTransactionAdmin)
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    fields = ['group' ,'name', 'is_negative', 'is_active']
+    fields = ['group' ,'name', 'is_negative', 'is_active', 'position']
     search_fields = ['name']
     actions = None
-    list_display = ('name', 'group')
+    list_display = ('name', 'group', 'position')
     list_filter = ('is_active', 'group')
 
     def has_delete_permission(self, request, obj=None):
@@ -82,6 +82,14 @@ class CategoryAdmin(admin.ModelAdmin):
             del actions['delete_selected']
         return actions
 admin.site.register(Category, CategoryAdmin)
+
+
+class CategoryInlineAdmin(admin.TabularInline):
+    model = Category
+    fields = ['name', 'is_negative', 'is_active', 'position']
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class CategoryGroupAdmin(admin.ModelAdmin):
@@ -97,6 +105,9 @@ class CategoryGroupAdmin(admin.ModelAdmin):
     fields = ['name']
     search_fields = ['name']
     actions = None
+    inlines = [
+        CategoryInlineAdmin,
+    ]
 admin.site.register(CategoryGroup, CategoryGroupAdmin)
 
 

@@ -85,6 +85,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'is_negative': True,
                 u'name': u'groceries',
                 u'resource_uri': u'/api/v1/category/1',
+                u'position': 1,
                 u'group': u'group'
             }
         })
@@ -121,6 +122,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'is_negative': True,
                 u'name': u'STUFF',
                 u'resource_uri': u'/api/v1/category/2',
+                u'position': 1,
                 u'group': u'group'
             }
         })
@@ -157,6 +159,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'is_negative': True,
                 u'name': u'STUFF',
                 u'resource_uri': u'/api/v1/category/2',
+                u'position': 1,
                 u'group': u'group'
             }
         })
@@ -191,6 +194,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'is_negative': False,
                 u'name': u'positive',
                 u'resource_uri': u'/api/v1/category/5',
+                u'position': 1,
                 u'group': u'group'
             }
         })
@@ -226,6 +230,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'is_negative': False,
                 u'name': u'positive',
                 u'resource_uri': u'/api/v1/category/5',
+                u'position': 1,
                 u'group': u'group'
             }
         })
@@ -364,6 +369,7 @@ class TransactionResourceTest(ResourceTestCase):
                 u'id': 1,
                 u'name': u'groceries',
                 u'resource_uri': u'/api/v1/category/1',
+                u'position': 1,
                 u'group': u'group'
             }
         })

@@ -82,6 +82,10 @@ class Category(models.Model):
         related_name="categories"
     )
 
+    position = models.IntegerField(_(u'posição'),
+        help_text=_(u'Define a posição dentro do grupo de categorias.'),
+        default=1)
+
     objects = CategoryManager()
 
     def natural_key(self):
@@ -94,6 +98,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
+        ordering = ['position']
 
 
 class CategoryConfig():
