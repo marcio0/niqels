@@ -101,6 +101,8 @@
                                 <td class="description-column-header">
                                     {% trans "Description" %}
                                 </td>
+                                <td class="installment-column-header">
+                                </td>
                                 <td class="value-column-header">
                                     {% trans "Value" %}
                                 </td>
@@ -114,6 +116,7 @@
                                     <td class="date-column" ng-bind="transaction.date | date:'dd/MM'" style="font-weight: bold"></td>
 
                                     <td class="description-column" ng-bind="transaction.description" hashtagged></td>
+                                    <td class="" ng-bind="transaction.installment_data"></td>
 
                                     <td class="value-column" is-positive-class="transaction.value">
                                         <span ng-bind="transaction.value | currency"></span>

@@ -21,6 +21,7 @@ angular.module('models', ['ngResource'])
             query: {
                 method: 'GET',
                 isArray: true,
+                cache: true,
                 transformResponse: tastypieDataTransformer($http).concat(function (data, headersGetter) {
                     for (var idx in data) {
                         data[idx].total_value = parseFloat(data[idx].total_value);
@@ -41,23 +42,35 @@ angular.module('models', ['ngResource'])
         return SplitTransaction;
     }])
 
-    .factory('Transaction', ['$resource', '$http', '$rootScope', function($resource, $http, $rootScope){
+    .factory('Transaction', ['$resource', '$http', '$rootScope', 'SplitTransaction', function($resource, $http, $rootScope, SplitTransaction){
         var Transaction = $resource('/api/v1/transaction/:id', {}, {
             query: {
                 method: 'GET',
                 isArray: true,
                 transformResponse: tastypieDataTransformer($http).concat(function (data, headersGetter) {
-                    for (var idx in data) {
-                        data[idx].value = parseFloat(data[idx].value);
+                    $.each(data, function (idx, transaction) {
+                        transaction.value = parseFloat(transaction.value);
 
-                        if (data[idx].sum !== undefined) {
-                            data[idx].sum = parseFloat(data[idx].sum);
+                        if (transaction.sum !== undefined) {
+                            transaction.sum = parseFloat(transaction.sum);
                         }
-                    }
+                    })
                     return data;
                 })
             }
         });
+
+        Transaction.prototype.loadInstallmentData = function () {
+            if (this.installment_of) {
+                var split = this.installment_of.split('/'),
+                    installmentId = split[split.length-1],
+                    transaction = this;
+
+                SplitTransaction.get({id: installmentId}, function (installment) {
+                    transaction.installment_data = '{0}/{1}'.format(transaction.installment_number, installment.transactions.length);
+                });
+            }
+        };
 
         $rootScope.$on('transaction-created', function (e, value, opts) {
             opts = opts || {};

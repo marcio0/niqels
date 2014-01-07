@@ -1,4 +1,4 @@
-function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) {
+function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, SplitTransaction) {
     'use strict';
 
     $scope.days = [];
@@ -63,10 +63,16 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
             limit: 0
         };
 
-        var prom = Transaction.query(filter).$promise.then(function (result) {
+        Transaction.query(filter).$promise.then(function (result) {
+
+            $.each(result, function () {
+                this.loadInstallmentData();
+            });
 
             $scope.allTransactions = result;
             $scope.transactionGroups = groupTransactions($scope.groupBy);
+
+            window.transactions = $scope.transactionGroups;
 
         }).finally(function () {$scope.loading = false;});
     };
@@ -146,4 +152,4 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse) 
     });
 }
 
-TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse'];
+TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction'];
