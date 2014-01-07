@@ -7870,7 +7870,8 @@ a[data-toggle="collapse"] {
 #transaction-list-panel .transaction-group .panel-body table thead .category-column-header,
 #transaction-list-panel .transaction-group .panel-body table thead .date-column-header,
 #transaction-list-panel .transaction-group .panel-body table thead .value-column-header,
-#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header {
+#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header,
+#transaction-list-panel .transaction-group .panel-body table thead .installment-data-column-header {
   width: 1%;
 }
 #transaction-list-panel .transaction-group .panel-body table thead .value-column-header {
@@ -7879,6 +7880,10 @@ a[data-toggle="collapse"] {
 #transaction-list-panel .transaction-group .panel-body table thead .action-bar-header {
   background-color: transparent;
   border-left: 1px solid #cccccc;
+}
+#transaction-list-panel .transaction-group .panel-body table .transaction-row .date-column,
+#transaction-list-panel .transaction-group .panel-body table .transaction-row .category-column {
+  font-weight: bold;
 }
 #transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column {
   text-align: right;
@@ -7889,6 +7894,10 @@ a[data-toggle="collapse"] {
 }
 #transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column.expense {
   background-color: #f8dcda;
+}
+#transaction-list-panel .transaction-group .panel-body table .transaction-row .installment-data-column {
+  text-align: right;
+  white-space: nowrap;
 }
 #transaction-list-panel .transaction-group .panel-body table .transaction-row td.action-bar {
   border-left: 1px solid #cccccc !important;

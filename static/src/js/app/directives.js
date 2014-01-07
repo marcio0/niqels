@@ -136,8 +136,17 @@ angular.module('webapp')
                         }
                     });
                 });
+            }
+        };
+    })
+
+    /*
+     * Used to initialize the tooltip.
+     */
+    .directive('tooltip', function () {
+        return {
+            link: function (scope, element, attrs) {
                 if (attrs.toggle === 'tooltip') {
-                    // if the element has a tooltip configuration, initialize it
                     element.tooltip();
                 }
             }

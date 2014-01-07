@@ -101,8 +101,7 @@
                                 <td class="description-column-header">
                                     {% trans "Description" %}
                                 </td>
-                                <td class="installment-column-header">
-                                </td>
+                                <td class="installment-data-column-header"></td>
                                 <td class="value-column-header">
                                     {% trans "Value" %}
                                 </td>
@@ -113,10 +112,18 @@
                                 <tr class="transaction-row" 
                                     ng-repeat="transaction in group.transactions">
 
-                                    <td class="date-column" ng-bind="transaction.date | date:'dd/MM'" style="font-weight: bold"></td>
+                                    <td class="date-column" ng-bind="transaction.date | date:'dd/MM'"></td>
 
                                     <td class="description-column" ng-bind="transaction.description" hashtagged></td>
-                                    <td class="" ng-bind="transaction.installment_data"></td>
+
+                                    <td class="installment-data-column">
+                                        <a
+                                            ng-bind="transaction.installment_data"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            tooltip
+                                            title="{% trans "Número desta parcela" %}"></a>
+                                    </td>
 
                                     <td class="value-column" is-positive-class="transaction.value">
                                         <span ng-bind="transaction.value | currency"></span>
@@ -130,6 +137,7 @@
                                             data-toggle="tooltip"
                                             data-placement="right"
                                             data-container="body"
+                                            tooltip
                                             title="{% trans "Remove this transaction" %}"
                                         ></i>
                                     </td>
@@ -157,6 +165,7 @@
                             <td class="description-column-header">
                                 {% trans "Description" %}
                             </td>
+                            <td class="installment-data-column-header"></td>
                             <td class="value-column-header">
                                 {% trans "Value" %}
                             </td>
@@ -167,9 +176,18 @@
                             <tr class="transaction-row"
                                 ng-repeat="transaction in group.transactions">
 
-                                <td class="category-column" ng-bind="transaction.category.name" style="font-weight: bold"></td>
+                                <td class="category-column" ng-bind="transaction.category.name"></td>
 
                                 <td class="description-column" ng-bind="transaction.description"></td>
+
+                                <td class="installment-data-column">
+                                        <a
+                                            ng-bind="transaction.installment_data"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            tooltip
+                                            title="{% trans "Número desta parcela" %}"></a>
+                                    </td>
 
                                 <td class="value-column" is-positive-class="transaction.value">
                                     <span ng-bind="transaction.value | currency"></span>

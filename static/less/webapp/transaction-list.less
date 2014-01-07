@@ -67,7 +67,7 @@ a[data-toggle="collapse"] {
                     td {
                         padding-top: 30px;
                     }
-                    .category-column-header, .date-column-header, .value-column-header, .action-bar-header {
+                    .category-column-header, .date-column-header, .value-column-header, .action-bar-header, .installment-data-column-header {
                         width: 1%;
                     }
                     .value-column-header {
@@ -80,6 +80,10 @@ a[data-toggle="collapse"] {
                 }
 
                 .transaction-row {
+                    .date-column, .category-column {
+                        font-weight: bold;
+                    }
+
                     .value-column {
                         text-align: right;
                         white-space: nowrap;
@@ -91,6 +95,11 @@ a[data-toggle="collapse"] {
                         &.expense {
                             background-color: lighten(@expenses, 55%);
                         }
+                    }
+
+                    .installment-data-column {
+                        text-align: right;
+                        white-space: nowrap;
                     }
 
                     td.action-bar {
