@@ -7,6 +7,8 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Marcio', 'marc.cr@gmail.com'),
+    ('Thiago', 'pappacena@gmail.com'),
+    ('Rodrigo', 'rcelha@gmail.com'),
 )
 
 USE_GA = os.environ.get('USE_GA', False) and not DEBUG
