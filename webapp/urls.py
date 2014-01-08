@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^partials/category-list/$', TemplateView.as_view(template_name="webapp/settings/category-list.html")),
     url(r'^partials/reports/top-categories$', TemplateView.as_view(template_name="webapp/reports/top-categories.html")),
     url(r'^partials/reports/category-comparison$', TemplateView.as_view(template_name="webapp/reports/category-comparison.html")),
+    url(r'^partials/settings/split-transaction', TemplateView.as_view(template_name="webapp/settings/split-transactions.html")),
 
     url(r'^$', WebAppView.as_view(), name="index"),
 )

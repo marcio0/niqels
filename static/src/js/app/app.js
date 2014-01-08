@@ -10,19 +10,27 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
             // Transaction list view.
             .state('transactions', {
                 url: "/transactions",
-                templateUrl: "/partials/transaction-list"
+                templateUrl: "/partials/transaction-list",
+                controller: "TransactionListCtrl"
             })
 
             // Settings view.
             .state('settings', {
                 url: "/settings",
-                templateUrl: "settings.html"
+                templateUrl: "/partials/settings"
+            })
+            // Installments
+            .state('settings.split_transactions', {
+                url: "/split-transactions",
+                templateUrl: "/partials/settings/split-transactions",
+                controller: 'SplitTransactionListCtrl'
             })
 
             // Reports view.
             .state('reports', {
                 url: "/reports",
-                templateUrl: "/partials/reports"
+                templateUrl: "/partials/reports",
+                controller: "ReportsCtrl"
             })
             // Reports view -> balance report.
             .state('reports.balance', {

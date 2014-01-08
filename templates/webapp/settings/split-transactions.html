@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<h4 class="area-header">{% trans "Movimentações parceladas" %}</h4>
+
+<ul>
+    <li ng-repeat="split in splitTransactions">
+        ((split))
+    </li>
+</ul>

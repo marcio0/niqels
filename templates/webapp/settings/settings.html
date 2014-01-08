@@ -6,13 +6,11 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <ul class="nav nav-list" id="settings-menu">
-                {% comment %}
-                <li ng-class="{active: $state.includes('settings.reminders')}"><a href="#/settings/reminders">{% trans "Reminders" %}</a></li>
-                {% endcomment %}
+                <li ng-class="{active: $state.includes('settings.split_transactions')}"><a href="#/settings/split-transactions">{% trans "Compras parceladas" %}</a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<div class="content-column-right" ui-view>
+<div class="content-column" ui-view>
 </div>
