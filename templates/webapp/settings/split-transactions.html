@@ -2,8 +2,57 @@
 
 <h4 class="area-header">{% trans "Movimentações parceladas" %}</h4>
 
-<ul>
-    <li ng-repeat="split in splitTransactions">
-        ((split))
-    </li>
-</ul>
+<table class="table table-striped transaction-table">
+    <thead><tr>
+        <td class="description-column-header">
+            {% trans "Descrição" %}
+        </td>
+        <td class="installment-data-column-header">
+            {% trans "Parcelas" %}
+        </td>
+        <td class="value-column-header">
+            {% trans "Valor total" %}
+        </td>
+        {% comment %}
+        <td class="action-bar-header"></td>
+        {% endcomment %}
+    </tr></thead>
+
+    <tbody>
+    <tr class="transaction-row"
+        ng-repeat="split in splitTransactions">
+
+        <td class="description-column" ng-bind="split.description" hashtagged></td>
+
+        <td class="installment-data-column">
+            <a
+                    ng-bind="split.transactions.length"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    tooltip
+                    title="{% trans "Total de parcelas" %}"></a>
+        </td>
+
+        <td class="value-column" is-positive-class="split.total_value">
+            <span ng-bind="split.total_value | currency"></span>
+        </td>
+
+        {% comment %}
+
+        <td class="action-bar" ex-actionbar ng-controller="TransactionActionBarCtrl">
+            <i
+                    class="fa fa-trash-o fa-lg delete-transaction"
+                    ng-click="removeTransaction()"
+                    confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                    data-container="body"
+                    tooltip
+                    title="{% trans "Remove this transaction" %}"
+                    ></i>
+        </td>
+
+        {% endcomment %}
+    </tr>
+    </tbody>
+</table>
