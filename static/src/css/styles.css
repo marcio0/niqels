@@ -7851,8 +7851,16 @@ a[data-toggle="collapse"] {
   background-color: transparent;
   padding: 0;
 }
-#transaction-list-panel .transaction-group .panel-body table {
+#transaction-list-panel .transaction-group .panel-body table.transaction-table {
   border-left: 1px solid #cccccc;
+}
+#transaction-list-panel .transaction-group .panel-body table.transaction-table td.action-bar {
+  border-left: 1px solid #cccccc !important;
+  border-bottom: 0px !important;
+  background-color: transparent;
+}
+#transaction-list-panel .transaction-group .panel-body tr.transaction-row:last-child td {
+  border-bottom: 1px solid #cccccc;
 }
 table.transaction-table {
   border: 0;
@@ -7860,9 +7868,6 @@ table.transaction-table {
   margin-left: 25px;
   margin-right: 15px;
   margin-bottom: 0;
-}
-table.transaction-table td {
-  border: 0;
 }
 table.transaction-table thead td {
   padding-top: 30px;
@@ -7881,45 +7886,40 @@ table.transaction-table thead .action-bar-header {
   background-color: transparent;
   border-left: 1px solid #cccccc;
 }
-table.transaction-table .transaction-row .date-column,
-table.transaction-table .transaction-row .category-column {
+table.transaction-table tr.transaction-row td {
+  border: 0;
+}
+table.transaction-table tr.transaction-row td.date-column,
+table.transaction-table tr.transaction-row td .category-column {
   font-weight: bold;
 }
-table.transaction-table .transaction-row .value-column {
+table.transaction-table tr.transaction-row td.value-column {
   text-align: right;
   white-space: nowrap;
 }
-table.transaction-table .transaction-row .value-column.renevue {
+table.transaction-table tr.transaction-row td.value-column.renevue {
   background-color: #dff1df;
 }
-table.transaction-table .transaction-row .value-column.expense {
+table.transaction-table tr.transaction-row td.value-column.expense {
   background-color: #f8dcda;
 }
-table.transaction-table .transaction-row .installment-data-column {
+table.transaction-table tr.transaction-row td.installment-data-column {
   text-align: right;
   white-space: nowrap;
 }
-table.transaction-table .transaction-row td.action-bar {
-  border-left: 1px solid #cccccc !important;
-  border-bottom: 0px !important;
-  background-color: transparent;
-}
-table.transaction-table .transaction-row td.action-bar i {
+table.transaction-table tr.transaction-row td.action-bar i {
   cursor: pointer;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s;
 }
-table.transaction-table .transaction-row td.action-bar .delete-transaction:hover {
+table.transaction-table tr.transaction-row td.action-bar .delete-transaction:hover {
   color: #d9534f;
 }
-table.transaction-table .transaction-row:hover td.action-bar > * {
+table.transaction-table tr.transaction-row:hover td.action-bar > * {
   visibility: visible;
   transition: opacity 0.3s;
   opacity: 1;
-}
-table.transaction-table .transaction-row:last-child td {
-  border-bottom: 1px solid #cccccc;
 }
 .month-selector {
   text-align: center;

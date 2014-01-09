@@ -48,8 +48,20 @@ a[data-toggle="collapse"] {
             background-color: transparent;
             padding: 0;
 
-            table {
+            table.transaction-table {
                 border-left: 1px solid @table-border-color;
+
+                td.action-bar {
+                    border-left: 1px solid @table-border-color !important;
+                    border-bottom: 0px !important;
+                    background-color: transparent;
+                }
+            }
+
+            tr.transaction-row {
+                &:last-child td {
+                    border-bottom: 1px solid @table-border-color;
+                }
             }
         }
     }
@@ -61,10 +73,6 @@ table.transaction-table {
     margin-left: 25px;
     margin-right: 15px;
     margin-bottom: 0;
-
-    td {
-        border: 0;
-    }
 
     thead {
         td {
@@ -82,43 +90,44 @@ table.transaction-table {
         }
     }
 
-    .transaction-row {
-        .date-column, .category-column {
-            font-weight: bold;
-        }
+    tr.transaction-row {
+        td {
+            border: 0;
 
-        .value-column {
-            text-align: right;
-            white-space: nowrap;
-
-            &.renevue {
-                background-color: lighten(@renevues, 45%);
+            &.date-column, .category-column {
+                font-weight: bold;
             }
 
-            &.expense {
-                background-color: lighten(@expenses, 55%);
-            }
-        }
+            &.value-column {
+                text-align: right;
+                white-space: nowrap;
 
-        .installment-data-column {
-            text-align: right;
-            white-space: nowrap;
-        }
+                &.renevue {
+                    background-color: lighten(@renevues, 45%);
+                }
 
-        td.action-bar {
-            border-left: 1px solid @table-border-color !important;
-            border-bottom: 0px !important;
-            background-color: transparent;
-
-            i {
-                cursor: pointer;
-                visibility: hidden;
-                opacity: 0;
-                transition: opacity 0.3s;
+                &.expense {
+                    background-color: lighten(@expenses, 55%);
+                }
             }
 
-            .delete-transaction:hover {
-                color: @brand-danger;
+            &.installment-data-column {
+                text-align: right;
+                white-space: nowrap;
+            }
+
+            &.action-bar {
+
+                i {
+                    cursor: pointer;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                }
+
+                .delete-transaction:hover {
+                    color: @brand-danger;
+                }
             }
         }
 
@@ -126,10 +135,6 @@ table.transaction-table {
             visibility: visible;
             transition: opacity 0.3s;
             opacity: 1;
-        }
-
-        &:last-child td {
-            border-bottom: 1px solid @table-border-color;
         }
     }
 }
