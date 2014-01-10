@@ -14,17 +14,13 @@ var app = angular.module('webapp', ['models', 'interceptor', '$strap.directives'
                 controller: "TransactionListCtrl"
             })
 
+            /*
             // Settings view.
             .state('settings', {
                 url: "/settings",
                 templateUrl: "/partials/settings"
             })
-            // Installments
-            .state('settings.split_transactions', {
-                url: "/split-transactions",
-                templateUrl: "/partials/settings/split-transactions",
-                controller: 'SplitTransactionListCtrl'
-            })
+            */
 
             // Reports view.
             .state('reports', {
