@@ -7648,12 +7648,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .category-table tbody tr td.category-name:hover {
   text-decoration: underline;
 }
-/*
- * Category edit
- */
-button.remove-category {
-  float: left;
-}
 #balance-panel .panel {
   background-color: #fdfdfd;
   border-style: solid;
@@ -8001,6 +7995,12 @@ body,
 body {
   overflow-y: scroll;
   background-color: #e6e4eb;
+}
+.list-group .list-group-item.active {
+  color: inherit;
+  background-color: inherit;
+  border: 1px solid #ccc;
+  box-shadow: inset 5px 0px 0px #4a4c78;
 }
 .navbar {
   background-color: #fdfdfd;

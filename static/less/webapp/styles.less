@@ -34,6 +34,17 @@ body {
     background-color: @component-bg-color;
 }
 
+.list-group {
+    .list-group-item {
+        &.active {
+            color: inherit;
+            background-color: inherit;
+            border: 1px solid #ccc;
+            box-shadow: inset 5px 0px 0px @navbar-default-link-active-bg;
+        }
+    }
+}
+
 .navbar {
     background-color: @white;
     margin-bottom: 0;
@@ -80,7 +91,6 @@ body {
 
                     @media (max-width: @screen-xs-max) {
                         box-shadow: inset 5px 0px 0px @navbar-default-link-active-bg;
-                        
                     }
 
                     &:hover {

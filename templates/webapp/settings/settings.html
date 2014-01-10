@@ -3,14 +3,14 @@
 <div class="left-column">
     <h4 class="area-header">{% trans "Menu" %}</h4>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <ul class="nav nav-list" id="settings-menu">
-                <li ng-class="{active: $state.includes('settings.split_transactions')}"><a href="#/settings/split-transactions">{% trans "Compras parceladas" %}</a></li>
-            </ul>
-        </div>
+    <div class="list-group">
+        <a class="list-group-item" ng-class="{active: $state.includes('settings.split_transactions')}"  href="#/settings/split-transactions">
+            {% trans "Compras parceladas" %}
+        </a>
     </div>
 </div>
+
+
 
 <div class="content-column" ui-view>
 </div>
