@@ -7837,6 +7837,7 @@ a[data-toggle="collapse"] {
   background-color: transparent;
   border-bottom: 1px solid #ccc;
   box-shadow: 0px 5px 2px -4px #cccccc;
+  cursor: pointer;
 }
 #transaction-list-panel .transaction-group .panel-heading .panel-title .group-total {
   font-family: "Oxygen", Helvetica, Arial, sans-serif;
@@ -7851,75 +7852,75 @@ a[data-toggle="collapse"] {
   background-color: transparent;
   padding: 0;
 }
-#transaction-list-panel .transaction-group .panel-body table {
-  border: 1px solid #cccccc;
-  border-top: 0;
-  border-right: 0;
-  border-bottom: 0;
+#transaction-list-panel .transaction-group .panel-body table.transaction-table {
+  border-left: 1px solid #cccccc;
+}
+#transaction-list-panel .transaction-group .panel-body table.transaction-table td.action-bar {
+  border-left: 1px solid #cccccc !important;
+  border-bottom: 0px !important;
+  background-color: transparent;
+}
+#transaction-list-panel .transaction-group .panel-body tr.transaction-row:last-child td {
+  border-bottom: 1px solid #cccccc;
+}
+table.transaction-table {
+  border: 0;
   width: initial;
   margin-left: 25px;
   margin-right: 15px;
   margin-bottom: 0;
 }
-#transaction-list-panel .transaction-group .panel-body table td {
-  border: 0;
-}
-#transaction-list-panel .transaction-group .panel-body table thead td {
+table.transaction-table thead td {
   padding-top: 30px;
 }
-#transaction-list-panel .transaction-group .panel-body table thead .category-column-header,
-#transaction-list-panel .transaction-group .panel-body table thead .date-column-header,
-#transaction-list-panel .transaction-group .panel-body table thead .value-column-header,
-#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header,
-#transaction-list-panel .transaction-group .panel-body table thead .installment-data-column-header {
+table.transaction-table thead .category-column-header,
+table.transaction-table thead .date-column-header,
+table.transaction-table thead .value-column-header,
+table.transaction-table thead .action-bar-header,
+table.transaction-table thead .installment-data-column-header {
   width: 1%;
 }
-#transaction-list-panel .transaction-group .panel-body table thead .value-column-header {
+table.transaction-table thead .value-column-header {
   text-align: right;
 }
-#transaction-list-panel .transaction-group .panel-body table thead .action-bar-header {
+table.transaction-table thead .action-bar-header {
   background-color: transparent;
   border-left: 1px solid #cccccc;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .date-column,
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .category-column {
+table.transaction-table tr.transaction-row td {
+  border: 0;
+}
+table.transaction-table tr.transaction-row td.date-column,
+table.transaction-table tr.transaction-row td .category-column {
   font-weight: bold;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column {
+table.transaction-table tr.transaction-row td.value-column {
   text-align: right;
   white-space: nowrap;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column.renevue {
+table.transaction-table tr.transaction-row td.value-column.renevue {
   background-color: #dff1df;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .value-column.expense {
+table.transaction-table tr.transaction-row td.value-column.expense {
   background-color: #f8dcda;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row .installment-data-column {
+table.transaction-table tr.transaction-row td.installment-data-column {
   text-align: right;
   white-space: nowrap;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row td.action-bar {
-  border-left: 1px solid #cccccc !important;
-  border-bottom: 0px !important;
-  background-color: transparent;
-}
-#transaction-list-panel .transaction-group .panel-body table .transaction-row td.action-bar i {
+table.transaction-table tr.transaction-row td.action-bar i {
   cursor: pointer;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row td.action-bar .delete-transaction:hover {
+table.transaction-table tr.transaction-row td.action-bar .delete-transaction:hover {
   color: #d9534f;
 }
-#transaction-list-panel .transaction-group .panel-body table .transaction-row:hover td.action-bar > * {
+table.transaction-table tr.transaction-row:hover td.action-bar > * {
   visibility: visible;
   transition: opacity 0.3s;
   opacity: 1;
-}
-#transaction-list-panel .transaction-group .panel-body table .transaction-row:last-child td {
-  border-bottom: 1px solid #cccccc;
 }
 .month-selector {
   text-align: center;

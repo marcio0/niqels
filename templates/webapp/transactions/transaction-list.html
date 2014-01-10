@@ -78,14 +78,14 @@
         <div class="panel-group" id="transaction-groups" ng-if="groupBy == 'category.name'">
             <div id="transaction-group-(($index))" class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:orderDesc">
 
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="accordion-toggle"
+                <div class="panel-heading"
+                     class="accordion-toggle"
+                     data-toggle="collapse"
+                     href="#category(($index))"
+                     track="click,Transactions,open-category">
 
-                            data-toggle="collapse"
-                            href="#category(($index))"
-                            track="click,Transactions,open-category"
-                            ng-bind="group.name"></a>
+                    <h4 class="panel-title">
+                        <a ng-bind="group.name"></a>
 
                         <span class="group-total pull-right" ng-bind="group.total | currency" is-positive-class="group.total"></span>
                     </h4>

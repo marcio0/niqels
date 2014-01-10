@@ -7837,6 +7837,7 @@ a[data-toggle="collapse"] {
   background-color: transparent;
   border-bottom: 1px solid #ccc;
   box-shadow: 0px 5px 2px -4px #cccccc;
+  cursor: pointer;
 }
 #transaction-list-panel .transaction-group .panel-heading .panel-title .group-total {
   font-family: "Oxygen", Helvetica, Arial, sans-serif;

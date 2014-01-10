@@ -3,6 +3,14 @@
 
 angular.module('webapp')
 
+    .directive('splitTransactionModal', [function () {
+        return {
+            link: function (scope, element, attrs) {
+                return;
+            }
+        };
+    }])
+
     .directive('categoryCollapse', ['$rootScope', '$parse', function ($rootScope, $parse) {
         $rootScope.lastCreatedTransaction = null;
 
