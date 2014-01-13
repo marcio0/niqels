@@ -62,7 +62,6 @@ module.exports = function(grunt) {
                      * This file is temporary.
                      */
                     'static/dist/js/webapp-libs.min.tmp.js': [
-                        'static/src/js/lib/min/angular-strap.min.js',
                         'static/src/js/lib/min/angular-ui-router.min.js',
                         'static/src/js/lib/min/moment.min.js',
                         'static/src/js/lib/min/toastr.min.js',

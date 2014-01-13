@@ -61,15 +61,20 @@ angular.module('models', ['ngResource'])
         });
 
         Transaction.prototype.loadInstallmentData = function () {
+            if (this.installment_data) {
+                // already loaded
+                return false;
+            }
             if (this.installment_of) {
                 var split = this.installment_of.split('/'),
                     installmentId = split[split.length-1],
                     transaction = this;
 
-                SplitTransaction.get({id: installmentId}, function (installment) {
+                return SplitTransaction.get({id: installmentId}, function (installment) {
                     transaction.installment_data = '{0}/{1}'.format(transaction.installment_number, installment.transactions.length);
                 });
             }
+            return false;
         };
 
         $rootScope.$on('transaction-created', function (e, value, opts) {
