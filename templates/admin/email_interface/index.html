@@ -1,0 +1,40 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block title %}{% trans "Email interface" %}{% endblock title %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}change-form{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        &rsaquo; {% trans "Email interface" %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <form action="" method="post" id="user-query-form">{% csrf_token %}
+            <div>
+                <fieldset class="module aligned ">
+                    <h2>{% trans "User query" %}</h2>
+                    <div class="form-row">
+                        <div>
+                            <label for="id_query">{% trans "SQL Query" %}:</label>
+                            <textarea cols="80" id="id_query" name="query" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                </fieldset>
+                <div class="submit-row">
+                    <input type="submit" value="{% trans "Test Query" %}" name="_test">
+                    <input type="submit" value="{% trans "Email users" %}" class="default" name="_submit">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
