@@ -8,7 +8,7 @@ class UserQueryForm(forms.Form):
 
 
 class EmailInterface(FormView):
-    template_name='admin/email_interface/index.html'
+    template_name='admin_custom/email_interface/index.html'
     form_class = UserQueryForm
 
     def form_valid(self, form):

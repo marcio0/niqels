@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^', include('access.urls')),
     url(r'^api/', include('api.urls')),
 
-    url(r'^admin panel/', include('admin.urls', namespace="admin_custom", app_name="admin")),
+    url(r'^admin panel/', include('admin_custom.urls', namespace="admin_custom", app_name="admin_custom")),
     url(r'^admin panel/', include(admin.site.urls)),
 
     # webapp must be the last one
