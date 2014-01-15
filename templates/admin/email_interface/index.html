@@ -22,13 +22,19 @@
             <div>
                 <fieldset class="module aligned ">
                     <h2>{% trans "User query" %}</h2>
-                    <div class="form-row">
-                        <div>
+                    <div class="form-row {% if form.query.errors %}errors{% endif %}">
+                        <div {% if form.query.errors %}class="errors"{% endif %}>
+                            {{ form.query.errors }}
                             <label for="id_query">{% trans "SQL Query" %}:</label>
-                            <textarea cols="80" id="id_query" name="query" rows="3"></textarea>
+                            <textarea cols="80" id="id_query" name="query" rows="3">{{ form.query.value|default_if_none:"" }}</textarea>
                         </div>
                     </div>
-
+                    <div class="form-row">
+                        <div>
+                            <label>{% trans "Results" %}:</label>
+                            <p>{{ form.result.value|default_if_none:"" }}</p>
+                        </div>
+                    </div>
                 </fieldset>
                 <div class="submit-row">
                     <input type="submit" value="{% trans "Test Query" %}" name="_test">
