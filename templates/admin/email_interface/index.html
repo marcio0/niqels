@@ -23,7 +23,7 @@
         {% endif %}
         <form action="" method="post" id="user-query-form">{% csrf_token %}
             <div>
-                <fieldset class="module aligned ">
+                <fieldset class="module aligned">
                     <h2>{% trans "User query" %}</h2>
                     <div class="form-row {% if form.query.errors %}errors{% endif %}">
                         <div {% if form.query.errors %}class="errors"{% endif %}>
@@ -39,6 +39,25 @@
                         </div>
                     </div>
                 </fieldset>
+
+                <fieldset class="module aligned">
+                    <h2>{% trans "Email data" %}</h2>
+                    <div class="form-row {% if form.title.errors %}errors{% endif %}">
+                        <div {% if form.title.errors %}class="errors"{% endif %}>
+                            {{ form.title.errors }}
+                            <label for="id_title">{% trans "Email title" %}:</label>
+                            <input type="text" id="id_title" name="title" value="{{ form.title.value|default_if_none:"" }}">
+                        </div>
+                    </div>
+                    <div class="form-row {% if form.content.errors %}errors{% endif %}">
+                        <div {% if form.content.errors %}class="errors"{% endif %}>
+                            {{ form.content.errors }}
+                            <label for="id_content">{% trans "Email content" %}:</label>
+                            <textarea cols="80" id="id_content" name="content" rows="20">{{ form.content.value|default_if_none:"" }}</textarea>
+                        </div>
+                    </div>
+                </fieldset>
+
                 <div class="submit-row">
                     <input type="submit" value="{% trans "Test Query" %}" name="_test">
                     <input type="submit" value="{% trans "Email users" %}" class="default" name="_submit">

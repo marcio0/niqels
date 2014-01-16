@@ -27,6 +27,10 @@ class EmailInterface(FormView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
 
+        if '_test' in request.POST:
+            form.errors.pop('title', None)
+            form.errors.pop('content', None)
+
         if form.is_valid() and self.execute_sql(form):
             return self.form_valid(form)
         else:

@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
+from django.http import HttpRequest
 from django.test import TestCase
 import factory
+import mock
 from access.models import User
 from admin_custom.validators import validate_sql
 from admin_custom.views import UserQueryForm, EmailInterface
@@ -63,11 +65,57 @@ class EmailInterfaceViewTest(TestCase):
         terms = ['update', 'drop', 'delete', 'alter', 'insert', 'create']
 
         for term in terms:
-            form = UserQueryForm({'query': term})
+            form = UserQueryForm({'query': term, 'title': 'foo', 'content': 'bla'})
             self.assertFalse(form.is_valid())
 
-            form = UserQueryForm({'query': term.upper()})
+            form = UserQueryForm({'query': term.upper(), 'title': 'foo', 'content': 'bla'})
             self.assertFalse(form.is_valid())
 
-        form = UserQueryForm({'query': 'select somethin from some table'})
+        form = UserQueryForm({'query': 'select somethin from some table', 'title': 'foo', 'content': 'bla'})
         self.assertTrue(form.is_valid())
+
+    @mock.patch.object(EmailInterface, 'form_valid')
+    @mock.patch.object(EmailInterface, 'execute_sql')
+    @mock.patch.object(EmailInterface, 'get_form')
+    def test_post_ignore_email_fields_on_sql_test(self, get_form, execute_sql, form_valid):
+        request = HttpRequest()
+        request.POST['_test'] = 'yes'
+        view = EmailInterface()
+        view.request = request
+
+        view.post(request)
+
+        get_form().errors.pop.assert_any_call('title', None)
+        get_form().errors.pop.assert_any_call('content', None)
+        self.assertTrue(form_valid.called)
+
+    @mock.patch.object(EmailInterface, 'form_invalid')
+    @mock.patch.object(EmailInterface, 'execute_sql')
+    def test_post_invalid_email_form(self, execute_sql, form_invalid):
+        request = HttpRequest()
+        request.POST['_submit'] = 'yes'
+        view = EmailInterface()
+        view.request = request
+
+        view.post(request)
+
+        self.assertTrue(form_invalid.called)
+
+    @mock.patch.object(EmailInterface, 'form_valid')
+    @mock.patch.object(EmailInterface, 'execute_sql')
+    def test_post_valid_email_form(self, execute_sql, form_valid):
+        request = HttpRequest()
+        request.POST['_submit'] = 'yes'
+        request.POST['query'] = 'sddasd'
+        request.POST['title'] = 'oba'
+        request.POST['content'] = 'foo'
+        request.method = 'POST'
+        view = EmailInterface()
+        view.request = request
+
+        view.post(request)
+
+        self.assertTrue(form_valid.called)
+
+
+
