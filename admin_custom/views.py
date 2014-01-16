@@ -48,10 +48,8 @@ class EmailInterface(FormView):
         form = self.get_form(form_class)
 
         if form.is_valid() and self.execute_sql(form):
-            print 'ok', form.errors
             return self.form_valid(form)
         else:
-            print 'nok', form.errors
             return self.form_invalid(form)
 
     def form_valid(self, form):
