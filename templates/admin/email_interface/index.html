@@ -18,7 +18,7 @@
 
 {% block content %}
     <div id="content-main">
-        {% if form.non_field_erros %}
+        {% if form.non_field_errors %}
             <ul class="errorlist"><li>{{ form.non_field_errors }}</li></ul>
         {% endif %}
         <form action="" method="post" id="user-query-form">{% csrf_token %}
