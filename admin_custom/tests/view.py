@@ -101,9 +101,10 @@ class EmailInterfaceViewTest(TestCase):
 
         self.assertTrue(form_invalid.called)
 
+    @mock.patch.object(EmailInterface, 'email_users')
     @mock.patch.object(EmailInterface, 'form_valid')
     @mock.patch.object(EmailInterface, 'execute_sql')
-    def test_post_valid_email_form(self, execute_sql, form_valid):
+    def test_post_valid_email_form(self, execute_sql, form_valid, email_users):
         request = HttpRequest()
         request.POST['_submit'] = 'yes'
         request.POST['query'] = 'sddasd'
@@ -116,6 +117,36 @@ class EmailInterfaceViewTest(TestCase):
         view.post(request)
 
         self.assertTrue(form_valid.called)
+        self.assertTrue(email_users.called)
+
+    @mock.patch('admin_custom.views.send_mass_mail')
+    def test_email_users(self, send_mass_mail):
+        data = {
+            'title': 'yeah',
+            'content': 'message'
+        }
+        form = UserQueryForm(data)
+
+        user_1 = User(email='1@1.com')
+        user_2 = User(email='2@2.com')
+        user_3 = User(email='3@3.com')
+
+        view = EmailInterface()
+        view.users_result = [user_1, user_2, user_3]
+
+        view.email_users(form)
+
+        messages = [
+            (data['title'], data['content'], 'niqels@niqels.com.br', [user_1.email]),
+            (data['title'], data['content'], 'niqels@niqels.com.br', [user_2.email]),
+            (data['title'], data['content'], 'niqels@niqels.com.br', [user_3.email])
+        ]
+
+        send_mass_mail.assert_called_with(messages)
+
+
+
+
 
 
 
