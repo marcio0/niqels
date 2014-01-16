@@ -1,28 +1,8 @@
-from django import forms
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 from django.db import DatabaseError
 from django.db.models.query_utils import InvalidQuery
-from django.utils.encoding import force_text
-from django.utils.translation import gettext as _
 from django.views.generic.edit import FormView
-import re
 from access.models import User
-
-
-class SqlValidator(RegexValidator):
-    regex = re.compile(r'update|drop|delete|alter|insert|create', re.IGNORECASE)
-    message = _('SQL that changes data are not allowed.')
-
-    def __call__(self, value):
-        if self.regex.search(force_text(value)):
-            raise ValidationError(self.message, code=self.code)
-validate_sql = SqlValidator()
-
-
-class UserQueryForm(forms.Form):
-    query = forms.CharField(required=True, validators=[validate_sql])
-    result = forms.CharField(required=False)
+from admin_custom.forms import UserQueryForm
 
 
 class EmailInterface(FormView):

@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-import mock
 import factory
 from access.models import User
-from admin_custom.views import UserQueryForm, EmailInterface, validate_sql
+from admin_custom.validators import validate_sql
+from admin_custom.views import UserQueryForm, EmailInterface
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -57,7 +57,7 @@ class EmailInterfaceViewTest(TestCase):
 
         self.assertFalse(view.execute_sql(form))
         self.assertEquals(form.data['result'], 0)
-        self.assertTrue('sql' in form.errors)
+        self.assertTrue('__all__' in form.errors)
 
     def test_sql_validation(self):
         terms = ['update', 'drop', 'delete', 'alter', 'insert', 'create']
