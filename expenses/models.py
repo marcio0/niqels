@@ -166,11 +166,13 @@ class Transaction(models.Model):
     )
     user = models.ForeignKey('access.User',
         verbose_name=_('user'),
-        help_text=_('The owner of this transaction.')
+        help_text=_('The owner of this transaction.'),
+        related_name='transactions'
     )
     category = models.ForeignKey(Category,
         verbose_name=_('category'),
-        help_text=_('The category for this transaction.')
+        help_text=_('The category for this transaction.'),
+        related_name='transactions'
     )
 
     created = models.DateTimeField(_('creation date'),
