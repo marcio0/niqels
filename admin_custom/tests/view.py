@@ -3,9 +3,11 @@ from django.http import HttpRequest
 from django.test import TestCase
 import factory
 import mock
+from smtplib import SMTPException
 from access.models import User
 from admin_custom.validators import validate_sql
 from admin_custom.views import UserQueryForm, EmailInterface
+from django.conf import settings
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -136,17 +138,38 @@ class EmailInterfaceViewTest(TestCase):
 
         view.email_users(form)
 
+        admin_emails = []
+        for admin in settings.ADMINS:
+            admin_emails.append(admin[1])
+
         messages = [
             (data['title'], data['content'], 'niqels@niqels.com.br', [user_1.email]),
             (data['title'], data['content'], 'niqels@niqels.com.br', [user_2.email]),
-            (data['title'], data['content'], 'niqels@niqels.com.br', [user_3.email])
+            (data['title'], data['content'], 'niqels@niqels.com.br', [user_3.email]),
+
+            (data['title'] + ' (sent from admin panel)', data['content'], 'niqels@niqels.com.br', admin_emails)
         ]
 
         send_mass_mail.assert_called_with(messages)
 
+    @mock.patch('admin_custom.views.send_mass_mail')
+    def test_email_error(self, mass_mail):
+        data = {
+            'title': 'yeah',
+            'content': 'message'
+        }
+        form = UserQueryForm(data)
 
+        user_1 = User(email='1@1.com')
 
+        view = EmailInterface()
+        view.users_result = [user_1]
 
+        mass_mail.side_effect = SMTPException('fail')
+
+        view.email_users(form)
+
+        self.assertEquals(form.errors['__all__'], 'error sending email: fail')
 
 
 

@@ -30,6 +30,7 @@
                             {{ form.query.errors }}
                             <label for="id_query">{% trans "SQL Query" %}:</label>
                             <textarea cols="80" id="id_query" name="query" rows="3">{{ form.query.value|default_if_none:"" }}</textarea>
+                            <p class="help">{% trans "User table: access_user" %}</p>
                         </div>
                     </div>
                     <div class="form-row">

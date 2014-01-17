@@ -1,9 +1,11 @@
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mass_mail
 from django.db import DatabaseError
 from django.db.models.query_utils import InvalidQuery
 from django.views.generic.edit import FormView
 from access.models import User
 from admin_custom.forms import UserQueryForm
+from smtplib import SMTPException
+from django.conf import settings
 
 
 class EmailInterface(FormView):
@@ -34,7 +36,19 @@ class EmailInterface(FormView):
 
         messages = [(title, content, sender, [email]) for email in emails]
 
-        send_mass_mail(messages)
+        admin_msg_title = '%s (sent from admin panel)' % title
+        admin_emails = [a[1] for a in settings.ADMINS]
+
+        messages.append(
+            (admin_msg_title, content, sender, admin_emails)
+        )
+
+        try:
+            send_mass_mail(messages)
+        except SMTPException, e:
+            msg = 'error sending email: %s' % e
+            form.errors['__all__'] = msg
+
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
