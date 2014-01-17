@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     'access',
     'api',
     'admin_custom',
+    'data',
     'password_reset',
     'babeldjango',
     'south',
