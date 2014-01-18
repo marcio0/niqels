@@ -9,7 +9,7 @@ from data.models import Data
 
 
 class Command(BaseCommand):
-    help = u'Counts the amount of active users'
+    help = u'Counts the ratio of active users'
     indicator = 'active users ratio'
 
     def handle(self, *args, **kwargs):
