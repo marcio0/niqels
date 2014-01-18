@@ -17,6 +17,14 @@ class Data(models.Model):
     value = models.TextField(_(u'valor'),
         help_text=_(u'Valor da medição.'))
 
+    def __unicode__(self):
+        data = {
+            'indicator': self.indicator,
+            'value': self.value,
+            'date': str(self.date)
+        }
+        return _(u'%(indicator)s: %(value)s em %(date)s') % data
+
     class Meta:
         verbose_name = _(u'Dado')
         verbose_name_plural = _(u'Dados')

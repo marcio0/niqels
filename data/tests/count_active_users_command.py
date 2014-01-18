@@ -7,20 +7,11 @@ from freezegun import freeze_time
 from datetime import timedelta, datetime
 import access.models
 from data.management.commands import count_active_users
+from data.models import Data
 from expenses.models import Transaction, Category, CategoryGroup
 
 
 COMMAND_INDICATOR = 'active users ratio'
-
-class UserFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = access.models.User
-
-    email = factory.Sequence(lambda n: 'user{0}@example.com'.format(n))
-    name = factory.Sequence(lambda n: 'user1'.format(n))
-
-
-class TransactionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Transaction
 
 
 class CommandTest(TestCase):
@@ -29,8 +20,9 @@ class CommandTest(TestCase):
         self.category = Category.objects.create(name="category", group=group)
 
     @freeze_time('2010-10-01')
+    @mock.patch.object(Data, 'objects')
     @mock.patch.object(access.models.User, 'objects')
-    def test_simple(self, user_mgr):
+    def test_simple(self, user_mgr, data_mgr):
         one_week_diff = timezone.now() - timedelta(weeks=1)
 
         user_mgr.annotate().filter().count.return_value = 10
@@ -39,8 +31,10 @@ class CommandTest(TestCase):
         command = count_active_users.Command()
         data = command.handle()
 
-        self.assertEquals(data.date, timezone.now())
-        self.assertEquals(data.value, '50.00%')
-        self.assertEquals(data.indicator, COMMAND_INDICATOR)
+        user_mgr.filter.assert_called_with(transactions__created__gte=one_week_diff)
 
-        user_mgr.filter.assert_called_with(transaction__created__gte=one_week_diff)
+        data_mgr.create.assert_called_with(
+            date=timezone.now(),
+            value='50.00%',
+            indicator=COMMAND_INDICATOR
+        )
