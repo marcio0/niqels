@@ -17,8 +17,8 @@ class Command(BaseCommand):
         one_week_ago = now - timedelta(weeks=1)
         three_weeks_ago = now - timedelta(weeks=3)
 
-        with_activity = User.objects.filter(transaction__date__gte=three_weeks_ago).distinct().count()
-        evaded = User.objects.filter(transaction__date__gte=three_weeks_ago).filter(~Q(transaction__date__gt=one_week_ago)).distinct().count()
+        with_activity = User.objects.filter(transactions__date__gte=three_weeks_ago).distinct().count()
+        evaded = User.objects.filter(transactions__date__gte=three_weeks_ago).filter(~Q(transactions__date__gt=one_week_ago)).distinct().count()
 
         evaded_users_ratio = Decimal(evaded) / Decimal(with_activity) * 100
         evaded_users_ratio = '%.2f%%' % evaded_users_ratio

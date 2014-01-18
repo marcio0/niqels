@@ -26,9 +26,9 @@ class CommandTest(TestCase):
         command = count_evaded_users.Command()
         command.handle()
 
-        user_mgr.filter.assert_called_with(transaction__date__gte=three_weeks_diff)
+        user_mgr.filter.assert_called_with(transactions__date__gte=three_weeks_diff)
         user_mgr.filter().filter.assert_called_with(~q.return_value)
-        q.assert_called_with(transaction__date__gt=one_week_diff)
+        q.assert_called_with(transactions__date__gt=one_week_diff)
 
         data_mgr.create.assert_called_with(
             date=timezone.now(),
