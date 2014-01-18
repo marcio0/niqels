@@ -36,7 +36,6 @@ class SplitTransactionAdmin(admin.ModelAdmin):
         return False
 
     list_display = ('get_total_value', 'get_installments', 'get_short_description')
-
     readonly_fields = ['user']
     actions = None
     formfield_overrides = {
@@ -150,6 +149,7 @@ class TransactionAdmin(admin.ModelAdmin):
     fields = ['value', 'description', 'date', 'user', 'created']
     search_fields = ['=value', '=user__email', 'description']
     readonly_fields = ['user', 'created']
+    date_hierarchy = 'date'
     actions = None
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 40})},

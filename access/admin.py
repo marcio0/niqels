@@ -63,6 +63,7 @@ class UserAdmin(UserAdmin):
     list_display = ('name', 'email', 'date_joined', 'last_login')
     list_filter = ('date_joined', 'last_login', 'is_active')
     readonly_fields = ['date_joined', 'last_login', 'is_admin']
+    date_hierarchy = 'date_joined'
     fieldsets = (
         (None, {'fields': ('name', 'email', 'is_active' )}),
         ('Important dates', {'fields': ('date_joined', 'last_login')}),

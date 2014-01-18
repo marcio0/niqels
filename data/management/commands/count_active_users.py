@@ -23,5 +23,3 @@ class Command(BaseCommand):
         active_users_ratio = '%.2f%%' % active_users_ratio
 
         Data.objects.create(indicator=self.indicator, value=active_users_ratio, date=now)
-
-
