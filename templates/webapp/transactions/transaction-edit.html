@@ -1,0 +1,107 @@
+{% load i18n %}
+
+
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()">&times;</button>
+                <h4 class="modal-title">{% trans "Editar movimentação" %}</h4>
+            </div>
+
+            <div class="modal-body">
+                <div ang-controller="TransactionFormCtrl">
+                    <form
+                            class="transaction-form form-horizontal"
+                            name="transactionForm"
+                            method="post"
+                            id="transaction-form"
+
+                            novalidate
+                            >
+
+                        <div class="form-group">
+                            <label for="id_category" class="control-label">{% trans "Category" %}</label>
+                            <div><select
+                                    id="id_category"
+                                    name="category"
+                                    class="form-control"
+
+                                    ng-model="formData.category"
+                                    category-field
+                                    data-live-search="true"
+                                    required
+
+                                    ng-options="c.resource_uri as c.name group by c.group for c in categories | orderBy:c.position:true"
+                                    >
+                            </select></div>
+                        </div>
+
+                        <div class="form-group animate-show" ng-hide="is_installment">
+                            <label for="id_value" class="control-label">{% trans "Value" %}</label>
+                            <div><input
+                                    id="id_value"
+                                    name="value"
+                                    class="form-control"
+
+                                    ng-model="formData.value"
+                                    currency-field
+
+                                    required
+
+                                    autocomplete="off"
+                                    /></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_description" class="control-label">{% trans "Description" %}</label>
+                            <div><input
+                                    id="id_description"
+                                    maxlength="200"
+                                    name="description"
+                                    type="text"
+                                    class="form-control"
+
+                                    ng-model="formData.description"
+
+                                    placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
+                                    autocomplete="off"
+                                    /></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_date" class="control-label">{% trans "Date" %}</label>
+
+                            <div
+                                    date-field
+                                    date-field-model="formData.date"
+                                    id="id_date"
+                                    name="date"
+                                    >
+                            </div>
+                        </div>
+
+                        {% include "webapp/transactions/installment-form.html" %}
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button ng-click="submit()" class="btn btn-primary" ng-disabled="sending" id="create-transaction">
+                                {% trans "Submit" %}
+                                <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
+                                <i ng-hide="sending" class="fa fa-check fa-lg"></i>
+                            </button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% comment %}
+
+{% endcomment %}

@@ -7806,6 +7806,50 @@ input.ng-invalid.ng-dirty .input-group-addon {
 .access-form-panel .links a {
   font-weight: bold;
 }
+.transaction-form.form-horizontal div.form-group .control-label {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .transaction-form.form-horizontal div.form-group .control-label {
+    float: left;
+    width: 25%;
+  }
+}
+.transaction-form.form-horizontal div.form-group > div {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .transaction-form.form-horizontal div.form-group > div {
+    float: left;
+    width: 75%;
+  }
+}
+.transaction-form.form-horizontal div.form-group > div.checkbox-wrapper,
+.transaction-form.form-horizontal div.form-group > div.actions {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .transaction-form.form-horizontal div.form-group > div.checkbox-wrapper,
+  .transaction-form.form-horizontal div.form-group > div.actions {
+    float: left;
+    width: 75%;
+  }
+}
+@media (min-width: 768px) {
+  .transaction-form.form-horizontal div.form-group > div.checkbox-wrapper,
+  .transaction-form.form-horizontal div.form-group > div.actions {
+    margin-left: 25%;
+  }
+}
 /*
  * transaction-list.less
  * styles for the transaction list.
@@ -7880,6 +7924,9 @@ table.transaction-table thead .value-column-header {
 table.transaction-table thead .action-bar-header {
   background-color: transparent;
   border-left: 1px solid #cccccc;
+}
+table.transaction-table tr.transaction-row {
+  cursor: pointer;
 }
 table.transaction-table tr.transaction-row td {
   border: 0;

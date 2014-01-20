@@ -1,4 +1,4 @@
-function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, SplitTransaction) {
+function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, SplitTransaction, $modal) {
     'use strict';
 
     $scope.days = [];
@@ -9,6 +9,13 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     $scope.allTransactions = [];
     $scope.transactionGroups = [];
     $scope.orderDesc = true;
+
+    $scope.editTransaction = function (transaction) {
+        $modal({
+            template: '/partials/transactions/transaction-edit'
+        });
+    };
+
 
     $scope.getAbsTotal = function getAbsTotal (group) {
         return Math.abs(group.total);
@@ -152,4 +159,4 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     });
 }
 
-TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction'];
+TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction', '$modal'];

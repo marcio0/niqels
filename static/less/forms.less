@@ -90,3 +90,21 @@ input.ng-invalid.ng-dirty {
         }
     }
 }
+
+.transaction-form {
+    &.form-horizontal {
+        div.form-group {
+            .control-label {
+                .make-sm-column(3);
+            }
+            > div {
+                .make-sm-column(9);
+
+                &.checkbox-wrapper, &.actions {
+                    .make-sm-column(9);
+                    .make-sm-column-offset(3);
+                }
+            }
+        }
+    }
+}

@@ -1,20 +1,24 @@
 {% load i18n %}
 
-<div class="checkbox">
-    <input
-        id="installment_select"
-        type="checkbox"
-        ng-model="is_installment"
-        ng-false-value="false"
-        ng-true-value="true"
-        >
-    <label for="installment_select">{% trans "This is an installment purchase" %}</label>
+<div class="form-group">
+    <div class="checkbox-wrapper">
+        <div class="checkbox">
+            <input
+                    id="installment_select"
+                    type="checkbox"
+                    ng-model="is_installment"
+                    ng-false-value="false"
+                    ng-true-value="true"
+                    >
+            <label for="installment_select">{% trans "This is an installment purchase" %}</label>
+        </div>
+    </div>
 </div>
 
 <div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall ng-hide">
     <div class="form-group input-icon">
-        <label for="id_total_value" class="form-label">{% trans "Total value" %}</label>
-        <i class="fa fa-dollar input-icon-prepend"></i>
+        <label for="id_total_value" class="control-label">{% trans "Total value" %}</label>
+        <div><i class="fa fa-dollar input-icon-prepend"></i>
         <input
                 id="id_total_value"
                 name="total_value"
@@ -27,11 +31,11 @@
                 ng-required="is_installment"
 
                 autocomplete="off"
-                />
+                /></div>
     </div>
     <div class="form-group input-icon">
-        <label for="id_value" class="form-label">{% trans "Installment value" %}</label>
-        <i class="fa fa-dollar input-icon-prepend"></i>
+        <label for="id_value" class="control-label">{% trans "Installment value" %}</label>
+        <div><i class="fa fa-dollar input-icon-prepend"></i>
         <input
                 id="id_value"
                 name="value"
@@ -43,11 +47,11 @@
                 currency-field
 
                 autocomplete="off"
-                />
+                /></div>
     </div>
     <div class="form-group input-icon">
-        <label for="id_qty_installments" class="form-label">{% trans "Number of installments" %}</label>
-        <i class="fa fa-calendar-o input-icon-prepend"></i>
+        <label for="id_qty_installments" class="control-label">{% trans "Number of installments" %}</label>
+        <div><i class="fa fa-calendar-o input-icon-prepend"></i>
         <input
                 id="id_qty_installments"
                 name="qty-installments"
@@ -61,6 +65,6 @@
                 ng-change="updateQtyInstallments()"
 
                 autocomplete="off"
-                />
+                /></div>
     </div>
 </div>
