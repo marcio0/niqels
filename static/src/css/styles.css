@@ -7747,6 +7747,9 @@ p.expenses {
 .input-icon .bootstrap-select .filter-option {
   margin-left: 20px !important;
 }
+.form-horizontal .form-group i.input-icon-prepend {
+  left: 25px;
+}
 i.input-error {
   color: #b94a48;
 }
@@ -8264,4 +8267,7 @@ body {
 }
 hr {
   border-color: #807f88;
+}
+.modal-backdrop {
+  opacity: .3;
 }

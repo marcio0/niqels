@@ -1,3 +1,5 @@
+@input-icon-padding: 10px;
+
 .input-icon {
     position: relative;
 
@@ -16,12 +18,12 @@
     }
 
     i.input-icon-append {
-        right: 10px;
+        right: @input-icon-padding;
     }
 
     &[class^="col-"] {
         i.input-icon-prepend {
-              left: (@grid-gutter-width / 2) + 10;
+              left: (@grid-gutter-width / 2) + @input-icon-padding;
         }
     }
 
@@ -37,6 +39,10 @@
             margin-left: 20px !important;
         }
     }
+}
+
+.form-horizontal .form-group i.input-icon-prepend {
+    left: (@grid-gutter-width / 2) + @input-icon-padding;
 }
 
 i.input-error {

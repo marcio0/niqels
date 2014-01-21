@@ -6,7 +6,7 @@
             <input
                     id="installment_select"
                     type="checkbox"
-                    ng-model="is_installment"
+                    ng-model="is_installment"s
                     ng-false-value="false"
                     ng-true-value="true"
                     >
@@ -16,55 +16,61 @@
 </div>
 
 <div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall ng-hide">
-    <div class="form-group input-icon">
+    <div class="form-group">
         <label for="id_total_value" class="control-label">{% trans "Total value" %}</label>
-        <div><i class="fa fa-dollar input-icon-prepend"></i>
-        <input
-                id="id_total_value"
-                name="total_value"
-                class="form-control"
+        <div class="input-icon">
+            <i class="fa fa-dollar input-icon-prepend"></i>
+            <input
+                    id="id_total_value"
+                    name="total_value"
+                    class="form-control"
 
-                ng-model="installment.total_value"
-                ng-change="updateTotalValue()"
-                currency-field
+                    ng-model="installment.total_value"
+                    ng-change="updateTotalValue()"
+                    currency-field
 
-                ng-required="is_installment"
+                    ng-required="is_installment"
 
-                autocomplete="off"
-                /></div>
+                    autocomplete="off"
+                    />
+        </div>
     </div>
-    <div class="form-group input-icon">
-        <label for="id_value" class="control-label">{% trans "Installment value" %}</label>
-        <div><i class="fa fa-dollar input-icon-prepend"></i>
-        <input
-                id="id_value"
-                name="value"
-                class="form-control"
+    <div class="form-group">
+        <label for="id_installment_value" class="control-label">{% trans "Installment value" %}</label>
+        <div class="input-icon">
+            <i class="fa fa-dollar input-icon-prepend"></i>
+            <input
+                    id="id_installment_value"
+                    name="value"
+                    class="form-control"
 
-                ng-model="installment.installment_value"
-                ng-required="is_installment"
-                ng-change="updateInstallmentValue()"
-                currency-field
+                    ng-model="installment.installment_value"
+                    ng-required="is_installment"
+                    ng-change="updateInstallmentValue()"
+                    currency-field
 
-                autocomplete="off"
-                /></div>
+                    autocomplete="off"
+                    />
+        </div>
     </div>
-    <div class="form-group input-icon">
+    <div class="form-group">
         <label for="id_qty_installments" class="control-label">{% trans "Number of installments" %}</label>
-        <div><i class="fa fa-calendar-o input-icon-prepend"></i>
-        <input
-                id="id_qty_installments"
-                name="qty-installments"
-                class="form-control"
-                type="number"
-                min="1"
+        <div class="input-icon">
+            <i class="fa fa-calendar-o input-icon-prepend"></i>
+            <input
+                    id="id_qty_installments"
+                    name="qty-installments"
+                    class="form-control"
+                    type="number"
+                    min="1"
 
-                ng-model="installment.installments"
-                ng-required="is_installment"
-                ng-pattern="/\d+/"
-                ng-change="updateQtyInstallments()"
+                    ng-model="installment.installments"
+                    ng-required="is_installment"
+                    ng-pattern="/\d+/"
+                    ng-change="updateQtyInstallments()"
 
-                autocomplete="off"
-                /></div>
+                    autocomplete="off"
+                    />
+        </div>
     </div>
 </div>
