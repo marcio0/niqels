@@ -1,7 +1,7 @@
 {% load i18n %}
 
 
-<div class="modal" tabindex="-1" role="dialog">
+<div class="modal" tabindex="-1" role="dialog" ng-controller="TransactionFormCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,7 +10,7 @@
             </div>
 
             <div class="modal-body">
-                <div ang-controller="TransactionFormCtrl">
+                <div>
                     <form
                             class="transaction-form form-horizontal"
                             name="transactionForm"

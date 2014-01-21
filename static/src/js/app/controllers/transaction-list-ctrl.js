@@ -11,7 +11,10 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     $scope.orderDesc = true;
 
     $scope.editTransaction = function (transaction) {
+        var newScope = $rootScope.$new();
+        newScope.transaction = transaction;
         $modal({
+            scope: newScope,
             template: '/partials/transactions/transaction-edit'
         });
     };

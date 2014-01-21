@@ -1,6 +1,10 @@
 function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTransaction) {
     'use strict';
 
+    if ($scope.transaction) {
+        // is editing
+    }
+
     $scope.formData = {};
     $scope.selected_category = null;
     $scope.formData.date = moment();
