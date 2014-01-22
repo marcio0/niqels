@@ -6,6 +6,8 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
     $scope.formData.date = moment();
 
     var resetForm = function resetForm () {
+        // only used on creating form
+
         $scope.sending = false;
         $scope.formData.description = '';
         $scope.formData.value = '';
@@ -29,6 +31,10 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
     if ($scope.editingTransaction) {
         $scope.formData = angular.copy($scope.editingTransaction);
         $scope.formData.category = $scope.editingTransaction.category.resource_uri;
+
+        if ($scope.editingTransaction.installment_of) {
+            $scope.is_installment = true;
+        }
     }
 
     function handleTransaction (data) {
