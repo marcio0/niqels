@@ -7734,9 +7734,6 @@ p.expenses {
 .input-icon i.input-icon-append {
   right: 10px;
 }
-.input-icon[class^="col-"] i.input-icon-prepend {
-  left: 25px;
-}
 .input-icon .bootstrap-select {
   width: 100% !important;
   margin-bottom: 0 !important;

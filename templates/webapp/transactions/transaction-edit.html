@@ -37,7 +37,8 @@
                             </select></div>
                         </div>
 
-                        <div class="form-group animate-show" ng-hide="is_installment">
+
+                        <div class="form-group animate-show">
                             <label for="edit_id_value" class="control-label">{% trans "Value" %}</label>
                             <div><input
                                     id="edit_id_value"
@@ -51,6 +52,13 @@
 
                                     autocomplete="off"
                                     /></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">{% trans "Parcela" %}</label>
+                            <div>
+                                <p class="form-control-static" ng-bind="formData.installment_data"></p>
+                            </div>
                         </div>
 
                         <div class="form-group">

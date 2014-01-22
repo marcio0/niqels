@@ -21,12 +21,6 @@
         right: @input-icon-padding;
     }
 
-    &[class^="col-"] {
-        i.input-icon-prepend {
-              left: (@grid-gutter-width / 2) + @input-icon-padding;
-        }
-    }
-
     .bootstrap-select {
         width: 100% !important;
         margin-bottom: 0 !important;
@@ -41,8 +35,12 @@
     }
 }
 
-.form-horizontal .form-group i.input-icon-prepend {
-    left: (@grid-gutter-width / 2) + @input-icon-padding;
+.form-horizontal {
+    .form-group {
+        i.input-icon-prepend {
+            left: (@grid-gutter-width / 2) + @input-icon-padding;
+        }
+    }
 }
 
 i.input-error {

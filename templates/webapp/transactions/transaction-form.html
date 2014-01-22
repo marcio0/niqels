@@ -12,31 +12,34 @@
             novalidate
             >
 
-        <div class="form-group input-icon">
-            <label for="id_category" class="form-label">{% trans "Category" %}</label>
-            <i class="fa fa-tag input-icon-prepend"></i>
-            <select
-                    id="id_category"
-                    name="category"
-                    class="form-control"
+        <div class="form-group">
+            <label for="id_category" class="control-label">{% trans "Category" %}</label>
 
-                    ng-model="formData.category"
-                    category-field
-                    data-live-search="true"
-                    required
+            <div class="input-icon">
+                <i class="fa fa-tag input-icon-prepend"></i>
+                <select
+                        id="id_category"
+                        name="category"
+                        class="form-control"
 
-                    ng-options="c.resource_uri as c.name group by c.group for c in categories | orderBy:c.position:true"
-                    >
-            </select>
-            <i
-                    class="fa fa-exclamation fa-lg input-icon-append input-error"
-                    ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"
-                    ></i>
+                        ng-model="formData.category"
+                        category-field
+                        data-live-search="true"
+                        required
+
+                        ng-options="c.resource_uri as c.name group by c.group for c in categories | orderBy:c.position:true"
+                        >
+                </select>
+                <i
+                        class="fa fa-exclamation fa-lg input-icon-append input-error"
+                        ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"
+                        ></i>
+            </div>
         </div>
 
-        <div class="form-group input-icon animate-show animate-show-normal" ng-hide="is_installment">
+        <div class="form-group animate-show animate-show-normal" ng-hide="is_installment">
             <label for="id_value" class="form-label">{% trans "Value" %}</label>
-            <i class="fa fa-dollar input-icon-prepend"></i>
+            <div class="input-icon"><i class="fa fa-dollar input-icon-prepend"></i>
             <input
                     id="id_value"
                     name="value"
@@ -48,12 +51,12 @@
                     required
 
                     autocomplete="off"
-                    />
+                    /></div>
         </div>
 
-        <div class="form-group input-icon">
+        <div class="form-group">
             <label for="id_description" class="form-label">{% trans "Description" %}</label>
-            <i class="fa fa-pencil input-icon-prepend"></i>
+            <div class="input-icon"><i class="fa fa-pencil input-icon-prepend"></i>
             <input
                     id="id_description"
                     maxlength="200"
@@ -65,10 +68,10 @@
 
                     placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
                     autocomplete="off"
-                    />
+                    /></div>
         </div>
 
-        <div class="form-group input-icon">
+        <div class="form-group">
             <label for="id_date" class="form-label">{% trans "Date" %}</label>
             <div
                     date-field
