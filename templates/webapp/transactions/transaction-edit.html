@@ -15,15 +15,15 @@
                             class="transaction-form form-horizontal"
                             name="transactionForm"
                             method="post"
-                            id="transaction-form"
+                            id="transaction-form-edit"
 
                             novalidate
                             >
 
                         <div class="form-group">
-                            <label for="id_category" class="control-label">{% trans "Category" %}</label>
+                            <label for="edit_id_category" class="control-label">{% trans "Category" %}</label>
                             <div><select
-                                    id="id_category"
+                                    id="edit_id_category"
                                     name="category"
                                     class="form-control"
 
@@ -38,9 +38,9 @@
                         </div>
 
                         <div class="form-group animate-show" ng-hide="is_installment">
-                            <label for="id_value" class="control-label">{% trans "Value" %}</label>
+                            <label for="edit_id_value" class="control-label">{% trans "Value" %}</label>
                             <div><input
-                                    id="id_value"
+                                    id="edit_id_value"
                                     name="value"
                                     class="form-control"
 
@@ -54,9 +54,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="id_description" class="control-label">{% trans "Description" %}</label>
+                            <label for="edit_id_description" class="control-label">{% trans "Description" %}</label>
                             <div><input
-                                    id="id_description"
+                                    id="edit_id_description"
                                     maxlength="200"
                                     name="description"
                                     type="text"
@@ -70,12 +70,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="id_date" class="control-label">{% trans "Date" %}</label>
+                            <label for="edit_id_date" class="control-label">{% trans "Date" %}</label>
 
                             <div
                                     date-field
                                     date-field-model="formData.date"
-                                    id="id_date"
+                                    id="edit_id_date"
                                     name="date"
                                     >
                             </div>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="modal-footer">
-                <button ng-click="submit()" class="btn btn-primary" ng-disabled="sending" id="create-transaction">
+                <button ng-click="submit()" class="btn btn-primary" ng-disabled="sending" id="update-transaction">
                                 {% trans "Submit" %}
                                 <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
                                 <i ng-hide="sending" class="fa fa-check fa-lg"></i>
