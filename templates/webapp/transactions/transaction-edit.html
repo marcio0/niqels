@@ -80,9 +80,6 @@
                                     >
                             </div>
                         </div>
-
-                        {% include "webapp/transactions/installment-form.html" %}
-
                     </form>
 
                 </div>
@@ -95,7 +92,7 @@
                                 <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
                                 <i ng-hide="sending" class="fa fa-check fa-lg"></i>
                             </button>
-                <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{% trans "Fechar" %}</button>
             </div>
         </div>
     </div>

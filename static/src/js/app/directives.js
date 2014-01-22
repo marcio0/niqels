@@ -230,6 +230,13 @@
                 linkFn = function linkFn (scope, element, attrs) {
                     element.removeClass('form-control');
 
+                    scope.$watch('date', function (newValue, oldValue) {
+                        if (moment.isMoment(newValue)) {
+                            newValue = newValue.toDate();
+                        }
+                        element.datepicker('update', newValue);
+                    });
+
                     var updateModel = function (ev) {
                         scope.$apply(function () {
                             scope.date = moment(ev.date);

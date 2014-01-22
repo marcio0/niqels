@@ -17,7 +17,7 @@ angular.module('interceptor', []).
                 if (response.status === 401) {
                     $window.location.href = '/login';
                 }
-                if (response.status === 500 || response.status === 0 || response.status === 400) {
+                if (response.status === 0 || (response.status >= 400 || response.status < 600)) {
                     toastr.error(gettext('Oops! Something went wrong. Please try again later.'));
                 }
                 return $q.reject(response);

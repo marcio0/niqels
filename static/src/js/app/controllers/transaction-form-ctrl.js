@@ -1,14 +1,9 @@
 function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTransaction) {
-    'use strict';
-
-    if ($scope.transaction) {
-        // is editing
-    }
+        'use strict';
 
     $scope.formData = {};
     $scope.selected_category = null;
     $scope.formData.date = moment();
-
 
     var resetForm = function resetForm () {
         $scope.sending = false;
@@ -31,27 +26,45 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
 
     resetForm();
 
+    if ($scope.editingTransaction) {
+        $scope.formData = angular.copy($scope.editingTransaction);
+        $scope.formData.category = $scope.editingTransaction.category.resource_uri;
+    }
+
     function handleTransaction (data) {
         var promise;
 
-        promise = Transaction.save(data)
-            .$promise.then(function (value) {
-                resetForm();
-                $rootScope.$emit('transaction-created', value);
-                return value;
-            });
+        if (data.id) {
+            promise = Transaction.save(data)
+                .$promise.then(function (value) {
+                    $rootScope.$emit('transaction-updated', value);
+                    $scope.$hide();  // hiding the modal
+                    return value;
+                });
+        }
+        else{
+
+            promise = Transaction.save(data)
+                .$promise.then(function (value) {
+                    resetForm();
+                    $rootScope.$emit('transaction-created', value);
+                    return value;
+                });
+        }
         return promise;
     }
 
     function handleSplitTransaction (data, installment_data) {
         data['first_installment_date'] = data['date'];
         delete data['date'];
+
         (function () {
             // hotfix for the date and value formats, will be removed eventually
             data.total_value = accounting.formatNumber(installment_data.total_value);
         })();
         delete data['value'];
-        data['installments']= installment_data['installments'];
+
+        data['installments'] = installment_data['installments'];
 
         var promise;
         promise = SplitTransaction.save(data)
@@ -61,8 +74,6 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
                 return value;
             });
         return promise;
-
-
     }
 
     $scope.submit = function () {

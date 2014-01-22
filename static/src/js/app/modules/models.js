@@ -57,7 +57,8 @@ angular.module('models', ['ngResource'])
                     })
                     return data;
                 })
-            }
+            },
+            //update: {method: 'PUT'}
         });
 
         Transaction.prototype.loadInstallmentData = function () {
@@ -81,6 +82,13 @@ angular.module('models', ['ngResource'])
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Transaction'));
+            }
+        });
+
+        $rootScope.$on('transaction-updated', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyUpdateSuccess(gettext('Transaction'));
             }
         });
 

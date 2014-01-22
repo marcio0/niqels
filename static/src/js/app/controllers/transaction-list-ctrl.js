@@ -12,13 +12,12 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
 
     $scope.editTransaction = function (transaction) {
         var newScope = $rootScope.$new();
-        newScope.transaction = transaction;
+        newScope.editingTransaction = transaction;
         $modal({
             scope: newScope,
             template: '/partials/transactions/transaction-edit'
         });
     };
-
 
     $scope.getAbsTotal = function getAbsTotal (group) {
         return Math.abs(group.total);
@@ -111,6 +110,10 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
             total: parseFloat(transaction.value)
         });
     }
+
+    $rootScope.$on('transaction-updated', function (event, transaction) {
+        filterTransactions($scope.filterDate);
+    });
 
     $rootScope.$on('transaction-created', function (event, transaction) {
         var showingMonth = $scope.filterDate.month() + 1;
