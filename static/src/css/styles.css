@@ -7806,35 +7806,58 @@ input.ng-invalid.ng-dirty .input-group-addon {
   max-height: 0px;
   overflow: hidden;
 }
-.access-form-panel .links a {
-  font-weight: bold;
-}
-.transaction-form.form-horizontal div.form-group .control-label {
+.access-form-panel .links {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .transaction-form.form-horizontal div.form-group .control-label {
+  .access-form-panel .links {
+    float: left;
+    width: 75%;
+  }
+}
+@media (min-width: 768px) {
+  .access-form-panel .links {
+    margin-left: 25%;
+  }
+}
+.access-form-panel .links a {
+  font-weight: bold;
+}
+.transaction-form.form-horizontal div.form-group .control-label,
+.access-form.form-horizontal div.form-group .control-label {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .transaction-form.form-horizontal div.form-group .control-label,
+  .access-form.form-horizontal div.form-group .control-label {
     float: left;
     width: 25%;
   }
 }
-.transaction-form.form-horizontal div.form-group > div {
+.transaction-form.form-horizontal div.form-group > div,
+.access-form.form-horizontal div.form-group > div {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .transaction-form.form-horizontal div.form-group > div {
+  .transaction-form.form-horizontal div.form-group > div,
+  .access-form.form-horizontal div.form-group > div {
     float: left;
     width: 75%;
   }
 }
 .transaction-form.form-horizontal div.form-group > div.checkbox-wrapper,
-.transaction-form.form-horizontal div.form-group > div.actions {
+.access-form.form-horizontal div.form-group > div.checkbox-wrapper,
+.transaction-form.form-horizontal div.form-group > div.actions,
+.access-form.form-horizontal div.form-group > div.actions {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -7842,14 +7865,18 @@ input.ng-invalid.ng-dirty .input-group-addon {
 }
 @media (min-width: 768px) {
   .transaction-form.form-horizontal div.form-group > div.checkbox-wrapper,
-  .transaction-form.form-horizontal div.form-group > div.actions {
+  .access-form.form-horizontal div.form-group > div.checkbox-wrapper,
+  .transaction-form.form-horizontal div.form-group > div.actions,
+  .access-form.form-horizontal div.form-group > div.actions {
     float: left;
     width: 75%;
   }
 }
 @media (min-width: 768px) {
   .transaction-form.form-horizontal div.form-group > div.checkbox-wrapper,
-  .transaction-form.form-horizontal div.form-group > div.actions {
+  .access-form.form-horizontal div.form-group > div.checkbox-wrapper,
+  .transaction-form.form-horizontal div.form-group > div.actions,
+  .access-form.form-horizontal div.form-group > div.actions {
     margin-left: 25%;
   }
 }
