@@ -120,22 +120,23 @@
 
         .directive('confirmationNeeded', function () {
             return {
-                priority: 1,
-                link: function (scope, element, attrs) {
-                    var msg = attrs.confirmationNeeded || gettext("Confirm action");
-                    var clickAction = attrs.ngClick;
+                link: {
+                    pre: function (scope, element, attrs) {
+                        var msg = attrs.confirmationNeeded || gettext("Confirm action");
+                        var clickAction = attrs.ngClick;
 
-                    // removing ng-click so it won't be called twice.
-                    delete attrs.ngClick;
-
-                    element.bind('click', function () {
-                        scope.$apply(function () {
-                            if (window.confirm(msg)) {
-                                element.tooltip('destroy');
-                                scope.$eval(clickAction);
-                            }
+                        element.bind('click', function (e) {
+                            scope.$apply(function () {
+                                if (!window.confirm(msg)) {
+                                    e.stopImmediatePropagation();
+                                    e.preventDefault();
+                                }
+                                else {
+                                    element.tooltip('destroy');
+                                }
+                            });
                         });
-                    });
+                    }
                 }
             };
         })
