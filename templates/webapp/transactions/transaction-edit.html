@@ -22,36 +22,46 @@
 
                         <div class="form-group">
                             <label for="edit_id_category" class="control-label">{% trans "Category" %}</label>
-                            <div><select
-                                    id="edit_id_category"
-                                    name="category"
-                                    class="form-control"
+                            <div class="input-icon">
+                                <i class="fa fa-tag input-icon-prepend"></i>
+                                <select
+                                        id="edit_id_category"
+                                        name="category"
+                                        class="form-control"
 
-                                    ng-model="formData.category"
-                                    category-field
-                                    data-live-search="true"
-                                    required
+                                        ng-model="formData.category"
+                                        category-field
+                                        data-live-search="true"
+                                        required
 
-                                    ng-options="c.resource_uri as c.name group by c.group for c in categories | orderBy:c.position:true"
-                                    >
-                            </select></div>
+                                        ng-options="c.resource_uri as c.name group by c.group for c in categories | orderBy:c.position:true"
+                                        >
+                                </select>
+                                <i
+                                    class="fa fa-exclamation fa-lg input-icon-append input-error"
+                                    ng-show="transactionForm.category.$error.required && transactionForm.category.$dirty"
+                                    ></i>
+                            </div>
                         </div>
 
 
                         <div class="form-group animate-show">
                             <label for="edit_id_value" class="control-label">{% trans "Value" %}</label>
-                            <div><input
-                                    id="edit_id_value"
-                                    name="value"
-                                    class="form-control"
+                            <div class="input-icon">
+                                <i class="fa fa-dollar input-icon-prepend"></i>
+                                <input
+                                        id="edit_id_value"
+                                        name="value"
+                                        class="form-control"
 
-                                    ng-model="formData.value"
-                                    currency-field
+                                        ng-model="formData.value"
+                                        currency-field
 
-                                    required
+                                        required
 
-                                    autocomplete="off"
-                                    /></div>
+                                        autocomplete="off"
+                                        />
+                            </div>
                         </div>
 
                         <div class="form-group" ng-show="is_installment">
@@ -63,18 +73,21 @@
 
                         <div class="form-group">
                             <label for="edit_id_description" class="control-label">{% trans "Description" %}</label>
-                            <div><input
-                                    id="edit_id_description"
-                                    maxlength="200"
-                                    name="description"
-                                    type="text"
-                                    class="form-control"
+                            <div class="input-icon">
+                                <i class="fa fa-pencil input-icon-prepend"></i>
+                                <input
+                                        id="edit_id_description"
+                                        maxlength="200"
+                                        name="description"
+                                        type="text"
+                                        class="form-control"
 
-                                    ng-model="formData.description"
+                                        ng-model="formData.description"
 
-                                    placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
-                                    autocomplete="off"
-                                    /></div>
+                                        placeholder="{% trans "Example: &quot;Lunch with friends&quot;" %}"
+                                        autocomplete="off"
+                                        />
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -89,18 +102,25 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
-
             </div>
 
             <div class="modal-footer">
+                <button class="btn btn-default pull-left" ng-click="removeTransaction(editingTransaction)" confirmation-needed="{% trans "Deseja remover esta movimentação?" %}">
+                    {% trans "Remover movimentação" %}
+                    <i class="fa fa-trash-o fa-lg"></i>
+                </button>
+
+
                 <button ng-click="submit()" class="btn btn-primary" ng-disabled="sending" id="update-transaction">
-                                {% trans "Submit" %}
-                                <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
-                                <i ng-hide="sending" class="fa fa-check fa-lg"></i>
-                            </button>
-                <button type="button" class="btn btn-default" ng-click="$hide()">{% trans "Fechar" %}</button>
+                    {% trans "Submit" %}
+                    <i ng-show="sending" class="fa fa-spinner fa-spin fa-lg"></i>
+                    <i ng-hide="sending" class="fa fa-check fa-lg"></i>
+                </button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">
+                    {% trans "Fechar" %}
+                    <i class="fa fa-times fa-lg"></i>
+                </button>
             </div>
         </div>
     </div>
