@@ -202,6 +202,22 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(40))
 
+    def test_post_send_installment_data(self):
+        """
+        `installment_of` is readonly and should be ignored by the api.
+        """
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['category'] = '/api/v1/category/5'
+        data['installment_of'] = '/api/v1/split_transaction/1'
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+
     def test_post_value_signal_irrelevant(self):
         """
         Even if the value on request data is negative, use transaction to set it as positive/negative.

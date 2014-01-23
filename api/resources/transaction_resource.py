@@ -32,12 +32,12 @@ class TransactionApiForm(forms.ModelForm):
 
     class Meta:
         model = Transaction
-        exclude = ('user',)
+        exclude = ('user', 'installment_of')
 
 
 class TransactionResource(ModelResource):
     category = fields.ForeignKey(CategoryResource, 'category', full=True)
-    installment_of = fields.ForeignKey('api.resources.SplitTransactionResource', 'installment_of', null=True)
+    installment_of = fields.ForeignKey('api.resources.SplitTransactionResource', 'installment_of', null=True, readonly=True)
 
     class Meta:
         queryset = Transaction.objects.all()
