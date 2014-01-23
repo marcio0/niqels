@@ -131,9 +131,6 @@
                                     e.stopImmediatePropagation();
                                     e.preventDefault();
                                 }
-                                else {
-                                    element.tooltip('destroy');
-                                }
                             });
                         });
                     }
@@ -186,6 +183,15 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs, controller) {
+
+                    element.bind('click', function (e) {
+                        // stops events from action bar icon clicks from bubbling to parents
+                        e.stopImmediatePropagation();
+
+                        if (e.target.tooltip) {
+                            e.target.tooltip('destroy');
+                        }
+                    })
 
                     element.parent().hover(
                         function () {
