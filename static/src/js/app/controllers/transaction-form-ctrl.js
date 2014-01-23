@@ -114,6 +114,14 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
             toastr.warning(gettext('Please fill in the fields correctly.'));
         }
     };
+
+    $scope.removeTransaction = function (transaction) {
+        // used on edit form
+        Transaction.delete({id:transaction.id}).$promise.then(function () {
+            $rootScope.$emit('transaction-removed', transaction);
+            $scope.$hide();
+        });
+    };
 }
 
 TransactionFormCtrl.$inject = ['$scope', '$rootScope', 'Transaction', 'Category', 'SplitTransaction'];

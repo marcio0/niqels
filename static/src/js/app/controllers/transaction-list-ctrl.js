@@ -131,11 +131,12 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
         var showingMonth = $scope.filterDate.month() + 1;
 
         for (var i in split_transaction.transactions) {
-            var transaction = split_transaction.transactions[i];
+            var transaction = new Transaction(split_transaction.transactions[i]);
 
             var transactionMonth = parseInt(transaction.date.split('-')[1]);
 
             if (transactionMonth === showingMonth) {
+                transaction.setInstallmentData(split_transaction);
                 addTransactionToList(transaction);
                 break;
             }

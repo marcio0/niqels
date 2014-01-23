@@ -57,22 +57,27 @@ angular.module('models', ['ngResource'])
                     })
                     return data;
                 })
-            },
+            }
             //update: {method: 'PUT'}
         });
+
+        Transaction.prototype.setInstallmentData = function (data) {
+            this.installment_data = '{0}/{1}'.format(this.installment_number, data.transactions.length);
+        };
 
         Transaction.prototype.loadInstallmentData = function () {
             if (this.installment_data) {
                 // already loaded
                 return false;
             }
+
             if (this.installment_of) {
                 var split = this.installment_of.split('/'),
                     installmentId = split[split.length-1],
                     transaction = this;
 
                 return SplitTransaction.get({id: installmentId}, function (installment) {
-                    transaction.installment_data = '{0}/{1}'.format(transaction.installment_number, installment.transactions.length);
+                    transaction.setInstallmentData(installment);
                 });
             }
             return false;
