@@ -57,8 +57,8 @@ angular.module('models', ['ngResource'])
                     })
                     return data;
                 })
-            }
-            //update: {method: 'PUT'}
+            },
+            update: {method: 'PUT'}
         });
 
         Transaction.prototype.setInstallmentData = function (data) {

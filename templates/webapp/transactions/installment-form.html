@@ -6,7 +6,7 @@
             <input
                     id="installment_select"
                     type="checkbox"
-                    ng-model="is_installment"s
+                    ng-model="is_split_transaction"s
                     ng-false-value="false"
                     ng-true-value="true"
                     >
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div ng-show="is_installment" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall ng-hide">
+<div ng-show="is_split_transaction" ng-controller="InstallmentFormCtrl" class="animate-show animate-show-tall ng-hide">
     <div class="form-group">
         <label for="id_total_value" class="control-label">{% trans "Total value" %}</label>
         <div class="input-icon">
@@ -29,7 +29,7 @@
                     ng-change="updateTotalValue()"
                     currency-field
 
-                    ng-required="is_installment"
+                    ng-required="is_split_transaction"
 
                     autocomplete="off"
                     />
@@ -45,7 +45,7 @@
                     class="form-control"
 
                     ng-model="installment.installment_value"
-                    ng-required="is_installment"
+                    ng-required="is_split_transaction"
                     ng-change="updateInstallmentValue()"
                     currency-field
 
@@ -65,7 +65,7 @@
                     min="1"
 
                     ng-model="installment.installments"
-                    ng-required="is_installment"
+                    ng-required="is_split_transaction"
                     ng-pattern="/\d+/"
                     ng-change="updateQtyInstallments()"
 

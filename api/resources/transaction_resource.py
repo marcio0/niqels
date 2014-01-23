@@ -60,7 +60,7 @@ class TransactionResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         return super(TransactionResource, self).obj_create(bundle, user=bundle.request.user)
 
-    def put_detail(self, *args, **kwargs):
+    def __put_detail(self, *args, **kwargs):
         return http.HttpNotImplemented()
 
     def hydrate_value(self, bundle):

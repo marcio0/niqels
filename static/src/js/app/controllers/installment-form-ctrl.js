@@ -1,8 +1,8 @@
 function InstallmentFormCtrl ($scope) {
     "use strict";
 
-    $scope.$watch('is_installment', function selectInstallment (is_installment) {
-        if (is_installment) {
+    $scope.$watch('is_split_transaction', function selectInstallment (is_split_transaction) {
+        if (is_split_transaction) {
             $scope.installment.total_value = $scope.formData.value;
             $scope.updateTotalValue();
         }

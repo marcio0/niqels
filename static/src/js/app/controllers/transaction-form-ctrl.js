@@ -4,20 +4,22 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
     $scope.formData = {};
     $scope.selected_category = null;
     $scope.formData.date = moment();
+    $scope.isEditing = false;
 
     var resetForm = function resetForm () {
-        // only used on creating form
 
+        // only used on creating form
         $scope.sending = false;
         $scope.formData.description = '';
         $scope.formData.value = '';
-        $scope.category = '';
 
-        $scope.is_installment = false;
+        $scope.category = '';
+        $scope.is_split_transaction = false;
         $scope.installment = {
             installments: 1
         };
     };
+
 
     Category.query().$promise.then(function (result) {
         // adding a default option so angular won't freak out
@@ -27,21 +29,17 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
     });
 
     resetForm();
-
     if ($scope.editingTransaction) {
+        $scope.isEditing = true;
         $scope.formData = angular.copy($scope.editingTransaction);
         $scope.formData.category = $scope.editingTransaction.category.resource_uri;
-
-        if ($scope.editingTransaction.installment_of) {
-            $scope.is_installment = true;
-        }
     }
 
     function handleTransaction (data) {
         var promise;
 
-        if (data.id) {
-            promise = Transaction.save(data)
+        if ($scope.isEditing) {
+            promise = Transaction.update({id: data.id}, data)
                 .$promise.then(function (value) {
                     $rootScope.$emit('transaction-updated', value);
                     $scope.$hide();  // hiding the modal
@@ -49,7 +47,6 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
                 });
         }
         else{
-
             promise = Transaction.save(data)
                 .$promise.then(function (value) {
                     resetForm();
@@ -96,7 +93,7 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
                 transaction_data.date = transaction_data.date.format('DD/MM/YYYY');
             })();
 
-            if (!$scope.is_installment) {
+            if (!$scope.is_split_transaction) {
                 promise = handleTransaction(transaction_data);
             }
             else {
