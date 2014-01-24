@@ -45,7 +45,7 @@
         category: 1
         user: 1
         date: '2010-01-03'
-        created: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-00:00"
 
 -   model: expenses.Transaction
     pk: 2
@@ -54,7 +54,7 @@
         category: 1
         user: 1
         date: '2010-01-03'
-        created: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-00:00"
 
 -   model: expenses.Transaction
     pk: 3
@@ -63,4 +63,4 @@
         category: 3
         user: 2
         date: '2010-01-03'
-        created: "2010-01-01 00:00:00-03:00"
+        created: "2010-01-01 00:00:00-00:00"

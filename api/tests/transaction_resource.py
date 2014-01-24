@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from access.models import User
-from expenses.models import Transaction
+from expenses.models import Transaction, Category
 from api.resources.transaction_resource import _truncate_date_tzinfo
 
 
@@ -398,6 +398,7 @@ class TransactionResourceTest(ResourceTestCase):
         resp = self.api_client.get(detail_url, format='json', authentication=self.get_credentials())
         self.assertHttpNotFound(resp)
 
+
     # Detail tests: POST
     def test_post_detail_not_allowed(self):
         """
@@ -456,6 +457,24 @@ class TransactionResourceTest(ResourceTestCase):
         transaction = Transaction.objects.get(pk=self.transaction.id)
         self.assertEquals(transaction.value, Decimal('-50'))
 
+    def test_put_change_category(self):
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+        self.assertEquals(self.transaction.category_id, 1)
+
+        category_id = Category.objects.filter(is_negative=False)[0].id
+
+        data = {
+            'category': '/api/v1/category/%d' % category_id
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(transaction.category_id, category_id)
+
     def test_put_change_date(self):
         self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
 
@@ -513,6 +532,20 @@ class TransactionResourceTest(ResourceTestCase):
 
         transaction = Transaction.objects.get(pk=self.transaction.id)
         self.assertEquals(transaction.installment_of, None)
+
+    def test_put_cannot_change_created(self):
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+        self.assertEquals(self.transaction.created, timezone.make_aware(datetime.datetime(2010, 1, 1), timezone.utc))
+
+        data = {
+            'created': '11/11/2011'
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(self.transaction.created, timezone.make_aware(datetime.datetime(2010, 1, 1), timezone.utc))
 
     # Detail  tests: DELETE
     def test_delete_detail_unauthorized(self):
