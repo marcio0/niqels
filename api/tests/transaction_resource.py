@@ -413,12 +413,106 @@ class TransactionResourceTest(ResourceTestCase):
         """
         self.assertHttpUnauthorized(self.api_client.put(self.detail_url, format='json'))
 
-    def test_put_detail_not_implemented(self):
+    def test_put_detail_own_objects_only(self):
         """
-        Successful PUT to a detail endpoint.
+        A user can only edit his own transactions.
         """
-        self.assertHttpNotImplemented(self.api_client.put(self.detail_url, format='json', authentication=self.get_credentials()))
+        data = {}
+        url = '/api/v1/transatcions/3'
 
+        resp = self.api_client.put(url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpNotFound(resp)
+
+    def test_put_change_value(self):
+        """
+        A user can only edit his own transactions.
+        """
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = {
+            'value': '50'
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(transaction.value, Decimal('-50'))
+
+    def test_put_change_value(self):
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = {
+            'value': '50'
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(transaction.value, Decimal('-50'))
+
+    def test_put_change_date(self):
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = {
+            'date': '11/11/2011'
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(transaction.date, datetime.date(2011, 11, 11))
+
+    def test_put_change_description(self):
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = {
+            'description': 'this is a new description'
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(transaction.description, data['description'])
+
+    def test_put_cannot_change_user(self):
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+        self.assertEquals(self.transaction.user_id, 1)
+
+        data = {
+            'user_id': 1
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(transaction.user_id, 1)
+
+    def test_put_cannot_change_installment_of(self):
+        self.assertEquals(Transaction.objects.filter(user=self.user).count(), 2)
+        self.assertEquals(self.transaction.installment_of, None)
+
+        data = {
+            'installment_of': '/api/v1/split_transaction/2'
+        }
+
+        resp = self.api_client.put(self.detail_url, data=data, format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        transaction = Transaction.objects.get(pk=self.transaction.id)
+        self.assertEquals(transaction.installment_of, None)
 
     # Detail  tests: DELETE
     def test_delete_detail_unauthorized(self):

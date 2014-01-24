@@ -20,7 +20,6 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
         };
     };
 
-
     Category.query().$promise.then(function (result) {
         // adding a default option so angular won't freak out
         var c = {name: gettext('Select a category')};
@@ -29,6 +28,7 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
     });
 
     resetForm();
+
     if ($scope.editingTransaction) {
         $scope.isEditing = true;
         $scope.formData = angular.copy($scope.editingTransaction);
