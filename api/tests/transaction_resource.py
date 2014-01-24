@@ -254,6 +254,25 @@ class TransactionResourceTest(ResourceTestCase):
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
         self.assertEqual(Transaction.objects.get(pk=content['id']).value, Decimal(40))
 
+    def test_post_sending_user_data(self):
+        """
+        Sending user data on the request has no effect.
+        The transaction is always created for the logged user.
+        """
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        data['user'] = 2
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        content = self.deserialize(resp)
+
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 3)
+        self.assertEqual(Transaction.objects.get(pk=content['id']).user.id, self.user.id)
+
     def test_post_with_int_as_value(self):
         """
         The resource should also accept integer as a value.
