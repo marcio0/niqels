@@ -17,6 +17,8 @@ urlpatterns = patterns('',
     url(r'^admin panel/', include('admin_custom.urls', namespace="admin_custom", app_name="admin_custom")),
     url(r'^admin panel/', include(admin.site.urls)),
 
+    url(r'^plans/', include('plans.urls', namespace='plans', app_name='plans')),
+
     # webapp must be the last one
     # the fallback url goes to the webapp so the locationProvider can work on html5Mode
     url(r'^', include('webapp.urls')),

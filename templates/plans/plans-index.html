@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block body %}
+
+<h2 class="area-header">{% trans "Planos" %}</h2>
+
+<div class="panel panel-default center-panel">
+    <div class="panel-body">
+        {% include "plans/pagseguro-button.html" %}
+    </div>
+</div>
+{% endblock body %}
+
+
+
