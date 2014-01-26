@@ -15,6 +15,7 @@
 @import "../forms.less";
 @import "transaction-list.less";
 @import "reports.less";
+@import "plans.less";
 
 @import "../components/option-panel.less";
 @import "../components/hashtags.less";
@@ -171,7 +172,6 @@ body {
     margin-bottom: 25px;
 }
 
-
 .center-panel {
     .make-lg-column(4);
     .make-lg-column-offset(4);
@@ -181,7 +181,20 @@ body {
 
     .make-sm-column(6);
     .make-sm-column-offset(3);
+}
 
+.center-panel-large {
+    .make-lg-column(8);
+    .make-lg-column-offset(2);
+
+    .make-md-column(8);
+    .make-md-column-offset(2);
+
+    .make-sm-column(10);
+    .make-sm-column-offset(1);
+}
+
+.center-panel, .center-panel-large {
     background-color: @white;
     border-style: solid;
     box-shadow: 0 0 3px #ccc;

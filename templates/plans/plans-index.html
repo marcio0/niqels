@@ -6,11 +6,93 @@
 
 <h2 class="area-header">{% trans "Planos" %}</h2>
 
-<div class="panel panel-default center-panel">
+<div class="panel panel-default center-panel-large" id="plans">
     <div class="panel-body">
+        {% comment %}
         {% include "plans/pagseguro-button.html" %}
+        {% endcomment %}
+
+        <table class="table plans-info">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="plan-features"><h4>{% trans "Plano Gratuito" %}</h4></th>
+                    <th class="plan-features"><h4>{% trans "Plano Plus" %}</h4></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <h4>{% trans "Organização financeira" %}</h4>
+                        <p>{% blocktrans %}
+                            Cadastre suas movimentações.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Mobile" %}</h4>
+                        <p>{% blocktrans %}
+                            Controle suas finanças pelo nosso aplicativo Android ou através do site.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Relatórios" %}</h4>
+                        <p>{% blocktrans %}
+                            Veja gráficos que o ajudarão a entender seu comportamento financeiro.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Importação de dados" %}</h4>
+                        <p>{% blocktrans %}
+                            Adicione facilmente ao Niqels dados de outros serviços ou planilhas exportadas de seu Internet Banking.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-gear fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-gear fa-2x"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Planejamento financeiro" %}</h4>
+                        <p>{% blocktrans %}
+                            Controle seus gastos criando limites.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Diagnóstico financeiro" %}</h4>
+                        <p>{% blocktrans %}
+                            Descubra o que está impactando nas suas economias e como evitar gastos desnecessários.
+                        {% endblocktrans %}</p>
+                    </td>
+                    <td class="plan-features"></td>
+                    <td class="plan-features"><i class="fa fa-gear fa-2x"></td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
 </div>
+
 {% endblock body %}
 
 

@@ -8032,6 +8032,34 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+#plans table.plans-info {
+  border: 1px solid #cccccc;
+}
+#plans table.plans-info > tbody > tr:nth-child(odd) > td,
+#plans table.plans-info > tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+#plans table.plans-info > thead > tr > th,
+#plans table.plans-info > tbody > tr > th,
+#plans table.plans-info > tfoot > tr > th,
+#plans table.plans-info > thead > tr > td,
+#plans table.plans-info > tbody > tr > td,
+#plans table.plans-info > tfoot > tr > td {
+  border: 1px solid #cccccc;
+}
+#plans table.plans-info > thead > tr > th,
+#plans table.plans-info > thead > tr > td {
+  border-bottom-width: 2px;
+}
+#plans table.plans-info th.plan-features,
+#plans table.plans-info td.plan-features {
+  width: 125px;
+  text-align: center;
+  vertical-align: middle;
+}
+#plans table.plans-info tbody tr > td i.fa-check-circle-o {
+  color: #46a546;
+}
 .options-panel {
   background-color: transparent;
   border: 1px solid #e6e4eb;
@@ -8252,9 +8280,6 @@ body {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  background-color: #fdfdfd;
-  border-style: solid;
-  box-shadow: 0 0 3px #ccc;
 }
 @media (min-width: 1200px) {
   .center-panel {
@@ -8288,6 +8313,51 @@ body {
   .center-panel {
     margin-left: 25%;
   }
+}
+.center-panel-large {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 1200px) {
+  .center-panel-large {
+    float: left;
+    width: 66.66666666666666%;
+  }
+}
+@media (min-width: 1200px) {
+  .center-panel-large {
+    margin-left: 16.666666666666664%;
+  }
+}
+@media (min-width: 992px) {
+  .center-panel-large {
+    float: left;
+    width: 66.66666666666666%;
+  }
+}
+@media (min-width: 992px) {
+  .center-panel-large {
+    margin-left: 16.666666666666664%;
+  }
+}
+@media (min-width: 768px) {
+  .center-panel-large {
+    float: left;
+    width: 83.33333333333334%;
+  }
+}
+@media (min-width: 768px) {
+  .center-panel-large {
+    margin-left: 8.333333333333332%;
+  }
+}
+.center-panel,
+.center-panel-large {
+  background-color: #fdfdfd;
+  border-style: solid;
+  box-shadow: 0 0 3px #ccc;
 }
 hr {
   border-color: #807f88;

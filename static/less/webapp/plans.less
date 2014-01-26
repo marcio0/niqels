@@ -1,0 +1,24 @@
+#plans {
+    table.plans-info {
+        .table-striped();
+        .table-bordered();
+
+        th, td {
+            &.plan-features {
+                width: 125px;
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+
+        tbody {
+            tr > td {
+                i.fa-check-circle-o {
+                    color: @renevues;
+                }
+                i.fa-gear {
+                }
+            }
+        }
+    }
+}
