@@ -4,24 +4,28 @@
 
 {% block body %}
 
-<h2 class="area-header">{% trans "Planos" %}</h2>
+    <h2 class="area-header">{% trans "Planos" %}</h2>
 
-<div class="panel panel-default center-panel-large" id="plans">
-    <div class="panel-body">
-        {% comment %}
+    <div class="panel panel-default center-panel-large" id="plans">
+        <div class="panel-body">
+            {% comment %}
         {% include "plans/pagseguro-button.html" %}
         {% endcomment %}
 
-        <table class="table plans-info">
-            <thead>
+            <p class="lead">{% blocktrans %}
+                Assine agora o plano Plus por um preço promocional e tenha acesso ilimitado a todas as funcionalidades avançadas!
+            {% endblocktrans %}</p>
+
+            <table class="table plans-info">
+                <thead>
                 <tr>
                     <th></th>
                     <th class="plan-features"><h4>{% trans "Plano Gratuito" %}</h4></th>
                     <th class="plan-features"><h4>{% trans "Plano Plus" %}</h4></th>
                 </tr>
-            </thead>
+                </thead>
 
-            <tbody>
+                <tbody>
                 <tr>
                     <td>
                         <h4>{% trans "Organização financeira" %}</h4>
@@ -30,8 +34,8 @@
                         {% endblocktrans %}</p>
                     </td>
 
-                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
-                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
                 </tr>
                 <tr>
                     <td>
@@ -41,8 +45,8 @@
                         {% endblocktrans %}</p>
                     </td>
 
-                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
-                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
                 </tr>
                 <tr>
                     <td>
@@ -52,8 +56,8 @@
                         {% endblocktrans %}</p>
                     </td>
 
-                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
-                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
                 </tr>
                 <tr>
                     <td>
@@ -63,8 +67,8 @@
                         {% endblocktrans %}</p>
                     </td>
 
-                    <td class="plan-features"><i class="fa fa-gear fa-2x"></td>
-                    <td class="plan-features"><i class="fa fa-gear fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-gear fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-gear fa-2x"></i></td>
                 </tr>
                 <tr>
                     <td>
@@ -75,7 +79,7 @@
                     </td>
 
                     <td class="plan-features"></td>
-                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
                 </tr>
                 <tr>
                     <td>
@@ -85,13 +89,46 @@
                         {% endblocktrans %}</p>
                     </td>
                     <td class="plan-features"></td>
-                    <td class="plan-features"><i class="fa fa-gear fa-2x"></td>
+                    <td class="plan-features"><i class="fa fa-gear fa-2x"></i></td>
                 </tr>
+                </tbody>
+            </table>
 
-            </tbody>
-        </table>
+            {% if user.is_authenticated %}
+            <table class="table plans-signup">
+                <thead>
+                <tr>
+                    <td colspan="3">
+                        <h4>{% blocktrans %} Escolha o período de assinatura: {% endblocktrans %}</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="period">{% trans "1 mês" %}</p>
+                        <p class="price">{% trans "R$ 5,00" %}</p>
+                    </td>
+                    <td>
+                        <p class="period">{% trans "3 meses" %}</p>
+                        <p class="price">{% trans "R$ 15,00" %}</p>
+                    </td>
+                    <td>
+                        <p class="period">{% trans "6 meses" %}</p>
+                        <p class="price">{% trans "R$ 30,00" %}</p>
+                    </td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
+                    <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
+                    <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
     </div>
-</div>
 
 {% endblock body %}
 

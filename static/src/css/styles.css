@@ -8060,6 +8060,20 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
 #plans table.plans-info tbody tr > td i.fa-check-circle-o {
   color: #46a546;
 }
+#plans table.plans-signup td,
+#plans table.plans-signup th {
+  text-align: center;
+  vertical-align: middle;
+}
+#plans table.plans-signup thead tr:nth-child(2) td {
+  border: 0;
+}
+#plans table.plans-signup thead .period {
+  font-style: italic;
+}
+#plans table.plans-signup thead .price {
+  font-weight: bold;
+}
 .options-panel {
   background-color: transparent;
   border: 1px solid #e6e4eb;
