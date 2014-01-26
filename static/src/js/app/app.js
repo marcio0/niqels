@@ -4,12 +4,12 @@
 var app = angular.module('webapp', ['models', 'interceptor', 'ui.router', 'charts', 'ga', 'hashtags', 'ngAnimate', 'accounting', 'tutorial', 'mgcrea.ngStrap.modal'])
 
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
-        $urlRouterProvider.otherwise("/transactions");
+        $urlRouterProvider.otherwise("/movimentacoes");
 
         $stateProvider
             // Transaction list view.
             .state('transactions', {
-                url: "/transactions",
+                url: gettext("/movimentacoes"),
                 templateUrl: "/partials/transaction-list",
                 controller: "TransactionListCtrl"
             })
@@ -17,32 +17,32 @@ var app = angular.module('webapp', ['models', 'interceptor', 'ui.router', 'chart
             /*
             // Settings view.
             .state('settings', {
-                url: "/settings",
+                url: gettext("/configuracoes"),
                 templateUrl: "/partials/settings"
             })
             */
 
             // Reports view.
             .state('reports', {
-                url: "/reports",
+                url: gettext("/relatorios"),
                 templateUrl: "/partials/reports",
                 controller: "ReportsCtrl"
             })
             // Reports view -> balance report.
             .state('reports.balance', {
-                url: "/balance",
+                url: gettext("/balanco"),
                 templateUrl: "/partials/reports/balance",
                 controller: 'BalanceChartCtrl'
             })
             // Reports view -> top categories report.
             .state('reports.top-categories', {
-                url: "/top-categories",
+                url: gettext("/top-categorias"),
                 templateUrl: "/partials/reports/top-categories",
                 controller: 'TopCategoriesChartCtrl'
             })
             // Reports view -> category comparison report.
             .state('reports.category-comparison', {
-                url: "/category-comparison",
+                url: gettext("/comparacao-categorias"),
                 templateUrl: "/partials/reports/category-comparison",
                 controller: 'CategoryComparisonCtrl'
             })

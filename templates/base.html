@@ -45,11 +45,8 @@
             {% if user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{active: $state.includes('transactions')}" id="transaction-list-link"><a href="#/transactions">{% trans "Transactions" %}</a></li>
-                    <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a href="#/reports">{% trans "Reports" %}</a></li>
-                    {% comment %}
-                        <li ng-class="{active: $state.includes('settings')}" id="settings-link"><a href="#/settings">{% trans "Configurações" %}</a></li>
-                    {% endcomment %}
+                    <li ng-class="{active: $state.includes('transactions')}" id="transaction-list-link"><a href="/#/movimentacoes">{% trans "Transactions" %}</a></li>
+                    <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a href="/#/relatorios">{% trans "Reports" %}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% include "webapp/user-menu.html" %}
