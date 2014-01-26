@@ -92,40 +92,51 @@
                     <td class="plan-features"><i class="fa fa-gear fa-2x"></i></td>
                 </tr>
                 </tbody>
+
+                {% if not user.is_authenticated %}
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td colspan="2">{% blocktrans %}
+                            Crie sua conta gratuitamente e faça seu upgrade a qualquer momento!
+                        {% endblocktrans %}</td>
+                    </tr>
+                    </tfoot>
+                {% endif %}
             </table>
 
             {% if user.is_authenticated %}
-            <table class="table plans-signup">
-                <thead>
-                <tr>
-                    <td colspan="3">
-                        <h4>{% blocktrans %} Escolha o período de assinatura: {% endblocktrans %}</h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="period">{% trans "1 mês" %}</p>
-                        <p class="price">{% trans "R$ 5,00" %}</p>
-                    </td>
-                    <td>
-                        <p class="period">{% trans "3 meses" %}</p>
-                        <p class="price">{% trans "R$ 15,00" %}</p>
-                    </td>
-                    <td>
-                        <p class="period">{% trans "6 meses" %}</p>
-                        <p class="price">{% trans "R$ 30,00" %}</p>
-                    </td>
-                </tr>
-                </thead>
+                <table class="table plans-signup">
+                    <thead>
+                    <tr>
+                        <td colspan="3">
+                            <h4>{% blocktrans %} Escolha o período de assinatura: {% endblocktrans %}</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="period">{% trans "1 mês" %}</p>
+                            <p class="price">{% trans "R$ 5,00" %}</p>
+                        </td>
+                        <td>
+                            <p class="period">{% trans "3 meses" %}</p>
+                            <p class="price">{% trans "R$ 15,00" %}</p>
+                        </td>
+                        <td>
+                            <p class="period">{% trans "6 meses" %}</p>
+                            <p class="price">{% trans "R$ 30,00" %}</p>
+                        </td>
+                    </tr>
+                    </thead>
 
-                <tbody>
-                <tr>
-                    <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
-                    <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
-                    <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
-                </tr>
-                </tbody>
-            </table>
+                    <tbody>
+                    <tr>
+                        <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
+                        <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
+                        <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
+                    </tr>
+                    </tbody>
+                </table>
             {% endif %}
         </div>
     </div>

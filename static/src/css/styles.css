@@ -8057,8 +8057,16 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
   text-align: center;
   vertical-align: middle;
 }
+#plans table.plans-info thead > tr > th:nth-child(1) {
+  border-top: 1px solid #fdfdfd;
+  border-left: 1px solid #fdfdfd;
+}
 #plans table.plans-info tbody tr > td i.fa-check-circle-o {
   color: #46a546;
+}
+#plans table.plans-info tfoot tr td:nth-child(1) {
+  border-left: 1px solid #fdfdfd;
+  border-bottom: 1px solid #fdfdfd;
 }
 #plans table.plans-signup td,
 #plans table.plans-signup th {
