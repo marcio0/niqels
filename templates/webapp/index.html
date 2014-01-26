@@ -12,6 +12,22 @@
 {% endblock extrahead %}
 
 
+{% block webapp-menu %}
+    <div class="collapse navbar-collapse" id="navbar-menu">
+        <ul class="nav navbar-nav">
+            <li ng-class="{active: $state.includes('transactions')}" id="transaction-list-link"><a ui-sref="transactions">{% trans "Movimentações" %}</a></li>
+            <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a ui-sref="reports">{% trans "Relatórios" %}</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="navbar-link" href="{% url "plans:index" %}">{% trans "Faça upgrade na sua conta!" %}</a>
+            </li>
+            {% include "webapp/user-menu.html" %}
+        </ul>
+    </div>
+{% endblock webapp-menu %}
+
+
 {% block body %}
 
 <div class="row" ui-view role="transactions">

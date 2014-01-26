@@ -1,0 +1,43 @@
+{% if btn == 1 %}
+    {% comment %}
+        1 mês, 5 reais
+    {% endcomment %}
+
+    <!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
+    <form target="pagseguro" action="https://pagseguro.uol.com.br/v2/pre-approvals/request.html" method="post">
+        <!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
+        <input type="hidden" name="code" value="635952E6343447B994DC4FBB55F00653" />
+        <input type="image" src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
+    </form>
+    <!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+{% endif %}
+
+{% if btn == 2 %}
+    {% comment %}
+        3 meses, 15 reais
+    {% endcomment %}
+
+    <!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
+    <form target="pagseguro" action="https://pagseguro.uol.com.br/v2/pre-approvals/request.html" method="post">
+        <!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
+        <input type="hidden" name="code" value="CF13828B171745911444DFA7B830329A" />
+        <input type="image" src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
+    </form>
+    <!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+{% endif %}
+
+{% if btn == 3 %}
+    {% comment %}
+        6 meses, 30 reais
+    {% endcomment %}
+    
+    <!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
+    <form target="pagseguro" action="https://pagseguro.uol.com.br/v2/pre-approvals/request.html" method="post">
+        <!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
+        <input type="hidden" name="code" value="088760821515429774277F9F2E7CE82F" />
+        <input type="image" src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
+    </form>
+    <!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+{% endif %}
+
+

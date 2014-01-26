@@ -97,9 +97,12 @@
                     <tfoot>
                     <tr>
                         <td></td>
-                        <td colspan="2">{% blocktrans %}
-                            Crie sua conta gratuitamente e faça seu upgrade a qualquer momento!
-                        {% endblocktrans %}</td>
+                        <td colspan="2" class="plan-features">
+                            <a href="{% url "register" %}" class="btn btn-danger btn-block">{% trans "Criar conta" %}</a>
+                            <p>{% blocktrans %}
+                                Crie sua conta gratuitamente e faça upgrade a qualquer momento!
+                            {% endblocktrans %}</p>
+                        </td>
                     </tr>
                     </tfoot>
                 {% endif %}
@@ -131,9 +134,15 @@
 
                     <tbody>
                     <tr>
-                        <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
-                        <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
-                        <td><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/assinaturas/209x48-assinar-azul-assina.gif"></td>
+                        <td>
+                            {% include "plans/pagseguro-buttons.html" with btn=1 %}
+                        </td>
+                        <td>
+                            {% include "plans/pagseguro-buttons.html" with btn=2 %}
+                        </td>
+                        <td>
+                            {% include "plans/pagseguro-buttons.html" with btn=3 %}
+                        </td>
                     </tr>
                     </tbody>
                 </table>
