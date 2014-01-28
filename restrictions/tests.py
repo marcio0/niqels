@@ -162,3 +162,30 @@ class MonthRestrictionCreationTest(TestCase):
         self.assertEquals(mr.month, datetime.date(2013, 12, 1))
         self.assertEquals(mr.value, base.value)
         self.assertEquals(mr.baserestriction, base)
+
+
+class RestrictionSpentCalculationTest(TestCase):
+
+    def test_simple_sum(self):
+        base = BaseRestrictionFactory.create()
+        user = base.user
+        categ = base.category
+
+        t = expenses.models.Transaction(value=10, user=user, category=categ,
+                                        date=datetime.date(2013, 12, 1))
+        t.save()
+
+        t = expenses.models.Transaction(value=11, user=user, category=categ,
+                                        date=datetime.date(2013, 12, 15))
+        t.save()
+
+
+        t = expenses.models.Transaction(value=23, user=user, category=categ,
+                                        date=datetime.date(2013, 12, 31))
+        t.save()
+
+
+        mr = MonthRestriction.objects.get()
+        self.assertEquals(mr.spent, 44)
+
+

@@ -1,9 +1,11 @@
-import decimal
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db.models.signals import post_save
 import expenses.models
 import access.models
+import decimal
+import datetime
 
 
 class BaseRestriction(models.Model):
@@ -46,6 +48,19 @@ class MonthRestriction(models.Model):
         BaseRestriction,
         help_text=_('The base restriction from whom this one derives')
     )
+
+    @property
+    def spent(self):
+        min_date = self.month
+        max_date = (self.month + datetime.timedelta(days=32)).replace(day=1)
+        Transaction = expenses.models.Transaction
+        t = Transaction.objects.filter(date__gte=min_date,
+                                       date__lt=max_date,
+                                       user=self.baserestriction.user,
+                                       category=self.baserestriction.category)
+        result = t.aggregate(Sum('value'))
+        return result['value__sum']
+
 
     class Meta:
         unique_together = (('month', 'baserestriction'), )
