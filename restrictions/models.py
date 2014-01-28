@@ -1,6 +1,7 @@
 import decimal
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.db.models.signals import post_save
 import expenses.models
 import access.models
 
@@ -50,13 +51,34 @@ class MonthRestriction(models.Model):
         unique_together = (('month', 'baserestriction'), )
 
 
-def _create_month_restriction_signal(sender, instance):
-    month = instance.date
-    month.replace(day=1)
+def _create_month_restriction_signal(sender, instance, **kwargs):
+    """
+    Signal plugged-in Transaction object
+
+    This method creates a MonthRestriction everytime a transaction
+    is created in a given month, and there's a BaseRestriction for
+    the user creating it.
+    """
+    month = instance.date.replace(day=1)
     category = instance.category
+    user = instance.user
 
     try:
         mr = MonthRestriction.objects.get(month=month,
+                                          baserestriction__user=user,
                                           baserestriction__category=category)
-    except Exception, e:
-        pass
+        return
+    except MonthRestriction.DoesNotExist:
+        mr = None
+
+    try:
+        categ_rest = BaseRestriction.objects.get(category=category,
+                                                 user=user)
+        mr = MonthRestriction(month=month, value=categ_rest.value,
+                              baserestriction=categ_rest)
+        mr.save()
+    except BaseRestriction.DoesNotExist:
+        return
+
+post_save.connect(_create_month_restriction_signal,
+                  sender=expenses.models.Transaction)

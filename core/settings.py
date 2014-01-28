@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.messages',
     'expenses',
+    'restrictions',
     'access',
     'api',
     'password_reset',
