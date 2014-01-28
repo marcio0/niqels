@@ -8400,3 +8400,11 @@ hr {
 .modal-backdrop.animation-fade.ng-leave.ng-leave-active {
   opacity: 0;
 }
+img.img404,
+img.img500 {
+  height: 400px;
+  width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

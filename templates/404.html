@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block body %}
+<h1 class="text-center">{% blocktrans %}Ops, o link que você buscava não foi encontrado!{% endblocktrans %}</h1>
+<img src="{% static "img/niqels-404.png" %}" class="img404" />
+{% endblock %}
