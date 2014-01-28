@@ -179,13 +179,9 @@ class RestrictionSpentCalculationTest(TestCase):
                                         date=datetime.date(2013, 12, 15))
         t.save()
 
-
         t = expenses.models.Transaction(value=23, user=user, category=categ,
                                         date=datetime.date(2013, 12, 31))
         t.save()
 
-
         mr = MonthRestriction.objects.get()
         self.assertEquals(mr.spent, 44)
-
-

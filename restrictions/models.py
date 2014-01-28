@@ -61,7 +61,6 @@ class MonthRestriction(models.Model):
         result = t.aggregate(Sum('value'))
         return result['value__sum']
 
-
     class Meta:
         unique_together = (('month', 'baserestriction'), )
 
