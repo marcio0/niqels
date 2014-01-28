@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.db import models
 from django import forms
 from password_reset import forms as pr_forms
 
@@ -9,6 +8,12 @@ from access.models import User
 
 def validate_password(pwd):
     return 6 <= len(pwd) <= 30
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField()
+    email = forms.EmailField()
+    message = forms.CharField(widget=forms.Textarea)
 
 
 class PasswordResetForm(pr_forms.PasswordResetForm):

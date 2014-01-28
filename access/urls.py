@@ -2,14 +2,17 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib.auth.views import password_change
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic import TemplateView
 
 from access import views
 from password_reset import views as pr_views
+from access.views import ContactView
 
 urlpatterns = patterns('',
     url(_(r'^entrar/$'), 'django.contrib.auth.views.login', {'template_name': 'access/login.html'}, name="login"),
     url(_(r'^sair/$'), 'django.contrib.auth.views.logout_then_login', {'login_url': '/'}, name='logout'),
     url(_(r'^registrar/$'), views.register, name='register'),
+    url(_(r'^contato/$'), ContactView.as_view(), name='contact'),
 
     url(_(r'^mudar-senha/$'), views.notify(password_change), {
         'template_name': 'access/change_password.html',

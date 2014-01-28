@@ -149,7 +149,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.admin',
-    'django.contrib.messages',
     'plans',
     'expenses',
     'access',

@@ -1,13 +1,15 @@
+# encoding: utf-8
+
+from django.views.generic import FormView
 import logging
 
 from django.contrib.auth import get_user_model, login, authenticate
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context
@@ -15,11 +17,33 @@ from django.core.mail import send_mail
 
 from password_reset import views as pr_views
 
-from access.forms import UserCreationForm, PasswordRecoveryForm, PasswordResetForm
+from access.forms import UserCreationForm, PasswordRecoveryForm, PasswordResetForm, ContactForm
 from access.models import User
 
 
 logger = logging.getLogger('access')
+
+
+class ContactView(FormView):
+    template_name = 'access/contact.html'
+    form_class = ContactForm
+    success_url = '/contato'
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        subject, to = _(u'Email enviado através do formulário de contato (%s)') % data['name'], 'niqels@niqels.com.br'
+
+        message = data['message']
+        sender = data['email']
+
+        try:
+            send_mail(subject, message, sender, [to], fail_silently=False)
+            messages.success(self.request, _(u'Obrigado pelo contato, sua mensagem foi enviada. Responderemos em breve.'))
+        except Exception, e:
+            logger.warning('Error sending email: ' + str(e))
+            messages.error(self.request, _(u'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente mais tarde.'))
+
+        return super(ContactView, self).form_valid(form)
 
 
 def test_login(request):
@@ -59,7 +83,7 @@ class Reset(pr_views.Reset):
 
         try:
             pk = pr_views.signing.loads(kwargs['token'], max_age=self.token_expires,
-                               salt=self.salt)
+                                        salt=self.salt)
         except pr_views.signing.BadSignature as e:
             return self.invalid()
 
@@ -72,7 +96,7 @@ class Reset(pr_views.Reset):
             ctx.update({
                 'email': self.user.get_username(),
                 'token': self.kwargs['token'],
-            })
+                })
         return ctx
 
 
@@ -93,7 +117,7 @@ def _send_welcome_email(email, name):
         send_mail(subject, email_content, from_email, [to], fail_silently=False)
     except Exception, e:
         logger.warning('Error sending email: ' + str(e))
-    
+
 
 
 def register(request):

@@ -8,10 +8,3 @@ class UserQueryForm(forms.Form):
 
     title = forms.CharField(required=True)
     content = forms.CharField(required=True)
-
-
-
-
-
-
-
