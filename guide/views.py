@@ -24,7 +24,7 @@ TOPICS = (
             }),
 
             (_(u'Movimentações parceladas'), {
-                'anchor': _(u'movimentacoes-parceladas')
+                'anchor': _(u'movimentacao-parcelada')
             }),
 
             (_(u'Editando uma movimentação'), {
