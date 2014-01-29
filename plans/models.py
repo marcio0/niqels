@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 from django.db import models
+from django.db.models import Q
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from access.models import User
 
@@ -28,5 +30,7 @@ class Subscription(models.Model):
                              related_name='subscriptions')
 
 def _has_subscription(user):
-    return user.subscriptions.exists()
+    now = timezone.now()
+    q = Q(end_date__gte=now) | Q(end_date=None)
+    return user.subscriptions.filter(start_date__lte=now).filter(q)
 User.has_subscription = _has_subscription
