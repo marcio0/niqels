@@ -6,11 +6,11 @@
     <div class="left-column" id="guide-menu">
         <h4 class="area-header">{% trans "Tópicos" %}</h4>
         <ul>
-            {% for topic, topic_data in topics.items %}
+            {% for topic, topic_data in topics %}
                 <li>
                     <a href="{{ topic_data.url }}">{{ topic }}</a>
                     <ul>
-                        {% for subtopic, subtopic_data in topic_data.subtopics.items %}
+                        {% for subtopic, subtopic_data in topic_data.subtopics %}
                             <li>
                                 <a href="{{ topic_data.url }}#{{ subtopic_data.anchor }}">{{ subtopic }}</a>
                             </li>
@@ -19,9 +19,9 @@
                 </li>
             {% endfor %}
         </ul>
-
     </div>
-    <div class="content-column">
+
+    <div class="content-column" id="guide-content">
         {% block topic_content %}
         {% endblock %}
     </div>

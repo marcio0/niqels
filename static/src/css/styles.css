@@ -8092,6 +8092,21 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
 #plans table.plans-signup thead .price {
   font-weight: bold;
 }
+#guide-content img {
+  padding: 4px;
+  line-height: 1.428571429;
+  background-color: #fdfdfd;
+  border: 1px solid #dddddd;
+  border-radius: 0px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .options-panel {
   background-color: transparent;
   border: 1px solid #e6e4eb;

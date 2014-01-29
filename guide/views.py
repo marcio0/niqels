@@ -11,39 +11,49 @@ def get_topic(topic_name):
     }
 
 
-TOPICS = {
-    _(u'Movimentações'): {
+TOPICS = (
+    (_(u'Movimentações'), {
         'url': get_topic(_(u'movimentacoes')),
-        'subtopics': {
-            _(u'Criando sua primeira movimentação'): {
-                'anchor': _(u'primeira-movimentacao')
-            },
+        'subtopics': (
+            (_(u'Criando uma movimentação'), {
+                'anchor': _(u'criando-movimentacao')
+            }),
 
-            _(u'Editando uma movimentação'): {
+            (_(u'Categorias'), {
+                'anchor': _(u'categorias')
+            }),
+
+            (_(u'Movimentações parceladas'), {
+                'anchor': _(u'movimentacoes-parceladas')
+            }),
+
+            (_(u'Editando uma movimentação'), {
                 'anchor': _(u'editando-movimentacao')
-            }
-        }
-    },
+            }),
 
-    _(u'Relatórios'): {
+            (_(u'Removendo uma movimentação'), {
+                'anchor': _(u'removendo-movimentacao')
+            }),
+        )
+    }),
+
+    (_(u'Relatórios'), {
         'url': get_topic(_(u'relatorios')),
-        'subtopics': {
-            _(u'Balanço'): {
+        'subtopics': (
+            (_(u'Balanço'), {
                 'anchor': _(u'balanco')
-            },
+            }),
 
-            _(u'Top categorias'): {
+            (_(u'Top categorias'), {
                 'anchor': _(u'top-categorias')
-            },
+            }),
 
-            _(u'Comparação de categorias'): {
+            (_(u'Comparação de categorias'), {
                 'anchor': _(u'comparacao')
-            }
-
-        }
-    }
-
-}
+            })
+        )
+    })
+)
 
 
 class GuideIndex(TemplateView):
