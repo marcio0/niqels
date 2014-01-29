@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        build_name: 'script-<%= grunt.template.today("ssMMhhddmmyyyy") %>',
+        build_name: 'webapp-script-<%= grunt.template.today("ssMMhhddmmyyyy") %>',
 
         uglify: {
             options: {
@@ -183,7 +183,7 @@ module.exports = function(grunt) {
             options: {
                 patterns: [
                     {
-                        match: /script-(\d)+/,
+                        match: /webapp-script-(\d)+/,
                         replacement: '<%= build_name %>', // replaces "@@foo" to "bar"
                         expression: false   // simple variable lookup
                     }
