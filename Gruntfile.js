@@ -4,9 +4,11 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        build_name: 'script-<%= grunt.template.today("ssMMhhddmmyyyy") %>',
+
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                //banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
             },
             webapp: {
                 files: {
@@ -81,7 +83,7 @@ module.exports = function(grunt) {
                      *
                      * Webapp source code + dependencies.
                      */
-                    'static/dist/js/webapp.min.js': [
+                    'static/dist/js/<%= build_name %>.js': [
                         'static/dist/js/webapp-libs.min.tmp.js',
                         'static/dist/js/webapp-scripts.min.tmp.js'
                     ]
@@ -164,7 +166,7 @@ module.exports = function(grunt) {
 
         jshint: {
             options: {
-               '-W065': true,
+                '-W065': true,
                 globals: {
                     gettext: false,
                     toastr: false,
@@ -175,10 +177,26 @@ module.exports = function(grunt) {
                 }
             },
             all: ['static/src/js/app/**/*.js']
+        },
+
+        replace: {
+            options: {
+                patterns: [
+                    {
+                        match: /script-(\d)+/,
+                        replacement: '<%= build_name %>', // replaces "@@foo" to "bar"
+                        expression: false   // simple variable lookup
+                    }
+                ]
+            },
+            files: {
+                src: 'templates/webapp/index.html', dest: 'templates/webapp/index.html'
+            }
         }
 
     });
 
+    grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -195,7 +213,7 @@ module.exports = function(grunt) {
      * script.min.js            : the scripts for all pages (including the webapp).
      * webapp.min.js            : the entire webapp scripts, except global scripts.
      */
-    grunt.registerTask('build-webapp', 'Builds the whole javascript used in production.', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp']);
+    grunt.registerTask('build-webapp', 'Builds the whole javascript used in production.', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp', 'replace']);
 
     grunt.registerTask('makemessages', 'Make message files for both django and djangojs.', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
 
