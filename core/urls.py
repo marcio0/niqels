@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^', include('expenses.urls')),
     url(r'^', include('access.urls')),
     url(r'^api/', include('api.urls')),
+    url(_(r'^guia/'), include('guide.urls', namespace='guide', app_name='guide')),
 
     url(r'^admin panel/', include('admin_custom.urls', namespace="admin_custom", app_name="admin_custom")),
     url(r'^admin panel/', include(admin.site.urls)),

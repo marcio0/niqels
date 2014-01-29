@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block body %}
+    <div class="left-column" id="guide-menu">
+        <h4 class="area-header">{% trans "Tópicos" %}</h4>
+        <ul>
+            {% for topic, topic_data in topics.items %}
+                <li>
+                    <a href="{{ topic_data.url }}">{{ topic }}</a>
+                    <ul>
+                        {% for subtopic, subtopic_data in topic_data.subtopics.items %}
+                            <li>
+                                <a href="{{ topic_data.url }}#{{ subtopic_data.anchor }}">{{ subtopic }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="content-column">
+        {% block topic_content %}
+        {% endblock %}
+    </div>
+{% endblock %}
