@@ -12,9 +12,8 @@
         </h3>
         <p>
             {% blocktrans %}
-                Para criar uma movimentação, use o formulário à esquerda. Preencha a categoria e valor, e caso ache necessário, a descrição e data (por padrão é o dia de hoje).
-
-                Ao criar uma movimentação, seu balanço será atualizado com os novos dados.
+                Para criar uma movimentação, use o formulário à esquerda. Preencha a categoria e valor, e caso ache necessário, a descrição e data (por padrão é o dia de hoje). <br>
+                Ao criar uma movimentação, ela será adicionada à listagem ao lado, e seu balanço será atualizado com os novos dados.
             {% endblocktrans %}
         </p>
 
@@ -27,7 +26,7 @@
         </h3>
         <p>
             {% blocktrans %}
-                As categorias servem para definir o tipo de cada movimentação. Elas ajudam a mostrar para onde seu dinheiro está indo, e são vistas com clareza nos relatórios.
+                As categorias servem para definir o tipo de cada movimentação. Elas ajudam a mostrar para onde seu dinheiro está indo, e são vistas com clareza nos relatórios. <br>
                 ** explicar categorias
             {% endblocktrans %}
         </p>
@@ -48,7 +47,9 @@
         </h3>
         <p>
             {% blocktrans %}
-                Uma movimentação parcelada se divide igualmente entre o número de meses especificado. Por exemplo, ao parcelar em 5 vezes uma compra no valor de R$ 500,00, serão criadas 5 movimentações de R$ 110,00, sendo a primeira no dia especificado, e as outras nos meses seguintes, sempre no mesmo dia do mês.
+                Uma movimentação parcelada se divide igualmente entre o número de meses especificado. Por exemplo, ao parcelar em 5 vezes uma compra no valor de R$ 500,00, serão criadas 5 movimentações de R$ 110,00, sendo a primeira no dia especificado, e as outras nos meses seguintes, sempre no mesmo dia do mês. <br>
+                Para criar uma movimentação parcelada, marque a caixa de seleção "<i>Esta é uma compra parcelada</i>". Campos adicionais irão surgir para especificar quantidade e valor das parcelas.
+
             {% endblocktrans %}
         </p>
         <img src="{% static "img/guide/split-transaction-form.PNG" %}"/>
@@ -87,7 +88,7 @@
                 Também é possível remover a movimentação através da janela de edição.
             {% endblocktrans %}
         </p>
-        <img src="{% static "img/guide/edit-transaction.PNG" %}"/>
+        <img src="{% static "img/guide/remove-transaction.PNG" %}"/>
     </section>
 
 {% endblock %}

@@ -1,7 +1,38 @@
 
+#guide-menu {
+    .topic {
+        margin-bottom: 2em;
+        list-style: none;
+
+
+        > a {
+            font-weight: bold;
+            font-size: @font-size-base + 2;
+        }
+
+        .subtopic {
+            margin-bottom: 0.5em;
+        }
+    }
+
+    .affix {
+        top: 0px;
+    }
+}
+
 #guide-content {
+
+    section {
+        h3 {
+            margin-top: 50px;
+        }
+
+    }
+
     img {
         .img-thumbnail();
         .center-block();
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
 }

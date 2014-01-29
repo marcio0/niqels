@@ -8092,6 +8092,23 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
 #plans table.plans-signup thead .price {
   font-weight: bold;
 }
+#guide-menu .topic {
+  margin-bottom: 2em;
+  list-style: none;
+}
+#guide-menu .topic > a {
+  font-weight: bold;
+  font-size: 15px;
+}
+#guide-menu .topic .subtopic {
+  margin-bottom: 0.5em;
+}
+#guide-menu .affix {
+  top: 0px;
+}
+#guide-content section h3 {
+  margin-top: 50px;
+}
 #guide-content img {
   padding: 4px;
   line-height: 1.428571429;
@@ -8106,6 +8123,8 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .options-panel {
   background-color: transparent;

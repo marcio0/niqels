@@ -4,14 +4,15 @@
 
 {% block body %}
     <div class="left-column" id="guide-menu">
+        <div class="affix-wrapper">
         <h4 class="area-header">{% trans "Tópicos" %}</h4>
-        <ul>
+        <ul class="topics">
             {% for topic, topic_data in topics %}
-                <li>
+                <li class="topic">
                     <a href="{{ topic_data.url }}">{{ topic }}</a>
-                    <ul>
+                    <ul class="subtopics">
                         {% for subtopic, subtopic_data in topic_data.subtopics %}
-                            <li>
+                            <li class="subtopic">
                                 <a href="{{ topic_data.url }}#{{ subtopic_data.anchor }}">{{ subtopic }}</a>
                             </li>
                         {% endfor %}
@@ -19,10 +20,23 @@
                 </li>
             {% endfor %}
         </ul>
+        </div>
     </div>
 
     <div class="content-column" id="guide-content">
         {% block topic_content %}
         {% endblock %}
     </div>
+
+    <script type="text/javascript">
+        $(function () {
+            var affix = $('.affix-wrapper');
+            var top = affix.offset().top;
+            var width = affix.width();
+            affix.css('width', width)
+            affix.affix({
+                offset: {top: top}
+            });
+        });
+    </script>
 {% endblock %}
