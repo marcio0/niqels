@@ -21,12 +21,15 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a class="navbar-link" href="{% url 'guide:index' %}">{% trans "Guia" %}</a>
+            {% comment %}
                 {% if user.has_subscription %}
                 <a class="navbar-link">{% trans "Plano Plus" %} <i class="fa fa-check"></i></a>
                 {% else %}
                 <a class="navbar-link" href="{% url "plans:index" %}">{% trans "Faça upgrade na sua conta!" %}</a>
                 {% endif %}
+            {% endcomment %}
             </li>
+
             {% include "webapp/user-menu.html" %}
         </ul>
     </div>
