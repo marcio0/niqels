@@ -5,26 +5,39 @@
 {% block body %}
     <div class="left-column" id="guide-menu">
         <div class="affix-wrapper">
-        <h4 class="area-header">{% trans "Tópicos" %}</h4>
-        <ul class="topics">
-            {% for topic, topic_data in topics %}
-                <li class="topic">
-                    <a href="{{ topic_data.url }}">{{ topic }}</a>
-                    <ul class="subtopics">
-                        {% for subtopic, subtopic_data in topic_data.subtopics %}
-                            <li class="subtopic">
-                                <a href="{{ topic_data.url }}#{{ subtopic_data.anchor }}">{{ subtopic }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-        </ul>
+            <h4 class="area-header">{% trans "Tópicos" %}</h4>
+            <ul class="topics">
+                {% for topic, topic_data in topics %}
+                    <li class="topic">
+                        <a href="{{ topic_data.url }}">{{ topic }}</a>
+                        <ul class="subtopics">
+                            {% for subtopic, subtopic_data in topic_data.subtopics %}
+                                <li class="subtopic">
+                                    <a href="{{ topic_data.url }}#{{ subtopic_data.anchor }}">{{ subtopic }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 
     <div class="content-column" id="guide-content">
         {% block topic_content %}
+            <section>
+                <h3>
+                    {% trans "Seja bem vindo ao guia do usuário!" %}
+                </h3>
+                <p>
+                    {% url 'contact' as contact_url %}
+
+                    {% blocktrans %}
+                            Este guia irá apresentar as funcionalidades no Niqels. Use-o para aprender rapidamente como usar o site, ou como referência em caso de dúvidas. <br>
+                        Caso queira saber mais, <a href="{{ contact_url }}">contate-nos</a>!
+                    {% endblocktrans %}
+                </p>
+            </section>
         {% endblock %}
     </div>
 
