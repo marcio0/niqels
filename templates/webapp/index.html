@@ -21,13 +21,13 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a class="navbar-link" href="{% url 'guide:index' %}">{% trans "Guia" %}</a>
-            {% comment %}
+            </li>
+            <li>
                 {% if user.has_subscription %}
                 <a class="navbar-link">{% trans "Plano Plus" %} <i class="fa fa-check"></i></a>
                 {% else %}
                 <a class="navbar-link" href="{% url "plans:index" %}">{% trans "Faça upgrade na sua conta!" %}</a>
                 {% endif %}
-            {% endcomment %}
             </li>
 
             {% include "webapp/user-menu.html" %}
@@ -127,7 +127,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
     <script src="http://code.angularjs.org/1.2.3/angular-animate.min.js"></script>
 
-    <script src="{% static "js/webapp-script-30441230012014.js" %}"></script>
+    <script src="{% static "js/webapp-script-05450230012014.js" %}"></script>
 
 {% endif %}
 
