@@ -20,6 +20,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
+                <a class="navbar-link" href="{% url 'guide:index' %}">{% trans "Guia" %}</a>
                 {% if user.has_subscription %}
                 <a class="navbar-link">{% trans "Plano Plus" %} <i class="fa fa-check"></i></a>
                 {% else %}

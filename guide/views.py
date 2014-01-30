@@ -37,22 +37,22 @@ TOPICS = (
         )
     }),
 
-    (_(u'Relatórios'), {
-        'url': get_topic(_(u'relatorios')),
-        'subtopics': (
-            (_(u'Balanço'), {
-                'anchor': _(u'balanco')
-            }),
+    #(_(u'Relatórios'), {
+    #    'url': get_topic(_(u'relatorios')),
+    #    'subtopics': (
+    #        (_(u'Balanço'), {
+    #            'anchor': _(u'balanco')
+    #        }),
 
-            (_(u'Top categorias'), {
-                'anchor': _(u'top-categorias')
-            }),
+    #        (_(u'Top categorias'), {
+    #            'anchor': _(u'top-categorias')
+    #        }),
 
-            (_(u'Comparação de categorias'), {
-                'anchor': _(u'comparacao')
-            })
-        )
-    })
+    #        (_(u'Comparação de categorias'), {
+    #            'anchor': _(u'comparacao')
+    #        })
+    #    )
+    #})
 )
 
 
