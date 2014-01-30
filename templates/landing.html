@@ -53,8 +53,8 @@
                         <li><a href="{% url "guide:index" %}">{% trans "Guia" %}</a></li>
                         <li><a href="{% url "plans:index" %}">{% trans "Planos" %}</a></li>
                         <li><a href="{% url "contact" %}">{% trans "Contato" %}</a></li>
-                        <li><a href="{% url "login" %}">{% trans "Login" %}</a></li>
-                        <li><a class="register-link" href="{% url "register" %}">{% trans "Create account" %}</a></li>
+                        <li><a href="{% url "login" %}" class="important">{% trans "Login" %}</a></li>
+                        <li><a class="register-link important" href="{% url "register" %}">{% trans "Create account" %}</a></li>
                     </ul>
                 </div>
             </div>

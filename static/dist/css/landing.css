@@ -6648,6 +6648,8 @@ body {
 }
 #navbar #navbar-links a {
   text-decoration: none;
+}
+#navbar #navbar-links a.important {
   font-weight: bold;
 }
 .register-link {
