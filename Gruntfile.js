@@ -4,7 +4,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        build_name: 'webapp-script-<%= grunt.template.today("ssMMhhddmmyyyy") %>',
+        build_name: '<%= grunt.template.today("ssMMhhddmmyyyy") %>',
+        webapp_script_name: 'webapp-script-<%= build_name %>',
+        css_name: 'styles-<%= build_name %>',
 
         uglify: {
             options: {
@@ -83,7 +85,7 @@ module.exports = function(grunt) {
                      *
                      * Webapp source code + dependencies.
                      */
-                    'static/dist/js/<%= build_name %>.js': [
+                    'static/dist/js/<%= webapp_script_name %>.js': [
                         'static/dist/js/webapp-libs.min.tmp.js',
                         'static/dist/js/webapp-scripts.min.tmp.js'
                     ]
@@ -184,7 +186,7 @@ module.exports = function(grunt) {
                 patterns: [
                     {
                         match: /webapp-script-(\d)+/,
-                        replacement: '<%= build_name %>', // replaces "@@foo" to "bar"
+                        replacement: '<%= webapp_script_name %>', // replaces "@@foo" to "bar"
                         expression: false   // simple variable lookup
                     }
                 ]
