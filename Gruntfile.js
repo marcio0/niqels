@@ -4,10 +4,6 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        build_name: '<%= grunt.template.today("ssMMhhddmmyyyy") %>',
-        webapp_script_name: 'webapp-script-<%= build_name %>',
-        css_name: 'styles-<%= build_name %>',
-
         uglify: {
             options: {
                 //banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
@@ -85,7 +81,7 @@ module.exports = function(grunt) {
                      *
                      * Webapp source code + dependencies.
                      */
-                    'static/dist/js/<%= webapp_script_name %>.js': [
+                    'static/dist/js/webapp-scripts.js': [
                         'static/dist/js/webapp-libs.min.tmp.js',
                         'static/dist/js/webapp-scripts.min.tmp.js'
                     ]
@@ -155,7 +151,7 @@ module.exports = function(grunt) {
             webapp: {
                 files: [
                     {src: 'img/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
-                    {src: 'css/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
+                    //{src: 'css/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
                     {src: 'fonts/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
                 ]
             },
@@ -166,36 +162,38 @@ module.exports = function(grunt) {
             }
         },
 
-        jshint: {
+        cssmin: {
             options: {
-                '-W065': true,
-                globals: {
-                    gettext: false,
-                    toastr: false,
-                    angular: false,
-                    $: false,
-                    Highcharts: false,
-                    moment: false
+            },
+            landing: {
+                files: {
+                    'static/dist/css/landing.css': ['static/src/css/landing.css']
                 }
             },
-            all: ['static/src/js/app/**/*.js']
+            webapp: {
+                files: {
+                    'static/dist/css/styles.css': ['static/src/css/bootstrap-select.css', 'static/src/css/styles.css']
+                }
+            }
         },
 
         replace: {
             options: {
                 patterns: [
                     {
-                        match: /webapp-script-(\d)+/,
-                        replacement: '<%= webapp_script_name %>', // replaces "@@foo" to "bar"
-                        expression: false   // simple variable lookup
+                        match: /\?rel=(\d+)/,
+                        replacement: '?rel=<%= new Date().getTime() %>',
+                        expression: false
                     }
                 ]
             },
-            files: {
-                src: 'templates/webapp/index.html', dest: 'templates/webapp/index.html'
+            webapp: {
+                files: [
+                    {src: ['templates/webapp/index.html'], dest: 'templates/webapp/index.html'},
+                    {src: ['templates/landing.html'], dest: 'templates/landing.html'}
+                ]
             }
         }
-
     });
 
     grunt.loadNpmTasks('grunt-replace');
@@ -206,7 +204,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-exec');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     /*
      * Task: buildjs
@@ -215,7 +213,7 @@ module.exports = function(grunt) {
      * script.min.js            : the scripts for all pages (including the webapp).
      * webapp.min.js            : the entire webapp scripts, except global scripts.
      */
-    grunt.registerTask('build-webapp', 'Builds the whole javascript used in production.', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp', 'replace']);
+    grunt.registerTask('build-webapp', 'Builds the whole javascript used in production.', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp', 'cssmin', 'replace']);
 
     grunt.registerTask('makemessages', 'Make message files for both django and djangojs.', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
 
