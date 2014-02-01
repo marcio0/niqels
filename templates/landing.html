@@ -1,5 +1,7 @@
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
+
+{% get_static_prefix as static %}
 <!DOCTYPE html>
 <html lang="en">
       <head>
@@ -7,12 +9,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="shortcut icon" href="{% static "ico/favicon.ico" %}">
+        <link rel="shortcut icon" href="{{ static }}ico/favicon.ico" %}">
     
         <title>Niqels</title>
     
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" type="text/css" href="/static/css/landing.css?rel=1391218245901" />
+        <link rel="stylesheet" type="text/css" href="/static/css/landing.css?rel=1391226690446" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -33,7 +35,7 @@
         <div class="navbar navbar-default" role="navigation" id="navbar">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="" href="#"><img src="{% static "img/niqels-rgb.png" %}" id="logo"></a>
+                    <a class="" href="#"><img src="{{static}}img/niqels-rgb.png" id="logo"></a>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-links">
                         <span class="icon icon-bar"></span>
                         <span class="icon icon-bar"></span>
@@ -71,7 +73,7 @@
                         <div class="panel panel-default">
 
                             <div class="panel-heading">
-                                <img class="img-circle img-thumbnail img-responsive" src="{% static "img/thumbnails/categories.png" %}">
+                                <img class="img-circle img-thumbnail img-responsive" src="{{ static }}img/thumbnails/categories.png" %}">
 
                                 <h4 class="panel-title">
                                     Fácil de usar
@@ -88,7 +90,7 @@
                         <div class="panel panel-default">
 
                             <div class="panel-heading">
-                                <img class="img-circle img-thumbnail img-responsive" src="{% static "img/thumbnails/balance.png" %}">
+                                <img class="img-circle img-thumbnail img-responsive" src="{{ static }}img/thumbnails/balance.png" %}">
 
                                 <h4 class="panel-title">
                                     Veja seu histórico
@@ -107,7 +109,7 @@
                         <div class="panel panel-default">
 
                             <div class="panel-heading">
-                                <img class="img-circle img-thumbnail img-responsive" src="{% static "img/thumbnails/android-logo.png" %}">
+                                <img class="img-circle img-thumbnail img-responsive" src="{{ static }}img/thumbnails/android-logo.png" %}">
                                 <h4 class="panel-title">
                                     Use nosso aplicativo Android
                                 </h4>
@@ -126,7 +128,7 @@
                         <div class="panel panel-default">
 
                             <div class="panel-heading">
-                                <img class="img-circle img-thumbnail img-responsive" src="{% static "img/thumbnails/compare.png" %}">
+                                <img class="img-circle img-thumbnail img-responsive" src="{{ static }}img/thumbnails/compare.png" %}">
                                 <h4 class="panel-title">
                                     Controle suas finanças
                                 </h4>
@@ -143,7 +145,7 @@
                         <div class="panel panel-default">
 
                             <div class="panel-heading">
-                                <img class="img-circle img-thumbnail img-responsive" src="{% static "img/logo-squared.png" %}">
+                                <img class="img-circle img-thumbnail img-responsive" src="{{ static }}img/logo-squared.png" %}">
 
                                 <h4 class="panel-title">
                                     Crie sua conta - é gratis!
@@ -173,7 +175,7 @@
                         compras no meio da tarde, que fazem seu dinheiro sumir no fim do mês.</p>
                     </div> <!-- .panel-and-img -->
                     <div class="img-ilustra-01 pull-right col-sm-5 col-md-5 col-md-push-1 col-lg-5 hidden-xs">
-                        <img class="img-responsive" src="{% static "img/01.png" %}" />
+                        <img class="img-responsive" src="{{ static }}img/01.png" %}" />
                     </div> <!-- .pull-right -->
                 </div> <!-- .panel-and-img-all -->
             </div> <!-- .marketing -->
@@ -190,7 +192,7 @@
                         objetivos.</p>
                     </div>  <!-- .panel-and-img -->
                     <div class="img-ilustra col-sm-5 col-md-5 col-lg-6 hidden-xs">
-                        <img class="img-responsive" src="{% static "img/02.png" %}" />
+                        <img class="img-responsive" src="{{ static }}img/02.png" %}" />
                     </div> <!-- .pull-right -->
                 </div>  <!-- .panel-and-img-all -->
             </div>  <!-- .marketing -->
@@ -204,10 +206,10 @@
         </div>
         
         {% if is_debug %}
-        <script src="{% static "js/lib/jquery-1.10.2.js" %}"></script>
-        <script src="{% static "js/lib/bootstrap.js" %}"></script>
+        <script src="{{ static }}js/lib/jquery-1.10.2.js" %}"></script>
+        <script src="{{ static }}js/lib/bootstrap.js" %}"></script>
         {% else %}
-        <script src="{% static "js/script.min.js" %}"></script>
+        <script src="{{ static }}js/script.min.js" %}"></script>
         {% endif %}
         <script src="{% url "django.views.i18n.javascript_catalog" %}" type="text/javascript"></script>
 

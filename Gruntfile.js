@@ -143,7 +143,7 @@ module.exports = function(grunt) {
                 }
             },
             foreman: {
-                command: 'python manage.py collectstatic --noinput; foreman start --port 8001'
+                command: 'python manage.py collectstatic --noinput; foreman start --port 8000'
             }
         },
 
@@ -151,7 +151,6 @@ module.exports = function(grunt) {
             webapp: {
                 files: [
                     {src: 'img/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
-                    //{src: 'css/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
                     {src: 'fonts/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
                 ]
             },
@@ -164,6 +163,7 @@ module.exports = function(grunt) {
 
         cssmin: {
             options: {
+                keepSpecialComments: 0
             },
             landing: {
                 files: {
@@ -172,7 +172,7 @@ module.exports = function(grunt) {
             },
             webapp: {
                 files: {
-                    'static/dist/css/styles.css': ['static/src/css/bootstrap-select.css', 'static/src/css/styles.css']
+                    'static/dist/css/styles.css': ['static/src/css/styles.css', 'static/src/css/bootstrap-select.css']
                 }
             }
         },
@@ -220,7 +220,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('testserver', 'Runs the django testserver on port 8002 and loading the `testserver_data.yaml` fixture.', ['exec:testserver']);
 
-    grunt.registerTask('foreman', 'Colect static files and runs foreman on port 8001.', ['exec:foreman']);
+    grunt.registerTask('foreman', 'Colect static files and runs foreman on port 8000.', ['exec:foreman']);
 
     grunt.registerTask('patch-settings', 'Patches the local settings file with a file in the `core/dev_settings` folder.', ['clean:local_settings', 'copy:local_settings']);
 };

@@ -1,8 +1,10 @@
 {% load template_additions %}
 {% smart_spaceless %}
 
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
+
+{% get_static_prefix as static %}
 
 <!DOCTYPE html>
 <html>
@@ -10,14 +12,17 @@
         <title>{{ SITE_NAME }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" type="text/css" href="/static/css/styles.css?rel=1391218245901" />
-        <link rel="icon" href="/static/landing/ico/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="{{static}}css/styles.css?rel=1391226690446" />
+        <link rel="icon" href="{{static}}landing/ico/favicon.ico">
+        {% if is_debug %}
+        <link rel="stylesheet" type="text/css" href="{{ static }}css/bootstrap-select.css" />
+        {% endif %}
 
         {% if is_debug %}
-        <script src="{% static "js/lib/jquery-1.10.2.js" %}"></script>
-        <script src="{% static "js/lib/bootstrap.js" %}"></script>
+        <script src="{{ static }}js/lib/jquery-1.10.2.js"></script>
+        <script src="{{ static }}js/lib/bootstrap.js"></script>
         {% else %}
-        <script src="{% static "js/script.min.js" %}"></script>
+        <script src="{{ static }}js/script.min.js"></script>
         {% endif %}
         <script src="{% url "django.views.i18n.javascript_catalog" %}" type="text/javascript"></script>
 
@@ -29,7 +34,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="{% url "index" %}">
-                    <img src="{% static "img/niqels-logo-hor.png" %}" class="brand-logo">
+                    <img src="{{static}}img/niqels-logo-hor.png" class="brand-logo">
                 </a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="icon icon-bar"></i>

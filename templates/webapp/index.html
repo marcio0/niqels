@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
 {% load static %}
-{% load humanize %}
 {% load i18n %}
 
 {% block webapp-menu %}
@@ -70,6 +68,7 @@
 
 
 {% block bodyend %}
+    {% get_static_prefix as static_path %}  
 
     {% if is_debug %}
 
@@ -78,7 +77,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
     {% endcomment %}
 
-        {% get_static_prefix as static_path %}
+
 
         {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" locales=static_path|add:"js/locales/" %}
 
@@ -129,7 +128,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
         <script src="http://code.angularjs.org/1.2.3/angular-animate.min.js"></script>
 
-        <script src="{% static "js/webapp-scripts.js?rel=1391218245901" %}"></script>
+        <script src="{{static_path}}js/webapp-scripts.js?rel=1391226690446"></script>
 
     {% endif %}
 
