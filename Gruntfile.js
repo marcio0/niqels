@@ -190,6 +190,7 @@ module.exports = function(grunt) {
             webapp: {
                 files: [
                     {src: ['templates/webapp/index.html'], dest: 'templates/webapp/index.html'},
+                    {src: ['templates/base.html'], dest: 'templates/base.html'},
                     {src: ['templates/landing.html'], dest: 'templates/landing.html'}
                 ]
             }
