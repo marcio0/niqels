@@ -7995,6 +7995,9 @@ table.transaction-table thead .action-bar-header {
 table.transaction-table tr.transaction-row {
   cursor: pointer;
 }
+table.transaction-table tr.transaction-row:hover {
+  text-decoration: underline;
+}
 table.transaction-table tr.transaction-row td {
   border: 0;
 }
