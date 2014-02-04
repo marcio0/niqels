@@ -8014,6 +8014,62 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
   padding-bottom: 75px;
   text-align: center;
 }
+.threshold-indicator {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  display: inline-block;
+}
+.threshold-indicator-10 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -200px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-9 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -180px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-8 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -160px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-7 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -140px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-6 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -120px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-5 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -100px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-4 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -80px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-3 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -60px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-2 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -40px;
+  background-repeat: no-repeat;
+}
+.threshold-indicator-1 {
+  background-image: url('/static/img/sprites/foo.png');
+  background-position: 0 -20px;
+  background-repeat: no-repeat;
+}
 #reports #period-form {
   position: relative;
   min-height: 1px;

@@ -171,3 +171,26 @@ table.transaction-table {
     padding-bottom: 75px;
     text-align: center;
 }
+
+.threshold-indicator {
+    width: 20px; height: 20px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+@total: 10;
+
+.loopingClassThreshold (@index) when (@index > 0) {
+
+    .threshold-indicator-@{index} {
+            background-image: url('/static/img/sprites/foo.png');
+            background-position: 0 -(@index * 20px);
+            background-repeat: no-repeat;
+    }
+
+    // next iteration
+    .loopingClassThreshold(@index - 1);
+}
+
+.loopingClassThreshold (0) {}
+.loopingClassThreshold (@total);

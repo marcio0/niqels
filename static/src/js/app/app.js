@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-var app = angular.module('webapp', ['models', 'interceptor', 'ui.router', 'charts', 'ga', 'hashtags', 'ngAnimate', 'accounting', 'tutorial', 'mgcrea.ngStrap.modal'])
+var app = angular.module('webapp', ['models', 'interceptor', 'ui.router', 'charts', 'ga', 'hashtags', 'ngAnimate', 'accounting', 'tutorial', 'mgcrea.ngStrap.modal', 'mgcrea.ngStrap.popover', 'mgcrea.ngStrap.tooltip'])
 
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
         $urlRouterProvider.otherwise("/transactions");

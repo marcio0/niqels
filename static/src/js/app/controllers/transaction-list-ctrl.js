@@ -167,3 +167,35 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
 }
 
 TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction', '$modal'];
+
+function ThresholdCtrl($scope, $popover, $element) {
+
+
+    $popover($element, {
+        trigger: 'click',
+        contentTemplate: 'threshold/popover_content.tpl.html'
+    });
+
+
+    $scope.style_threshold_completion = function (category) {
+
+        // HxC
+        category.threshold = {
+            value: 1000,
+            completion: 900
+        }
+
+
+        var threshold = category.threshold,
+            percent_completion;
+
+        if (!threshold) return;
+
+        percent_completion = threshold.completion / threshold.value;
+        percent_completion = Math.round(percent_completion * 10);
+        return "threshold-indicator-" + percent_completion;
+    }
+
+}
+
+ThresholdCtrl.$inject = ['$scope', '$popover', '$element'];
