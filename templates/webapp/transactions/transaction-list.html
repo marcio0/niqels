@@ -87,14 +87,7 @@
                     <h4 class="panel-title">
                         <a ng-bind="group.name"></a>
 
-                        <span ng-controller="ThresholdCtrl">
-                            <div
-                                class="threshold-indicator"
-
-                                ng-class="style_threshold_completion(group)">
-                                &nbsp;
-                            </div>
-                        </span>
+                        <span threshold-indicator="group"></span>
 
                         <span class="group-total pull-right" ng-bind="group.total | currency" is-positive-class="group.total"></span>
                     </h4>
@@ -250,8 +243,14 @@
 
 
 <script type="text/ng-template" id="threshold/popover_content.tpl.html">
-    <span>
-        <p>foo</p>
-        <p>{{name}}</p>
+    <span ng-if="category.threshold">
+        <p> Limite de gastos com <strong>((category.name))</strong> </p>
+        <a href="#">Alterar limite</a>
+        <a href="#" ng-click="category.threshold = null">Remover limite</a>
+    </span>
+
+    <span ng-if="!category.threshold">
+        <p> Criar um limite de gastos </p>
+        <button ng-click="category.threshold = {value: 1000, completion: 0}">Salvar</button>
     </span>
 </script>

@@ -271,5 +271,44 @@
             };
         }])
 
+        .directive('thresholdIndicator', ['$popover', function ($popover) {
+            return {
+                template: '<div class="threshold-indicator" ng-class="style_threshold_completion(group)">&nbsp;</div>',
+                scope: {
+                    category: '=thresholdIndicator'
+                },
+                link: function ($scope, $element, attributes) {
+
+                    // HxC
+                    $scope.category.threshold = {
+                        value: 1000,
+                        completion: 900
+                    };
+
+                    $popover($element, {
+                        trigger: 'click',
+                        container: 'body',
+                        scope: $scope,
+                        contentTemplate: 'threshold/popover_content.tpl.html'
+                    });
+
+                    $scope.style_threshold_completion = function () {
+                        var category = $scope.category,
+                            threshold = category.threshold,
+                            percent_completion;
+
+                        if (!threshold) return 'fa fa-gear';
+
+                        percent_completion = threshold.completion / threshold.value;
+                        percent_completion = Math.round(percent_completion * 10);
+
+                        console.log(threshold.value, percent_completion);
+
+                        return "threshold-indicator-" + percent_completion;
+                    };
+                }
+            };
+        }])
+
     ;
 })();
