@@ -1,14 +1,17 @@
-function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, SplitTransaction, $modal) {
+function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, SplitTransaction, $modal, UserOptions) {
     'use strict';
 
     $scope.days = [];
-    $scope.groupBy = 'category.name';
+    $scope.groupBy = UserOptions.setDefault('transaction-list-group-by', 'category.name');;
     $scope.categories = [];
     $scope.filterDate = moment();
     $scope.loading = true;
     $scope.allTransactions = [];
     $scope.transactionGroups = [];
-    $scope.orderDesc = true;
+    $scope.orderDesc = UserOptions.setDefault('transaction-list-order-desc', true);
+
+    UserOptions.watch($scope, 'groupBy', 'transaction-list-group-by');
+    UserOptions.watch($scope, 'orderDesc', 'transaction-list-order-desc');
 
     $scope.editTransaction = function (transaction) {
         var newScope = $rootScope.$new();
@@ -166,4 +169,4 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     });
 }
 
-TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction', '$modal'];
+TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction', '$modal', 'UserOptions'];
