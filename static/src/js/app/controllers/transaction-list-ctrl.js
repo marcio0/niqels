@@ -26,10 +26,6 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
         return Math.abs(group.total);
     };
 
-    $scope.$watchCollection('allTransactions', function (newValue, oldValue) {
-        $scope.transactionGroups = groupTransactions();
-    });
-
     function groupTransactions () {
         var transactionGroups = [];
         var getter = $parse($scope.groupBy);
@@ -54,7 +50,8 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
                 total: 0
             };
             for (var idx in group.transactions) {
-                group.total += group.transactions[idx].value;
+                var value = parseFloat(group.transactions[idx].value)
+                group.total += value;
             }
             transactionGroups.push(group);
         }
@@ -84,7 +81,9 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
             $.each(result, function () {
                 this.loadInstallmentData();
             });
+
             $scope.allTransactions = result;
+            $scope.transactionGroups = groupTransactions();
 
         }).finally(function () {$scope.loading = false;});
     };
@@ -122,7 +121,6 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     // callbacks
 
     $rootScope.$on('transaction-updated', function (event, transaction) {
-        //filterTransactions($scope.filterDate);
         var found = $.grep($scope.allTransactions, function (i) {
             return i.id === transaction.id;
         });
@@ -135,6 +133,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
 
         var idx = $scope.allTransactions.indexOf(found);
         $scope.allTransactions[idx] = transaction;
+        $scope.transactionGroups = groupTransactions();
     });
 
     $rootScope.$on('transaction-created', function (event, transaction) {
@@ -172,6 +171,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
             return;
         }
         $scope.allTransactions.splice(idx, 1);
+        $scope.transactionGroups = groupTransactions();
     });
 
     // WATCHERS
