@@ -114,6 +114,13 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
         });
     }
 
+
+    $scope.isEmpty = function isEmpty () {
+        return ($scope.transactionGroups.length === 0) && !$scope.loading;
+    };
+
+    // callbacks
+
     $rootScope.$on('transaction-updated', function (event, transaction) {
         filterTransactions($scope.filterDate);
     });
@@ -146,17 +153,17 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
         }
     });
 
-    // callbacks
-
-    $rootScope.$on('transaction-removed', function reloadAfterRemove () {
-        filterTransactions($scope.filterDate);
+    $rootScope.$on('transaction-removed', function reloadAfterRemove (ev, transaction) {
+        //filterTransactions($scope.filterDate);
+        var idx = $scope.allTransactions.indexOf(transaction);
+        if (idx === -1) {
+            return;
+        }
+        $scope.allTransactions.splice(idx, 1);
+        $scope.transactionGroups = groupTransactions();
     });
 
-    $scope.isEmpty = function isEmpty () {
-        return ($scope.transactionGroups.length === 0) && !$scope.loading;
-    };
-
-    // watchers
+    // WATCHERS
 
     $scope.$watch('filterDate', filterTransactions);
 
