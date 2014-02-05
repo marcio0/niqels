@@ -26,6 +26,10 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
         return Math.abs(group.total);
     };
 
+    $scope.$watchCollection('allTransactions', function (newValue, oldValue) {
+        $scope.transactionGroups = groupTransactions();
+    });
+
     function groupTransactions () {
         var transactionGroups = [];
         var getter = $parse($scope.groupBy);
@@ -80,11 +84,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
             $.each(result, function () {
                 this.loadInstallmentData();
             });
-
             $scope.allTransactions = result;
-            $scope.transactionGroups = groupTransactions($scope.groupBy);
-
-            window.transactions = $scope.transactionGroups;
 
         }).finally(function () {$scope.loading = false;});
     };
@@ -122,7 +122,19 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     // callbacks
 
     $rootScope.$on('transaction-updated', function (event, transaction) {
-        filterTransactions($scope.filterDate);
+        //filterTransactions($scope.filterDate);
+        var found = $.grep($scope.allTransactions, function (i) {
+            return i.id === transaction.id;
+        });
+        if (!found) {
+            return;
+        }
+        else {
+            found = found[0];
+        }
+
+        var idx = $scope.allTransactions.indexOf(found);
+        $scope.allTransactions[idx] = transaction;
     });
 
     $rootScope.$on('transaction-created', function (event, transaction) {
@@ -160,7 +172,6 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
             return;
         }
         $scope.allTransactions.splice(idx, 1);
-        $scope.transactionGroups = groupTransactions();
     });
 
     // WATCHERS
