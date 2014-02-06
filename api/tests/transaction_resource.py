@@ -1,5 +1,6 @@
 from decimal import Decimal
 import datetime
+import factory
 
 from tastypie.test import ResourceTestCase
 from django.test import TestCase
@@ -8,6 +9,23 @@ from django.utils import timezone
 from access.models import User
 from expenses.models import Transaction, Category
 from api.resources.transaction_resource import _truncate_date_tzinfo
+
+
+class UserFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = User
+    FACTORY_DJANGO_GET_OR_CREATE = ('email',)
+
+    email = 'user@example.com'
+    password = 'password'
+
+
+class TransactionFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Transaction
+
+    value = Decimal("10")
+    user = factory.SubFactory(UserFactory)
+    date = datetime.date.today()
+    created = timezone.make_aware(datetime.datetime(2010, 01, 01), timezone.utc)
 
 
 class TransactionResourceTest(ResourceTestCase):
@@ -20,6 +38,10 @@ class TransactionResourceTest(ResourceTestCase):
         self.email = 'user@example.com'
         self.password = 'password'
         self.user = User.objects.create_user(self.email, self.password)
+
+        TransactionFactory.create_batch(2, date=datetime.date(2010, 01, 03), user=self.user, category_id=1)
+
+        TransactionFactory.create(date=datetime.date(2010, 01, 03), category_id=1, user__email="another@user.com")
 
         self.transaction = Transaction.objects.get(pk=1)
 
@@ -415,7 +437,7 @@ class TransactionResourceTest(ResourceTestCase):
         """
         detail_url = '/api/v1/transaction/3'
         resp = self.api_client.get(detail_url, format='json', authentication=self.get_credentials())
-        self.assertHttpNotFound(resp)
+        self.assertHttpUnauthorized(resp)
 
 
     # Detail tests: POST
