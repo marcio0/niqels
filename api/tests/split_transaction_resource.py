@@ -439,6 +439,16 @@ class SplitTransactionResourceTest(ResourceTestCase):
                                               u'installment_of': u'/api/v1/split_transaction/1',
                                               u'value': u'10'}]})
 
+    def get_split_without_transactions(self):
+        split = SplitTransaction.objects.create(user=self.user, description="a split transaction")
+
+        resp = self.api_client.get('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        content = self.deserialize(resp)
+        self.assertEquals(len(content['transactions']), 0)
+
+
     # Detail tests: POST
     def test_post_detail_not_allowed(self):
         self.assertHttpMethodNotAllowed(self.api_client.post('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials()))

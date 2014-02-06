@@ -6,7 +6,7 @@
 
 <div class="content-column">
 
-    <div id="transaction-list-panel" class="content-main" ng-controller="TransactionListCtrl" show-tutorial="interfaceTutorial">
+    <div id="transaction-list-panel" class="content-main" show-tutorial="interfaceTutorial">
          
         <h4 class="area-header">{% trans "Transactions" %} <a data-toggle="collapse" data-target="#transaction-list-options"><i class="fa fa-gear"></i></a></h4>
 
@@ -78,14 +78,14 @@
         <div class="panel-group" id="transaction-groups" ng-if="groupBy == 'category.name'">
             <div id="transaction-group-(($index))" class="panel panel-default transaction-group" ng-repeat="group in transactionGroups | orderBy:getAbsTotal:orderDesc">
 
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="accordion-toggle"
+                <div class="panel-heading"
+                     class="accordion-toggle"
+                     data-toggle="collapse"
+                     href="#category(($index))"
+                     track="click,Transactions,open-category">
 
-                            data-toggle="collapse"
-                            href="#category(($index))"
-                            track="click,Transactions,open-category"
-                            ng-bind="group.name"></a>
+                    <h4 class="panel-title">
+                        <a ng-bind="group.name"></a>
 
                         <span class="group-total pull-right" ng-bind="group.total | currency" is-positive-class="group.total"></span>
                     </h4>
@@ -93,7 +93,7 @@
 
                 <div id="category(($index))" class="panel-collapse collapse" category-collapse="group.name">
                     <div class="panel-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-hover transaction-table">
                             <thead><tr>
                                 <td class="date-column-header">
                                     {% trans "Date" %}
@@ -109,8 +109,9 @@
                             </tr></thead>
 
                             <tbody>
-                                <tr class="transaction-row" 
-                                    ng-repeat="transaction in group.transactions">
+                                <tr class="transaction-row"
+                                    ng-repeat="transaction in group.transactions"
+                                    ng-click="editTransaction(transaction)">
 
                                     <td class="date-column" ng-bind="transaction.date | date:'dd/MM'"></td>
 
@@ -133,7 +134,7 @@
                                         <i
                                             class="fa fa-trash-o fa-lg delete-transaction"
                                             ng-click="removeTransaction()"
-                                            confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                            confirmation-needed="{% trans "Deseja remover esta movimentação?" %}"
                                             data-toggle="tooltip"
                                             data-placement="right"
                                             data-container="body"
@@ -157,7 +158,7 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped transaction-table">
                         <thead><tr>
                             <td class="category-column-header">
                                 {% trans "Category" %}
@@ -174,20 +175,21 @@
 
                         <tbody>
                             <tr class="transaction-row"
-                                ng-repeat="transaction in group.transactions">
+                                ng-repeat="transaction in group.transactions"
+                                ng-click="editTransaction(transaction)">
 
                                 <td class="category-column" ng-bind="transaction.category.name"></td>
 
                                 <td class="description-column" ng-bind="transaction.description"></td>
 
                                 <td class="installment-data-column">
-                                        <a
-                                            ng-bind="transaction.installment_data"
-                                            data-toggle="tooltip"
-                                            data-placement="bottom"
-                                            tooltip
-                                            title="{% trans "Número desta parcela" %}"></a>
-                                    </td>
+                                    <a
+                                        ng-bind="transaction.installment_data"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        tooltip
+                                        title="{% trans "Número desta parcela" %}"></a>
+                                </td>
 
                                 <td class="value-column" is-positive-class="transaction.value">
                                     <span ng-bind="transaction.value | currency"></span>
@@ -197,10 +199,11 @@
                                     <i
                                         class="fa fa-trash-o fa-lg delete-transaction"
                                         ng-click="removeTransaction()"
-                                        confirmation-needed="{% trans "Do you wish to remove this category?" %}"
+                                        confirmation-needed="{% trans "Deseja remover esta movimentação?" %}"
                                         data-toggle="tooltip"
                                         data-placement="right"
                                         data-container="body"
+                                        tooltip
                                         title="{% trans "Remove this transaction" %}"
                                     ></i>
                                 </td>

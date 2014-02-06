@@ -1,3 +1,5 @@
+@input-icon-padding: 10px;
+
 .input-icon {
     position: relative;
 
@@ -16,13 +18,7 @@
     }
 
     i.input-icon-append {
-        right: 10px;
-    }
-
-    &[class^="col-"] {
-        i.input-icon-prepend {
-              left: (@grid-gutter-width / 2) + 10;
-        }
+        right: @input-icon-padding;
     }
 
     .bootstrap-select {
@@ -35,6 +31,14 @@
 
         .filter-option {
             margin-left: 20px !important;
+        }
+    }
+}
+
+.form-horizontal {
+    .form-group {
+        i.input-icon-prepend {
+            left: (@grid-gutter-width / 2) + @input-icon-padding;
         }
     }
 }
@@ -85,8 +89,30 @@ input.ng-invalid.ng-dirty {
 
 .access-form-panel {
     .links {
+        .make-sm-column(9);
+        .make-sm-column-offset(3);
+
         a {
             font-weight: bold;
+        }
+
+    }
+}
+
+.transaction-form, .access-form, .contact-form {
+    &.form-horizontal {
+        div.form-group {
+            .control-label {
+                .make-sm-column(3);
+            }
+            > div {
+                .make-sm-column(9);
+
+                &.checkbox-wrapper, &.actions {
+                    .make-sm-column(9);
+                    .make-sm-column-offset(3);
+                }
+            }
         }
     }
 }

@@ -27,6 +27,8 @@ function BalancePanelCtrl ($scope, $rootScope, BalanceChart) {
     };
 
     $rootScope.$on('transaction-created', $scope.updateBalance);
+    $rootScope.$on('transaction-updated', $scope.updateBalance);
+    $rootScope.$on('split-transaction-created', $scope.updateBalance);
     $rootScope.$on('transaction-removed', $scope.updateBalance);
     $rootScope.$watch('filterDate', $scope.updateBalance);
 }

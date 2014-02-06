@@ -1,18 +1,20 @@
 function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTransaction) {
-    'use strict';
+        'use strict';
 
     $scope.formData = {};
     $scope.selected_category = null;
     $scope.formData.date = moment();
-
+    $scope.isEditing = false;
 
     var resetForm = function resetForm () {
+
+        // only used on creating form
         $scope.sending = false;
         $scope.formData.description = '';
         $scope.formData.value = '';
-        $scope.category = '';
 
-        $scope.is_installment = false;
+        $scope.category = '';
+        $scope.is_split_transaction = false;
         $scope.installment = {
             installments: 1
         };
@@ -27,27 +29,45 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
 
     resetForm();
 
+    if ($scope.editingTransaction) {
+        $scope.isEditing = true;
+        $scope.formData = angular.copy($scope.editingTransaction);
+        $scope.formData.category = $scope.editingTransaction.category.resource_uri;
+    }
+
     function handleTransaction (data) {
         var promise;
 
-        promise = Transaction.save(data)
-            .$promise.then(function (value) {
-                resetForm();
-                $rootScope.$emit('transaction-created', value);
-                return value;
-            });
+        if ($scope.isEditing) {
+            promise = Transaction.update({id: data.id}, data)
+                .$promise.then(function (value) {
+                    $rootScope.$emit('transaction-updated', value);
+                    $scope.$hide();  // hiding the modal
+                    return value;
+                });
+        }
+        else{
+            promise = Transaction.save(data)
+                .$promise.then(function (value) {
+                    resetForm();
+                    $rootScope.$emit('transaction-created', value);
+                    return value;
+                });
+        }
         return promise;
     }
 
     function handleSplitTransaction (data, installment_data) {
         data['first_installment_date'] = data['date'];
         delete data['date'];
+
         (function () {
             // hotfix for the date and value formats, will be removed eventually
             data.total_value = accounting.formatNumber(installment_data.total_value);
         })();
         delete data['value'];
-        data['installments']= installment_data['installments'];
+
+        data['installments'] = installment_data['installments'];
 
         var promise;
         promise = SplitTransaction.save(data)
@@ -57,8 +77,6 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
                 return value;
             });
         return promise;
-
-
     }
 
     $scope.submit = function () {
@@ -75,7 +93,7 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
                 transaction_data.date = transaction_data.date.format('DD/MM/YYYY');
             })();
 
-            if (!$scope.is_installment) {
+            if (!$scope.is_split_transaction) {
                 promise = handleTransaction(transaction_data);
             }
             else {
@@ -92,6 +110,14 @@ function TransactionFormCtrl ($scope, $rootScope, Transaction, Category, SplitTr
             form.category.$dirty = true;
             toastr.warning(gettext('Please fill in the fields correctly.'));
         }
+    };
+
+    $scope.removeTransaction = function (transaction) {
+        // used on edit form
+        Transaction.delete({id:transaction.id}).$promise.then(function () {
+            $rootScope.$emit('transaction-removed', transaction);
+            $scope.$hide();
+        });
     };
 }
 

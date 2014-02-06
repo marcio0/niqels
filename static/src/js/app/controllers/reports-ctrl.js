@@ -1,8 +1,14 @@
-function ReportsCtrl ($scope, $rootScope) {
+function ReportsCtrl ($scope, $rootScope, UserOptions) {
     'use strict';
 
     // setting up scope variables
-    $scope.period = 2;
+    $scope.period = UserOptions.setDefault('reports-period', 2);
+    $scope.$watch('period', function (newValue) {
+        if (newValue != 4) {
+            // not saving custom periods
+            UserOptions.set('reports-period', newValue);
+        }
+    });
 
     $scope.options = {
         dateStart: moment().startOf('month').subtract(5, 'months'),
@@ -67,7 +73,7 @@ function ReportsCtrl ($scope, $rootScope) {
         $scope.options.dateStart = period[0];
         $scope.options.dateEnd = period[1];
 
-        if ($scope.options.dateEnd.diff($scope.options.dateStart, 'months') > 12) {
+        if ($scope.options.dateEnd.diff($scope.options.dateStart, 'months') > 13) {
             toastr.warning(gettext('The period must be 12 months or lower.'));
             return;
         }
@@ -80,7 +86,7 @@ function ReportsCtrl ($scope, $rootScope) {
         $scope.$broadcast('update-charts');
     };
 }
-ReportsCtrl.$inject = ['$scope', '$rootScope'];
+ReportsCtrl.$inject = ['$scope', '$rootScope', 'UserOptions'];
 
 
 function CategoryComparisonCtrl ($scope, $q, $rootScope, CategoryComparison, Category) {

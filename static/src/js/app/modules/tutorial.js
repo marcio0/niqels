@@ -150,22 +150,6 @@
                         }
                     },
                     {
-                        element: "#reports-link",
-                        title: gettext("Seção de relatórios"),
-                        content: gettext("Nesta seção do site você contrará relatórios para ajudar a entender suas finanças."),
-                        backdrop: false,
-                        placement: 'bottom',
-                        onShow: function (tour) {
-                            var reportsLink = $('.navbar #reports-link a');
-                            tour.reportsLinkHref = reportsLink.prop('href');
-                            reportsLink.prop('href', '');
-                        },
-                        onHidden: function (tour) {
-                            var reportsLink = $('.navbar #reports-link a');
-                            reportsLink.prop('href', tour.reportsLinkHref);
-                        }
-                    },
-                    {
                         element: "#transaction-form-column",
                         title: gettext("Criar nova movimentação"),
                         content: gettext("Você está pronto para usar o site! Experimente criar sua primeira movimentação.")

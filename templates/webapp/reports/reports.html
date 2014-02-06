@@ -1,19 +1,19 @@
 {% load i18n %}
 
 <div class="left-column list-group" id="reports-menu">
-    <a class="list-group-item" ng-class="{active: $state.includes('reports.balance')}" href="#/reports/balance">
+    <a class="list-group-item" ng-class="{active: $state.includes('reports.balance')}" ui-sref="reports.balance">
         {% trans "Balance" %}
     </a>
-    <a class="list-group-item" ng-class="{active: $state.includes('reports.top-categories')}" href="#/reports/top-categories">
+    <a class="list-group-item" ng-class="{active: $state.includes('reports.top-categories')}" ui-sref="reports.top-categories">
         {% trans "Top categories" %}
     </a>
-    <a class="list-group-item" ng-class="{active: $state.includes('reports.category-comparison')}" href="#/reports/category-comparison">
+    <a class="list-group-item" ng-class="{active: $state.includes('reports.category-comparison')}" ui-sref="reports.category-comparison">
         {% trans "Category comparison" %}
     </a>
 </div>
 
 
-<div class="content-column" ng-controller="ReportsCtrl" id="reports">
+<div class="content-column" id="reports">
     <form class="form-inline" id="period-form">
         <div class="form-group">
             <label for="period" class="form-label">{% trans "Period:" %}</label>

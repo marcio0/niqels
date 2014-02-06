@@ -1,130 +1,146 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
 {% load static %}
-{% load humanize %}
 {% load i18n %}
 
-{% block extrahead %}
-
-<link href="{% static "css/bootstrap-select.css" %}" rel="stylesheet" media="screen">
-
-{% endblock extrahead %}
-
-
 {% block webapp-menu %}
-<div class="collapse navbar-collapse" id="navbar-menu">
-    <ul class="nav navbar-nav">
-        <li ng-class="{active: $state.includes('transactions')}" id="transaction-list-link"><a href="#/transactions">{% trans "Transactions" %}</a></li>
-        <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a href="#/reports">{% trans "Reports" %}</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-        {% include "webapp/user-menu.html" %}
-    </ul>
-</div>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+        <ul class="nav navbar-nav">
+            <li ng-class="{active: $state.includes('transactions')}" id="transaction-list-link"><a ui-sref="transactions">{% trans "Movimentações" %}</a></li>
+            <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a ui-sref="reports">{% trans "Relatórios" %}</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                {% if user.has_subscription %}
+                    <a class="navbar-link">{% trans "Plano Plus" %} <i class="fa fa-check"></i></a>
+                {% else %}
+                    <a class="navbar-link" href="{% url "plans:index" %}">{% trans "Faça upgrade na sua conta!" %}</a>
+                {% endif %}
+            </li>
+
+            {% include "webapp/user-menu.html" %}
+
+            <li class="dropdown" name="help-menu">
+                <a class="dropdown-toggle" data-toggle="dropdown">{% trans "Ajuda" %} <i class="fa fa-question fa-lg"></i></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="navbar-link" href="{% url 'guide:index' %}"><i class="fa fa-sitemap fa-fw"></i> {% trans "Guia" %}</a>
+                    </li>
+                    <li>
+                        <a name="contact" href="{% url "contact" %}" class="navbar-link"><i class="fa fa-comments-o fa-fw"></i> {% trans "Contato" %}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 {% endblock webapp-menu %}
 
 
 {% block body %}
 
-<div class="row" ui-view role="transactions">
-</div>
+    <div class="row" ui-view role="transactions">
+    </div>
 
-<script type="text/ng-template" id="/partials/transaction-list">
+    <script type="text/ng-template" id="/partials/transaction-list">
 {% include "webapp/transactions/transaction-list.html" %}
 </script>
 
-<script type="text/ng-template" id="/partials/reports">
+    <script type="text/ng-template" id="/partials/reports">
 {% include "webapp/reports/reports.html" %}
 </script>
 
-<script type="text/ng-template" id="/partials/reports/balance">
+    <script type="text/ng-template" id="/partials/reports/balance">
 {% include "webapp/reports/balance.html" %}
 </script>
 
+    <script type="text/ng-template" id="/partials/settings">
+{% include "webapp/settings/settings.html" %}
+</script>
 
-{% if FIRST_LOGIN %}
-    {% if USE_GA %}
-        {% include "ga_first_login_snippet.html" %}
+
+    {% if FIRST_LOGIN %}
+        {% if USE_GA %}
+            {% include "ga_first_login_snippet.html" %}
+        {% endif %}
     {% endif %}
-{% endif %}
 
 {% endblock body %}
 
 
 {% block bodyend %}
+    {% get_static_prefix as static_path %}  
 
-{% if is_debug %}
+    {% if is_debug %}
 
-    {% comment %}
+        {% comment %}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
     {% endcomment %}
 
-    {% get_static_prefix as static_path %}
 
-    {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" locales=static_path|add:"js/locales/" %}
 
-        <script src="{{lib}}min/angular.min.js"></script>
-        <script src="{{lib}}min/angular-resource.min.js"></script>
-        <script src="{{lib}}min/angular-animate.min.js"></script>
-        <script src="{{lib}}angular-strap.js"></script>
-        <script src="{{lib}}min/angular-ui-router.min.js"></script>
-        <script src="{{lib}}highcharts.src.js"></script>
-        <script src="{{lib}}bootstrap-datepicker.js"></script>
-        <script src="{{lib}}toastr.js"></script>
-        <script src="{{lib}}min/moment.min.js"></script>
-        <script src="{{lib}}bootstrap-select.js"></script>
-        <script src="{{lib}}bootstrap-tour.js"></script>
-        <script src="{{lib}}min/modernizr.custom.19405.js"></script>
-        <script src="{{lib}}min/accounting.min.js"></script>
+        {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" locales=static_path|add:"js/locales/" %}
 
-        <script src="{{locales}}angular-locale_pt-br.js"></script>
-        <script src="{{locales}}bootstrap-datepicker.pt-BR.js"></script>
-        <script src="{{locales}}pt-br.js"></script>
+            <script src="{{lib}}min/angular.min.js"></script>
+            <script src="{{lib}}min/angular-resource.min.js"></script>
+            <script src="{{lib}}min/angular-animate.min.js"></script>
+            <script src="{{lib}}min/angular-ui-router.min.js"></script>
+            <script src="{{lib}}min/store.min.js"></script>
+            <script src="{{lib}}modal.js"></script>
+            <script src="{{lib}}dimensions.js"></script>
+            <script src="{{lib}}highcharts.src.js"></script>
+            <script src="{{lib}}bootstrap-datepicker.js"></script>
+            <script src="{{lib}}toastr.js"></script>
+            <script src="{{lib}}min/moment.min.js"></script>
+            <script src="{{lib}}bootstrap-select.js"></script>
+            <script src="{{lib}}bootstrap-tour.js"></script>
+            <script src="{{lib}}min/modernizr.custom.19405.js"></script>
+            <script src="{{lib}}min/accounting.min.js"></script>
 
-        <script src="{{app}}app.js"></script>
-        <script src="{{controllers}}balance-panel-ctrl.js"></script>
-        <script src="{{controllers}}transaction-action-bar-ctrl.js"></script>
-        <script src="{{controllers}}transaction-form-ctrl.js"></script>
-        <script src="{{controllers}}transaction-list-ctrl.js"></script>
-        <script src="{{controllers}}category-list-ctrl.js"></script>
-        <script src="{{controllers}}category-edit-ctrl.js"></script>
-        <script src="{{controllers}}reports-ctrl.js"></script>
-        <script src="{{controllers}}installment-form-ctrl.js"></script>
+            <script src="{{locales}}angular-locale_pt-br.js"></script>
+            <script src="{{locales}}bootstrap-datepicker.pt-BR.js"></script>
+            <script src="{{locales}}pt-br.js"></script>
 
-        <script src="{{app}}services.js"></script>
-        <script src="{{app}}modules/charts.js"></script>
-        <script src="{{app}}modules/models.js"></script>
-        <script src="{{app}}modules/ga.js"></script>
-        <script src="{{app}}modules/hashtags.js"></script>
-        <script src="{{app}}modules/accounting.js"></script>
-        <script src="{{app}}modules/tutorial.js"></script>
+            <script src="{{app}}app.js"></script>
+            <script src="{{controllers}}balance-panel-ctrl.js"></script>
+            <script src="{{controllers}}transaction-action-bar-ctrl.js"></script>
+            <script src="{{controllers}}transaction-form-ctrl.js"></script>
+            <script src="{{controllers}}transaction-list-ctrl.js"></script>
+            <script src="{{controllers}}reports-ctrl.js"></script>
+            <script src="{{controllers}}installment-form-ctrl.js"></script>
 
-        <script src="{{app}}directives.js"></script>
+            <script src="{{app}}services.js"></script>
+            <script src="{{app}}modules/charts.js"></script>
+            <script src="{{app}}modules/models.js"></script>
+            <script src="{{app}}modules/ga.js"></script>
+            <script src="{{app}}modules/hashtags.js"></script>
+            <script src="{{app}}modules/accounting.js"></script>
+            <script src="{{app}}modules/tutorial.js"></script>
 
-    {% endwith %}
+            <script src="{{app}}directives.js"></script>
 
-{% else %}
+        {% endwith %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
-    <script src="http://code.angularjs.org/1.2.3/angular-animate.min.js"></script>
+    {% else %}
 
-    <script src="{% static "js/webapp.min.js" %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
+        <script src="http://code.angularjs.org/1.2.3/angular-animate.min.js"></script>
 
-{% endif %}
+        <script src="{{static_path}}js/webapp-scripts.js?rel=1391568990141"></script>
 
-<script type="text/javascript">
-{% if FIRST_LOGIN %}
-    window.isUserFirstLogin = true;
-{% else %}
-    window.isUserFirstLogin = false;
-{% endif %}
+    {% endif %}
 
-    window.userName = "{{ user.name }}";
-</script>
+    <script type="text/javascript">
+        {% if FIRST_LOGIN %}
+            window.isUserFirstLogin = true;
+        {% else %}
+            window.isUserFirstLogin = false;
+        {% endif %}
 
-<script src="//www.google-analytics.com/cx/api.js?experiment=r7gmClAuSQCDnBgnmyvI5w"></script>
+        window.userName = "{{ user.name }}";
+    </script>
+
+    <script src="//www.google-analytics.com/cx/api.js?experiment=r7gmClAuSQCDnBgnmyvI5w"></script>
 
 {% endblock bodyend %}

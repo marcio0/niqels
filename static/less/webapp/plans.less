@@ -1,0 +1,57 @@
+#plans {
+    table.plans-info {
+        .table-striped();
+        .table-bordered();
+
+        th, td {
+            &.plan-features {
+                width: 125px;
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+
+        thead > tr > th:nth-child(1) {
+            border-top: 1px solid @white;
+            border-left: 1px solid @white;
+        }
+
+        tbody {
+            tr > td {
+                i.fa-check-circle-o {
+                    color: @renevues;
+                }
+                i.fa-gear {
+                }
+            }
+        }
+
+        tfoot {
+            tr td:nth-child(1) {
+                border-left: 1px solid @white;
+                border-bottom: 1px solid @white;
+            }
+        }
+    }
+
+    table.plans-signup {
+        td, th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        thead {
+            tr:nth-child(2) td {
+                border: 0;
+            }
+
+            .period {
+                font-style: italic;
+            }
+            .price {
+                font-weight: bold;
+            }
+        }
+
+    }
+}

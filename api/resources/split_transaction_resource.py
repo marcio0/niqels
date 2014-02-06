@@ -37,7 +37,7 @@ class SplitTransactionApiForm(forms.Form):
         exclude = ('user',)
 
 class SplitTransactionResource(ModelResource):
-    total_value = fields.DecimalField(attribute='total_value')
+    total_value = fields.DecimalField(attribute='total_value', default=Decimal(0))
     installments = fields.IntegerField(attribute='installments')
     first_installment_date = fields.DateField()
     category = fields.ForeignKey(CategoryResource, 'category', full=True, null=True)

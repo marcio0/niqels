@@ -3,7 +3,6 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from access.models import User
 
@@ -63,6 +62,7 @@ class UserAdmin(UserAdmin):
     list_display = ('name', 'email', 'date_joined', 'last_login')
     list_filter = ('date_joined', 'last_login', 'is_active')
     readonly_fields = ['date_joined', 'last_login', 'is_admin']
+    date_hierarchy = 'date_joined'
     fieldsets = (
         (None, {'fields': ('name', 'email', 'is_active' )}),
         ('Important dates', {'fields': ('date_joined', 'last_login')}),
