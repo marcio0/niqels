@@ -2,7 +2,7 @@ from django.test import TestCase
 import django.db
 import factory.django
 import access.models
-from restrictions.models import BaseRestriction, MonthRestriction
+from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
 import expenses.models
 import datetime
 
@@ -33,7 +33,7 @@ class CategoryFactory(factory.django.DjangoModelFactory):
 
 
 class BaseRestrictionFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = BaseRestriction
+    FACTORY_FOR = BaseCategoryRestriction
 
     user = factory.SubFactory(UserFactory)
     category = factory.SubFactory(CategoryFactory)
@@ -48,13 +48,13 @@ class IntegrityTest(TestCase):
         user = UserFactory.create()
         category = CategoryFactory.create()
 
-        restr = BaseRestriction()
+        restr = BaseCategoryRestriction()
         restr.user = user
         restr.category = category
         restr.value = 123.45
         restr.save()
 
-        restr2 = BaseRestriction()
+        restr2 = BaseCategoryRestriction()
         restr2.user = user
         restr2.category = category
         restr.value = 2231.11
@@ -63,13 +63,13 @@ class IntegrityTest(TestCase):
 
     def test_unique_month_restriction(self):
         base = BaseRestrictionFactory.create()
-        m1 = MonthRestriction()
+        m1 = MonthlyCategoryRestriction()
         m1.baserestriction = base
         m1.month = datetime.date(2014, 1, 1)
         m1.value = 500
         m1.save()
 
-        m2 = MonthRestriction()
+        m2 = MonthlyCategoryRestriction()
         m2.baserestriction = base
         m2.month = datetime.date(2014, 1, 1)
         m2.value = 330
@@ -84,7 +84,7 @@ class MonthRestrictionCreationTest(TestCase):
         user = base.user
         categ = base.category
 
-        self.assertEquals(MonthRestriction.objects.count(), 0)
+        self.assertEquals(MonthlyCategoryRestriction.objects.count(), 0)
 
         t = expenses.models.Transaction()
         t.value = 10
@@ -93,7 +93,7 @@ class MonthRestrictionCreationTest(TestCase):
         t.date = datetime.date(2013, 12, 23)
         t.save()
 
-        mr = MonthRestriction.objects.get()
+        mr = MonthlyCategoryRestriction.objects.get()
         self.assertEquals(mr.month, datetime.date(2013, 12, 1))
         self.assertEquals(mr.value, base.value)
         self.assertEquals(mr.baserestriction, base)
@@ -103,7 +103,7 @@ class MonthRestrictionCreationTest(TestCase):
         user = base.user
         categ = base.category
 
-        self.assertEquals(MonthRestriction.objects.count(), 0)
+        self.assertEquals(MonthlyCategoryRestriction.objects.count(), 0)
 
         t = expenses.models.Transaction(value=10, user=user, category=categ,
                                         date=datetime.date(2013, 12, 23))
@@ -113,8 +113,8 @@ class MonthRestrictionCreationTest(TestCase):
                                         date=datetime.date(2013, 12, 11))
         t.save()
 
-        self.assertEquals(MonthRestriction.objects.count(), 1)
-        mr = MonthRestriction.objects.get()
+        self.assertEquals(MonthlyCategoryRestriction.objects.count(), 1)
+        mr = MonthlyCategoryRestriction.objects.get()
         self.assertEquals(mr.month, datetime.date(2013, 12, 1))
         self.assertEquals(mr.value, base.value)
         self.assertEquals(mr.baserestriction, base)
@@ -132,7 +132,7 @@ class MonthRestrictionCreationTest(TestCase):
                                         date=datetime.date(2013, 12, 11))
         t.save()
 
-        self.assertEquals(MonthRestriction.objects.count(), 0)
+        self.assertEquals(MonthlyCategoryRestriction.objects.count(), 0)
 
     def test_signal_multi_users_and_categs(self):
         base1 = BaseRestrictionFactory.create()
@@ -157,8 +157,8 @@ class MonthRestrictionCreationTest(TestCase):
         self.assertNotEquals(categ1, categ)
         self.assertNotEquals(user1, user)
 
-        self.assertEquals(MonthRestriction.objects.count(), 1)
-        mr = MonthRestriction.objects.get()
+        self.assertEquals(MonthlyCategoryRestriction.objects.count(), 1)
+        mr = MonthlyCategoryRestriction.objects.get()
         self.assertEquals(mr.month, datetime.date(2013, 12, 1))
         self.assertEquals(mr.value, base.value)
         self.assertEquals(mr.baserestriction, base)
@@ -183,5 +183,5 @@ class RestrictionSpentCalculationTest(TestCase):
                                         date=datetime.date(2013, 12, 31))
         t.save()
 
-        mr = MonthRestriction.objects.get()
+        mr = MonthlyCategoryRestriction.objects.get()
         self.assertEquals(mr.spent, 44)

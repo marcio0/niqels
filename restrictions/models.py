@@ -3,12 +3,11 @@ from django.db.models import Sum
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db.models.signals import post_save
 import expenses.models
-import access.models
 import decimal
 import datetime
 
 
-class BaseRestriction(models.Model):
+class BaseCategoryRestriction(models.Model):
     user = models.ForeignKey(
         'access.User',
         verbose_name=_('user'),
@@ -32,7 +31,7 @@ class BaseRestriction(models.Model):
         unique_together = (('category', 'user'), )
 
 
-class MonthRestriction(models.Model):
+class MonthlyCategoryRestriction(models.Model):
     value = models.DecimalField(
         _('value'),
         default=decimal.Decimal(0),
@@ -45,7 +44,7 @@ class MonthRestriction(models.Model):
         help_text=_('For which month this restriction applies.')
     )
     baserestriction = models.ForeignKey(
-        BaseRestriction,
+        BaseCategoryRestriction,
         help_text=_('The base restriction from whom this one derives')
     )
 
@@ -69,8 +68,8 @@ def _create_month_restriction_signal(sender, instance, **kwargs):
     """
     Signal plugged-in Transaction object
 
-    This method creates a MonthRestriction everytime a transaction
-    is created in a given month, and there's a BaseRestriction for
+    This method creates a MonthlyCategoryRestriction everytime a transaction
+    is created in a given month, and there's a BaseCategoryRestriction for
     the user creating it.
     """
     month = instance.date.replace(day=1)
@@ -78,20 +77,20 @@ def _create_month_restriction_signal(sender, instance, **kwargs):
     user = instance.user
 
     try:
-        mr = MonthRestriction.objects.get(month=month,
+        mr = MonthlyCategoryRestriction.objects.get(month=month,
                                           baserestriction__user=user,
                                           baserestriction__category=category)
         return
-    except MonthRestriction.DoesNotExist:
+    except MonthlyCategoryRestriction.DoesNotExist:
         mr = None
 
     try:
-        categ_rest = BaseRestriction.objects.get(category=category,
+        categ_rest = BaseCategoryRestriction.objects.get(category=category,
                                                  user=user)
-        mr = MonthRestriction(month=month, value=categ_rest.value,
+        mr = MonthlyCategoryRestriction(month=month, value=categ_rest.value,
                               baserestriction=categ_rest)
         mr.save()
-    except BaseRestriction.DoesNotExist:
+    except BaseCategoryRestriction.DoesNotExist:
         return
 
 post_save.connect(_create_month_restriction_signal,
