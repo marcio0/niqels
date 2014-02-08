@@ -5,7 +5,6 @@ from tastypie.constants import ALL
 from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation
 from tastypie import fields
-from tastypie import http
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
 from tastypie.exceptions import BadRequest
 from django.utils.translation import ugettext_lazy as _

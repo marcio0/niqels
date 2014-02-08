@@ -7,6 +7,7 @@ import decimal
 import datetime
 
 
+
 class BaseCategoryRestriction(models.Model):
     user = models.ForeignKey(
         'access.User',
