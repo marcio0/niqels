@@ -128,7 +128,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
 
         self.assertEqual(BaseCategoryRestriction.objects.filter(user=self.user).count(), 2)
 
-    def test_post_send_user_no_effect(self):
+    def test_post_list_send_user_no_effect(self):
         """
         Sending "user" property should have no effect.
         It must use the logged-in user.
@@ -141,13 +141,36 @@ class RestrictionResourceTest(BaseResourceTestCase):
 
         post_data = {
             'value': Decimal(-350),
-            'category': '/api/v1/category/1',
+            'category': '/api/v1/category/%d' % category.id,
             'user': 2
         }
 
         resp = self.api_client.post(self.get_list_url(), format='json', data=post_data, authentication=self.get_credentials())
+        self.assertHttpCreated(resp)
+
+        self.assertEqual(BaseCategoryRestriction.objects.filter(user=self.user).count(), 3)
+
+    def test_post_list_bad_data_no_category(self):
+        """
+        The category property is mandatory.
+        """
+        # Check how many are there first.
+        self.assertEqual(BaseCategoryRestriction.objects.filter(user=self.user).count(), 2)
+
+        post_data = {
+            'value': '-400'
+        }
+
+        resp = self.api_client.post(self.get_list_url(), format='json', data=post_data, authentication=self.get_credentials())
+        print resp
         self.assertHttpBadRequest(resp)
 
         self.assertEqual(BaseCategoryRestriction.objects.filter(user=self.user).count(), 2)
 
+    def test_post_detail_unauthorized(self):
+        self.skipTest('Not needed')
 
+    def test_post_detail(self):
+        post_data = {}
+        resp = self.api_client.post(self.get_detail_url(), format='json', data=post_data, authentication=self.get_credentials())
+        self.assertHttpMethodNotAllowed(resp)

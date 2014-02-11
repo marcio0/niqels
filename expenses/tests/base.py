@@ -60,7 +60,7 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_get_list(self):
-        raise NotImplemented()
+        raise NotImplementedError
 
 
     @skip_if_base_class
@@ -72,11 +72,11 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_get_detail(self):
-        raise NotImplemented()
+        raise NotImplementedError
 
     @skip_if_base_class
     def test_get_detail_own_objects_only(self):
-        raise NotImplemented()
+        raise NotImplementedError
 
 
     @skip_if_base_class
@@ -88,4 +88,16 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_post_list(self):
-        raise NotImplemented()
+        raise NotImplementedError
+
+
+    @skip_if_base_class
+    def test_post_detail_unauthorized(self):
+        """
+        Must be authenticated to send a POST request to a detail endpoint.
+        """
+        self.assertHttpUnauthorized(self.api_client.post(self.get_detail_url(), format='json'))
+
+    @skip_if_base_class
+    def test_post_detail(self):
+        raise NotImplementedError
