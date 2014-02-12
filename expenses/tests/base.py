@@ -51,6 +51,11 @@ class BaseResourceTestCase(ResourceTestCase):
         resp = self.api_client.get(self.get_list_url(), format='json')
         self.assertValidJSONResponse(resp)
 
+
+    ###
+    ### GET TESTS
+    ###
+
     @skip_if_base_class
     def test_get_list_unauthorized(self):
         """
@@ -79,6 +84,10 @@ class BaseResourceTestCase(ResourceTestCase):
         raise NotImplementedError
 
 
+    ###
+    ### POST TESTS
+    ###
+
     @skip_if_base_class
     def test_post_list_unauthorized(self):
         """
@@ -101,3 +110,28 @@ class BaseResourceTestCase(ResourceTestCase):
     @skip_if_base_class
     def test_post_detail(self):
         raise NotImplementedError
+
+
+    ###
+    ### PUT TESTS
+    ###
+
+    @skip_if_base_class
+    def test_put_list_unauthorized(self):
+        """
+        Must be authenticated to send a PUT request to a detail endpoint.
+        """
+        self.assertHttpUnauthorized(self.api_client.put(self.get_list_url(), format='json'))
+
+    @skip_if_base_class
+    def test_put_list(self):
+        raise NotImplementedError
+
+    @skip_if_base_class
+    def test_put_detail_unauthorized(self):
+        self.assertHttpUnauthorized(self.api_client.put(self.get_detail_url(), format='json'))
+
+    @skip_if_base_class
+    def test_put_detail(self):
+        raise NotImplementedError
+

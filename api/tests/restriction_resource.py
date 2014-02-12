@@ -41,9 +41,14 @@ class RestrictionResourceTest(BaseResourceTestCase):
         BaseCategoryRestrictionFactory.create(user=self.user, category=self.categories[1], value=Decimal('-200'))
 
         # creating a restriction for another user
-        BaseCategoryRestrictionFactory.create(user=self.another_user, category=self.categories[1], value=Decimal('-200'))
+        self.another_restriction = BaseCategoryRestrictionFactory.create(user=self.another_user, category=self.categories[1], value=Decimal('-200'))
 
         self.detail_url = '/api/v1/restrictions/category/{0}'.format(self.restriction.id)
+
+
+    ###
+    ### GET TESTS
+    ###
 
     def test_get_list(self):
         resp = self.api_client.get('/api/v1/restrictions/category', format='json', authentication=self.get_credentials())
@@ -84,6 +89,10 @@ class RestrictionResourceTest(BaseResourceTestCase):
         resp = self.api_client.get(url, format='json', authentication=self.get_credentials())
         self.assertHttpUnauthorized(resp)
 
+
+    ###
+    ### POST TESTS
+    ###
 
     def test_post_list(self):
         # Check how many are there first.
@@ -173,3 +182,72 @@ class RestrictionResourceTest(BaseResourceTestCase):
         post_data = {}
         resp = self.api_client.post(self.get_detail_url(), format='json', data=post_data, authentication=self.get_credentials())
         self.assertHttpMethodNotAllowed(resp)
+
+
+    ###
+    ### PUT TESTS
+    ###
+
+    def test_put_list(self):
+        resp = self.api_client.put(self.get_list_url(), format='json', data={}, authentication=self.get_credentials())
+        self.assertHttpMethodNotAllowed(resp)
+
+    def test_put_list_unauthorized(self):
+        self.skipTest('')
+
+    def test_put_detail(self):
+        actual_value = self.restriction.value
+
+        data = {
+            'id': self.restriction.id,
+            'value': actual_value + Decimal("-100")
+        }
+
+        resp = self.api_client.put(self.get_detail_url(), format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        content = self.deserialize(resp)
+        self.assertEquals(content['value'], str(data['value']))
+
+        restriction = BaseCategoryRestriction.objects.get(pk=self.restriction.id)
+        self.assertEquals(restriction.value, data['value'])
+
+    def test_put_detail_cant_change_category(self):
+        data = {
+            'category': '/api/v1/category/%d' % (self.restriction.category_id + 1)
+        }
+
+        resp = self.api_client.put(self.get_detail_url(), format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+    def test_put_detail_no_category_in_data(self):
+        """
+        There should be no problem with the category missing on put requests.
+        """
+        data = {}
+
+        resp = self.api_client.put(self.get_detail_url(), format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+        restriction = BaseCategoryRestriction.objects.get(pk=self.restriction.id)
+
+        self.assertEquals(self.restriction.category_id, restriction.category_id)
+        self.assertEquals(self.restriction.value, restriction.value)
+
+    def test_put_detail_own_objects_only(self):
+        data = {
+            'value': Decimal(999)
+        }
+
+        resp = self.api_client.put('/api/v1/restrictions/category/%d' % self.another_restriction.id , format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpUnauthorized(resp)
+
+        restriction = BaseCategoryRestriction.objects.get(pk=self.restriction.id)
+
+        self.assertEquals(self.restriction.category_id, restriction.category_id)
+        self.assertEquals(self.restriction.value, restriction.value)
+
+
+    ###
+    ### DELETE TESTS
+    ###

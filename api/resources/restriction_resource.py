@@ -16,6 +16,7 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
         Converting Tastypie's uri to the model pk.
         """
         category = self.data.get('category')
+        print self.instance.user
 
         if category:
             if isinstance(category, basestring):
@@ -42,11 +43,11 @@ class BaseCategoryRestrictionResource(ModelResource):
         authorization = UserObjectsOnlyAuthorization()
         validation = FormValidation(form_class=BaseCategoryRestrictionApiForm)
         list_allowed_methods = ['get', 'post']
-        detail_allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'put']
         resource_name = "restrictions/category"
 
     def hydrate_category(self, bundle):
-        if not 'category' in bundle.data:
+        if not 'category' in bundle.data and bundle.request.method == "POST":
             bundle.data['category'] = None
         return bundle
 
