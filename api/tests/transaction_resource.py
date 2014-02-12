@@ -383,6 +383,27 @@ class TransactionResourceTest(ResourceTestCase):
         # Verify a new one has been added.
         self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
 
+
+    def test_post_bad_data_missing_category(self):
+        """
+        Unsuccessful POST to a list endpoint.
+        """
+        # Check how many are there first.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+        data = self.post_data.copy()
+        del data['category']
+
+        resp = self.api_client.post('/api/v1/transaction/', format='json', data=data, authentication=self.get_credentials())
+        self.assertHttpBadRequest(resp)
+
+        content = self.deserialize(resp)
+        self.assertTrue('category' in content['transaction'])
+
+        # Verify a new one has been added.
+        self.assertEqual(Transaction.objects.filter(user=self.user).count(), 2)
+
+
     # List tests: PUT
     def test_put_list_not_allowed(self):
         """

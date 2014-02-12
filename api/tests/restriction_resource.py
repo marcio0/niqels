@@ -162,7 +162,6 @@ class RestrictionResourceTest(BaseResourceTestCase):
         }
 
         resp = self.api_client.post(self.get_list_url(), format='json', data=post_data, authentication=self.get_credentials())
-        print resp
         self.assertHttpBadRequest(resp)
 
         self.assertEqual(BaseCategoryRestriction.objects.filter(user=self.user).count(), 2)

@@ -33,7 +33,7 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
 
 
 class BaseCategoryRestrictionResource(ModelResource):
-    category = fields.ForeignKey(CategoryResource, 'category')
+    category = fields.ForeignKey(CategoryResource, 'category', null=False, blank=False)
 
     class Meta:
         queryset = BaseCategoryRestriction.objects.all()
@@ -44,6 +44,11 @@ class BaseCategoryRestrictionResource(ModelResource):
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get']
         resource_name = "restrictions/category"
+
+    def hydrate_category(self, bundle):
+        if not 'category' in bundle.data:
+            bundle.data['category'] = None
+        return bundle
 
     def obj_create(self, bundle, **kwargs):
         return super(BaseCategoryRestrictionResource, self).obj_create(bundle, user=bundle.request.user)
