@@ -58,9 +58,6 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_get_list_unauthorized(self):
-        """
-        Must be authenticated to send a GET request to a list endpoint.
-        """
         self.assertHttpUnauthorized(self.api_client.get(self.get_list_url(), format='json'))
 
     @skip_if_base_class
@@ -70,14 +67,15 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_get_detail_unauthorized(self):
-        """
-        Must be authenticated to send GET request to a detail endpoint.
-        """
         self.assertHttpUnauthorized(self.api_client.get(self.get_detail_url(), format='json'))
 
     @skip_if_base_class
     def test_get_detail(self):
         raise NotImplementedError
+
+    @skip_if_base_class
+    def test_get_detail_own_objects_only(self):
+        raise NotImplemented
 
     @skip_if_base_class
     def test_get_detail_own_objects_only(self):
@@ -90,21 +88,14 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_post_list_unauthorized(self):
-        """
-        Must be authenticated to POST a list endpoint.
-        """
         self.assertHttpUnauthorized(self.api_client.post(self.get_list_url(), format='json'))
 
     @skip_if_base_class
     def test_post_list(self):
         raise NotImplementedError
 
-
     @skip_if_base_class
     def test_post_detail_unauthorized(self):
-        """
-        Must be authenticated to send a POST request to a detail endpoint.
-        """
         self.assertHttpUnauthorized(self.api_client.post(self.get_detail_url(), format='json'))
 
     @skip_if_base_class
@@ -118,9 +109,6 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_put_list_unauthorized(self):
-        """
-        Must be authenticated to send a PUT request to a detail endpoint.
-        """
         self.assertHttpUnauthorized(self.api_client.put(self.get_list_url(), format='json'))
 
     @skip_if_base_class
@@ -135,3 +123,31 @@ class BaseResourceTestCase(ResourceTestCase):
     def test_put_detail(self):
         raise NotImplementedError
 
+    @skip_if_base_class
+    def test_put_detail_own_objects_only(self):
+        raise NotImplementedError
+
+
+    ###
+    ### DELETE TESTS
+    ###
+
+    @skip_if_base_class
+    def test_delete_list_unauthorized(self):
+        self.assertHttpUnauthorized(self.api_client.delete(self.get_list_url(), format='json'))
+
+    @skip_if_base_class
+    def test_delete_list(self):
+        raise NotImplementedError
+
+    @skip_if_base_class
+    def test_delete_detail_unauthorized(self):
+        self.assertHttpUnauthorized(self.api_client.delete(self.get_detail_url(), format='json'))
+
+    @skip_if_base_class
+    def test_delete_detail(self):
+        raise NotImplementedError
+
+    @skip_if_base_class
+    def test_delete_detail_own_objects_only(self):
+        raise NotImplementedError

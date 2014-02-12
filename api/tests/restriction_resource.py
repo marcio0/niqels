@@ -251,3 +251,18 @@ class RestrictionResourceTest(BaseResourceTestCase):
     ###
     ### DELETE TESTS
     ###
+
+    def test_delete_list(self):
+        resp = self.api_client.delete(self.get_list_url(), format='json', authentication=self.get_credentials())
+        self.assertHttpMethodNotAllowed(resp)
+
+    def test_delete_list_unauthorized(self):
+        self.skipTest('')
+
+    def test_delete_detail(self):
+        resp = self.api_client.delete(self.get_detail_url(), format='json', authentication=self.get_credentials())
+        self.assertHttpAccepted(resp)
+
+    def test_delete_detail_own_objects_only(self):
+        resp = self.api_client.delete('/api/v1/restrictions/category/%d' % self.another_restriction.id, format='json', authentication=self.get_credentials())
+        self.assertHttpUnauthorized(resp)
