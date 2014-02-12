@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 import mock
 import unittest
 import logging
@@ -67,14 +68,14 @@ class RegisterViewTest(TestCase):
             password='test'
         )
 
-        ret = client.get('/register/')
+        ret = client.get(reverse('register'))
         self.assertEquals(ret.status_code, 302)
         self.assertEquals(ret.get('location'), 'http://testserver/')
 
     def test_get(self):
         client = Client()
 
-        ret = client.get('/register/')
+        ret = client.get(reverse('register'))
 
         self.assertEquals(ret.status_code, 200)
 
@@ -89,7 +90,7 @@ class RegisterViewTest(TestCase):
         }
         client = Client()
 
-        ret = client.post('/register/', data)
+        ret = client.post(reverse('register'), data)
 
         self.assertEquals(ret.status_code, 302)
         self.assertEquals(ret.get('location'), 'http://testserver/')
@@ -109,7 +110,7 @@ class RegisterViewTest(TestCase):
             'password_confirm': 'asdasd'
         }
         client = Client()
-        ret = client.post('/register/', data)
+        ret = client.post(reverse('register'), data)
 
         self.assertEquals(ret.status_code, 302)
 

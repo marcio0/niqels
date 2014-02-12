@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block body %}
+
+    <h2 class="area-header">{% trans "Planos" %}</h2>
+
+    <div class="panel panel-default center-panel-large" id="plans">
+        <div class="panel-body">
+            <p class="lead">{% blocktrans %}
+                Em breve teremos o plano Plus, com funcionalidades avançadas para ajudar você a manter o controle do seu dinheiro!
+            {% endblocktrans %}</p>
+
+            <table class="table plans-info">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th class="plan-features"><h4>{% trans "Plano Gratuito" %}</h4></th>
+                    <th class="plan-features"><h4>{% trans "Plano Plus" %}</h4></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>
+                        <h4>{% trans "Organização financeira" %}</h4>
+                        <p>{% blocktrans %}
+                            Cadastre suas movimentações.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Mobile" %}</h4>
+                        <p>{% blocktrans %}
+                            Controle suas finanças pelo nosso aplicativo Android ou através do site.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Relatórios" %}</h4>
+                        <p>{% blocktrans %}
+                            Veja gráficos que o ajudarão a entender seu comportamento financeiro.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                </tr>
+                {% comment %}
+                <tr>
+                    <td>
+                        <h4>{% trans "Importação de dados" %}</h4>
+                        <p>{% blocktrans %}
+                            Adicione facilmente ao Niqels dados de outros serviços ou planilhas exportadas de seu Internet Banking.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"><i class="fa fa-wrench fa-2x"></i></td>
+                    <td class="plan-features"><i class="fa fa-wrench fa-2x"></i></td>
+                </tr>
+                {% endcomment %}
+                <tr>
+                    <td>
+                        <h4>{% trans "Planejamento financeiro" %}</h4>
+                        <p>{% blocktrans %}
+                            Controle seus gastos criando limites.
+                        {% endblocktrans %}</p>
+                    </td>
+
+                    <td class="plan-features"></td>
+                    <td class="plan-features"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>{% trans "Diagnóstico financeiro" %}</h4>
+                        <p>{% blocktrans %}
+                            Descubra o que está impactando nas suas economias e como evitar gastos desnecessários.
+                        {% endblocktrans %}</p>
+                    </td>
+                    <td class="plan-features"></td>
+                    <td class="plan-features"><i class="fa fa-wrench fa-2x"></i></td>
+                </tr>
+                </tbody>
+
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td colspan="2" class="plan-features">
+                        <span class="text-danger lead">{% trans "Em breve!" %}</span>
+                    </td>
+                </tr>
+                </tfoot>
+
+                {% comment %}
+                {% if not user.is_authenticated %}
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="plan-features">
+                            <a href="{% url "register" %}" class="btn btn-danger btn-block">{% trans "Criar conta" %}</a>
+                            <p>{% blocktrans %}
+                                Crie sua conta gratuitamente e faça upgrade a qualquer momento!
+                            {% endblocktrans %}</p>
+                        </td>
+                    </tr>
+                    </tfoot>
+                {% endif %}
+                {% endcomment %}
+            </table>
+
+            {% comment %}
+
+            {% if user.is_authenticated %}
+                <table class="table plans-signup">
+                    <thead>
+                    <tr>
+                        <td colspan="3">
+                            <h4>{% blocktrans %} Escolha o período de assinatura: {% endblocktrans %}</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="period">{% trans "1 mês" %}</p>
+                            <p class="price">{% trans "R$ 5,00" %}</p>
+                        </td>
+                        <td>
+                            <p class="period">{% trans "3 meses" %}</p>
+                            <p class="price">{% trans "R$ 15,00" %}</p>
+                        </td>
+                        <td>
+                            <p class="period">{% trans "6 meses" %}</p>
+                            <p class="price">{% trans "R$ 30,00" %}</p>
+                        </td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>
+                            {% include "plans/pagseguro-buttons.html" with btn=1 %}
+                        </td>
+                        <td>
+                            {% include "plans/pagseguro-buttons.html" with btn=2 %}
+                        </td>
+                        <td>
+                            {% include "plans/pagseguro-buttons.html" with btn=3 %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+            {% endcomment %}
+        </div>
+    </div>
+
+{% endblock body %}
+
+
+

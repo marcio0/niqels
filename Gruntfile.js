@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                //banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
             },
             webapp: {
                 files: {
@@ -72,6 +72,7 @@ module.exports = function(grunt) {
                         'static/src/js/lib/min/modernizr.custom.19405.js',
                         'static/src/js/lib/min/accounting.min.js',
                         'static/src/js/lib/min/bootstrap-tour.min.js',
+                        'static/src/js/lib/min/store.min.js',
 
                         'static/dist/js/webapp-libs.min.tmp.js'
                     ],
@@ -81,7 +82,7 @@ module.exports = function(grunt) {
                      *
                      * Webapp source code + dependencies.
                      */
-                    'static/dist/js/webapp.min.js': [
+                    'static/dist/js/webapp-scripts.js': [
                         'static/dist/js/webapp-libs.min.tmp.js',
                         'static/dist/js/webapp-scripts.min.tmp.js'
                     ]
@@ -143,7 +144,7 @@ module.exports = function(grunt) {
                 }
             },
             foreman: {
-                command: 'python manage.py collectstatic --noinput; foreman start --port 8001'
+                command: 'python manage.py collectstatic --noinput; foreman start --port 8000'
             }
         },
 
@@ -151,7 +152,6 @@ module.exports = function(grunt) {
             webapp: {
                 files: [
                     {src: 'img/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
-                    {src: 'css/**', dest: 'static/dist/', expand: true, cwd: 'static/src'},
                     {src: 'fonts/**', dest: 'static/dist/', expand: true, cwd: 'static/src'}
                 ]
             },
@@ -162,23 +162,43 @@ module.exports = function(grunt) {
             }
         },
 
-        jshint: {
+        cssmin: {
             options: {
-               '-W065': true,
-                globals: {
-                    gettext: false,
-                    toastr: false,
-                    angular: false,
-                    $: false,
-                    Highcharts: false,
-                    moment: false
+                keepSpecialComments: 0
+            },
+            landing: {
+                files: {
+                    'static/dist/css/landing.css': ['static/src/css/landing.css']
                 }
             },
-            all: ['static/src/js/app/**/*.js']
-        }
+            webapp: {
+                files: {
+                    'static/dist/css/styles.css': ['static/src/css/styles.css', 'static/src/css/bootstrap-select.css']
+                }
+            }
+        },
 
+        replace: {
+            options: {
+                patterns: [
+                    {
+                        match: /\?rel=(\d+)/,
+                        replacement: '?rel=<%= new Date().getTime() %>',
+                        expression: false
+                    }
+                ]
+            },
+            webapp: {
+                files: [
+                    {src: ['templates/webapp/index.html'], dest: 'templates/webapp/index.html'},
+                    {src: ['templates/base.html'], dest: 'templates/base.html'},
+                    {src: ['templates/landing.html'], dest: 'templates/landing.html'}
+                ]
+            }
+        }
     });
 
+    grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -186,7 +206,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-exec');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     /*
      * Task: buildjs
@@ -195,13 +215,13 @@ module.exports = function(grunt) {
      * script.min.js            : the scripts for all pages (including the webapp).
      * webapp.min.js            : the entire webapp scripts, except global scripts.
      */
-    grunt.registerTask('build-webapp', 'Builds the whole javascript used in production.', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp']);
+    grunt.registerTask('build-webapp', 'Builds the whole javascript used in production.', ['clean:dist', 'uglify:webapp', 'concat:webapp', 'clean:buildjs', 'copy:webapp', 'cssmin', 'replace']);
 
     grunt.registerTask('makemessages', 'Make message files for both django and djangojs.', ['exec:makemessagesDjango', 'exec:makemessagesJS']);
 
     grunt.registerTask('testserver', 'Runs the django testserver on port 8002 and loading the `testserver_data.yaml` fixture.', ['exec:testserver']);
 
-    grunt.registerTask('foreman', 'Colect static files and runs foreman on port 8001.', ['exec:foreman']);
+    grunt.registerTask('foreman', 'Colect static files and runs foreman on port 8000.', ['exec:foreman']);
 
     grunt.registerTask('patch-settings', 'Patches the local settings file with a file in the `core/dev_settings` folder.', ['clean:local_settings', 'copy:local_settings']);
 };

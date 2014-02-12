@@ -177,7 +177,8 @@
 
                         <tbody>
                             <tr class="transaction-row"
-                                ng-repeat="transaction in group.transactions">
+                                ng-repeat="transaction in group.transactions"
+                                ng-click="editTransaction(transaction)">
 
                                 <td class="category-column" ng-bind="transaction.category.name"></td>
 

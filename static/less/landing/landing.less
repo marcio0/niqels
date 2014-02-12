@@ -1,4 +1,9 @@
-@import "../lib/bootstrap/bootstrap.less";
+@import (less) "http://fonts.googleapis.com/css?family=Oxygen:400,300";
+@import (less) "http://fonts.googleapis.com/css?family=Roboto:500";
+@import (less) "http://fonts.googleapis.com/css?family=Roboto+Slab:700";
+@import (less) "http://fonts.googleapis.com/css?family=Open+Sans:600,700";
+
+@import "bootstrap.less";
 @import "../variables.less";
 
 body {
@@ -6,9 +11,9 @@ body {
 }
 
 // navbar
-
-
 #navbar {
+
+
     margin-bottom: 0;
     background: @white; 
     border: transparent;
@@ -25,8 +30,11 @@ body {
     #navbar-links {
         a {
             text-decoration: none;
-            font-weight: bold;
-        }
+
+            &.important {
+                font-weight: bold;
+            }
+         }
     }
 }
 

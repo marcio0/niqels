@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block body %}
+    <h2 class="text-center">{% trans "Contato" %}</h2>
+
+    <div class="panel center-panel">
+        <div class="panel-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form id="contact-form" method="POST" action="" class="form-horizontal contact-form">{% csrf_token %}
+
+                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                    <label class="control-label" for="name">{% trans "Nome" %}</label>
+                    <div class="input-icon">
+                        <i class="fa fa-user input-icon-prepend"></i>
+                        <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                class="form-control"
+                                {% if user.is_authenticated %}
+                                value="{{ user.name|default_if_none:"" }}"
+                                {% else %}
+                                value="{{ form.name.value|default_if_none:"" }}"
+                                {% endif %}
+
+                                >
+                        {% for error in form.name.errors %}
+                            <span class="help-block error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                    <label class="control-label" for="email">{% trans "Email" %}</label>
+                    <div class="input-icon">
+                        <i class="fa fa-envelope input-icon-prepend"></i>
+                        <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                class="form-control"
+                                {% if user.is_authenticated %}
+                                value="{{ user.email|default_if_none:"" }}"
+                                {% else %}
+                                value="{{ form.email.value|default_if_none:"" }}"
+                                {% endif %}
+                                >
+                        {% for error in form.email.errors %}
+                            <span class="help-block error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.message.errors %}has-error{% endif %}">
+                    <label class="control-label" for="message">{% trans "Mensagem" %}</label>
+                    <div>
+                        <textarea
+                                rows="10"
+                                id="message"
+                                name="message"
+                                class="form-control"
+                                value="{{ form.message.value|default_if_none:"" }}"
+                                ></textarea>
+                        {% for error in form.message.errors %}
+                            <span class="help-block error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="actions">
+                        <button type="submit" class="btn btn-primary">
+                            {% trans "Enviar" %} <i class="fa fa-share"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}

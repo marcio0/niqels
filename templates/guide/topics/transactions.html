@@ -1,0 +1,93 @@
+{% extends "guide/guide_base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block topic_content %}
+    <h2>{% trans "Movimentações "%}</h2>
+
+    <section>
+        <h3>
+            <a id="{% trans "criando-movimentacao" %}" href="#{% trans "criando-movimentacao" %}">{% trans "Criando uma movimentação" %}</a>
+        </h3>
+        <p>
+            {% blocktrans %}
+                Para criar uma movimentação, use o formulário à esquerda. Preencha a categoria e valor, e caso ache necessário, a descrição e data (por padrão é o dia de hoje). <br>
+                Ao criar uma movimentação, ela será adicionada à listagem ao lado, e seu balanço será atualizado com os novos dados.
+            {% endblocktrans %}
+        </p>
+
+        <img src="{% static "img/guide/transaction-form.PNG" %}"/>
+    </section>
+
+    <section>
+        <h3>
+            <a id="{% trans "categorias" %}" href="#{% trans "categorias" %}">{% trans "Categorias de movimentações" %}</a>
+        </h3>
+        <p>
+            {% blocktrans %}
+                As categorias servem para definir o tipo de cada movimentação. Elas ajudam a mostrar para onde seu dinheiro está indo, e são vistas com clareza nos relatórios. <br>
+            {% endblocktrans %}
+        </p>
+        <p>
+
+            <img src="{% static "img/guide/category-list.PNG" %}"/>
+
+            {% blocktrans %}
+                Para buscar uma categoria, basta digitar no campo ao topo da listagem, e apenas as categorias relevantes serão mostradas.
+            {% endblocktrans %}
+        </p>
+        <img src="{% static "img/guide/category-list-search.PNG" %}"/>
+    </section>
+
+    <section>
+        <h3>
+            <a id="{% trans "movimentacao-parcelada" %}" href="#{% trans "movimentacao-parcelada" %}">{% trans "Criando uma movimentação parcelada" %}</a>
+        </h3>
+        <p>
+            {% blocktrans %}
+                Uma movimentação parcelada se divide igualmente entre o número de meses especificado. Por exemplo, ao parcelar em 5 vezes uma compra no valor de R$ 550,00, serão criadas 5 movimentações de R$ 110,00, sendo a primeira no dia especificado, e as outras nos meses seguintes, sempre no mesmo dia do mês. <br>
+                Para criar uma movimentação parcelada, marque a caixa de seleção "<i>Esta é uma compra parcelada</i>". Campos adicionais irão surgir para especificar quantidade e valor das parcelas.
+
+            {% endblocktrans %}
+        </p>
+        <img src="{% static "img/guide/split-transaction-form.PNG" %}"/>
+
+        <p>
+            {% blocktrans %}
+                Quando uma movimentação é uma parcela, é exibido na listagem de movimentações o número desta parcela:
+            {% endblocktrans %}
+        </p>
+        <img src="{% static "img/guide/split-transaction-view-installment.PNG" %}"/>
+    </section>
+
+    <section>
+        <h3>
+            <a id="{% trans "editando-movimentacao" %}" href="#{% trans "editando-movimentacao" %}">{% trans "Editando uma movimentação" %}</a>
+        </h3>
+        <p>
+            {% blocktrans %}
+                Para editar uma movimentação, basta clicar nela na listagem. Uma janela se abrirá com o formulário de edição. Preencha com os novos valores e clique em “Salvar”.
+            {% endblocktrans %}
+        </p>
+        <img src="{% static "img/guide/edit-transaction.PNG" %}"/>
+    </section>
+
+    <section>
+        <h3>
+            <a id="{% trans "removendo-movimentacao" %}" href="#{% trans "removendo-movimentacao" %}">{% trans "Removendo uma movimentação" %}</a>
+        </h3>
+        <p>
+            {% blocktrans %}
+                Para remover uma movimentação, pare o cursor em cima dela. Um ícone de lixeira aparecerá ao lado do valor. Clique nela para remover.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans %}
+                Também é possível remover a movimentação através da janela de edição.
+            {% endblocktrans %}
+        </p>
+        <img src="{% static "img/guide/remove-transaction.PNG" %}"/>
+    </section>
+
+{% endblock %}

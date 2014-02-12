@@ -1,14 +1,17 @@
-function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, SplitTransaction, $modal) {
+function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, SplitTransaction, $modal, UserOptions) {
     'use strict';
 
     $scope.days = [];
-    $scope.groupBy = 'category.name';
+    $scope.groupBy = UserOptions.setDefault('transaction-list-group-by', 'category.name');;
     $scope.categories = [];
     $scope.filterDate = moment();
     $scope.loading = true;
     $scope.allTransactions = [];
     $scope.transactionGroups = [];
-    $scope.orderDesc = true;
+    $scope.orderDesc = UserOptions.setDefault('transaction-list-order-desc', true);
+
+    UserOptions.watch($scope, 'groupBy', 'transaction-list-group-by');
+    UserOptions.watch($scope, 'orderDesc', 'transaction-list-order-desc');
 
     $scope.editTransaction = function (transaction) {
         var newScope = $rootScope.$new();
@@ -47,7 +50,8 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
                 total: 0
             };
             for (var idx in group.transactions) {
-                group.total += group.transactions[idx].value;
+                var value = parseFloat(group.transactions[idx].value)
+                group.total += value;
             }
             transactionGroups.push(group);
         }
@@ -79,9 +83,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
             });
 
             $scope.allTransactions = result;
-            $scope.transactionGroups = groupTransactions($scope.groupBy);
-
-            window.transactions = $scope.transactionGroups;
+            $scope.transactionGroups = groupTransactions();
 
         }).finally(function () {$scope.loading = false;});
     };
@@ -111,8 +113,27 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
         });
     }
 
+
+    $scope.isEmpty = function isEmpty () {
+        return ($scope.transactionGroups.length === 0) && !$scope.loading;
+    };
+
+    // callbacks
+
     $rootScope.$on('transaction-updated', function (event, transaction) {
-        filterTransactions($scope.filterDate);
+        var found = $.grep($scope.allTransactions, function (i) {
+            return i.id === transaction.id;
+        });
+        if (!found) {
+            return;
+        }
+        else {
+            found = found[0];
+        }
+
+        var idx = $scope.allTransactions.indexOf(found);
+        $scope.allTransactions[idx] = transaction;
+        $scope.transactionGroups = groupTransactions();
     });
 
     $rootScope.$on('transaction-created', function (event, transaction) {
@@ -143,17 +164,17 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
         }
     });
 
-    // callbacks
-
-    $rootScope.$on('transaction-removed', function reloadAfterRemove () {
-        filterTransactions($scope.filterDate);
+    $rootScope.$on('transaction-removed', function reloadAfterRemove (ev, transaction) {
+        //filterTransactions($scope.filterDate);
+        var idx = $scope.allTransactions.indexOf(transaction);
+        if (idx === -1) {
+            return;
+        }
+        $scope.allTransactions.splice(idx, 1);
+        $scope.transactionGroups = groupTransactions();
     });
 
-    $scope.isEmpty = function isEmpty () {
-        return ($scope.transactionGroups.length === 0) && !$scope.loading;
-    };
-
-    // watchers
+    // WATCHERS
 
     $scope.$watch('filterDate', filterTransactions);
 
@@ -166,4 +187,4 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     });
 }
 
-TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction', '$modal'];
+TransactionListCtrl.$inject = ['$scope', '$rootScope', 'Transaction', '$filter', '$parse', 'SplitTransaction', '$modal', 'UserOptions'];
