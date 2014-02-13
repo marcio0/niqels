@@ -245,12 +245,20 @@
 <script type="text/ng-template" id="threshold/popover_content.tpl.html">
     <span ng-if="category.threshold">
         <p> Limite de gastos com <strong>((category.name))</strong> </p>
-        <a href="#">Alterar limite</a>
-        <a href="#" ng-click="category.threshold = null">Remover limite</a>
+
+        <p>Foram gastos <strong>((category.threshold.completion|currency))</strong> de <strong>((category.threshold.value|currency))</strong></p>
+        
+        <a href="#" ng-click="startEdit()">{% trans "Alterar limite" %}</a>
+        <a href="#" ng-click="startNewEdit()">{% trans "Remover limite" %}</a>
     </span>
 
     <span ng-if="!category.threshold">
-        <p> Criar um limite de gastos </p>
-        <button ng-click="category.threshold = {value: 1000, completion: 0}">Salvar</button>
+        <form method="post">
+            <p ng-if="state == STATES.ALTER"> {% trans "Alteração de limite de gastos" %} </p>
+            <p ng-if="state == STATES.NEW"> {% trans "Criar um limite de gastos" %} </p>
+
+            <input type="text" name="threshold_value" ng-model="formData.value"></input>
+            <button ng-click="submit()">Salvar</button>
+        </form>
     </span>
 </script>

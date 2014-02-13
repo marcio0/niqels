@@ -285,12 +285,29 @@
                         completion: 900
                     };
 
-                    $popover($element, {
-                        trigger: 'click',
+                    var popoverScope = $popover($element, {
+                        trigger: 'manual',
                         container: 'body',
                         scope: $scope,
                         contentTemplate: 'threshold/popover_content.tpl.html'
                     });
+
+                    $element.click(function (e) {
+                        e.stopPropagation();
+                        popoverScope.toggle();
+                    });
+
+                    $scope.STATES = {
+                        FLAT: 0,
+                        NEW: 1,
+                        ALTER: 2
+                    };
+
+                    $scope.state = $scope.STATES.FLAT;
+
+                    $scope.formData = {
+                        value: null
+                    };
 
                     $scope.style_threshold_completion = function () {
                         var category = $scope.category,
@@ -302,9 +319,27 @@
                         percent_completion = threshold.completion / threshold.value;
                         percent_completion = Math.round(percent_completion * 10);
 
-                        console.log(threshold.value, percent_completion);
-
                         return "threshold-indicator-" + percent_completion;
+                    };
+
+                    $scope.startEdit = function () {
+                        $scope.state = $scope.STATES.ALTER;
+                        $scope.formData = angular.copy($scope.category.threshold);
+                        $scope.category.threshold = null;
+                    };
+
+                    $scope.startNewEdit = function () {
+                        $scope.state = $scope.STATES.NEW;
+                        $scope.formData = {};
+                        $scope.category.threshold = null;
+                    }
+
+                    $scope.submit = function () {
+                        var threshold = $scope.category.threshold = {
+                            value: $scope.formData.value,
+                            completion: 100 // HxC
+                        };
+                        $scope.state = $scope.STATES.FLAT;
                     };
                 }
             };
