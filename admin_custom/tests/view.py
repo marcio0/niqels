@@ -1,21 +1,13 @@
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest
 from django.test import TestCase
-import factory
 import mock
 from smtplib import SMTPException
 from access.models import User
+from access.tests.factories import UserFactory
 from admin_custom.validators import validate_sql
 from admin_custom.views import UserQueryForm, EmailInterface
 from django.conf import settings
-
-
-class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = User
-    FACTORY_DJANGO_GET_OR_CREATE = ('email',)
-
-    email = factory.Sequence(lambda n: 'user{0}@example.com'.format(n))
-    password = 'password'
 
 
 class SqlValidatorTest(TestCase):

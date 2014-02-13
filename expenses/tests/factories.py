@@ -2,7 +2,7 @@ import datetime
 from django.utils import timezone
 import factory
 from decimal import Decimal
-from api.tests import UserFactory
+from access.tests.factories import UserFactory
 from expenses.models import CategoryGroup, Category, Transaction
 
 

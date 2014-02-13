@@ -1,24 +1,12 @@
 # encoding: utf-8
-
+from django.utils.translation import gettext as _
 import mock
 import datetime
-import factory
 from decimal import Decimal
-
 from django.test import TestCase
-from django.utils.translation import ugettext, ugettext_lazy as _
-
 import expenses.models
 from expenses.models import Category, Transaction, CategoryGroup, SplitTransaction
-
-
-class TransactionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Transaction
-
-    description = "a transaction"
-    date = datetime.date.today()
-    value = Decimal(10)
-
+from expenses.tests.factories import TransactionFactory
 
 class SplitTransactionTest(TestCase):
     @mock.patch.object(SplitTransaction, 'transactions')

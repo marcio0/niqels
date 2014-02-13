@@ -58,15 +58,20 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_get_list_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.get(self.get_list_url(), format='json'))
 
     @skip_if_base_class
     def test_get_list(self):
         raise NotImplementedError
 
-
     @skip_if_base_class
     def test_get_detail_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.get(self.get_detail_url(), format='json'))
 
     @skip_if_base_class
@@ -75,10 +80,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_get_detail_own_objects_only(self):
-        raise NotImplemented
-
-    @skip_if_base_class
-    def test_get_detail_own_objects_only(self):
+        """
+        Asserts if the user can only access it's own objects.
+        """
         raise NotImplementedError
 
 
@@ -88,6 +92,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_post_list_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.post(self.get_list_url(), format='json'))
 
     @skip_if_base_class
@@ -96,6 +103,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_post_detail_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.post(self.get_detail_url(), format='json'))
 
     @skip_if_base_class
@@ -109,6 +119,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_put_list_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.put(self.get_list_url(), format='json'))
 
     @skip_if_base_class
@@ -117,6 +130,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_put_detail_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.put(self.get_detail_url(), format='json'))
 
     @skip_if_base_class
@@ -125,6 +141,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_put_detail_own_objects_only(self):
+        """
+        Asserts if the user can only access it's own objects.
+        """
         raise NotImplementedError
 
 
@@ -134,6 +153,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_delete_list_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.delete(self.get_list_url(), format='json'))
 
     @skip_if_base_class
@@ -142,6 +164,9 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_delete_detail_unauthorized(self):
+        """
+        Unauthenticated users have no access to the api.
+        """
         self.assertHttpUnauthorized(self.api_client.delete(self.get_detail_url(), format='json'))
 
     @skip_if_base_class
@@ -150,4 +175,7 @@ class BaseResourceTestCase(ResourceTestCase):
 
     @skip_if_base_class
     def test_delete_detail_own_objects_only(self):
+        """
+        Asserts if the user can only access it's own objects.
+        """
         raise NotImplementedError

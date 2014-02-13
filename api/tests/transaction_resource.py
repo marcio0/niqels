@@ -1,23 +1,15 @@
 from decimal import Decimal
 import datetime
-import factory
 
 from tastypie.test import ResourceTestCase
 from django.test import TestCase
 from django.utils import timezone
 
 from access.models import User
+from access.tests.factories import UserFactory
 from expenses.models import Transaction, Category
 from api.resources.transaction_resource import _truncate_date_tzinfo
-from expenses.tests import TransactionFactory
-
-
-class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = User
-    FACTORY_DJANGO_GET_OR_CREATE = ('email',)
-
-    email = 'user@example.com'
-    password = 'password'
+from expenses.tests.factories import TransactionFactory
 
 
 class TransactionResourceTest(ResourceTestCase):

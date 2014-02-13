@@ -1,4 +1,3 @@
-import factory
 import mock
 import datetime
 from decimal import Decimal
@@ -8,24 +7,7 @@ from tastypie.test import ResourceTestCase
 from access.models import User
 from api.resources import SplitTransactionResource
 from expenses.models import Transaction, Category, SplitTransaction, CategoryGroup
-
-
-class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = User
-    FACTORY_DJANGO_GET_OR_CREATE = ('email',)
-
-    email = 'user@example.com'
-    password = 'password'
-
-
-class TransactionFactory(factory.Factory):
-    FACTORY_FOR = Transaction
-
-    value = Decimal("10")
-    user = factory.SubFactory(UserFactory)
-    date = datetime.date.today()
-    created = datetime.datetime.now()
-    description = 'a installment'
+from expenses.tests.factories import TransactionFactory
 
 
 class SplitTransactionResourceTest(ResourceTestCase):
@@ -86,7 +68,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
         """
 
         split = SplitTransaction.objects.create(user=self.user, description="a split transaction")
-        split.transactions = TransactionFactory.create_batch(3, user=self.user, category_id=1, date=datetime.date(2010, 10, 10))
+        split.transactions = TransactionFactory.create_batch(3, user=self.user, category_id=1, date=datetime.date(2010, 10, 10), description="a installment")
 
         resp = self.api_client.get('/api/v1/split_transaction/', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
@@ -386,7 +368,7 @@ class SplitTransactionResourceTest(ResourceTestCase):
     # Detail tests: GET
     def test_get_detail(self):
         split = SplitTransaction.objects.create(user=self.user, description="a split transaction")
-        split.transactions = TransactionFactory.create_batch(3, user=self.user, category_id=1, date=datetime.date(2010, 10, 10))
+        split.transactions = TransactionFactory.create_batch(3, user=self.user, category_id=1, date=datetime.date(2010, 10, 10), description="a installment")
 
         resp = self.api_client.get('/api/v1/split_transaction/1', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
