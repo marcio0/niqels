@@ -110,6 +110,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'babeldjango.middleware.LocaleMiddleware',
@@ -117,7 +118,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -147,10 +148,11 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize',
+    #'django.contrib.humanize',
     'django.contrib.admin',
-    'django.contrib.messages',
+    'plans',
     'expenses',
+    'restrictions',
     'access',
     'api',
     'admin_custom',
@@ -160,7 +162,7 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
 
-    'django.contrib.webdesign',
+    #'django.contrib.webdesign',
 )
 
 # A sample logging configuration. The only tangible logging

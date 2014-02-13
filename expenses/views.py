@@ -1,16 +1,5 @@
-import datetime
+from django.views.generic.base import TemplateView
 
-from django.utils.translation import ugettext, ugettext_lazy as _
-from django.shortcuts import redirect, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic.base import TemplateView, View
-from django.views.generic.edit import FormView, DeletionMixin
-from django.http import HttpResponseRedirect
-from django.contrib import messages
-
-from access.views import AutenticationRequiredMixin
 from access.forms import UserCreationForm
 from webapp.views import WebAppView
 

@@ -5,7 +5,6 @@ from tastypie.constants import ALL
 from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation
 from tastypie import fields
-from tastypie import http
 from tastypie.authentication import SessionAuthentication, BasicAuthentication, MultiAuthentication
 from tastypie.exceptions import BadRequest
 from django.utils.translation import ugettext_lazy as _
@@ -36,7 +35,7 @@ class TransactionApiForm(forms.ModelForm):
 
 
 class TransactionResource(ModelResource):
-    category = fields.ForeignKey(CategoryResource, 'category', full=True)
+    category = fields.ForeignKey(CategoryResource, 'category', full=True, null=False, blank=False)
     installment_of = fields.ForeignKey('api.resources.SplitTransactionResource', 'installment_of', null=True, readonly=True)
 
     class Meta:
@@ -66,6 +65,11 @@ class TransactionResource(ModelResource):
         if value:
             bundle.data['value'] = parse_decimal(str(value), locale=bundle.request.locale)
 
+        return bundle
+
+    def hydrate_category(self, bundle):
+        if not 'category' in bundle.data and bundle.request.method == 'POST':
+            bundle.data['category'] = {}
         return bundle
 
     def full_hydrate(self, bundle):

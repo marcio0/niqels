@@ -1,11 +1,13 @@
+@import (less) "http://fonts.googleapis.com/css?family=Oxygen:400,300";
+@import (less) "http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300";
+@import (less) "http://fonts.googleapis.com/css?family=Roboto:900";
+
 @import "../lib/bootstrap/bootstrap.less";
-//@import "../lib/typeahead.less";
 @import "../lib/datepicker3.less";
 @import "../lib/bootstrap-tour.less";
 @import "../datepicker-override.less";
 @import "../toastr-override.less";
 @import "../bootstrap-tour-override.less";
-
 
 @import "../variables.less";
 @import "category-list.less";
@@ -15,6 +17,8 @@
 @import "../forms.less";
 @import "transaction-list.less";
 @import "reports.less";
+@import "plans.less";
+@import "guide.less";
 
 @import "../components/option-panel.less";
 @import "../components/hashtags.less";
@@ -26,7 +30,6 @@ html, body, .container, .row {
 
 #ng-app > .container {
     height: calc(~"100% - "(@navbar-height + 1px));
-
 }
 
 body {
@@ -171,7 +174,6 @@ body {
     margin-bottom: 25px;
 }
 
-
 .center-panel {
     .make-lg-column(4);
     .make-lg-column-offset(4);
@@ -181,7 +183,20 @@ body {
 
     .make-sm-column(6);
     .make-sm-column-offset(3);
+}
 
+.center-panel-large {
+    .make-lg-column(8);
+    .make-lg-column-offset(2);
+
+    .make-md-column(8);
+    .make-md-column-offset(2);
+
+    .make-sm-column(10);
+    .make-sm-column-offset(1);
+}
+
+.center-panel, .center-panel-large {
     background-color: @white;
     border-style: solid;
     box-shadow: 0 0 3px #ccc;
@@ -207,4 +222,16 @@ hr {
             opacity: 0;
         }
     }
+}
+
+img.img404, img.img500 {
+    height: 400px;
+    width: 400px;
+
+    .center-block();
+}
+
+// making django work with bs classes
+.alert-error {
+    .alert-danger();
 }

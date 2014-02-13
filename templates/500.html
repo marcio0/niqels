@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block body %}
+<h1 class="text-center">{% blocktrans %}Um erro ocorreu. Por favor tente novamente mais tarde.{% endblocktrans %}</h1>
+<img src="{% static "img/niqels-500.png" %}" class="img500" />
+{% endblock %}
