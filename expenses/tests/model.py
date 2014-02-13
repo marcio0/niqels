@@ -12,7 +12,7 @@ import expenses.models
 from expenses.models import Category, Transaction, CategoryGroup, SplitTransaction
 
 
-class TransactionFactory(factory.Factory):
+class TransactionFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Transaction
 
     description = "a transaction"

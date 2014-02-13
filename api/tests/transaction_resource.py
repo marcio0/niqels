@@ -9,6 +9,7 @@ from django.utils import timezone
 from access.models import User
 from expenses.models import Transaction, Category
 from api.resources.transaction_resource import _truncate_date_tzinfo
+from expenses.tests import TransactionFactory
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -17,15 +18,6 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     email = 'user@example.com'
     password = 'password'
-
-
-class TransactionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Transaction
-
-    value = Decimal("10")
-    user = factory.SubFactory(UserFactory)
-    date = datetime.date.today()
-    created = timezone.make_aware(datetime.datetime(2010, 01, 01), timezone.utc)
 
 
 class TransactionResourceTest(ResourceTestCase):
@@ -41,7 +33,8 @@ class TransactionResourceTest(ResourceTestCase):
 
         TransactionFactory.create_batch(2, date=datetime.date(2010, 01, 03), user=self.user, category_id=1)
 
-        TransactionFactory.create(date=datetime.date(2010, 01, 03), category_id=1, user__email="another@user.com")
+        another_user = UserFactory.create(email="another@user.com")
+        TransactionFactory.create(date=datetime.date(2010, 01, 03), category_id=1, user=another_user)
 
         self.transaction = Transaction.objects.get(pk=1)
 

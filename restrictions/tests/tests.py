@@ -1,35 +1,11 @@
 from django.test import TestCase
 import django.db
 import factory.django
-import access.models
+from api.tests import UserFactory
+from expenses.tests.factories import CategoryFactory, CategoryGroupFactory
 from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
 import expenses.models
 import datetime
-
-
-class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = access.models.User
-
-    email = 'a@a.com'
-    name = 'test'
-    is_active = True
-    is_admin = False
-    date_joined = datetime.datetime(1970, 1, 1)
-
-
-class CategoryGroupFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = expenses.models.CategoryGroup
-
-    name = 'test categ group'
-
-
-class CategoryFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = expenses.models.Category
-
-    name = 'test category'
-    is_active = True
-    is_negative = True
-    group = factory.SubFactory(CategoryGroupFactory)
 
 
 class BaseRestrictionFactory(factory.django.DjangoModelFactory):
