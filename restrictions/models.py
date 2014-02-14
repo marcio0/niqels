@@ -46,7 +46,8 @@ class MonthlyCategoryRestriction(models.Model):
     )
     baserestriction = models.ForeignKey(
         BaseCategoryRestriction,
-        help_text=_('The base restriction from whom this one derives')
+        help_text=_('The base restriction from whom this one derives'),
+        related_name="monthly_restrictions"
     )
 
     @property

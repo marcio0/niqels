@@ -26,5 +26,5 @@ class TransactionFactory(factory.DjangoModelFactory):
 
     value = Decimal("10")
     user = factory.SubFactory(UserFactory)
-    date = datetime.date.today()
+    date = datetime.date(2010, 10, 10)
     created = timezone.make_aware(datetime.datetime(2010, 01, 01), timezone.utc)

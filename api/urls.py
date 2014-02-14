@@ -10,6 +10,7 @@ v1_api.register(resources.UserResource())
 v1_api.register(resources.BalanceResource())
 v1_api.register(resources.SplitTransactionResource())
 v1_api.register(resources.BaseCategoryRestrictionResource())
+v1_api.register(resources.MonthlyCategoryRestrictionResource())
 
 urlpatterns = patterns('',
     (r'^', include(v1_api.urls)),

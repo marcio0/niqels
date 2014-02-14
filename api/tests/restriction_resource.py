@@ -1,13 +1,18 @@
+import datetime
 from decimal import Decimal
-from expenses.models import Category, CategoryGroup
+from expenses.models import CategoryGroup
 from expenses.tests.base import BaseResourceTestCase
-from expenses.tests.factories import CategoryFactory
+from expenses.tests.factories import CategoryFactory, TransactionFactory
 from restrictions.models import BaseCategoryRestriction
 from restrictions.tests.factories import BaseCategoryRestrictionFactory
 
 
+class MonthleRestrictionResourceTest(BaseResourceTestCase):
+    pass
+
+
 class RestrictionResourceTest(BaseResourceTestCase):
-    list_url = '/api/v1/restrictions/category'
+    list_url = '/api/v1/restrictions/category/base'
 
     def setUp(self):
         super(RestrictionResourceTest, self).setUp()
@@ -22,7 +27,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
         # creating a restriction for another user
         self.another_restriction = BaseCategoryRestrictionFactory.create(user=self.another_user, category=self.categories[1], value=Decimal('-200'))
 
-        self.detail_url = '/api/v1/restrictions/category/{0}'.format(self.restriction.id)
+        self.detail_url = '/api/v1/restrictions/category/base/{0}'.format(self.restriction.id)
 
 
     ###
@@ -30,7 +35,10 @@ class RestrictionResourceTest(BaseResourceTestCase):
     ###
 
     def test_get_list(self):
-        resp = self.api_client.get('/api/v1/restrictions/category', format='json', authentication=self.get_credentials())
+
+        TransactionFactory.create(date=datetime.date.today(), value=Decimal(10), user=self.user, category_id=1)
+
+        resp = self.api_client.get('/api/v1/restrictions/category/base', format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
         self.assertEqual(len(self.deserialize(resp)['objects']), 2)
@@ -39,13 +47,13 @@ class RestrictionResourceTest(BaseResourceTestCase):
             {
                 u'category': u'/api/v1/category/1',
                 u'id': 1,
-                u'resource_uri': u'/api/v1/restrictions/category/1',
+                u'resource_uri': u'/api/v1/restrictions/category/base/1',
                 u'value': u'-100'
             },
             {
                 u'category': u'/api/v1/category/2',
                 u'id': 2,
-                u'resource_uri': u'/api/v1/restrictions/category/2',
+                u'resource_uri': u'/api/v1/restrictions/category/base/2',
                 u'value': u'-200'
             }
         ])
@@ -57,13 +65,13 @@ class RestrictionResourceTest(BaseResourceTestCase):
         self.assertEquals(self.deserialize(resp), {
             u'category': u'/api/v1/category/1',
             u'id': 1,
-            u'resource_uri': u'/api/v1/restrictions/category/1',
+            u'resource_uri': u'/api/v1/restrictions/category/base/1',
             u'value': u'-100'
         })
 
     def test_get_detail_own_objects_only(self):
         another_retriction = BaseCategoryRestriction.objects.filter(user_id=self.another_user.id)[0]
-        url = '/api/v1/restrictions/category/{0}'.format(another_retriction.id)
+        url = '/api/v1/restrictions/category/base/{0}'.format(another_retriction.id)
 
         resp = self.api_client.get(url, format='json', authentication=self.get_credentials())
         self.assertHttpUnauthorized(resp)
@@ -94,7 +102,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
             u'category': u'/api/v1/category/%d' % category.id,
             u'id': 4,
             u'value': u'-350',
-            u'resource_uri': u'/api/v1/restrictions/category/4'
+            u'resource_uri': u'/api/v1/restrictions/category/base/4'
         })
 
         self.assertEqual(BaseCategoryRestriction.objects.filter(user=self.user).count(), 3)
@@ -218,7 +226,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
             'value': Decimal(999)
         }
 
-        resp = self.api_client.put('/api/v1/restrictions/category/%d' % self.another_restriction.id , format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.put('/api/v1/restrictions/category/base/%d' % self.another_restriction.id , format='json', data=data, authentication=self.get_credentials())
         self.assertHttpUnauthorized(resp)
 
         restriction = BaseCategoryRestriction.objects.get(pk=self.restriction.id)
@@ -243,5 +251,5 @@ class RestrictionResourceTest(BaseResourceTestCase):
         self.assertHttpAccepted(resp)
 
     def test_delete_detail_own_objects_only(self):
-        resp = self.api_client.delete('/api/v1/restrictions/category/%d' % self.another_restriction.id, format='json', authentication=self.get_credentials())
+        resp = self.api_client.delete('/api/v1/restrictions/category/base/%d' % self.another_restriction.id, format='json', authentication=self.get_credentials())
         self.assertHttpUnauthorized(resp)

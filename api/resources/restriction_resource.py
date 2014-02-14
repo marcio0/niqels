@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -7,7 +8,7 @@ from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation
 from api.authorization import UserObjectsOnlyAuthorization
 from api.resources import CategoryResource
-from restrictions.models import BaseCategoryRestriction
+from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
 
 
 class BaseCategoryRestrictionApiForm(forms.ModelForm):
@@ -32,8 +33,29 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
         exclude = ('user',)
 
 
+class MonthlyCategoryRestrictionResource(ModelResource):
+    spent = fields.DecimalField(attribute='spent', readonly=True)
+    value = fields.DecimalField(attribute='value')
+    month = fields.DateField(attribute='month')
+    base = fields.ForeignKey(CategoryResource, 'baserestriction')
+
+    class Meta:
+        queryset = MonthlyCategoryRestriction.objects.all()
+        always_return_data = True
+        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
+        authorization = UserObjectsOnlyAuthorization()
+        #validation = FormValidation(form_class=BaseCategoryRestrictionApiForm)
+        list_allowed_methods = ['get', 'post']
+        detail_allowed_methods = ['get', 'put', 'delete']
+        resource_name = "restrictions/category/month"
+
+    def obj_create(self, bundle, **kwargs):
+        return super(MonthlyCategoryRestrictionResource, self).obj_create(bundle, user=bundle.request.user)
+
+
 class BaseCategoryRestrictionResource(ModelResource):
     category = fields.ForeignKey(CategoryResource, 'category', null=False, blank=False)
+    value = fields.DecimalField(attribute='value')
 
     class Meta:
         queryset = BaseCategoryRestriction.objects.all()
@@ -43,7 +65,7 @@ class BaseCategoryRestrictionResource(ModelResource):
         validation = FormValidation(form_class=BaseCategoryRestrictionApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'put', 'delete']
-        resource_name = "restrictions/category"
+        resource_name = "restrictions/category/base"
 
     def hydrate_category(self, bundle):
         if not 'category' in bundle.data and bundle.request.method == "POST":
