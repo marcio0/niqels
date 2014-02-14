@@ -6,7 +6,7 @@ from tastypie import fields
 from tastypie.authentication import MultiAuthentication, BasicAuthentication, SessionAuthentication
 from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation
-from api.authorization import UserObjectsOnlyAuthorization
+from api.authorization import UserObjectsOnlyAuthorization, MonthlyCategoryRestrictionAuthorization
 from api.resources import CategoryResource
 from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
 
@@ -34,7 +34,7 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
 
 
 class MonthlyCategoryRestrictionResource(ModelResource):
-    spent = fields.DecimalField(attribute='spent', readonly=True)
+    spent = fields.DecimalField(attribute='spent', readonly=True, null=True, blank=True)
     value = fields.DecimalField(attribute='value')
     month = fields.DateField(attribute='month')
     base = fields.ForeignKey(CategoryResource, 'baserestriction')
@@ -43,14 +43,11 @@ class MonthlyCategoryRestrictionResource(ModelResource):
         queryset = MonthlyCategoryRestriction.objects.all()
         always_return_data = True
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
-        authorization = UserObjectsOnlyAuthorization()
+        authorization = MonthlyCategoryRestrictionAuthorization()
         #validation = FormValidation(form_class=BaseCategoryRestrictionApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'put', 'delete']
-        resource_name = "restrictions/category/month"
-
-    def obj_create(self, bundle, **kwargs):
-        return super(MonthlyCategoryRestrictionResource, self).obj_create(bundle, user=bundle.request.user)
+        resource_name = "restrictions/category/monthly"
 
 
 class BaseCategoryRestrictionResource(ModelResource):

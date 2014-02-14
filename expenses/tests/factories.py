@@ -9,13 +9,13 @@ from expenses.models import CategoryGroup, Category, Transaction
 class CategoryGroupFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = CategoryGroup
 
-    name = 'test categ group'
+    name = factory.Sequence(lambda x: 'category group %d' % x)
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Category
 
-    name = 'test category'
+    name = factory.Sequence(lambda x: 'category %d' % x)
     is_active = True
     is_negative = True
     group = factory.SubFactory(CategoryGroupFactory)

@@ -14,6 +14,6 @@ class BaseCategoryRestrictionFactory(factory.DjangoModelFactory):
 class MonthlyCategoryRestrictionFactory(factory.DjangoModelFactory):
     FACTORY_FOR = MonthlyCategoryRestriction
 
-    value = Decimal("10")
+    value = factory.LazyAttribute(lambda self: self.baserestriction.value)
     baserestriction = factory.SubFactory(BaseCategoryRestrictionFactory)
 

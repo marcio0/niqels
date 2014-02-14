@@ -1,11 +1,13 @@
 from django.test import TestCase
 import django.db
 import factory.django
+from decimal import Decimal
 from api.tests import UserFactory
 from expenses.tests.factories import CategoryFactory, CategoryGroupFactory
 from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
 import expenses.models
 import datetime
+from restrictions.tests.factories import MonthlyCategoryRestrictionFactory
 
 
 class BaseRestrictionFactory(factory.django.DjangoModelFactory):
@@ -161,3 +163,13 @@ class RestrictionSpentCalculationTest(TestCase):
 
         mr = MonthlyCategoryRestriction.objects.get()
         self.assertEquals(mr.spent, 44)
+
+    def test_nothing_spent(self):
+        base = BaseRestrictionFactory.create()
+        user = base.user
+        categ = base.category
+
+        restriction = MonthlyCategoryRestrictionFactory.create(baserestriction=base, month=datetime.date.today())
+
+        mr = MonthlyCategoryRestriction.objects.get()
+        self.assertEquals(mr.spent, Decimal(0))

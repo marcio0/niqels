@@ -60,7 +60,13 @@ class MonthlyCategoryRestriction(models.Model):
                                        user=self.baserestriction.user,
                                        category=self.baserestriction.category)
         result = t.aggregate(Sum('value'))
-        return result['value__sum']
+
+        spent = decimal.Decimal(result['value__sum']) if result['value__sum'] else decimal.Decimal(0)
+
+        return spent
+
+    def __unicode__(self):
+        return _('Restriction: %d of %d on %s') % (self.spent, self.value, self.baserestriction.category.name)
 
     class Meta:
         unique_together = (('month', 'baserestriction'), )
