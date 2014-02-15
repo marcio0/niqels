@@ -8,7 +8,7 @@ from restrictions.tests.factories import BaseCategoryRestrictionFactory, Monthly
 
 
 class MonthleRestrictionResourceTest(BaseResourceTestCase):
-    list_url = '/api/v1/restrictions/category/monthly'
+    list_url = '/api/v1/restrictions/2010-10'
 
     def setUp(self):
         super(MonthleRestrictionResourceTest, self).setUp()

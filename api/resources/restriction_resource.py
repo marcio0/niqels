@@ -1,14 +1,69 @@
 import datetime
 from django import forms
+from django.conf.urls import url
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from tastypie import fields
 from tastypie.authentication import MultiAuthentication, BasicAuthentication, SessionAuthentication
 from tastypie.resources import ModelResource
+from tastypie.utils.urls import trailing_slash
 from tastypie.validation import FormValidation
 from api.authorization import UserObjectsOnlyAuthorization, MonthlyCategoryRestrictionAuthorization
 from api.resources import CategoryResource
 from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
+
+
+
+
+
+class MonthlyCategoryRestrictionResource(ModelResource):
+    spent = fields.DecimalField(attribute='spent', readonly=True, null=True, blank=True)
+    value = fields.DecimalField(attribute='value')
+    month = fields.DateField(attribute='month')
+
+    class Meta:
+        queryset = MonthlyCategoryRestriction.objects.all()
+        always_return_data = True
+        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
+        authorization = MonthlyCategoryRestrictionAuthorization()
+        #validation = FormValidation(form_class=BaseCategoryRestrictionApiForm)
+        list_allowed_methods = ['get', 'post']
+        detail_allowed_methods = ['get', 'put', 'delete']
+        resource_name = "restriction"
+
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/(?P<month>\d{4}-\d{2})%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_list'), name="api_dispatch_list"),
+            url(r"^(?P<resource_name>%s)/(?P<month>\d{4}-\d{2})/(?P<baserestriction__category__name>\w+)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+        ]
+
+    def _parse_month(self, month_str):
+        return datetime.datetime.strptime(month_str, '%Y-%m')
+
+    def build_filters(self, filters=None):
+        month_str = filters.pop('month')[0]
+
+        qs_filters = super(MonthlyCategoryRestrictionResource, self).build_filters(filters)
+
+        filters.update({'month': self._parse_month(month_str)})
+        return qs_filters
+
+    def obj_get(self, bundle, **kwargs):
+        month_str = kwargs.pop('month')
+        kwargs['month'] = self._parse_month(month_str)
+        kwargs['baserestriction__user'] = bundle.request.user
+
+        return super(MonthlyCategoryRestrictionResource, self).obj_get(bundle, **kwargs)
+
+    def hydrate_month(self, bundle):
+        return bundle
+
+
+
+
+
+
+
 
 
 class BaseCategoryRestrictionApiForm(forms.ModelForm):
@@ -33,21 +88,6 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
         exclude = ('user',)
 
 
-class MonthlyCategoryRestrictionResource(ModelResource):
-    spent = fields.DecimalField(attribute='spent', readonly=True, null=True, blank=True)
-    value = fields.DecimalField(attribute='value')
-    month = fields.DateField(attribute='month')
-    base = fields.ForeignKey(CategoryResource, 'baserestriction')
-
-    class Meta:
-        queryset = MonthlyCategoryRestriction.objects.all()
-        always_return_data = True
-        authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
-        authorization = MonthlyCategoryRestrictionAuthorization()
-        #validation = FormValidation(form_class=BaseCategoryRestrictionApiForm)
-        list_allowed_methods = ['get', 'post']
-        detail_allowed_methods = ['get', 'put', 'delete']
-        resource_name = "restrictions/category/monthly"
 
 
 class BaseCategoryRestrictionResource(ModelResource):
