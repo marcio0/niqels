@@ -102,7 +102,7 @@ class BaseCategoryRestrictionResource(ModelResource):
         validation = FormValidation(form_class=BaseCategoryRestrictionApiForm)
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'put', 'delete']
-        resource_name = "restrictions/category/base"
+        resource_name = "threshold/category"
 
     def hydrate_category(self, bundle):
         if not 'category' in bundle.data and bundle.request.method == "POST":

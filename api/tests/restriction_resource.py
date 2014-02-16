@@ -7,65 +7,10 @@ from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestrict
 from restrictions.tests.factories import BaseCategoryRestrictionFactory, MonthlyCategoryRestrictionFactory
 
 
-class MonthleRestrictionResourceTest(BaseResourceTestCase):
-    list_url = '/api/v1/restrictions/2010-10'
-
-    def setUp(self):
-        super(MonthleRestrictionResourceTest, self).setUp()
-
-        self.categories = CategoryFactory.create_batch(2)
-
-        base_1 = BaseCategoryRestrictionFactory.create(user=self.user, category=self.categories[0], value=Decimal('-100'))
-        base_2 = BaseCategoryRestrictionFactory.create(user=self.user, category=self.categories[1], value=Decimal('-200'))
-        self.base_restriction = base_1
-
-        restriction1 = MonthlyCategoryRestrictionFactory.create(baserestriction=base_1, month=datetime.date(2010, 10, 1))
-        restriction2 = MonthlyCategoryRestrictionFactory.create(baserestriction=base_2, month=datetime.date(2010, 10, 1))
-        self.restriction = restriction1
-
-        # creating a restriction for another user
-        self.another_base_restriction = BaseCategoryRestrictionFactory.create(user=self.another_user, category=self.categories[1], value=Decimal('-200'))
-        self.another_restriction = MonthlyCategoryRestrictionFactory.create(baserestriction=self.another_base_restriction, month=datetime.date(2010, 10, 10))
-
-
-    def get_detail_url(self, id=None):
-        if not id:
-            id = self.base_restriction.id
-
-        return '/api/v1/restrictions/category/monthly/{0}'.format(id)
-
-    def test_get_list(self):
-        TransactionFactory.create(date=datetime.date(2010, 10, 10), value=Decimal(-20), user=self.user, category=self.categories[0])
-
-        resp = self.api_client.get(self.list_url, format='json', authentication=self.get_credentials())
-        self.assertValidJSONResponse(resp)
-
-        objects = self.deserialize(resp)['objects']
-
-        self.assertEqual(len(objects), 2)
-
-        self.assertEquals(objects, [
-            {
-                u'id': 1,
-                u'resource_uri': u'/api/v1/restrictions/category/monthly/1',
-                u'base': u'/api/v1/category/1',
-                u'spent': u'-20.00',
-                u'value': u'-100',
-                u'month': u'2010-10-01'
-            },
-            {
-                u'id': 2,
-                u'resource_uri': u'/api/v1/restrictions/category/monthly/2',
-                u'base': u'/api/v1/category/2',
-                u'spent': u'0',
-                u'value': u'-200',
-                u'month': u'2010-10-01'
-            }
-        ])
 
 
 class RestrictionResourceTest(BaseResourceTestCase):
-    list_url = '/api/v1/restrictions/category/base'
+    list_url = '/api/v1/threshold/category/'
 
     def setUp(self):
         super(RestrictionResourceTest, self).setUp()
@@ -80,8 +25,10 @@ class RestrictionResourceTest(BaseResourceTestCase):
         # creating a restriction for another user
         self.another_restriction = BaseCategoryRestrictionFactory.create(user=self.another_user, category=self.categories[1], value=Decimal('-200'))
 
-        self.detail_url = '/api/v1/restrictions/category/base/{0}'.format(self.restriction.id)
-
+    def get_detail_url(self, pk=None):
+        if not pk:
+            pk = self.restriction.id
+        return '/api/v1/threshold/category/{0}'.format(pk)
 
     ###
     ### GET TESTS
@@ -91,7 +38,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
 
         TransactionFactory.create(date=datetime.date.today(), value=Decimal(10), user=self.user, category_id=1)
 
-        resp = self.api_client.get('/api/v1/restrictions/category/base', format='json', authentication=self.get_credentials())
+        resp = self.api_client.get(self.get_list_url(), format='json', authentication=self.get_credentials())
         self.assertValidJSONResponse(resp)
 
         self.assertEqual(len(self.deserialize(resp)['objects']), 2)
@@ -100,13 +47,13 @@ class RestrictionResourceTest(BaseResourceTestCase):
             {
                 u'category': u'/api/v1/category/1',
                 u'id': 1,
-                u'resource_uri': u'/api/v1/restrictions/category/base/1',
+                u'resource_uri': u'/api/v1/threshold/category/1',
                 u'value': u'-100'
             },
             {
                 u'category': u'/api/v1/category/2',
                 u'id': 2,
-                u'resource_uri': u'/api/v1/restrictions/category/base/2',
+                u'resource_uri': u'/api/v1/threshold/category/2',
                 u'value': u'-200'
             }
         ])
@@ -118,15 +65,14 @@ class RestrictionResourceTest(BaseResourceTestCase):
         self.assertEquals(self.deserialize(resp), {
             u'category': u'/api/v1/category/1',
             u'id': 1,
-            u'resource_uri': u'/api/v1/restrictions/category/base/1',
+            u'resource_uri': u'/api/v1/threshold/category/1',
             u'value': u'-100'
         })
 
     def test_get_detail_own_objects_only(self):
         another_retriction = BaseCategoryRestriction.objects.filter(user_id=self.another_user.id)[0]
-        url = '/api/v1/restrictions/category/base/{0}'.format(another_retriction.id)
 
-        resp = self.api_client.get(url, format='json', authentication=self.get_credentials())
+        resp = self.api_client.get(self.get_detail_url(another_retriction.id), format='json', authentication=self.get_credentials())
         self.assertHttpUnauthorized(resp)
 
 
@@ -155,7 +101,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
             u'category': u'/api/v1/category/%d' % category.id,
             u'id': 4,
             u'value': u'-350',
-            u'resource_uri': u'/api/v1/restrictions/category/base/4'
+            u'resource_uri': u'/api/v1/threshold/category/4'
         })
 
         self.assertEqual(BaseCategoryRestriction.objects.filter(user=self.user).count(), 3)
@@ -279,7 +225,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
             'value': Decimal(999)
         }
 
-        resp = self.api_client.put('/api/v1/restrictions/category/base/%d' % self.another_restriction.id , format='json', data=data, authentication=self.get_credentials())
+        resp = self.api_client.put(self.get_detail_url(self.another_restriction.id), format='json', data=data, authentication=self.get_credentials())
         self.assertHttpUnauthorized(resp)
 
         restriction = BaseCategoryRestriction.objects.get(pk=self.restriction.id)
@@ -304,5 +250,64 @@ class RestrictionResourceTest(BaseResourceTestCase):
         self.assertHttpAccepted(resp)
 
     def test_delete_detail_own_objects_only(self):
-        resp = self.api_client.delete('/api/v1/restrictions/category/base/%d' % self.another_restriction.id, format='json', authentication=self.get_credentials())
+        resp = self.api_client.delete(self.get_detail_url(self.another_restriction.id), format='json', authentication=self.get_credentials())
         self.assertHttpUnauthorized(resp)
+
+
+
+#class MonthleRestrictionResourceTest(BaseResourceTestCase):
+class MonthleRestrictionResourceTest():
+    list_url = '/api/v1/restrictions/2010-10'
+
+    def setUp(self):
+        super(MonthleRestrictionResourceTest, self).setUp()
+
+        self.categories = CategoryFactory.create_batch(2)
+
+        base_1 = BaseCategoryRestrictionFactory.create(user=self.user, category=self.categories[0], value=Decimal('-100'))
+        base_2 = BaseCategoryRestrictionFactory.create(user=self.user, category=self.categories[1], value=Decimal('-200'))
+        self.base_restriction = base_1
+
+        restriction1 = MonthlyCategoryRestrictionFactory.create(baserestriction=base_1, month=datetime.date(2010, 10, 1))
+        restriction2 = MonthlyCategoryRestrictionFactory.create(baserestriction=base_2, month=datetime.date(2010, 10, 1))
+        self.restriction = restriction1
+
+        # creating a restriction for another user
+        self.another_base_restriction = BaseCategoryRestrictionFactory.create(user=self.another_user, category=self.categories[1], value=Decimal('-200'))
+        self.another_restriction = MonthlyCategoryRestrictionFactory.create(baserestriction=self.another_base_restriction, month=datetime.date(2010, 10, 10))
+
+
+    def get_detail_url(self, id=None):
+        if not id:
+            id = self.base_restriction.id
+
+        return '/api/v1/restrictions/category/monthly/{0}'.format(id)
+
+    def test_get_list(self):
+        TransactionFactory.create(date=datetime.date(2010, 10, 10), value=Decimal(-20), user=self.user, category=self.categories[0])
+
+        resp = self.api_client.get(self.list_url, format='json', authentication=self.get_credentials())
+        self.assertValidJSONResponse(resp)
+
+        objects = self.deserialize(resp)['objects']
+
+        self.assertEqual(len(objects), 2)
+
+        self.assertEquals(objects, [
+            {
+                u'id': 1,
+                u'resource_uri': u'/api/v1/restrictions/category/monthly/1',
+                u'base': u'/api/v1/category/1',
+                u'spent': u'-20.00',
+                u'value': u'-100',
+                u'month': u'2010-10-01'
+            },
+            {
+                u'id': 2,
+                u'resource_uri': u'/api/v1/restrictions/category/monthly/2',
+                u'base': u'/api/v1/category/2',
+                u'spent': u'0',
+                u'value': u'-200',
+                u'month': u'2010-10-01'
+            }
+        ])
