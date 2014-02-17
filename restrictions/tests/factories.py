@@ -11,9 +11,9 @@ class BaseCategoryRestrictionFactory(factory.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
 
 
-class MonthlyCategoryRestrictionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = MonthlyCategoryRestriction
+#class MonthlyCategoryRestrictionFactory(factory.DjangoModelFactory):
+#    FACTORY_FOR = MonthlyCategoryRestriction
 
-    value = factory.LazyAttribute(lambda self: self.baserestriction.value)
-    baserestriction = factory.SubFactory(BaseCategoryRestrictionFactory)
+#    value = factory.LazyAttribute(lambda self: self.baserestriction.value)
+#    baserestriction = factory.SubFactory(BaseCategoryRestrictionFactory)
 

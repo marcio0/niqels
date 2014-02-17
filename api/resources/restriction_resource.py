@@ -15,7 +15,7 @@ from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestrict
 
 
 
-
+'''
 class MonthlyCategoryRestrictionResource(ModelResource):
     spent = fields.DecimalField(attribute='spent', readonly=True, null=True, blank=True)
     value = fields.DecimalField(attribute='value')
@@ -57,7 +57,7 @@ class MonthlyCategoryRestrictionResource(ModelResource):
 
     def hydrate_month(self, bundle):
         return bundle
-
+'''
 
 
 

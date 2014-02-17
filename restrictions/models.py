@@ -32,7 +32,8 @@ class BaseCategoryRestriction(models.Model):
         unique_together = (('category', 'user'), )
 
 
-class MonthlyCategoryRestriction(models.Model):
+#class MonthlyCategoryRestriction(models.Model):
+class MonthlyCategoryRestriction():
     value = models.DecimalField(
         _('value'),
         default=decimal.Decimal(0),
@@ -101,5 +102,5 @@ def _create_month_restriction_signal(sender, instance, **kwargs):
     except BaseCategoryRestriction.DoesNotExist:
         return
 
-post_save.connect(_create_month_restriction_signal,
-                  sender=expenses.models.Transaction)
+#post_save.connect(_create_month_restriction_signal,
+#                  sender=expenses.models.Transaction)

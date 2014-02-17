@@ -4,7 +4,7 @@ from expenses.models import CategoryGroup
 from expenses.tests.base import BaseResourceTestCase
 from expenses.tests.factories import CategoryFactory, TransactionFactory
 from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
-from restrictions.tests.factories import BaseCategoryRestrictionFactory, MonthlyCategoryRestrictionFactory
+from restrictions.tests.factories import BaseCategoryRestrictionFactory
 
 
 

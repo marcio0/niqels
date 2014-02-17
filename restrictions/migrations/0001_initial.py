@@ -20,31 +20,13 @@ class Migration(SchemaMigration):
         # Adding unique constraint on 'BaseCategoryRestriction', fields ['category', 'user']
         db.create_unique(u'restrictions_basecategoryrestriction', ['category_id', 'user_id'])
 
-        # Adding model 'MonthlyCategoryRestriction'
-        db.create_table(u'restrictions_monthlycategoryrestriction', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('value', self.gf('django.db.models.fields.DecimalField')(default='0', max_digits=7, decimal_places=2)),
-            ('month', self.gf('django.db.models.fields.DateField')()),
-            ('baserestriction', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['restrictions.BaseCategoryRestriction'])),
-        ))
-        db.send_create_signal(u'restrictions', ['MonthlyCategoryRestriction'])
-
-        # Adding unique constraint on 'MonthlyCategoryRestriction', fields ['month', 'baserestriction']
-        db.create_unique(u'restrictions_monthlycategoryrestriction', ['month', 'baserestriction_id'])
-
 
     def backwards(self, orm):
-        # Removing unique constraint on 'MonthlyCategoryRestriction', fields ['month', 'baserestriction']
-        db.delete_unique(u'restrictions_monthlycategoryrestriction', ['month', 'baserestriction_id'])
-
         # Removing unique constraint on 'BaseCategoryRestriction', fields ['category', 'user']
         db.delete_unique(u'restrictions_basecategoryrestriction', ['category_id', 'user_id'])
 
         # Deleting model 'BaseCategoryRestriction'
         db.delete_table(u'restrictions_basecategoryrestriction')
-
-        # Deleting model 'MonthlyCategoryRestriction'
-        db.delete_table(u'restrictions_monthlycategoryrestriction')
 
 
     models = {
@@ -101,13 +83,6 @@ class Migration(SchemaMigration):
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['expenses.Category']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['access.User']"}),
-            'value': ('django.db.models.fields.DecimalField', [], {'default': "'0'", 'max_digits': '7', 'decimal_places': '2'})
-        },
-        u'restrictions.monthlycategoryrestriction': {
-            'Meta': {'unique_together': "(('month', 'baserestriction'),)", 'object_name': 'MonthlyCategoryRestriction'},
-            'baserestriction': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['restrictions.BaseCategoryRestriction']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'month': ('django.db.models.fields.DateField', [], {}),
             'value': ('django.db.models.fields.DecimalField', [], {'default': "'0'", 'max_digits': '7', 'decimal_places': '2'})
         }
     }
