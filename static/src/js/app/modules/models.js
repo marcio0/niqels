@@ -16,6 +16,36 @@ var tastypieDataTransformer = function ($http) {
 
 angular.module('models', ['ngResource'])
 
+    .factory('CategoryThreshold', ['$resource', '$rootScope', '$http', '$cacheFactory', function ($resource, $rootScope, $http, $cacheFactory) {
+        var cache = $cacheFactory('category-threshold');
+
+        var interceptor = {
+            response: function (response) {
+                // setting the cache
+                cache.removeAll();
+
+                var data = response.resource;
+
+                $.each(data, function (idx, threshold) {
+                    cache.put(threshold.category.name, threshold);
+                });
+
+                window.cache = cache;
+            }
+        };
+
+        var CategoryThreshold = $resource('/api/v1/threshold/category/:id', {}, {
+            query: {
+                method: 'GET',
+                isArray: true,
+                transformResponse: tastypieDataTransformer($http),
+                interceptor: interceptor
+            }
+        });
+
+        return CategoryThreshold;
+    }])
+
     .factory('SplitTransaction', ['$resource', '$rootScope', '$http', function ($resource, $rootScope, $http) {
         var SplitTransaction = $resource('/api/v1/split_transaction/:id', {}, {
             query: {
