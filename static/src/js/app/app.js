@@ -77,10 +77,6 @@
                     return interpolate(fmt, obj, named);
                 };
 
-                Category.query().$promise.then(function (result) {
-                    $rootScope.categories = result;
-                });
-
                 $rootScope.$state = $state;
                 $rootScope.$on('$stateChangeSuccess', function (event, toState) {
                     if (toState.name === 'reports') {
@@ -126,9 +122,12 @@
 
             }])
 
-            .run(['CategoryThreshold', function (CategoryThreshold) {
-                // forcing the set-up of the cache
-                CategoryThreshold.query().$promise.then(function () {});
+            .run(['$rootScope', 'Category', 'CategoryThreshold', function ($rootScope, Category, CategoryThreshold) {
+                Category.query().$promise.then(function (result) {
+                    $rootScope.categories = result;
+                    return result;
+                });
+                CategoryThreshold.query().$promise.then(function (result) {return result;});
             }])
 
             .run(['$rootScope', '$window', function ($rootScope, $window) {

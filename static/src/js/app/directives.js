@@ -271,7 +271,7 @@
             };
         }])
 
-        .directive('thresholdIndicator', ['$popover', function ($popover) {
+        .directive('thresholdIndicator', ['$popover', '$cacheFactory', 'CategoryThreshold', function ($popover, $cacheFactory, CategoryThreshold) {
             return {
                 template: '<div class="threshold-indicator" ng-class="style_threshold_completion(group)">&nbsp;</div>',
                 scope: {
@@ -279,11 +279,14 @@
                 },
                 link: function ($scope, $element, attributes) {
 
-                    // HxC
-                    $scope.category.threshold = {
-                        value: 1000,
-                        completion: 900
-                    };
+                    $scope.category.threshold = $cacheFactory.get('category-threshold').get($scope.category.name);
+                    console.log($scope.category);
+
+                    $scope.$watch('category.total', function (newValue) {
+                        if ($scope.category.threshold) {
+                            $scope.category.threshold.completion = newValue;
+                        }
+                    });
 
                     var popoverScope = $popover($element, {
                         trigger: 'manual',
@@ -335,15 +338,20 @@
                     }
 
                     $scope.submit = function () {
-                        var threshold = $scope.category.threshold = {
+                        /*var threshold = $scope.category.threshold = {
                             value: $scope.formData.value,
                             completion: 100 // HxC
-                        };
-                        $scope.state = $scope.STATES.FLAT;
+                        };*/
+
+                        var threshold = new CategoryThreshold($cacheFactory.get('category-threshold').get($scope.category.name));
+                        threshold.value = $scope.formData.value;
+                        threshold.category = $cacheFactory.get('category').get($scope.category.name).resource_uri;
+                        threshold.save(function () {
+                            $scope.state = $scope.STATES.FLAT;
+                        });
                     };
                 }
             };
         }])
-
     ;
 })();

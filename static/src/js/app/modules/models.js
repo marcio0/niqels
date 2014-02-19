@@ -19,27 +19,33 @@ angular.module('models', ['ngResource'])
     .factory('CategoryThreshold', ['$resource', '$rootScope', '$http', '$cacheFactory', function ($resource, $rootScope, $http, $cacheFactory) {
         var cache = $cacheFactory('category-threshold');
 
-        var interceptor = {
-            response: function (response) {
-                // setting the cache
-                cache.removeAll();
-
-                var data = response.resource;
-
-                $.each(data, function (idx, threshold) {
-                    cache.put(threshold.category.name, threshold);
-                });
-
-                window.cache = cache;
-            }
-        };
-
         var CategoryThreshold = $resource('/api/v1/threshold/category/:id', {}, {
             query: {
                 method: 'GET',
                 isArray: true,
-                transformResponse: tastypieDataTransformer($http),
-                interceptor: interceptor
+                transformResponse: tastypieDataTransformer($http).concat(function (data) {
+                    cache.removeAll();
+                    $.each(data, function (idx, threshold) {
+                        cache.put(threshold.category.name, threshold);
+                    });
+                })
+            },
+            update: {method: 'PUT'}
+        });
+
+        CategoryThreshold.prototype.save = function () {
+            if (this.id) {
+                return this.$update({id: this.id});
+            }
+            else {
+                return this.$save();
+            }
+        };
+
+        $rootScope.$on('category-threshold-created', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyCreationSuccess(gettext('Limite de gastos'));
             }
         });
 
@@ -130,14 +136,21 @@ angular.module('models', ['ngResource'])
         return Transaction;
     }])
 
-    .factory('Category', ['$resource', '$cacheFactory', '$http', '$rootScope', function($resource, $cacheFactory, $http, $rootScope){
-        var cache = $cacheFactory('Category');
+    .factory('Category', ['$resource', '$cacheFactory', '$http', function($resource, $cacheFactory, $http){
+        var cache = $cacheFactory('category');
+
         var Category = $resource('/api/v1/category/:id', {id: '@id', limit: 100}, {
             query: {
                 method: 'GET',
                 isArray: true,
                 cache: cache,
-                transformResponse: tastypieDataTransformer($http)
+                transformResponse: tastypieDataTransformer($http).concat(function (data) {
+                    $.each(data, function (idx, category) {
+                        cache.put(category.name, category);
+                    });
+
+                    return data;
+                })
             },
             update: {method: 'PUT'}
         });
