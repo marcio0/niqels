@@ -91,7 +91,7 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
 
 
 class BaseCategoryRestrictionResource(ModelResource):
-    category = fields.ForeignKey(CategoryResource, 'category', null=False, blank=False, full=True, readonly=True)
+    category = fields.ForeignKey(CategoryResource, 'category', null=False, blank=False)
     value = fields.DecimalField(attribute='value')
 
     class Meta:

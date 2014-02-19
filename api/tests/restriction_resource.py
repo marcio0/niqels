@@ -186,7 +186,8 @@ class RestrictionResourceTest(BaseResourceTestCase):
 
         data = {
             'id': self.restriction.id,
-            'value': actual_value + Decimal("-100")
+            'value': actual_value + Decimal("-100"),
+            'category': '/api/v1/category/%d' % self.restriction.category_id
         }
 
         resp = self.api_client.put(self.get_detail_url(), format='json', data=data, authentication=self.get_credentials())
