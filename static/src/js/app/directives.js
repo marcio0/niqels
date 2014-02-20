@@ -320,7 +320,7 @@
                             percentCompletion;
 
                         if (!threshold) {
-                            return 'fa fa-gear';
+                            return 'fa fa-bell-o';
                         }
 
                         percentCompletion = threshold.completion / threshold.value;
