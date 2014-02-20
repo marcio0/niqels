@@ -26,26 +26,25 @@ angular.module('models', ['ngResource'])
                 transformResponse: tastypieDataTransformer($http).concat(function (data) {
                     cache.removeAll();
                     $.each(data, function (idx, threshold) {
+                        //caching by both name and uri
                         cache.put(threshold.category.name, threshold);
+                        cache.put(threshold.category.resource_uri, threshold);
                     });
                 })
             },
             update: {method: 'PUT'}
         });
 
-        CategoryThreshold.prototype.save = function () {
-            if (this.id) {
-                return this.$update({id: this.id});
-            }
-            else {
-                return this.$save();
-            }
-        };
-
         $rootScope.$on('category-threshold-created', function (e, value, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Limite de gastos'));
+            }
+        });
+        $rootScope.$on('category-threshold-updated', function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyUpdateSuccess(gettext('Limite de gastos'));
             }
         });
 
@@ -147,6 +146,7 @@ angular.module('models', ['ngResource'])
                 transformResponse: tastypieDataTransformer($http).concat(function (data) {
                     $.each(data, function (idx, category) {
                         cache.put(category.name, category);
+                        cache.put(category.resource_uri, category);
                     });
 
                     return data;

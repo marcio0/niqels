@@ -234,10 +234,10 @@
             }
             else {
                 template = '<div></div>';
-                linkFn = function linkFn (scope, element, attrs) {
+                linkFn = function linkFn (scope, element) {
                     element.removeClass('form-control');
 
-                    scope.$watch('date', function (newValue, oldValue) {
+                    scope.$watch('date', function (newValue) {
                         if (moment.isMoment(newValue)) {
                             newValue = newValue.toDate();
                         }
@@ -271,27 +271,38 @@
             };
         }])
 
-        .directive('thresholdIndicator', ['$popover', '$cacheFactory', 'CategoryThreshold', function ($popover, $cacheFactory, CategoryThreshold) {
+        .directive('thresholdIndicator', ['$popover', '$cacheFactory', 'CategoryThreshold', '$rootScope', function ($popover, $cacheFactory, CategoryThreshold, $rootScope) {
             return {
                 template: '<div class="threshold-indicator" ng-class="style_threshold_completion(group)">&nbsp;</div>',
                 scope: {
                     category: '=thresholdIndicator'
                 },
-                link: function ($scope, $element, attributes) {
+                link: function (scope, $element) {
+                    scope.STATES = {
+                        FLAT: 0,
+                        NEW: 1,
+                        ALTER: 2
+                    };
 
-                    $scope.category.threshold = $cacheFactory.get('category-threshold').get($scope.category.name);
-                    console.log($scope.category);
+                    scope.category.threshold = $cacheFactory.get('category-threshold').get(scope.category.name);
 
-                    $scope.$watch('category.total', function (newValue) {
-                        if ($scope.category.threshold) {
-                            $scope.category.threshold.completion = newValue;
+                    if (scope.category.threshold) {
+                        scope.state = scope.STATES.FLAT;
+                    }
+                    else {
+                        scope.state = scope.STATES.NEW;
+                    }
+
+                    scope.$watch('category.total', function (newValue) {
+                        if (scope.category.threshold) {
+                            scope.category.threshold.completion = newValue;
                         }
                     });
 
                     var popoverScope = $popover($element, {
                         trigger: 'manual',
                         container: 'body',
-                        scope: $scope,
+                        scope: scope,
                         contentTemplate: 'threshold/popover_content.tpl.html'
                     });
 
@@ -300,54 +311,63 @@
                         popoverScope.toggle();
                     });
 
-                    $scope.STATES = {
-                        FLAT: 0,
-                        NEW: 1,
-                        ALTER: 2
-                    };
-
-                    $scope.state = $scope.STATES.FLAT;
-
-                    $scope.formData = {
+                    scope.formData = {
                         value: null
                     };
 
-                    $scope.style_threshold_completion = function () {
-                        var category = $scope.category,
-                            threshold = category.threshold,
-                            percent_completion;
+                    scope.style_threshold_completion = function () {
+                        var threshold = scope.category.threshold,
+                            percentCompletion;
 
-                        if (!threshold) return 'fa fa-gear';
+                        if (!threshold) {
+                            return 'fa fa-gear';
+                        }
 
-                        percent_completion = threshold.completion / threshold.value;
-                        percent_completion = Math.round(percent_completion * 10);
+                        percentCompletion = threshold.completion / threshold.value;
+                        percentCompletion = Math.round(percentCompletion * 10);
 
-                        return "threshold-indicator-" + percent_completion;
+                        return "threshold-indicator-" + percentCompletion;
                     };
 
-                    $scope.startEdit = function () {
-                        $scope.state = $scope.STATES.ALTER;
-                        $scope.formData = angular.copy($scope.category.threshold);
-                        $scope.category.threshold = null;
+                    scope.startEdit = function () {
+                        scope.state = scope.STATES.ALTER;
+                        scope.formData = angular.copy(scope.category.threshold);
                     };
 
-                    $scope.startNewEdit = function () {
-                        $scope.state = $scope.STATES.NEW;
-                        $scope.formData = {};
-                        $scope.category.threshold = null;
-                    }
+                    scope.startNewEdit = function () {
+                        scope.state = scope.STATES.NEW;
+                        scope.formData = {};
+                    };
 
-                    $scope.submit = function () {
-                        /*var threshold = $scope.category.threshold = {
-                            value: $scope.formData.value,
-                            completion: 100 // HxC
-                        };*/
+                    scope.submit = function () {
+                        var promise, action, data;
 
-                        var threshold = new CategoryThreshold($cacheFactory.get('category-threshold').get($scope.category.name));
-                        threshold.value = $scope.formData.value;
-                        threshold.category = $cacheFactory.get('category').get($scope.category.name).resource_uri;
-                        threshold.save(function () {
-                            $scope.state = $scope.STATES.FLAT;
+                        if (scope.category.threshold) {
+                            data = scope.category.threshold;
+                        }
+                        else {
+                            data = {
+                                value: scope.formData.value,
+                                category: $cacheFactory.get('category').get(scope.category.name).resource_uri
+                            };
+                        }
+
+                        var threshold = new CategoryThreshold(data);
+
+                        if (threshold.id) {
+                            promise = threshold.$update({id: threshold.id});
+                            action = 'updated';
+                        }
+                        else {
+                            promise = threshold.$save();
+                            action = 'created';
+                        }
+
+                        promise.then(function (threshold) {
+                            scope.state = scope.STATES.FLAT;
+                            threshold.completion = scope.category.total;
+                            scope.category.threshold = threshold;
+                            $rootScope.$emit('category-threshold-' + action, threshold);
                         });
                     };
                 }
