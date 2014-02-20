@@ -326,6 +326,7 @@
                         percentCompletion = threshold.completion / threshold.value;
                         percentCompletion = Math.round(percentCompletion * 10);
                         percentCompletion = Math.abs(percentCompletion);
+                        percentCompletion = Math.min(9, percentCompletion);
 
                         return "threshold-indicator-" + percentCompletion;
                     };
