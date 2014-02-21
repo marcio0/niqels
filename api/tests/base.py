@@ -1,5 +1,6 @@
 from tastypie.test import ResourceTestCase
 from access.models import User
+import factory
 
 
 def skip_if_base_class(f):
@@ -20,6 +21,11 @@ class BaseResourceTestCase(ResourceTestCase):
         self.user = User.objects.create_user(self.email, self.password)
 
         self.another_user = User.objects.create_user('another@example.com', 'password')
+
+    def tearDown(self):
+        # reseting the factory sequence counters to make testes independent of run order
+        for cls in factory.DjangoModelFactory.__subclasses__():
+            cls.reset_sequence(1)
 
     def get_list_url(self):
         return self.list_url

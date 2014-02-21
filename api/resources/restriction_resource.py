@@ -1,10 +1,14 @@
+# encoding: utf-8
+
 import datetime
 from django import forms
 from django.conf.urls import url
 from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from django.utils.translation import gettext as _
 from tastypie import fields
 from tastypie.authentication import MultiAuthentication, BasicAuthentication, SessionAuthentication
+from tastypie.exceptions import BadRequest
 from tastypie.resources import ModelResource
 from tastypie.utils.urls import trailing_slash
 from tastypie.validation import FormValidation
@@ -78,9 +82,6 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
                 category = CategoryResource().get_via_uri(category)
                 self.data['category'] = category.pk
 
-                if BaseCategoryRestriction.objects.filter(category=category, user=self.instance.user).exists():
-                    raise ValidationError(_('There is alread a restriction for this month.'))
-
         super(BaseCategoryRestrictionApiForm, self).full_clean()
 
     class Meta:
@@ -91,7 +92,7 @@ class BaseCategoryRestrictionApiForm(forms.ModelForm):
 
 
 class BaseCategoryRestrictionResource(ModelResource):
-    category = fields.ForeignKey(CategoryResource, 'category', null=False, blank=False, full=True)
+    category = fields.ForeignKey(CategoryResource, 'category', null=False, blank=False, full=True, readonly=True)
     value = fields.DecimalField(attribute='value')
 
     class Meta:
@@ -111,3 +112,10 @@ class BaseCategoryRestrictionResource(ModelResource):
 
     def obj_create(self, bundle, **kwargs):
         return super(BaseCategoryRestrictionResource, self).obj_create(bundle, user=bundle.request.user)
+
+    def save(self, *args, **kwargs):
+        try:
+            return super(BaseCategoryRestrictionResource, self).save(*args, **kwargs)
+        except IntegrityError, e:
+            if 'not unique' in unicode(e):
+                raise BadRequest(_(u'Já existe um limite de gastos para este mês'))

@@ -1,12 +1,10 @@
 import datetime
 from decimal import Decimal
-from expenses.models import CategoryGroup
-from expenses.tests.base import BaseResourceTestCase
-from expenses.tests.factories import CategoryFactory, TransactionFactory
-from restrictions.models import BaseCategoryRestriction, MonthlyCategoryRestriction
+
+from api.tests.base import BaseResourceTestCase
+from expenses.tests.factories import CategoryFactory, TransactionFactory, CategoryGroupFactory
+from restrictions.models import BaseCategoryRestriction
 from restrictions.tests.factories import BaseCategoryRestrictionFactory
-
-
 
 
 class RestrictionResourceTest(BaseResourceTestCase):
@@ -15,7 +13,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
     def setUp(self):
         super(RestrictionResourceTest, self).setUp()
 
-        group = CategoryGroup.objects.create(name='group')
+        group = CategoryGroupFactory.create()
 
         self.categories = CategoryFactory.create_batch(2, group=group)
 
@@ -24,6 +22,7 @@ class RestrictionResourceTest(BaseResourceTestCase):
 
         # creating a restriction for another user
         self.another_restriction = BaseCategoryRestrictionFactory.create(user=self.another_user, category=self.categories[1], value=Decimal('-200'))
+
 
     def get_detail_url(self, pk=None):
         if not pk:
@@ -45,13 +44,23 @@ class RestrictionResourceTest(BaseResourceTestCase):
 
         self.assertEquals(self.deserialize(resp)['objects'], [
             {
-                u'category': u'/api/v1/category/1',
+                u'category': {u'group': u'category group 1',
+                              u'id': 1,
+                              u'is_negative': True,
+                              u'name': u'category 1',
+                              u'position': 1,
+                              u'resource_uri': u'/api/v1/category/1'},
                 u'id': 1,
                 u'resource_uri': u'/api/v1/threshold/category/1',
                 u'value': u'-100'
             },
             {
-                u'category': u'/api/v1/category/2',
+                u'category': {u'group': u'category group 1',
+                              u'id': 2,
+                              u'is_negative': True,
+                              u'name': u'category 2',
+                              u'position': 1,
+                              u'resource_uri': u'/api/v1/category/2'},
                 u'id': 2,
                 u'resource_uri': u'/api/v1/threshold/category/2',
                 u'value': u'-200'
@@ -63,7 +72,12 @@ class RestrictionResourceTest(BaseResourceTestCase):
 
         self.assertValidJSONResponse(resp)
         self.assertEquals(self.deserialize(resp), {
-            u'category': u'/api/v1/category/1',
+            u'category': {u'group': u'category group 1',
+               u'id': 1,
+               u'is_negative': True,
+               u'name': u'category 1',
+               u'position': 1,
+               u'resource_uri': u'/api/v1/category/1'},
             u'id': 1,
             u'resource_uri': u'/api/v1/threshold/category/1',
             u'value': u'-100'
@@ -96,9 +110,13 @@ class RestrictionResourceTest(BaseResourceTestCase):
         self.assertHttpCreated(resp)
 
         content = self.deserialize(resp)
-
         self.assertEquals(content, {
-            u'category': u'/api/v1/category/%d' % category.id,
+            u'category': {u'group': u'category group %d' % category.group_id,
+                          u'id': category.pk,
+                          u'is_negative': True,
+                          u'name': u'category %d' % category.pk,
+                          u'position': 1,
+                          u'resource_uri': u'/api/v1/category/%d' % category.pk},
             u'id': 4,
             u'value': u'-350',
             u'resource_uri': u'/api/v1/threshold/category/4'
