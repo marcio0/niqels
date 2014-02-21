@@ -278,11 +278,17 @@
                     category: '=thresholdIndicator'
                 },
                 link: function (scope, $element) {
+                    scope.categoryObj = $cacheFactory.get('category').get(scope.category.name);
+
                     scope.STATES = {
                         FLAT: 0,
                         NEW: 1,
                         ALTER: 2
                     };
+
+                    if (!scope.categoryObj.is_negative) {
+                        return;
+                    }
 
                     scope.category.threshold = $cacheFactory.get('category-threshold').get(scope.category.name);
 
@@ -342,16 +348,15 @@
                     };
 
                     scope.submit = function () {
-                        var promise, action, data;
+                        var promise, action;
+
+                        var data = {
+                            value: scope.formData.value,
+                            category: scope.categoryObj.resource_uri
+                        };
 
                         if (scope.category.threshold) {
-                            data = scope.category.threshold;
-                        }
-                        else {
-                            data = {
-                                value: scope.formData.value,
-                                category: $cacheFactory.get('category').get(scope.category.name).resource_uri
-                            };
+                            data.id = scope.category.threshold.id;
                         }
 
                         var threshold = new CategoryThreshold(data);

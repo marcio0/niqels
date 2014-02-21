@@ -2,7 +2,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
     'use strict';
 
     $scope.days = [];
-    $scope.groupBy = UserOptions.setDefault('transaction-list-group-by', 'category.name');;
+    $scope.groupBy = UserOptions.setDefault('transaction-list-group-by', 'category.name');
     $scope.categories = [];
     $scope.filterDate = moment();
     $scope.loading = true;
@@ -49,6 +49,7 @@ function TransactionListCtrl ($scope, $rootScope, Transaction, $filter, $parse, 
                 transactions: groupObj[groupName],
                 total: 0
             };
+
             for (var idx in group.transactions) {
                 var value = parseFloat(group.transactions[idx].value)
                 group.total += value;

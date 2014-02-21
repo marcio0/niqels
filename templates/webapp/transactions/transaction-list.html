@@ -258,8 +258,8 @@
             <p ng-if="state == STATES.ALTER"> {% trans "Alteração de limite de gastos" %} </p>
             <p ng-if="state == STATES.NEW"> {% trans "Criar um limite de gastos" %} </p>
 
-            <input type="text" name="threshold_value" ng-model="formData.value"></input>
-            <button ng-click="submit()">Salvar</button>
+            <input type="text" class="form-control" name="threshold_value" ng-model="formData.value" currency-field></input>
+            <button ng-click="submit()" class="btn btn-primary">Salvar</button>
         </form>
     </span>
 </script>
