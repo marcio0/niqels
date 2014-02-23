@@ -312,6 +312,18 @@
                         contentTemplate: 'threshold/popover_content.tpl.html'
                     });
 
+                    $('body').on('click', function (e) {
+                        var me = $element;
+                        //the 'is' for buttons that trigger popups
+                        //the 'has' for icons within a button that triggers a popup
+                        if (!popoverScope.$isShown) {
+                            return;
+                        }
+                        if (!$(me).is(e.target) && $(me).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                            popoverScope.hide();
+                        }
+                    });
+
                     $element.click(function (e) {
                         e.stopPropagation();
                         popoverScope.toggle();
