@@ -7459,6 +7459,33 @@ table.transaction-table tr.transaction-row:hover td.action-bar > * {
   background-position: 0 -20px;
   background-repeat: no-repeat;
 }
+.threshold-popover-not-plus span.logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  text-align: center;
+  background-image: url("../img/logo-squared.png");
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+.threshold-popover-not-plus p {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+.threshold-popover-not-plus a.btn {
+  display: block;
+  text-align: center;
+  background: #fae31d;
+  color: #FFF;
+  text-shadow: 2px 2px 2px #948503;
+}
 #reports #period-form {
   position: relative;
   min-height: 1px;
