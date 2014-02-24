@@ -34,17 +34,26 @@ angular.module('models', ['ngResource'])
             },
             update: {method: 'PUT'}
         });
+        CategoryThreshold.EVENT_DELETE = 'category-threshold-deleted';
+        CategoryThreshold.EVENT_UPDATE = 'category-threshold-updated';
+        CategoryThreshold.EVENT_CREATE = 'category-threshold-created';
 
-        $rootScope.$on('category-threshold-created', function (e, value, opts) {
+        $rootScope.$on(CategoryThreshold.EVENT_CREATE, function (e, value, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Limite de gastos'));
             }
         });
-        $rootScope.$on('category-threshold-updated', function (e, value, opts) {
+        $rootScope.$on(CategoryThreshold.EVENT_UPDATE, function (e, value, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyUpdateSuccess(gettext('Limite de gastos'));
+            }
+        });
+        $rootScope.$on(CategoryThreshold.EVENT_DELETE, function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyRemovalSuccess(gettext('Limite de gastos'));
             }
         });
 
@@ -66,8 +75,9 @@ angular.module('models', ['ngResource'])
                 })
             }
         });
+        SplitTransaction.EVENT_CREATE = 'split-transaction-created';
 
-        $rootScope.$on('split-transaction-created', function (e, value, opts) {
+        $rootScope.$on(SplitTransaction.EVENT_CREATE, function (e, value, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Movimentação parcelada'));
@@ -117,18 +127,26 @@ angular.module('models', ['ngResource'])
             }
             return false;
         };
+        Transaction.EVENT_CREATE = 'transaction-created';
+        Transaction.EVENT_UPDATE = 'transaction-updated';
+        Transaction.EVENT_DELETE = 'transaction-removed';
 
-        $rootScope.$on('transaction-created', function (e, value, opts) {
+        $rootScope.$on(Transaction.EVENT_CREATE, function (e, value, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
-                toastr.notifyCreationSuccess(gettext('Transaction'));
+                toastr.notifyCreationSuccess(gettext('Movimentação'));
             }
         });
-
-        $rootScope.$on('transaction-updated', function (e, value, opts) {
+        $rootScope.$on(Transaction.EVENT_UPDATE, function (e, value, opts) {
             opts = opts || {};
             if (opts && !opts.silent) {
-                toastr.notifyUpdateSuccess(gettext('Transaction'));
+                toastr.notifyUpdateSuccess(gettext('Movimentação'));
+            }
+        });
+        $rootScope.$on(Transaction.EVENT_DELETE, function (e, value, opts) {
+            opts = opts || {};
+            if (opts && !opts.silent) {
+                toastr.notifyRemovalSuccess(gettext('Movimentação'));
             }
         });
 

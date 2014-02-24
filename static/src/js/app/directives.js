@@ -272,7 +272,7 @@
         }])
 
         .directive('thresholdIndicator', ['$popover', '$cacheFactory', 'CategoryThreshold', '$rootScope', function ($popover, $cacheFactory, CategoryThreshold, $rootScope) {
-            return {
+           return {
                 template: '<div class="threshold-indicator" ng-class="style_threshold_completion(group)">&nbsp;</div>',
                 scope: {
                     category: '=thresholdIndicator'
@@ -313,14 +313,15 @@
                     });
 
                     $('body').on('click', function (e) {
-                        var me = $element;
+                        var me = popoverScope.$element;
                         //the 'is' for buttons that trigger popups
                         //the 'has' for icons within a button that triggers a popup
                         if (!popoverScope.$isShown) {
                             return;
                         }
-                        if (!$(me).is(e.target) && $(me).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        if (!$(me).is(e.target) && $(me).has(e.target).length === 0) {
                             popoverScope.hide();
+                            resetState();
                         }
                     });
 
@@ -332,6 +333,16 @@
                     scope.formData = {
                         value: null
                     };
+
+                    function resetState () {
+                        scope.formData = {};
+                        if (scope.category.threshold) {
+                            scope.state = scope.STATES.FLAT;
+                        }
+                        else {
+                            scope.state = scope.STATES.NEW;
+                        }
+                    }
 
                     scope.style_threshold_completion = function () {
                         var threshold = scope.category.threshold,
@@ -349,14 +360,24 @@
                         return "threshold-indicator-" + percentCompletion;
                     };
 
-                    scope.startEdit = function () {
+                    scope.startEdit = function (e) {
+                        e.stopPropagation();  // stop making the popover disappear
+
                         scope.state = scope.STATES.ALTER;
                         scope.formData = angular.copy(scope.category.threshold);
                     };
 
-                    scope.startNewEdit = function () {
-                        scope.state = scope.STATES.NEW;
-                        scope.formData = {};
+                    scope.removeThreshold = function (e) {
+                        e.stopPropagation();
+                        var threshold = scope.category.threshold;
+
+                        CategoryThreshold.delete({id: threshold.id}, function () {
+                            //popoverScope.toggle();  // this is causing an error
+                            scope.category.threshold = null;
+                            resetState();
+
+                            $rootScope.$emit(CategoryThreshold.EVENT_DELETE);
+                        });
                     };
 
                     scope.submit = function () {

@@ -1,4 +1,4 @@
-function BalancePanelCtrl ($scope, $rootScope, BalanceChart) {
+function BalancePanelCtrl ($scope, $rootScope, BalanceChart, Transaction, SplitTransaction) {
     'use strict';
 
     $scope.updateBalance = function () {
@@ -26,11 +26,11 @@ function BalancePanelCtrl ($scope, $rootScope, BalanceChart) {
         });
     };
 
-    $rootScope.$on('transaction-created', $scope.updateBalance);
-    $rootScope.$on('transaction-updated', $scope.updateBalance);
-    $rootScope.$on('split-transaction-created', $scope.updateBalance);
-    $rootScope.$on('transaction-removed', $scope.updateBalance);
+    $rootScope.$on(Transaction.EVENT_CREATE, $scope.updateBalance);
+    $rootScope.$on(Transaction.EVENT_UPDATE, $scope.updateBalance);
+    $rootScope.$on(SplitTransaction.EVENT_CREATE, $scope.updateBalance);
+    $rootScope.$on(Transaction.EVENT_DELETE, $scope.updateBalance);
     $rootScope.$watch('filterDate', $scope.updateBalance);
 }
 
-BalancePanelCtrl.$inject = ['$scope', '$rootScope', 'BalanceChart'];
+BalancePanelCtrl.$inject = ['$scope', '$rootScope', 'BalanceChart', 'Transaction', 'SplitTransaction'];

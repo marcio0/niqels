@@ -245,12 +245,12 @@
 
 <script type="text/ng-template" id="threshold/popover_content.tpl.html">
     <span ng-if="state == STATES.FLAT">
-        <p> Limite de gastos com <strong>((category.name))</strong> </p>
+        <p>{% trans "Limite de gastos com <strong>((category.name))</strong>" %}</p>
 
-        <p>Foram gastos <strong>((-category.threshold.completion|currency))</strong> de <strong>((category.threshold.value|currency))</strong></p>
-        
-        <a href="#" ng-click="startEdit()">{% trans "Alterar limite" %}</a>
-        <a href="#" ng-click="startNewEdit()">{% trans "Remover limite" %}</a>
+        <p>{% trans "Foram gastos <strong>((-category.threshold.completion|currency))</strong> de <strong>((category.threshold.value|currency))</strong>" %}</p>
+
+        <a href="#" ng-click="startEdit($event)" class="btn btn-default btn-xs">{% trans "Alterar limite" %}</a>
+        <a href="#" ng-click="removeThreshold($event)" class="btn btn-default btn-xs" confirmation-needed="{% trans "Deseja remover este limite de gastos?" %}">{% trans "Remover limite" %}</a>
     </span>
 
     <span ng-if="state != STATES.FLAT">
@@ -262,7 +262,7 @@
                 <input type="text" class="form-control" name="threshold_value" ng-model="formData.value" currency-field></input>
             </div>
             <div class="form-group">
-                <button ng-click="submit()" class="btn btn-primary">Salvar</button>
+                <button ng-click="submit()" class="btn btn-primary">{% trans "Salvar" %}</button>
             </div>
         </form>
     </span>
