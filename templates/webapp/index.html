@@ -139,6 +139,16 @@
         {% endif %}
 
         window.userName = "{{ user.name }}";
+        Object.defineProperty(window, 'has_subscription', {
+            {% if user.has_subscription %}
+            value: true,
+            {% else %}
+            value: false,
+            {% endif %}
+            enumerable: false,
+            writable: false,
+            configurable: false
+        });
     </script>
 
     <script src="//www.google-analytics.com/cx/api.js?experiment=r7gmClAuSQCDnBgnmyvI5w"></script>
