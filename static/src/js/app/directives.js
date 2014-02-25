@@ -280,69 +280,17 @@
                 link: function (scope, $element) {
                     scope.categoryObj = $cacheFactory.get('category').get(scope.category.name);
 
-                    scope.STATES = {
-                        FLAT: 0,
-                        NEW: 1,
-                        ALTER: 2
-                    };
-
+                    // stop running the directive if it's a positive category
                     if (!scope.categoryObj.is_negative) {
                         return;
                     }
 
-                    scope.category.threshold = $cacheFactory.get('category-threshold').get(scope.category.name);
-
-                    if (scope.category.threshold) {
-                        scope.state = scope.STATES.FLAT;
-                    }
-                    else {
-                        scope.state = scope.STATES.NEW;
-                    }
-
-                    scope.$watch('category.total', function (newValue) {
-                        if (scope.category.threshold) {
-                            scope.category.threshold.completion = newValue;
-                        }
-                    });
-
-                    var popoverScope = $popover($element, {
-                        trigger: 'manual',
-                        container: 'body',
-                        scope: scope,
-                        contentTemplate: 'threshold/popover_content.tpl.html'
-                    });
-
-                    $('body').on('click', function (e) {
-                        var me = popoverScope.$element;
-                        //the 'is' for buttons that trigger popups
-                        //the 'has' for icons within a button that triggers a popup
-                        if (!popoverScope.$isShown) {
-                            return;
-                        }
-                        if (!$(me).is(e.target) && $(me).has(e.target).length === 0) {
-                            popoverScope.hide();
-                            resetState();
-                        }
-                    });
-
-                    $element.click(function (e) {
-                        e.stopPropagation();
-                        popoverScope.toggle();
-                    });
-
-                    scope.formData = {
-                        value: null
+                    scope.STATES = {
+                        NO_PLAN_MSG: -1,
+                        FLAT: 0,
+                        NEW: 1,
+                        ALTER: 2
                     };
-
-                    function resetState () {
-                        scope.formData = {};
-                        if (scope.category.threshold) {
-                            scope.state = scope.STATES.FLAT;
-                        }
-                        else {
-                            scope.state = scope.STATES.NEW;
-                        }
-                    }
 
                     scope.style_threshold_completion = function () {
                         var threshold = scope.category.threshold,
@@ -359,6 +307,73 @@
 
                         return "threshold-indicator-" + percentCompletion;
                     };
+
+                    var popoverScope = $popover($element, {
+                        trigger: 'manual',
+                        container: 'body',
+                        scope: scope,
+                        contentTemplate: 'threshold/popover_content.tpl.html'
+                    });
+
+                    $element.click(function (e) {
+                        e.stopPropagation();
+                        popoverScope.toggle();
+                    });
+
+                    $('body').on('click', function (e) {
+                        console.log('yeah');
+                        // TODO: refactor this, make it run only once and find all popover instead of registering once for every directive run
+                        var me = popoverScope.$element;
+                        if (!popoverScope.$isShown) {
+                            return;
+                        }
+                        if (!$(me).is(e.target) && $(me).has(e.target).length === 0) {
+                            popoverScope.hide();
+                            resetState();
+                        }
+                    });
+
+                    if (!window.has_subscription) {
+                        scope.state = scope.STATES.NO_PLAN_MSG;
+                        return;
+                    }
+
+
+
+                    scope.category.threshold = $cacheFactory.get('category-threshold').get(scope.category.name);
+
+                    if (scope.category.threshold) {
+                        scope.state = scope.STATES.FLAT;
+                    }
+                    else {
+                        scope.state = scope.STATES.NEW;
+                    }
+
+                    scope.$watch('category.total', function (newValue) {
+                        if (scope.category.threshold) {
+                            scope.category.threshold.completion = newValue;
+                        }
+                    });
+
+                    scope.formData = {
+                        value: null
+                    };
+
+                    function resetState () {
+                        scope.formData = {};
+
+                        if (!window.has_subscription) {
+                            scope.state = scope.STATES.NO_PLAN_MSG;
+                            return;
+                        }
+
+                        if (scope.category.threshold) {
+                            scope.state = scope.STATES.FLAT;
+                        }
+                        else {
+                            scope.state = scope.STATES.NEW;
+                        }
+                    }
 
                     scope.startEdit = function (e) {
                         e.stopPropagation();  // stop making the popover disappear
