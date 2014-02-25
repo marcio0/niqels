@@ -321,7 +321,6 @@
                     });
 
                     $('body').on('click', function (e) {
-                        console.log('yeah');
                         // TODO: refactor this, make it run only once and find all popover instead of registering once for every directive run
                         var me = popoverScope.$element;
                         if (!popoverScope.$isShown) {

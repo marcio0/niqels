@@ -43,6 +43,7 @@ module.exports = function(grunt) {
 
         concat: {
             webapp: {
+                nonull: true,
                 files: {
 
                     /*
@@ -63,11 +64,14 @@ module.exports = function(grunt) {
                      */
                     'static/dist/js/webapp-libs.min.tmp.js': [
                         'static/src/js/lib/min/angular-ui-router.min.js',
+                        'static/src/js/lib/min/angular-animate.min.js',
                         'static/src/js/lib/min/moment.min.js',
                         'static/src/js/lib/min/toastr.min.js',
                         'static/src/js/lib/min/highcharts.js',
-                        'static/src/js/lib/min/modal.js',
                         'static/src/js/lib/min/dimensions.js',
+                        'static/src/js/lib/min/modal.min.js',
+                        'static/src/js/lib/min/tooltip.min.js',
+                        'static/src/js/lib/min/popover.min.js',
                         'static/src/js/lib/min/bootstrap-select.min.js',
                         'static/src/js/lib/min/modernizr.custom.19405.js',
                         'static/src/js/lib/min/accounting.min.js',
