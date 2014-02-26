@@ -278,13 +278,6 @@
                     category: '=thresholdIndicator'
                 },
                 link: function (scope, $element) {
-                    scope.categoryObj = $cacheFactory.get('category').get(scope.category.name);
-
-                    // stop running the directive if it's a positive category
-                    if (!scope.categoryObj.is_negative) {
-                        return;
-                    }
-
                     scope.STATES = {
                         NO_PLAN_MSG: -1,
                         FLAT: 0,
@@ -292,71 +285,90 @@
                         ALTER: 2
                     };
 
-                    scope.style_threshold_completion = function () {
-                        var threshold = scope.category.threshold,
-                            percentCompletion;
+                    var stopWatchingCategory = scope.$watch(function () {
+                        // when it finishes loading the categories
+                        return scope.categoryObj = $cacheFactory.get('category').get(scope.category.name);
 
-                        if (!threshold) {
-                            return 'fa fa-bell-o';
-                        }
-
-                        percentCompletion = threshold.completion / threshold.value;
-                        percentCompletion = Math.round(percentCompletion * 10);
-                        percentCompletion = Math.abs(percentCompletion);
-                        percentCompletion = Math.min(9, percentCompletion);
-
-                        return "threshold-indicator-" + percentCompletion;
-                    };
-
-                    var popoverScope = $popover($element, {
-                        trigger: 'manual',
-                        container: 'body',
-                        scope: scope,
-                        contentTemplate: 'threshold/popover_content.tpl.html'
-                    });
-
-                    $element.click(function (e) {
-                        e.stopPropagation();
-                        popoverScope.toggle();
-                    });
-
-                    $('body').on('click', function (e) {
-                        // TODO: refactor this, make it run only once and find all popover instead of registering once for every directive run
-                        var me = popoverScope.$element;
-                        if (!popoverScope.$isShown) {
+                    }, function () {
+                        // stop running the directive if it's a positive category
+                        if (!scope.categoryObj || !scope.categoryObj.is_negative) {
                             return;
                         }
-                        if (!$(me).is(e.target) && $(me).has(e.target).length === 0) {
-                            popoverScope.hide();
-                            resetState();
+
+                        scope.style_threshold_completion = function () {
+                            var threshold = scope.category.threshold,
+                                percentCompletion;
+
+                            if (!threshold || (threshold.completion === undefined)) {
+                                return 'fa fa-bell-o';
+                            }
+
+                            percentCompletion = Math.abs(threshold.completion / threshold.value);
+                            percentCompletion = Math.round(percentCompletion * 10);
+                            percentCompletion = Math.max(1, percentCompletion);  // temp
+                            percentCompletion = Math.min(9, percentCompletion);
+
+                            return "threshold-indicator-" + percentCompletion;
+                        };
+
+                        var popoverScope = $popover($element, {
+                            trigger: 'manual',
+                            container: 'body',
+                            scope: scope,
+                            contentTemplate: 'threshold/popover_content.tpl.html'
+                        });
+
+                        $element.click(function (e) {
+                            e.stopPropagation();
+                            popoverScope.toggle();
+                        });
+
+                        $('body').on('click', function (e) {
+                            // TODO: refactor this, make it run only once and find all popover instead of registering once for every directive run
+                            var me = popoverScope.$element;
+                            if (!popoverScope.$isShown) {
+                                return;
+                            }
+                            if (!$(me).is(e.target) && $(me).has(e.target).length === 0) {
+                                popoverScope.hide();
+                                resetState();
+                            }
+                        });
+
+                        if (!window.has_subscription) {
+                            scope.state = scope.STATES.NO_PLAN_MSG;
+                            return;
                         }
+
+                        var stopWatchingThreshold = scope.$watch(function () {
+                            // when it finishes loading the thresolds
+                            return scope.category.threshold = $cacheFactory.get('category-threshold').get(scope.category.name);
+
+                        }, function () {
+                            if (scope.category.threshold) {
+                                scope.state = scope.STATES.FLAT;
+                            }
+                            else {
+                                scope.state = scope.STATES.NEW;
+                            }
+
+                            scope.$watch('category.total', function (newValue) {
+                                if (scope.category.threshold) {
+                                    scope.category.threshold.completion = newValue;
+                                }
+                            });
+
+                            scope.formData = {
+                                value: null
+                            };
+
+                            // this function runs only once
+                            stopWatchingThreshold();
+                        });
+
+                        // this function runs only once
+                        stopWatchingCategory();
                     });
-
-                    if (!window.has_subscription) {
-                        scope.state = scope.STATES.NO_PLAN_MSG;
-                        return;
-                    }
-
-
-
-                    scope.category.threshold = $cacheFactory.get('category-threshold').get(scope.category.name);
-
-                    if (scope.category.threshold) {
-                        scope.state = scope.STATES.FLAT;
-                    }
-                    else {
-                        scope.state = scope.STATES.NEW;
-                    }
-
-                    scope.$watch('category.total', function (newValue) {
-                        if (scope.category.threshold) {
-                            scope.category.threshold.completion = newValue;
-                        }
-                    });
-
-                    scope.formData = {
-                        value: null
-                    };
 
                     function resetState () {
                         scope.formData = {};
