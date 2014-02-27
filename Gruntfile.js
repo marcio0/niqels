@@ -42,8 +42,10 @@ module.exports = function(grunt) {
         },
 
         concat: {
+            nonull: true,
             webapp: {
                 nonull: true,
+
                 files: {
 
                     /*
@@ -63,6 +65,10 @@ module.exports = function(grunt) {
                      * This file is temporary.
                      */
                     'static/dist/js/webapp-libs.min.tmp.js': [
+                        // bower
+                        'static/bower_components/angular/angular.min.js',
+                        'static/bower_components/angular-resource/angular-resource.min.js',
+                        // not bower
                         'static/src/js/lib/min/angular-ui-router.min.js',
                         'static/src/js/lib/min/angular-animate.min.js',
                         'static/src/js/lib/min/moment.min.js',

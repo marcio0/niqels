@@ -75,17 +75,18 @@
         {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" locales=static_path|add:"js/locales/" %}
             <script src="{{ static_path }}angular/angular.js"></script>
             <script src="{{ static_path }}angular-resource/angular-resource.js"></script>
+            <script src="{{ static_path }}angular-animate/angular-animate.js"></script>
+            <script src="{{ static_path }}angular-ui-router/release/angular-ui-router.js"></script>
+            <script src="{{ static_path }}store.js/store.js"></script>
+            <script src="{{ static_path }}angular-strap/dist/modules/modal.js"></script>
+            <script src="{{ static_path }}angular-strap/dist/modules/tooltip.js"></script>
+            <script src="{{ static_path }}angular-strap/dist/modules/popover.js"></script>
+            <script src="{{ static_path }}angular-strap/dist/modules/dimensions.js"></script>
+            <script src="{{ static_path }}bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+            <script src="{{ static_path }}toastr/toastr.js"></script>
 
-            <script src="{{lib}}min/angular-animate.min.js"></script>
-            <script src="{{lib}}min/angular-ui-router.min.js"></script>
-            <script src="{{lib}}min/store.min.js"></script>
-            <script src="{{lib}}modal.js"></script>
-            <script src="{{lib}}tooltip.js"></script>
-            <script src="{{lib}}popover.js"></script>
-            <script src="{{lib}}dimensions.js"></script>
             <script src="{{lib}}highcharts.src.js"></script>
-            <script src="{{lib}}bootstrap-datepicker.js"></script>
-            <script src="{{lib}}toastr.js"></script>
+
             <script src="{{lib}}min/moment.min.js"></script>
             <script src="{{lib}}bootstrap-select.js"></script>
             <script src="{{lib}}bootstrap-tour.js"></script>
@@ -118,11 +119,14 @@
 
     {% else %}
 
+        {% comment %}
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
         <script src="http://code.angularjs.org/1.2.3/angular-animate.min.js"></script>
+        {% endcomment %}
 
-        <script src="{{static_path}}js/webapp-scripts.js?rel=1393463001310"></script>
+        <script src="{{static_path}}js/webapp-scripts.js?rel=1393471379252"></script>
 
     {% endif %}
 
