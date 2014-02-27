@@ -72,15 +72,10 @@
 
     {% if is_debug %}
 
-        {% comment %}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.js"></script>
-    {% endcomment %}
-
         {% with app=static_path|add:"js/app/" controllers=static_path|add:"js/app/controllers/" lib=static_path|add:"js/lib/" locales=static_path|add:"js/locales/" %}
+            <script src="{{ static_path }}angular/angular.js"></script>
+            <script src="{{ static_path }}angular-resource/angular-resource.js"></script>
 
-            <script src="{{lib}}min/angular.min.js"></script>
-            <script src="{{lib}}min/angular-resource.min.js"></script>
             <script src="{{lib}}min/angular-animate.min.js"></script>
             <script src="{{lib}}min/angular-ui-router.min.js"></script>
             <script src="{{lib}}min/store.min.js"></script>
