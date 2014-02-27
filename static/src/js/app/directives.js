@@ -402,7 +402,7 @@
                             scope.category.threshold = null;
                             resetState();
 
-                            $rootScope.$emit(CategoryThreshold.EVENT_DELETE);
+                            $rootScope.$emit(CategoryThreshold.EVENT_DELETE, threshold);
                         });
                     };
 

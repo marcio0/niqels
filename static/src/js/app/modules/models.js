@@ -38,19 +38,29 @@ angular.module('models', ['ngResource'])
         CategoryThreshold.EVENT_UPDATE = 'category-threshold-updated';
         CategoryThreshold.EVENT_CREATE = 'category-threshold-created';
 
-        $rootScope.$on(CategoryThreshold.EVENT_CREATE, function (e, value, opts) {
+        $rootScope.$on(CategoryThreshold.EVENT_CREATE, function (e, threshold, opts) {
+            cache.put(threshold.category.name, threshold);
+            cache.put(threshold.category.resource_uri, threshold);
+
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyCreationSuccess(gettext('Limite de gastos'));
             }
         });
-        $rootScope.$on(CategoryThreshold.EVENT_UPDATE, function (e, value, opts) {
+
+        $rootScope.$on(CategoryThreshold.EVENT_UPDATE, function (e, threshold, opts) {
+            cache.put(threshold.category.name, threshold);
+            cache.put(threshold.category.resource_uri, threshold);
+
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyUpdateSuccess(gettext('Limite de gastos'));
             }
         });
-        $rootScope.$on(CategoryThreshold.EVENT_DELETE, function (e, value, opts) {
+        $rootScope.$on(CategoryThreshold.EVENT_DELETE, function (e, threshold, opts) {
+            cache.remove(threshold.category.name);
+            cache.remove(threshold.category.resource_uri);
+
             opts = opts || {};
             if (opts && !opts.silent) {
                 toastr.notifyRemovalSuccess(gettext('Limite de gastos'));
