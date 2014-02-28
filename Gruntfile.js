@@ -54,8 +54,8 @@ module.exports = function(grunt) {
                      * Base scripts used in the entire site.
                      */
                     'static/dist/js/script.min.js': [
-                        'static/src/js/lib/min/jquery-1.10.2.min.js',
-                        'static/src/js/lib/min/bootstrap.min.js'
+                        'static/bower_components/jquery/jquery.min.js',
+                        'static/bower_components/bootstrap/dist/js/bootstrap.min.js'
                     ],
 
                     /*
@@ -68,21 +68,23 @@ module.exports = function(grunt) {
                         // bower
                         'static/bower_components/angular/angular.min.js',
                         'static/bower_components/angular-resource/angular-resource.min.js',
+                        'static/bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                        'static/bower_components/angular-animate/angular-animate.min.js',
+                        'static/bower_components/store.js/store.min.js',
+                        'static/bower_components/angular-strap/dist/modules/dimensions.min.js',
+                        'static/bower_components/angular-strap/dist/modules/modal.min.js',
+                        'static/bower_components/angular-strap/dist/modules/tooltip.min.js',
+                        'static/bower_components/angular-strap/dist/modules/popover.min.js',
+                        'static/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js',
+                        'static/bower_components/toastr/toastr.min.js',
+                        'static/bower_components/moment/min/moment.min.js',
+                        'static/bower_components/bootstrap-select/bootstrap-select.min.js',
+                        'static/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
+                        'static/bower_components/accounting/accounting.min.js',
+
                         // not bower
-                        'static/src/js/lib/min/angular-ui-router.min.js',
-                        'static/src/js/lib/min/angular-animate.min.js',
-                        'static/src/js/lib/min/moment.min.js',
-                        'static/src/js/lib/min/toastr.min.js',
                         'static/src/js/lib/min/highcharts.js',
-                        'static/src/js/lib/min/dimensions.js',
-                        'static/src/js/lib/min/modal.min.js',
-                        'static/src/js/lib/min/tooltip.min.js',
-                        'static/src/js/lib/min/popover.min.js',
-                        'static/src/js/lib/min/bootstrap-select.min.js',
                         'static/src/js/lib/min/modernizr.custom.19405.js',
-                        'static/src/js/lib/min/accounting.min.js',
-                        'static/src/js/lib/min/bootstrap-tour.min.js',
-                        'static/src/js/lib/min/store.min.js',
 
                         'static/dist/js/webapp-libs.min.tmp.js'
                     ],

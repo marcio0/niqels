@@ -8,19 +8,18 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{{ SITE_NAME }}</title>
+    <head>        <title>{{ SITE_NAME }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" type="text/css" href="{{static}}css/styles.css?rel=1393471379252" />
+        <link rel="stylesheet" type="text/css" href="{{static}}css/styles.css?rel=1393550288092" />
         <link rel="icon" href="{{static}}landing/ico/favicon.ico">
         {% if is_debug %}
         <link rel="stylesheet" type="text/css" href="{{ static }}css/bootstrap-select.css" />
         {% endif %}
 
         {% if is_debug %}
-        <script src="{{ static }}js/lib/jquery-1.10.2.js"></script>
-        <script src="{{ static }}js/lib/bootstrap.js"></script>
+        <script src="{{ static }}jquery/jquery.js"></script>
+        <script src="{{ static }}bootstrap/dist/js/bootstrap.js"></script>
         {% else %}
         <script src="{{ static }}js/script.min.js"></script>
         {% endif %}
