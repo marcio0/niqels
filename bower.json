@@ -29,5 +29,9 @@
     "accounting": "0.3.2",
     "jquery": "1.10.2",
     "bootstrap": "3.0.0"
+  },
+  "resolutions": {
+    "angular": "1.2.3",
+    "bootstrap": "3.0.0"
   }
 }
