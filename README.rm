@@ -18,15 +18,24 @@ Installation instructions for development:
 
     `npm install -g grunt-cli`
 
+- Install Bower:
+
+    `npm install -g bower`
+
 - Install the node dependencies:
 
     `npm install`
+
+- Install Bower packages:
+    
+    `bower install`
     
 - Install the Django project:
 
     `pip install -r requirements.txt`
 
 - Test your installation:
+
     `python manage.py test`
 
 ___
