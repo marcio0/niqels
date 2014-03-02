@@ -10,13 +10,6 @@
             <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a ui-sref="reports">{% trans "Relatórios" %}</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                {% if user.has_subscription %}
-                    <a class="navbar-link">{% trans "Plano Plus" %} <i class="fa fa-check"></i></a>
-                {% else %}
-                    <a class="navbar-link" href="{% url "plans:index" %}">{% trans "Faça upgrade na sua conta!" %}</a>
-                {% endif %}
-            </li>
 
             {% include "webapp/user-menu.html" %}
 
@@ -68,6 +61,11 @@
 
 
 {% block bodyend %}
+
+    {% if user.has_subscription %}
+        {% include "plans/subscription-info.html" %}
+    {% endif %}
+
     {% get_static_prefix as static_path %}
 
     {% if is_debug %}

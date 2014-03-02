@@ -1,0 +1,47 @@
+{% load i18n %}
+
+<div class="modal fade" id="plan-info">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Detalhes da assinatura" %}</h4>
+            </div>
+            <div class="modal-body">
+                {% with subscription=user.subscriptions.all|first %}
+                    <form class="form-horizontal" role="form">
+
+                        {% if subscription.end_date %}
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{% trans "Descrição" %}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ subscription.name }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{% trans "Data de início" %}</label>
+                            <div class="col-sm-9">
+                                <p class="form-control-static">{{ subscription.start_date }}</p>
+                            </div>
+                        </div>
+
+                        {% if subscription.end_date %}
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{% trans "Data de término" %}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ subscription.end_date }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </form>
+                {% endwith %}
+            </div>
+            <div class="modal-footer">
+                <a href="{% url "plans:cancel" %}" class="btn btn-link pull-left btn-xs">{% trans "Cancelar assinatura" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
