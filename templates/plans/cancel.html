@@ -1,1 +1,26 @@
+{% extends "base.html" %}
+
 {% load i18n %}
+
+{% block body %}
+
+<h2 class="area-header">{% trans "Confirmar cancelamento de assinatura" %}</h2>
+
+<div class="panel panel-default center-panel">
+    <div class="panel-body">
+        <p>Deseja realmente cancelar sua assinatura do Plano Plus Niqels?</p>
+        <p>As cobranças serão interrompidas, e sua conta voltará para o plano básico.</p>
+
+        <form action="{% url "plans:cancel" %}" method="POST" class="pull-right">{% csrf_token %}
+            <a href="{% url "index" %}" class="btn btn-default">
+                {% trans "Cancelar" %}
+            </a>
+            <button type="submit" class="btn btn-danger">
+                {% trans "Confirmar" %}
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock body %}

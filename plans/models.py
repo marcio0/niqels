@@ -29,8 +29,11 @@ class Subscription(models.Model):
                              verbose_name=_(u'usuário'),
                              related_name='subscriptions')
 
+    class Meta:
+        ordering = ['-start_date']
+
 def _has_subscription(user):
-    now = timezone.now()
+    now = timezone.datetime.today()
     q = Q(end_date__gte=now) | Q(end_date=None)
     return user.subscriptions.filter(start_date__lte=now).filter(q)
 User.has_subscription = _has_subscription
