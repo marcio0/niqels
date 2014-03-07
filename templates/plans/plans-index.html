@@ -91,16 +91,6 @@
                 </tr>
                 </tbody>
 
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td colspan="2" class="plan-features">
-                        <span class="text-danger lead">{% trans "Em breve!" %}</span>
-                    </td>
-                </tr>
-                </tfoot>
-
-                {% comment %}
                 {% if not user.is_authenticated %}
                     <tfoot>
                     <tr>
@@ -114,24 +104,24 @@
                     </tr>
                     </tfoot>
                 {% endif %}
-                {% endcomment %}
             </table>
 
-            {% comment %}
 
             {% if user.is_authenticated %}
                 <table class="table plans-signup">
                     <thead>
+                    {% comment %}
                     <tr>
                         <td colspan="3">
                             <h4>{% blocktrans %} Escolha o período de assinatura: {% endblocktrans %}</h4>
                         </td>
                     </tr>
+                    {% endcomment %}
                     <tr>
                         <td>
-                            <p class="period">{% trans "1 mês" %}</p>
-                            <p class="price">{% trans "R$ 5,00" %}</p>
+                            <p> <span class="price">{% trans "R$ 5,00" %}</span> ao mês</p>
                         </td>
+                        {% comment %}
                         <td>
                             <p class="period">{% trans "3 meses" %}</p>
                             <p class="price">{% trans "R$ 15,00" %}</p>
@@ -140,6 +130,7 @@
                             <p class="period">{% trans "6 meses" %}</p>
                             <p class="price">{% trans "R$ 30,00" %}</p>
                         </td>
+                        {% endcomment %}
                     </tr>
                     </thead>
 
@@ -148,17 +139,18 @@
                         <td>
                             {% include "plans/pagseguro-buttons.html" with btn=1 %}
                         </td>
+                        {% comment %}
                         <td>
                             {% include "plans/pagseguro-buttons.html" with btn=2 %}
                         </td>
                         <td>
                             {% include "plans/pagseguro-buttons.html" with btn=3 %}
                         </td>
+                        {% endcomment %}
                     </tr>
                     </tbody>
                 </table>
             {% endif %}
-            {% endcomment %}
         </div>
     </div>
 
