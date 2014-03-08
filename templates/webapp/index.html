@@ -10,6 +10,14 @@
             <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a ui-sref="reports">{% trans "Relatórios" %}</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            {% if not user.has_subscription %}
+            <li>
+                <a class="navbar-link" href="{% url "plans:index" %}">
+                    <i class="fa fa-arrow-up"></i>&nbsp;
+                    {% trans "Faça upgrade na sua conta!" %}
+                </a>
+            </li>
+            {% endif %}
 
             {% include "webapp/user-menu.html" %}
 

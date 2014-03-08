@@ -2,19 +2,14 @@
 <li class="dropdown" name="user-menu">
     <a class="dropdown-toggle" data-toggle="dropdown">{{ user.name|capfirst }} <i class="fa fa-gears fa-lg"></i></a>
     <ul class="dropdown-menu">
-        <li>
         {% if user.has_subscription %}
-            <a class="navbar-link" data-toggle="modal" data-target="#plan-info">
+        <li>
+            <a class="navbar-link" data-toggle="modal" data-target="#plan-info" href="#">
                 <i class="fa fa-check fa-fw"></i>
                 {% trans "Plano Plus" %}
             </a>
-        {% else %}
-            <a class="navbar-link" href="{% url "plans:index" %}">
-                <i class="fa fa-credit-card fa-fw"></i>
-                {% trans "Faça upgrade na sua conta!" %}
-            </a>
-        {% endif %}
         </li>
+        {% endif %}
         <li>
             <a name="change-password" href="{% url "change_password" %}" class="navbar-link">
                 <i class="fa fa-asterisk fa-fw"></i>
