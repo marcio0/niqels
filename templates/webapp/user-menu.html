@@ -1,4 +1,14 @@
 {% load i18n %}
+
+{% if not user.has_subscription %}
+<li>
+    <a class="navbar-link" href="{% url "plans:index" %}" track="click,View Plans,upgrade-link">
+        <i class="fa fa-arrow-up"></i>&nbsp;
+        {% trans "Faça upgrade na sua conta!" %}
+    </a>
+</li>
+{% endif %}
+
 <li class="dropdown" name="user-menu">
     <a class="dropdown-toggle" data-toggle="dropdown">{{ user.name|capfirst }} <i class="fa fa-gears fa-lg"></i></a>
     <ul class="dropdown-menu">

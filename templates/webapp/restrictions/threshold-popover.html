@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<span ng-if="state == STATES.NO_PLAN_MSG" class="threshold-popover-not-plus">
+    <span class="logo">&nbsp;</span>
+    <p>{% trans "Essa é uma funcionalidade <strong>Plus</strong>" %}</p>
+    <a class="btn btn-lg" target="blank" href="/planos" track="click,View Plans,threshold-popover">{% trans "Saiba mais" %}</a>
+</span>
+
+<span ng-if="state == STATES.FLAT">
+    <p>{% trans "Limite de gastos com <strong>((category.name))</strong>" %}</p>
+
+    <p>{% trans "Foram gastos <strong>((-category.threshold.completion|currency))</strong> de <strong>((category.threshold.value|currency))</strong>" %}</p>
+
+    <a href="#" ng-click="startEdit($event)" class="btn btn-default btn-xs">{% trans "Alterar limite" %}</a>
+    <a href="#" ng-click="removeThreshold($event)" class="btn btn-default btn-xs" confirmation-needed="{% trans "Deseja remover este limite de gastos?" %}">{% trans "Remover limite" %}</a>
+</span>
+
+<span ng-if="state != STATES.FLAT && state != STATES.NO_PLAN_MSG">
+        <p ng-if="state == STATES.ALTER"> {% trans "Alteração de limite de gastos" %} </p>
+        <p ng-if="state == STATES.NEW"> {% trans "Criar um limite de gastos" %} </p>
+
+    <form method="post" class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" name="threshold_value" ng-model="formData.value" currency-field></input>
+        </div>
+        <div class="form-group">
+            <button ng-click="submit()" class="btn btn-primary">{% trans "Salvar" %}</button>
+        </div>
+    </form>
+</span>

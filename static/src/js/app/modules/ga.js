@@ -49,6 +49,7 @@ angular.module('ga', [])
     .run(['$rootScope', '$location', function setupGoogleAnalytics ($rootScope, $location) {
         var transactionsCategory = "Transactions";
         var reportsCategory = 'Reports';
+
         var accountsCategory = 'Account';
 
         var createdAccountsMetric = 'metric1';
@@ -75,7 +76,7 @@ angular.module('ga', [])
             ga('send', 'event', transactionsCategory, 'create', transaction.category.name, {
                 'metric3': 1, //createdTransactionsMetric
                 'dimension1': transaction.category.name //transactionTypeDimension
-                
+
             });
         });
 
@@ -90,11 +91,28 @@ angular.module('ga', [])
             ga('send', 'event', reportsCategory, 'comparison-category-selection', category);
         });
 
-
         $rootScope.$on('$stateChangeSuccess', function () {
             ga('send', 'pageview', $location.path());
         });
     }])
 
-    ;
+
+    // Setting up threshold related events
+    .run(['$rootScope', 'CategoryThreshold', function ($rootScope, CategoryThreshold) {
+        var thresholdsCategory = 'Threshold';
+
+        $rootScope.$on(CategoryThreshold.EVENT_CREATE, function (ev, threshold) {
+            ga('send', 'event', thresholdsCategory, 'create', threshold.category.name);
+        });
+
+        $rootScope.$on(CategoryThreshold.EVENT_UPDATE, function (ev, threshold) {
+            ga('send', 'event', thresholdsCategory, 'update', threshold.category.name);
+        });
+
+        $rootScope.$on(CategoryThreshold.EVENT_DELETE, function (ev, threshold) {
+            ga('send', 'event', thresholdsCategory, 'delete', threshold.category.name);
+        });
+    }])
+
+;
 })();
