@@ -16,9 +16,10 @@ function FeedbackFormCtrl ($scope, $rootScope, $http) {
         })
         .success(function () {
             $scope.formData.message = "";
+            toastr.success(gettext("Sua mensagem foi enviada.\nResponderemos em breve."));
         })
         .error(function () {
-            console.log('error');
+            toastr.error(gettext("Houve um problema para enviar sua mensagem.\nPor favor, tente novamente mais tarde."));
         });
     };
 }

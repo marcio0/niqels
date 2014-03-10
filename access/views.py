@@ -47,7 +47,7 @@ class ContactView(FormView):
             send_mail(subject, message, sender, [to], fail_silently=False)
 
             if self.request.is_ajax():
-                return self.render_to_json_response(status=200)
+                return self.render_to_json_response({}, status=200)
             else:
                 messages.success(self.request, _(u'Obrigado pelo contato, sua mensagem foi enviada. Responderemos em breve.'))
         except Exception, e:
