@@ -1,4 +1,5 @@
 # encoding: utf-8
+import json
 
 from django.views.generic import FormView
 import logging
@@ -10,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template.loader import get_template
 from django.template import Context
 from django.core.mail import send_mail
@@ -29,6 +30,12 @@ class ContactView(FormView):
     form_class = ContactForm
     success_url = '/contato'
 
+    def get_form_kwargs(self):
+        kwargs = super(ContactView, self).get_form_kwargs()
+        if self.request.is_ajax():
+            kwargs['data'] = json.loads(self.request.body)
+        return kwargs
+
     def form_valid(self, form):
         data = form.cleaned_data
         subject, to = _(u'Email enviado através do formulário de contato (%s)') % data['name'], 'niqels@niqels.com.br'
@@ -38,12 +45,33 @@ class ContactView(FormView):
 
         try:
             send_mail(subject, message, sender, [to], fail_silently=False)
-            messages.success(self.request, _(u'Obrigado pelo contato, sua mensagem foi enviada. Responderemos em breve.'))
+
+            if self.request.is_ajax():
+                return self.render_to_json_response(status=200)
+            else:
+                messages.success(self.request, _(u'Obrigado pelo contato, sua mensagem foi enviada. Responderemos em breve.'))
         except Exception, e:
-            logger.warning('Error sending email: ' + str(e))
-            messages.error(self.request, _(u'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente mais tarde.'))
+            error_msg = _(u'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente mais tarde.')
+            if self.request.is_ajax():
+                return self.render_to_json_response({'message': error_msg}, status=500)
+            else:
+                logger.warning('Error sending email: ' + str(e))
+                messages.error(self.request, error_msg)
 
         return super(ContactView, self).form_valid(form)
+
+    def render_to_json_response(self, context, **response_kwargs):
+        data = json.dumps(context)
+        response_kwargs['content_type'] = 'application/json'
+        return HttpResponse(data, **response_kwargs)
+
+    def form_invalid(self, form):
+        response = super(ContactView, self).form_invalid(form)
+        if self.request.is_ajax():
+            return self.render_to_json_response(form.errors, status=400)
+        else:
+            return response
+
 
 
 def test_login(request):
