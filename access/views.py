@@ -25,6 +25,7 @@ from access.models import User
 logger = logging.getLogger('access')
 
 
+# NOT TESTED
 class ContactView(FormView):
     template_name = 'access/contact.html'
     form_class = ContactForm
