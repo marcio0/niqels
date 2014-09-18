@@ -58,10 +58,6 @@
 
 {% block bodyend %}
 
-    {% if user.has_subscription %}
-        {% include "plans/subscription-info.html" %}
-    {% endif %}
-
     {% get_static_prefix as static_path %}
 
     {% if is_debug %}
