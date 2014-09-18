@@ -10,16 +10,11 @@
             <li ng-class="{active: $state.includes('reports')}" id="reports-link"><a ui-sref="reports">{% trans "Relatórios" %}</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-
-
             {% include "webapp/user-menu.html" %}
 
             <li class="dropdown" name="help-menu">
                 <a class="dropdown-toggle" data-toggle="dropdown">{% trans "Ajuda" %} <i class="fa fa-question fa-lg"></i></a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <a class="navbar-link" href="{% url 'guide:index' %}"><i class="fa fa-sitemap fa-fw"></i> {% trans "Guia" %}</a>
-                    </li>
                     <li>
                         <a name="contact" href="{% url "contact" %}" class="navbar-link"><i class="fa fa-comments-o fa-fw"></i> {% trans "Contato" %}</a>
                     </li>
