@@ -7,7 +7,9 @@ app:
         - db
     environment:
         - DATABASE_URL=postgres://expenses:1234@db:5432/expenses
-        - DJANGO_SETTINGS_MODULE=core.settings
+        - DJANGO_SETTINGS_MODULE=core.dev_settings.dev
+    volumes:
+        - .:/usr/src/app
 
 db:
     image: postgres

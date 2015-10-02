@@ -1,0 +1,12 @@
+grunt:
+    image: digitallyseamless/nodejs-bower-grunt
+    command: |
+        bash -c "
+        set -ex 
+
+        npm install
+        bower install
+        grunt patch-settings --file dev
+        chown -R 1000:1000 ."
+    volumes:
+        - .:/data

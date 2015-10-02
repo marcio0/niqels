@@ -8,11 +8,13 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        return
         # Deleting field 'Transaction.repeatable'
         db.delete_column(u'expenses_transaction', 'repeatable_id')
 
 
     def backwards(self, orm):
+        return
         # Adding field 'Transaction.repeatable'
         db.add_column(u'expenses_transaction', 'repeatable',
                       self.gf('django.db.models.fields.related.ForeignKey')(to=orm['reminder.RepeatableTransaction'], null=True, on_delete=models.SET_NULL, blank=True),
