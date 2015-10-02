@@ -1,0 +1,17 @@
+app:
+    build: .
+    command: python manage.py runserver 0:8080
+    ports:
+        - "8080:8080"
+    links:
+        - db
+    environment:
+        - DATABASE_URL=postgres://expenses:1234@db:5432/expenses
+        - DJANGO_SETTINGS_MODULE=core.settings
+
+db:
+    image: postgres
+    environment:
+        - POSTGRES_USER=expenses
+        - POSTGRES_PASSWORD=1234
+        - POSTGRES_DB=expenses
