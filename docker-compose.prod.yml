@@ -1,0 +1,26 @@
+app:
+    build: .
+    command: python manage.py runserver 0:8080
+    ports:
+        - "8000:8080"
+    links:
+        - db
+    environment:
+        - DATABASE_URL=postgres://postgres@db:5432/postgres
+        - DJANGO_SETTINGS_MODULE=core.dev_settings.dev
+    volumes:
+        - .:/usr/src/app
+
+webserver:
+    image: nginx
+    ports:
+        - "8080:8080"
+    volumes:
+        - ./docker-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    links:
+        - app
+    volumes_from:
+        - app
+
+db:
+    image: postgres

@@ -21,9 +21,10 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hostsa
 ALLOWED_HOSTS = [
     'localhost',
+    'webserver',
     '.herokuapp.com',
     '.niqels.com.br',
     '.niquels.com.br',
@@ -227,7 +228,10 @@ TASTYPIE_DEFAULT_FORMATS = ['json']
 
 TASTYPIE_ALLOW_MISSING_SLASH = True
 
+
+"""
 try:
     from core.local_settings import *
 except ImportError:
     pass
+"""
