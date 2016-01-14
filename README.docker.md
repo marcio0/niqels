@@ -35,7 +35,13 @@ The url to access the admin is _http://localhost:8080/admin panel/_
 ```shell
 docker-compose run --rm app ./manage.py makemessages -l pt_BR -i node_modules -i staticfiles -i static/dist -i "**/doc"
 docker-compose run --rm app ./manage.py makemessages -l pt_BR -d djangojs -i node_modules -i staticfiles -i static/dist -i "**/doc"
-# Update the translations
+
+# Update the translations manually and compile the messages
 docker-compose run --rm app ./manage.py compilemessages
+
+# compile the less
+docker-compose -f docker-compose.grunt.yml run --rm grunt grunt less
+# compile the less
+docker-compose -f docker-compose.grunt.yml run --rm grunt grunt build-webapp
 ```
 
