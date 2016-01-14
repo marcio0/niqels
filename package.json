@@ -3,15 +3,15 @@
   "version": "0.6.0b",
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-less": "~0.7.0",
-    "grunt-contrib-watch": "~0.5.1",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-exec": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-jshint": "~0.6.4",
-    "grunt-replace": "~0.5.1",
-    "grunt-contrib-cssmin": "~0.7.0"
+    "grunt-contrib-less": "^1.1.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-exec": "~0.4.2",
+    "grunt-replace": "~0.5.1"
   }
 }
