@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-12 23:04-0200\n"
+"POT-Creation-Date: 2016-01-13 23:40-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,41 +18,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: access/admin.py:14 access/forms.py:58 templates/access/login.html:48
-#: templates/access/forms/login_inline.html:11
-#: templates/access/forms/register.html:37
+#: access/admin.py:13 access/forms.py:63 templates/access/login.html:48
+#: templates/access/register.html:45
 msgid "Password"
 msgstr "Senha"
 
-#: access/admin.py:15 access/forms.py:60
+#: access/admin.py:14 access/forms.py:65
 msgid "Password confirmation"
 msgstr "Confirmar senha"
 
-#: access/admin.py:26
+#: access/admin.py:25
 msgid "Passwords don't match"
 msgstr "As senhas não conferem"
 
-#: access/forms.py:16 access/forms.py:54
+#: access/forms.py:21 access/forms.py:59
 msgid "Password must have between 6 and 30 characters."
 msgstr "A senha deve conter entre 6 e 30 caracteres."
 
-#: access/forms.py:42
+#: access/forms.py:47
 msgid "Sorry, this user doesn't exist."
 msgstr "Desculpe, este usuário não existe"
 
-#: access/forms.py:52
+#: access/forms.py:57
 msgid "A user with that email already exists."
 msgstr "Este email já está cadastrado"
 
-#: access/forms.py:53
+#: access/forms.py:58
 msgid "The two password fields didn't match."
 msgstr "As senhas não conferem"
 
-#: access/forms.py:57 templates/access/forms/register.html:5
+#: access/forms.py:62 templates/access/register.html:13
 msgid "Name"
 msgstr "Nome"
 
-#: access/forms.py:62
+#: access/forms.py:67
 msgid "Enter the same password as above, for verification."
 msgstr "Repita a senha"
 
@@ -68,7 +67,7 @@ msgstr "endereço de email"
 msgid "The email address of the user. Used to log in on this site."
 msgstr "Endereço de email do usuário. Necessário para fazer login."
 
-#: access/models.py:15 expenses/models.py:17 expenses/models.py:41
+#: access/models.py:15 expenses/models.py:41 expenses/models.py:65
 msgid "name"
 msgstr "nome"
 
@@ -84,7 +83,7 @@ msgstr "data de cadastro"
 msgid "The date the user signed up."
 msgstr "Data de cadastro."
 
-#: access/models.py:49
+#: access/models.py:49 expenses/admin.py:64
 msgid "User"
 msgstr "Usuário"
 
@@ -92,13 +91,69 @@ msgstr "Usuário"
 msgid "Users"
 msgstr "Usuários"
 
-#: access/views.py:40
+#: access/urls.py:12
+msgid "^entrar/$"
+msgstr ""
+
+#: access/urls.py:13
+msgid "^sair/$"
+msgstr ""
+
+#: access/urls.py:14
+msgid "^registrar/$"
+msgstr ""
+
+#: access/urls.py:15
+msgid "^contato/$"
+msgstr ""
+
+#: access/urls.py:17
+msgid "^mudar-senha/$"
+msgstr ""
+
+#: access/urls.py:25
+msgid "^recuperar-senha/(?P<signature>.+)/$"
+msgstr ""
+
+#: access/urls.py:26
+msgid "^recuperar-senha/$"
+msgstr ""
+
+#: access/urls.py:27
+msgid "^restaurar-senha/finalizado/$"
+msgstr ""
+
+#: access/urls.py:28
+msgid "^restaurar-senha/(?P<token>[\\w:-]+)/$"
+msgstr ""
+
+#: access/views.py:42
+#, python-format
+msgid "Email enviado através do formulário de contato (%s)"
+msgstr ""
+
+#: access/views.py:53
+msgid ""
+"Obrigado pelo contato, sua mensagem foi enviada. Responderemos em breve."
+msgstr ""
+
+#: access/views.py:55
+msgid ""
+"Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente mais "
+"tarde."
+msgstr ""
+
+#: access/views.py:93
 msgid "Your password was successfuly changed."
 msgstr "Sua senha foi alterada."
 
-#: access/views.py:90 access/tests/view.py:133
+#: access/views.py:143 access/tests/view.py:134
 msgid "Welcome to Niqels!"
 msgstr "Bem vindo ao Niqels!"
+
+#: admin_custom/validators.py:10
+msgid "SQL that changes data are not allowed."
+msgstr ""
 
 #: api/resources/balance_resource.py:25
 msgid "The 'date_start' parameter is required."
@@ -123,79 +178,189 @@ msgstr "A data final deve estar no formato AAAA-MM-DD."
 msgid "The `day` parameter must be an integer."
 msgstr "O dia precisa ser um número inteiro"
 
-#: api/resources/transaction_resource.py:149
+#: api/resources/restriction_resource.py:121
+msgid "Já existe um limite de gastos para este mês"
+msgstr ""
+
+#: api/resources/transaction_resource.py:148
 #, python-format
 msgid "This resource does not allow grouping by %s."
 msgstr "Este recurso não permite agrupamento por %s"
 
-#: core/settings.py:42
+#: core/settings.py:45
 msgid "English"
 msgstr "Inglês"
 
-#: core/settings.py:43
+#: core/settings.py:46
 msgid "Portuguese"
 msgstr "Português"
 
-#: expenses/admin.py:46 expenses/models.py:71
+#: data/models.py:9
+msgid "indicador"
+msgstr ""
+
+#: data/models.py:11
+msgid "Nome do indicador."
+msgstr ""
+
+#: data/models.py:13
+msgid "data da medição"
+msgstr ""
+
+#: data/models.py:14
+msgid "Data em que ocorreu a medição do indicador."
+msgstr ""
+
+#: data/models.py:17
+msgid "valor"
+msgstr ""
+
+#: data/models.py:18
+msgid "Valor da medição."
+msgstr ""
+
+#: data/models.py:26
+#, python-format
+msgid "%(indicator)s: %(value)s em %(date)s"
+msgstr ""
+
+#: data/models.py:29
+msgid "Dado"
+msgstr ""
+
+#: data/models.py:30
+msgid "Dados"
+msgstr ""
+
+#: expenses/admin.py:20 templates/webapp/transactions/transaction-edit.html:68
+msgid "Parcela"
+msgstr ""
+
+#: expenses/admin.py:21
+msgid "Parcelas"
+msgstr ""
+
+#: expenses/admin.py:26
+#, fuzzy
+msgid "Editar"
+msgstr "Editar categoria"
+
+#: expenses/admin.py:27
+msgid "Editar parcela"
+msgstr ""
+
+#: expenses/admin.py:50
+msgid "parcelas"
+msgstr ""
+
+#: expenses/admin.py:54
+#, fuzzy
+msgid "valor total"
+msgstr "total"
+
+#: expenses/admin.py:60
+#, fuzzy
+msgid "descrição"
+msgstr "descrição"
+
+#: expenses/admin.py:114 expenses/models.py:99
+#: templates/webapp/transactions/transaction-edit.html:24
 #: templates/webapp/transactions/transaction-form.html:16
-#: templates/webapp/transactions/transaction-list.html:125
+#: templates/webapp/transactions/transaction-list.html:166
 msgid "Category"
 msgstr "Categoria"
 
-#: expenses/admin.py:60 expenses/models.py:31
+#: expenses/admin.py:128 expenses/models.py:55
 msgid "Category group"
 msgstr "Grupo de categoria"
 
-#: expenses/models.py:32
+#: expenses/models.py:14 plans/models.py:29
+msgid "usuário"
+msgstr ""
+
+#: expenses/models.py:15
+msgid "O dono desta movimentação."
+msgstr ""
+
+#: expenses/models.py:17 expenses/models.py:159
+msgid "description"
+msgstr "descrição"
+
+#: expenses/models.py:20 expenses/models.py:162
+msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
+msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
+
+#: expenses/models.py:26
+msgid "Movimentação parcelada"
+msgstr ""
+
+#: expenses/models.py:27 guide/views.py:26
+msgid "Movimentações parceladas"
+msgstr ""
+
+#: expenses/models.py:30
+#, python-format
+msgid "Movimentação em %d parcelas"
+msgstr ""
+
+#: expenses/models.py:56
 msgid "Category groups"
 msgstr "Grupos de categoria"
 
-#: expenses/models.py:43
+#: expenses/models.py:67
 msgid "The category of a transaction. Ex.: \"Groceries\", \"Medical\"."
 msgstr "Categoria de uma movimentação. Ex.: \"Mercado\", \"Consulta médica\"."
 
-#: expenses/models.py:45
+#: expenses/models.py:69
 msgid "is active"
 msgstr "ativo"
 
-#: expenses/models.py:46
+#: expenses/models.py:70
 msgid "If this category is enabled."
 msgstr "Se esta categoria está habilitada."
 
-#: expenses/models.py:49
+#: expenses/models.py:73
 msgid "is negative"
 msgstr "é negativo"
 
-#: expenses/models.py:50
+#: expenses/models.py:74
 msgid "If transactions on this category has negative values by default."
 msgstr "Se movimentações desta categoria tem valor negativo por padrão."
 
-#: expenses/models.py:56
+#: expenses/models.py:80
 msgid "category group"
 msgstr "grupo de categoria"
 
-#: expenses/models.py:57
+#: expenses/models.py:81
 msgid "The group this category belongs."
 msgstr "O grupo ao qual esta categoria pertence."
 
-#: expenses/models.py:72
+#: expenses/models.py:85
+msgid "posição"
+msgstr ""
+
+#: expenses/models.py:86
+msgid "Define a posição dentro do grupo de categorias."
+msgstr ""
+
+#: expenses/models.py:100
 msgid "Categories"
 msgstr "Categorias"
 
-#: expenses/models.py:77 expenses/models.py:143
+#: expenses/models.py:106 expenses/models.py:173 restrictions/models.py:19
 #: templates/webapp/transactions/transaction-list.html:35
 msgid "category"
 msgstr "categoria"
 
-#: expenses/models.py:81 expenses/models.py:139
+#: expenses/models.py:110 expenses/models.py:168 restrictions/models.py:14
 msgid "user"
 msgstr "usuário"
 
-#: expenses/models.py:83
+#: expenses/models.py:112
 msgid "color"
 msgstr "cor"
 
-#: expenses/models.py:86
+#: expenses/models.py:115
 msgid ""
 "The color of this category, to make it visually identifiable. Accepts HEX "
 "values only."
@@ -203,71 +368,234 @@ msgstr ""
 "A cor desta categoria, para torná-la visualmente identificável. Aceita "
 "apenas valores hexadecimais."
 
-#: expenses/models.py:88
+#: expenses/models.py:117
 msgid "active"
 msgstr "ativo"
 
-#: expenses/models.py:91
+#: expenses/models.py:120
 #, python-format
 msgid "Config for %(category_name)s"
 msgstr "Configuração para %(category_name)s"
 
-#: expenses/models.py:124
+#: expenses/models.py:153 restrictions/models.py:23 restrictions/models.py:38
 msgid "value"
 msgstr "valor"
 
-#: expenses/models.py:128
+#: expenses/models.py:157
 msgid "The monetary value of this transaction. Accepts decimal values."
 msgstr "O valor monetário desta movimentação. Aceita apenas valores decimais."
 
-#: expenses/models.py:130
-msgid "description"
-msgstr "descrição"
-
-#: expenses/models.py:133
-msgid "The description for this transaction. Ex.: \"Lunch with friends\"."
-msgstr "A descrição desta movimentação. Ex.: \"Almoço com os amigos\"."
-
-#: expenses/models.py:135
+#: expenses/models.py:164 restrictions/models.py:45
 #: templates/webapp/transactions/transaction-list.html:25
 msgid "date"
 msgstr "data"
 
-#: expenses/models.py:136
+#: expenses/models.py:165
 msgid "The date when this transaction happened. Ex.: 10/21/2010."
 msgstr "A data em que esta movimentação aconteceu. Ex.: 21/10/2010."
 
-#: expenses/models.py:140
+#: expenses/models.py:169
 msgid "The owner of this transaction."
 msgstr "O dono desta movimentação."
 
-#: expenses/models.py:144
+#: expenses/models.py:174
 msgid "The category for this transaction."
 msgstr "A categoria desta movimentação."
 
-#: expenses/models.py:147
+#: expenses/models.py:178
 msgid "creation date"
 msgstr "data de criação"
 
-#: expenses/models.py:148
+#: expenses/models.py:179
 msgid "When this transaction was created."
 msgstr "Quando esta movimentação foi criada."
 
-#: expenses/models.py:162
+#: expenses/models.py:183
+#, fuzzy
+msgid "installment of"
+msgstr "Valor da parcela"
+
+#: expenses/models.py:184
+msgid "Which transaction this is a installment of."
+msgstr ""
+
+#: expenses/models.py:188
+msgid "parcela"
+msgstr ""
+
+#: expenses/models.py:189
+msgid "Numero da parcela"
+msgstr ""
+
+#: expenses/models.py:203
 msgid "Transaction"
 msgstr "Movimentação"
 
-#: expenses/models.py:163 templates/webapp/index.html:18
+#: expenses/models.py:204
 #: templates/webapp/transactions/transaction-list.html:11
 msgid "Transactions"
 msgstr "Movimentações"
 
-#: templates/landing.html:53 templates/access/login.html:67
-#: templates/access/forms/login_inline.html:15
+#: expenses/tests/model.py:29
+msgid "Movimentação em 3 parcelas"
+msgstr ""
+
+#: guide/urls.py:8
+msgid "^$"
+msgstr ""
+
+#: guide/urls.py:10
+msgid "^topico/movimentacoes$"
+msgstr ""
+
+#: guide/urls.py:11
+msgid "^topico/relatorios"
+msgstr ""
+
+#: guide/views.py:8
+msgid "guia"
+msgstr ""
+
+#: guide/views.py:9
+msgid "topico"
+msgstr ""
+
+#: guide/views.py:15 templates/webapp/index.html:9
+msgid "Movimentações"
+msgstr ""
+
+#: guide/views.py:16
+msgid "movimentacoes"
+msgstr ""
+
+#: guide/views.py:18 templates/guide/topics/transactions.html:11
+msgid "Criando uma movimentação"
+msgstr ""
+
+#: guide/views.py:19 templates/guide/topics/transactions.html:11
+msgid "criando-movimentacao"
+msgstr ""
+
+#: guide/views.py:22
+#, fuzzy
+msgid "Categorias"
+msgstr "Categorias"
+
+#: guide/views.py:23 templates/guide/topics/transactions.html:25
+#, fuzzy
+msgid "categorias"
+msgstr "Categorias"
+
+#: guide/views.py:27 templates/guide/topics/transactions.html:45
+msgid "movimentacao-parcelada"
+msgstr ""
+
+#: guide/views.py:30 templates/guide/topics/transactions.html:66
+msgid "Editando uma movimentação"
+msgstr ""
+
+#: guide/views.py:31 templates/guide/topics/transactions.html:66
+msgid "editando-movimentacao"
+msgstr ""
+
+#: guide/views.py:34 templates/guide/topics/transactions.html:78
+msgid "Removendo uma movimentação"
+msgstr ""
+
+#: guide/views.py:35 templates/guide/topics/transactions.html:78
+msgid "removendo-movimentacao"
+msgstr ""
+
+#: plans/admin.py:15
+msgid "assinatura"
+msgstr ""
+
+#: plans/admin.py:16
+msgid "assinaturas"
+msgstr ""
+
+#: plans/admin.py:21
+msgid "assinantes"
+msgstr ""
+
+#: plans/admin.py:26
+msgid "Sim"
+msgstr ""
+
+#: plans/admin.py:27
+msgid "Não"
+msgstr ""
+
+#: plans/models.py:11
+msgid "nome"
+msgstr ""
+
+#: plans/models.py:16
+msgid "data de início"
+msgstr ""
+
+#: plans/models.py:19
+msgid "quando a assinatura começou"
+msgstr ""
+
+#: plans/models.py:21
+msgid "data de término"
+msgstr ""
+
+#: plans/models.py:24
+msgid "quando termina a assinatura"
+msgstr ""
+
+#: restrictions/models.py:15
+#, fuzzy
+msgid "The owner of this restriction."
+msgstr "O dono desta movimentação."
+
+#: restrictions/models.py:20
+#, fuzzy
+msgid "The category for this restriction."
+msgstr "A categoria desta movimentação."
+
+#: restrictions/models.py:27
+#, fuzzy
+msgid "The monetary value of this transaction.Accepts decimal values."
+msgstr "O valor monetário desta movimentação. Aceita apenas valores decimais."
+
+#: restrictions/models.py:42
+msgid "The restriction threashold"
+msgstr ""
+
+#: restrictions/models.py:46
+msgid "For which month this restriction applies."
+msgstr ""
+
+#: restrictions/models.py:50
+msgid "The base restriction from whom this one derives"
+msgstr ""
+
+#: restrictions/models.py:70
+#, python-format
+msgid "Restriction: %d of %d on %s"
+msgstr ""
+
+#: templates/404.html:7
+msgid "Ops, a página que você buscava não foi encontrada!"
+msgstr ""
+
+#: templates/500.html:7
+msgid "Um erro ocorreu. Por favor tente novamente mais tarde."
+msgstr ""
+
+#: templates/landing.html:48 templates/access/contact.html:6
+#: templates/webapp/index.html:19
+msgid "Contato"
+msgstr ""
+
+#: templates/landing.html:49 templates/access/login.html:67
 msgid "Login"
 msgstr "Entrar"
 
-#: templates/landing.html:54
+#: templates/landing.html:50
 msgid "Create account"
 msgstr "Criar conta"
 
@@ -284,8 +612,7 @@ msgstr "Senha antiga"
 msgid "New password"
 msgstr "Nova senha"
 
-#: templates/access/change_password.html:27
-#: templates/access/forms/register.html:53
+#: templates/access/change_password.html:27 templates/access/register.html:61
 #: templates/password_reset/reset.html:38
 msgid "Confirm password"
 msgstr "Confirmar senha"
@@ -294,17 +621,29 @@ msgstr "Confirmar senha"
 msgid "Reset password"
 msgstr "Alterar senha"
 
-#: templates/access/login.html:7
-msgid "Please sign in"
-msgstr "Faça login"
+#: templates/access/contact.html:21
+msgid "Nome"
+msgstr ""
 
-#: templates/access/login.html:31 templates/access/forms/login_inline.html:6
-#: templates/access/forms/register.html:21
+#: templates/access/contact.html:43 templates/access/login.html:31
+#: templates/access/register.html:29
 #: templates/password_reset/recovery_form.html:10
 msgid "Email"
 msgstr "Email"
 
-#: templates/access/login.html:77 templates/access/forms/register.html:83
+#: templates/access/contact.html:64
+msgid "Mensagem"
+msgstr ""
+
+#: templates/access/contact.html:82 templates/webapp/feedback-form.html:40
+msgid "Enviar"
+msgstr ""
+
+#: templates/access/login.html:7
+msgid "Please sign in"
+msgstr "Faça login"
+
+#: templates/access/login.html:77
 msgid "Forgot your password?"
 msgstr "Esqueci minha senha"
 
@@ -316,18 +655,243 @@ msgstr "Não é usuário ainda?"
 msgid "Sign up here!"
 msgstr "Registre-se aqui!"
 
-#: templates/access/register.html:7 templates/access/forms/register.html:70
-#: templates/access/forms/register.html:71
+#: templates/access/register.html:7 templates/access/register.html.py:78
+#: templates/access/register.html:79
 msgid "Sign up"
 msgstr "Registre-se"
 
-#: templates/access/forms/register.html:82
+#: templates/access/register.html:90
 msgid "Already a user?"
 msgstr "Já é usuário?"
 
-#: templates/access/forms/register.html:82
+#: templates/access/register.html:90
 msgid "Sign in"
 msgstr "Entrar"
+
+#: templates/admin/base.html:29 templates/admin/email_interface/index.html:4
+#: templates/admin/email_interface/index.html:15
+msgid "Email interface"
+msgstr ""
+
+#: templates/admin/base.html:30
+msgid "Welcome,"
+msgstr ""
+
+#: templates/admin/base.html:35
+msgid "Documentation"
+msgstr ""
+
+#: templates/admin/base.html:38 templates/webapp/user-menu.html:9
+msgid "Change password"
+msgstr "Mudar senha"
+
+#: templates/admin/base.html:40
+msgid "Log out"
+msgstr ""
+
+#: templates/admin/base.html:49 templates/admin/change_form.html:19
+#: templates/admin/email_interface/index.html:14
+msgid "Home"
+msgstr ""
+
+#: templates/admin/change_form.html:22 templates/admin/index.html:33
+msgid "Add"
+msgstr ""
+
+#: templates/admin/change_form.html:32
+msgid "History"
+msgstr ""
+
+#: templates/admin/change_form.html:33
+msgid "View on site"
+msgstr ""
+
+#: templates/admin/change_form.html:44
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/index.html:20
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr ""
+
+#: templates/admin/index.html:21
+#, fuzzy, python-format
+msgid "%(name)s"
+msgstr "Caro %(name)s"
+
+#: templates/admin/index.html:39
+msgid "Change"
+msgstr ""
+
+#: templates/admin/index.html:49
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: templates/admin/index.html:57
+msgid "Recent Actions"
+msgstr ""
+
+#: templates/admin/index.html:58
+msgid "My Actions"
+msgstr ""
+
+#: templates/admin/index.html:62
+msgid "None available"
+msgstr ""
+
+#: templates/admin/index.html:76
+msgid "Unknown content"
+msgstr ""
+
+#: templates/admin/email_interface/index.html:27
+msgid "User query"
+msgstr ""
+
+#: templates/admin/email_interface/index.html:31
+msgid "SQL Query"
+msgstr ""
+
+#: templates/admin/email_interface/index.html:33
+msgid "User table: access_user"
+msgstr ""
+
+#: templates/admin/email_interface/index.html:38
+msgid "Results"
+msgstr ""
+
+#: templates/admin/email_interface/index.html:45
+#, fuzzy
+msgid "Email data"
+msgstr "Email"
+
+#: templates/admin/email_interface/index.html:49
+#, fuzzy
+msgid "Email title"
+msgstr "Email"
+
+#: templates/admin/email_interface/index.html:56
+msgid "Email content"
+msgstr ""
+
+#: templates/admin/email_interface/index.html:63
+msgid "Test Query"
+msgstr ""
+
+#: templates/admin/email_interface/index.html:64
+#, fuzzy
+msgid "Email users"
+msgstr "Email"
+
+#: templates/guide/guide_base.html:8
+msgid "Tópicos"
+msgstr ""
+
+#: templates/guide/guide_base.html:30
+msgid "Seja bem vindo ao guia do usuário!"
+msgstr ""
+
+#: templates/guide/guide_base.html:35
+#, python-format
+msgid ""
+"\n"
+"                            Este guia irá apresentar as funcionalidades no "
+"Niqels. Use-o para aprender rapidamente como usar o site, ou como referência "
+"em caso de dúvidas. <br>\n"
+"                        Caso queira saber mais, <a href=\"%(contact_url)s"
+"\">contate-nos</a>!\n"
+"                    "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:7
+msgid "Movimentações "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:14
+msgid ""
+"\n"
+"                Para criar uma movimentação, use o formulário à esquerda. "
+"Preencha a categoria e valor, e caso ache necessário, a descrição e data "
+"(por padrão é o dia de hoje). <br>\n"
+"                Ao criar uma movimentação, ela será adicionada à listagem ao "
+"lado, e seu balanço será atualizado com os novos dados.\n"
+"            "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:25
+msgid "Categorias de movimentações"
+msgstr ""
+
+#: templates/guide/topics/transactions.html:28
+msgid ""
+"\n"
+"                As categorias servem para definir o tipo de cada "
+"movimentação. Elas ajudam a mostrar para onde seu dinheiro está indo, e são "
+"vistas com clareza nos relatórios. <br>\n"
+"            "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:36
+msgid ""
+"\n"
+"                Para buscar uma categoria, basta digitar no campo ao topo da "
+"listagem, e apenas as categorias relevantes serão mostradas.\n"
+"            "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:45
+msgid "Criando uma movimentação parcelada"
+msgstr ""
+
+#: templates/guide/topics/transactions.html:48
+msgid ""
+"\n"
+"                Uma movimentação parcelada se divide igualmente entre o "
+"número de meses especificado. Por exemplo, ao parcelar em 5 vezes uma compra "
+"no valor de R$ 550,00, serão criadas 5 movimentações de R$ 110,00, sendo a "
+"primeira no dia especificado, e as outras nos meses seguintes, sempre no "
+"mesmo dia do mês. <br>\n"
+"                Para criar uma movimentação parcelada, marque a caixa de "
+"seleção \"<i>Esta é uma compra parcelada</i>\". Campos adicionais irão "
+"surgir para especificar quantidade e valor das parcelas.\n"
+"\n"
+"            "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:57
+msgid ""
+"\n"
+"                Quando uma movimentação é uma parcela, é exibido na listagem "
+"de movimentações o número desta parcela:\n"
+"            "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:69
+msgid ""
+"\n"
+"                Para editar uma movimentação, basta clicar nela na listagem. "
+"Uma janela se abrirá com o formulário de edição. Preencha com os novos "
+"valores e clique em “Salvar”.\n"
+"            "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:81
+msgid ""
+"\n"
+"                Para remover uma movimentação, pare o cursor em cima dela. "
+"Um ícone de lixeira aparecerá ao lado do valor. Clique nela para remover.\n"
+"            "
+msgstr ""
+
+#: templates/guide/topics/transactions.html:86
+msgid ""
+"\n"
+"                Também é possível remover a movimentação através da janela "
+"de edição.\n"
+"            "
+msgstr ""
 
 #: templates/password_reset/recovery_done.html:3
 msgid "New password set"
@@ -408,19 +972,148 @@ msgstr "Um email foi enviado para <strong>%(email)s</strong>."
 msgid "Follow the instructions on this email to set a new password."
 msgstr "Siga as instruções neste email para escolher uma nova senha."
 
-#: templates/webapp/index.html:19
-msgid "Reports"
-msgstr "Relatórios"
+#: templates/plans/cancel.html:7
+msgid "Confirmar cancelamento de assinatura"
+msgstr ""
 
-#: templates/webapp/index.html:127
-msgid "Welcome to Niqels, {0}!"
-msgstr "Bem vindo ao Niqels, {0}!"
+#: templates/plans/cancel.html:16
+#, fuzzy
+msgid "Cancelar"
+msgstr "Cancelar"
 
-#: templates/webapp/user-menu.html:6
-msgid "Change password"
-msgstr "Mudar senha"
+#: templates/plans/cancel.html:19
+#, fuzzy
+msgid "Confirmar"
+msgstr "Confirmar senha"
 
-#: templates/webapp/user-menu.html:9
+#: templates/plans/plans-index.html:7
+msgid "Planos"
+msgstr ""
+
+#: templates/plans/plans-index.html:11
+msgid ""
+"\n"
+"                Assine já o plano Plus, com funcionalidades avançadas para "
+"ajudar você a manter o controle do seu dinheiro!\n"
+"            "
+msgstr ""
+
+#: templates/plans/plans-index.html:19
+msgid "Plano Gratuito"
+msgstr ""
+
+#: templates/plans/plans-index.html:20
+msgid "Plano Plus"
+msgstr ""
+
+#: templates/plans/plans-index.html:27
+msgid "Organização financeira"
+msgstr ""
+
+#: templates/plans/plans-index.html:28
+msgid ""
+"\n"
+"                            Cadastre suas movimentações.\n"
+"                        "
+msgstr ""
+
+#: templates/plans/plans-index.html:38
+msgid "Mobile"
+msgstr ""
+
+#: templates/plans/plans-index.html:39
+msgid ""
+"\n"
+"                            Controle suas finanças pelo nosso aplicativo "
+"Android ou através do site.\n"
+"                        "
+msgstr ""
+
+#: templates/plans/plans-index.html:49 templates/webapp/index.html:10
+msgid "Relatórios"
+msgstr ""
+
+#: templates/plans/plans-index.html:50
+msgid ""
+"\n"
+"                            Veja gráficos que o ajudarão a entender seu "
+"comportamento financeiro.\n"
+"                        "
+msgstr ""
+
+#: templates/plans/plans-index.html:74
+msgid "Planejamento financeiro"
+msgstr ""
+
+#: templates/plans/plans-index.html:75
+msgid ""
+"\n"
+"                            Controle seus gastos criando limites.\n"
+"                        "
+msgstr ""
+
+#: templates/plans/plans-index.html:85
+msgid "Diagnóstico financeiro"
+msgstr ""
+
+#: templates/plans/plans-index.html:86
+msgid ""
+"\n"
+"                            Descubra o que está impactando nas suas "
+"economias e como evitar gastos desnecessários.\n"
+"                        "
+msgstr ""
+
+#: templates/plans/plans-index.html:100
+msgid "Criar conta"
+msgstr ""
+
+#: templates/plans/plans-index.html:101
+msgid ""
+"\n"
+"                                Crie sua conta gratuitamente e faça upgrade "
+"a qualquer momento!\n"
+"                            "
+msgstr ""
+
+#: templates/plans/plans-index.html:124
+msgid "R$ 5,00"
+msgstr ""
+
+#: templates/plans/subscription-info.html:8
+msgid "Detalhes da assinatura"
+msgstr ""
+
+#: templates/plans/subscription-info.html:16
+#, fuzzy
+msgid "Descrição"
+msgstr "Descrição"
+
+#: templates/plans/subscription-info.html:24
+msgid "Data de início"
+msgstr ""
+
+#: templates/plans/subscription-info.html:32
+msgid "Data de término"
+msgstr ""
+
+#: templates/plans/subscription-info.html:43
+msgid "Cancelar assinatura"
+msgstr ""
+
+#: templates/webapp/feedback-form.html:8
+msgid "Dê-nos sua opinião!"
+msgstr ""
+
+#: templates/webapp/feedback-form.html:33
+msgid "Envie sua sugestão!"
+msgstr ""
+
+#: templates/webapp/index.html:16
+msgid "Ajuda"
+msgstr ""
+
+#: templates/webapp/user-menu.html:15
 msgid "Logout"
 msgstr "Sair"
 
@@ -467,9 +1160,68 @@ msgstr "Mostrar dados entre"
 msgid "and"
 msgstr "e"
 
+#: templates/webapp/restrictions/threshold-popover.html:5
+msgid "Essa é uma funcionalidade <strong>Plus</strong>"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:6
+msgid "Saiba mais"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:10
+msgid "Limite de gastos com <strong>((category.name))</strong>"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:12
+msgid ""
+"Foram gastos <strong>((-category.threshold.completion|currency))</strong> de "
+"<strong>((category.threshold.value|currency))</strong>"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:14
+msgid "Alterar limite"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:15
+msgid "Deseja remover este limite de gastos?"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:15
+#, fuzzy
+msgid "Remover limite"
+msgstr "Remover categoria"
+
+#: templates/webapp/restrictions/threshold-popover.html:19
+msgid "Alteração de limite de gastos"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:20
+msgid "Criar um limite de gastos"
+msgstr ""
+
+#: templates/webapp/restrictions/threshold-popover.html:27
+msgid "Salvar"
+msgstr ""
+
 #: templates/webapp/settings/settings.html:4
 msgid "Menu"
 msgstr "Menu"
+
+#: templates/webapp/transactions/installment-form.html:13
+msgid "This is an installment purchase"
+msgstr "Esta é uma compra parcelada"
+
+#: templates/webapp/transactions/installment-form.html:20
+msgid "Total value"
+msgstr "Valor total"
+
+#: templates/webapp/transactions/installment-form.html:39
+msgid "Installment value"
+msgstr "Valor da parcela"
+
+#: templates/webapp/transactions/installment-form.html:57
+msgid "Number of installments"
+msgstr "Número de parcelas"
 
 #: templates/webapp/transactions/month_balance_panel.html:10
 msgid "renevues"
@@ -487,68 +1239,96 @@ msgstr "total"
 msgid "See full report..."
 msgstr "Ver relatório completo..."
 
-#: templates/webapp/transactions/transaction-form.html:3
-msgid "New transaction"
-msgstr "Nova movimentação"
+#: templates/webapp/transactions/transaction-edit.html:9
+msgid "Editar movimentação"
+msgstr ""
 
-#: templates/webapp/transactions/transaction-form.html:39
-#: templates/webapp/transactions/transaction-list.html:78
-#: templates/webapp/transactions/transaction-list.html:131
+#: templates/webapp/transactions/transaction-edit.html:49
+#: templates/webapp/transactions/transaction-form.html:41
+#: templates/webapp/transactions/transaction-list.html:108
+#: templates/webapp/transactions/transaction-list.html:173
 msgid "Value"
 msgstr "Valor"
 
-#: templates/webapp/transactions/transaction-form.html:57
-msgid "Installment value"
-msgstr "Valor da parcela"
-
-#: templates/webapp/transactions/transaction-form.html:73
-msgid "Total value"
-msgstr "Valor total"
-
-#: templates/webapp/transactions/transaction-form.html:90
-msgid "Number of installments"
-msgstr "Número de parcelas"
-
-#: templates/webapp/transactions/transaction-form.html:116
-msgid "This is an installment purchase"
-msgstr "Esta é uma compra parcelada"
-
-#: templates/webapp/transactions/transaction-form.html:120
-#: templates/webapp/transactions/transaction-list.html:75
-#: templates/webapp/transactions/transaction-list.html:128
+#: templates/webapp/transactions/transaction-edit.html:75
+#: templates/webapp/transactions/transaction-form.html:58
+#: templates/webapp/transactions/transaction-list.html:104
+#: templates/webapp/transactions/transaction-list.html:169
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/webapp/transactions/transaction-form.html:131
+#: templates/webapp/transactions/transaction-edit.html:87
+#: templates/webapp/transactions/transaction-form.html:69
 msgid "Example: &quot;Lunch with friends&quot;"
 msgstr "Exemplo: &quot;Almoço com amigos&quot;"
 
-#: templates/webapp/transactions/transaction-form.html:137
-#: templates/webapp/transactions/transaction-list.html:72
+#: templates/webapp/transactions/transaction-edit.html:94
+#: templates/webapp/transactions/transaction-form.html:75
+#: templates/webapp/transactions/transaction-list.html:101
 msgid "Date"
 msgstr "Data"
 
-#: templates/webapp/transactions/transaction-form.html:148
+#: templates/webapp/transactions/transaction-edit.html:109
+#: templates/webapp/transactions/transaction-list.html:139
+#: templates/webapp/transactions/transaction-list.html:204
+msgid "Deseja remover esta movimentação?"
+msgstr ""
+
+#: templates/webapp/transactions/transaction-edit.html:110
+msgid "Remover movimentação"
+msgstr ""
+
+#: templates/webapp/transactions/transaction-edit.html:116
+#: templates/webapp/transactions/transaction-form.html:88
 msgid "Submit"
 msgstr "Enviar"
+
+#: templates/webapp/transactions/transaction-edit.html:121
+msgid "Fechar"
+msgstr ""
+
+#: templates/webapp/transactions/transaction-form.html:3
+msgid "New transaction"
+msgstr "Nova movimentação"
 
 #: templates/webapp/transactions/transaction-list.html:16
 msgid "Group transactions by:"
 msgstr "Agrupar movimentações por:"
 
-#: templates/webapp/transactions/transaction-list.html:99
-#: templates/webapp/transactions/transaction-list.html:152
-msgid "Do you wish to remove this category?"
-msgstr "Deseja remover esta categoria?"
+#: templates/webapp/transactions/transaction-list.html:42
+msgid "Ordenar:"
+msgstr ""
 
-#: templates/webapp/transactions/transaction-list.html:103
-#: templates/webapp/transactions/transaction-list.html:156
+#: templates/webapp/transactions/transaction-list.html:51
+msgid "crescente"
+msgstr ""
+
+#: templates/webapp/transactions/transaction-list.html:61
+msgid "decrescente"
+msgstr ""
+
+#: templates/webapp/transactions/transaction-list.html:128
+#: templates/webapp/transactions/transaction-list.html:193
+msgid "Número desta parcela"
+msgstr ""
+
+#: templates/webapp/transactions/transaction-list.html:144
+#: templates/webapp/transactions/transaction-list.html:209
 msgid "Remove this transaction"
 msgstr "Remover esta movimentação"
 
-#: templates/webapp/transactions/transaction-list.html:167
+#: templates/webapp/transactions/transaction-list.html:220
 msgid "No transactions for the period."
 msgstr "Nenhuma movimentação no período."
+
+#~ msgid "Reports"
+#~ msgstr "Relatórios"
+
+#~ msgid "Welcome to Niqels, {0}!"
+#~ msgstr "Bem vindo ao Niqels, {0}!"
+
+#~ msgid "Do you wish to remove this category?"
+#~ msgstr "Deseja remover esta categoria?"
 
 #~ msgid "Like us on Facebook"
 #~ msgstr "Curta nossa página no Facebook"
@@ -556,17 +1336,8 @@ msgstr "Nenhuma movimentação no período."
 #~ msgid "Organize your money the easy way!"
 #~ msgstr "Organize seus gastos de forma fácil!"
 
-#~ msgid "Edit category"
-#~ msgstr "Editar categoria"
-
 #~ msgid "Color"
 #~ msgstr "Cor"
-
-#~ msgid "Remove category"
-#~ msgstr "Remover categoria"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
 
 #~ msgid "Save"
 #~ msgstr "Salvar"

@@ -30,4 +30,12 @@ docker-compose run --rm app ./manage.py createsuperuser
 
 The url to access the admin is _http://localhost:8080/admin panel/_
 
+## Production
+
+```shell
+docker-compose run --rm app ./manage.py makemessages -l pt_BR -i node_modules -i staticfiles -i static/dist -i "**/doc"
+docker-compose run --rm app ./manage.py makemessages -l pt_BR -d djangojs -i node_modules -i staticfiles -i static/dist -i "**/doc"
+# Update the translations
+docker-compose run --rm app ./manage.py compilemessages
+```
 

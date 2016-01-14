@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-12 23:04-0200\n"
+"POT-Creation-Date: 2016-01-13 23:42-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,93 +18,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/src/js/app/app.js:103
+#: static/src/js/app/app.js:12
+msgid "/movimentacoes"
+msgstr ""
+
+#: static/src/js/app/app.js:27
+msgid "/relatorios"
+msgstr ""
+
+#: static/src/js/app/app.js:33
+msgid "/balanco"
+msgstr ""
+
+#: static/src/js/app/app.js:39
+msgid "/top-categorias"
+msgstr ""
+
+#: static/src/js/app/app.js:45
+msgid "/comparacao-categorias"
+msgstr ""
+
+#: static/src/js/app/app.js:97
 #, c-format
 msgid "%s sucessfuly created!"
 msgstr "%s criada com sucesso!"
 
-#: static/src/js/app/app.js:107
+#: static/src/js/app/app.js:101
 #, c-format
 msgid "%s sucessfuly updated!"
 msgstr "%s atualizada com sucesso!"
 
-#: static/src/js/app/app.js:111
+#: static/src/js/app/app.js:105
 #, c-format
 msgid "An error ocurred creating %s."
 msgstr "Um erro ocorreu ao criado %s."
 
-#: static/src/js/app/app.js:115
+#: static/src/js/app/app.js:109
 #, c-format
 msgid "%s sucessfuly removed."
 msgstr "%s removida com sucesso."
 
-#: static/src/js/app/directives.js:74
+#: static/src/js/app/directives.js:125
 msgid "Confirm action"
 msgstr "Confirmar ação"
 
-#: static/src/js/app/directives.js:107
+#: static/src/js/app/directives.js:168
 msgid "Select one"
 msgstr "Selecione uma categoria"
 
-#: static/src/js/app/services.js:21
+#: static/src/js/app/services.js:43
 msgid "Oops! Something went wrong. Please try again later."
 msgstr "Oops! Deu algo de errado. Por favor, tente denovo depois."
 
-#: static/src/js/app/controllers/category-edit-ctrl.js:26
-#: static/src/js/app/controllers/transaction-form-ctrl.js:53
-msgid "Please fill in the fields correctly."
-msgstr "Por favor, preencha os campos corretamente."
+#: static/src/js/app/controllers/feedback-form-ctrl.js:22
+msgid ""
+"Sua mensagem foi enviada.\n"
+"Responderemos em breve."
+msgstr ""
 
-#: static/src/js/app/controllers/reports-ctrl.js:14
+#: static/src/js/app/controllers/feedback-form-ctrl.js:26
+msgid ""
+"Houve um problema para enviar sua mensagem.\n"
+"Por favor, tente novamente mais tarde."
+msgstr ""
+
+#: static/src/js/app/controllers/reports-ctrl.js:20
 msgid "This month"
 msgstr "Este mês"
 
-#: static/src/js/app/controllers/reports-ctrl.js:15
+#: static/src/js/app/controllers/reports-ctrl.js:21
 msgid "Three months"
 msgstr "Três meses"
 
-#: static/src/js/app/controllers/reports-ctrl.js:16
+#: static/src/js/app/controllers/reports-ctrl.js:22
 msgid "Six months"
 msgstr "Seis meses"
 
-#: static/src/js/app/controllers/reports-ctrl.js:17
+#: static/src/js/app/controllers/reports-ctrl.js:23
 msgid "A year"
 msgstr "Um ano"
 
-#: static/src/js/app/controllers/reports-ctrl.js:18
+#: static/src/js/app/controllers/reports-ctrl.js:24
 msgid "Custom"
 msgstr "Personalizado"
 
-#: static/src/js/app/controllers/reports-ctrl.js:69
+#: static/src/js/app/controllers/reports-ctrl.js:77
 msgid "The period must be 12 months or lower."
 msgstr "O período deve ser de 12 meses ou menos"
 
-#: static/src/js/app/controllers/reports-ctrl.js:73
+#: static/src/js/app/controllers/reports-ctrl.js:81
 msgid "The start date must be lower than the end date."
 msgstr "A data de início deve ser menor que a data final do período."
 
-#: static/src/js/app/controllers/reports-ctrl.js:92
-#: static/src/js/app/controllers/reports-ctrl.js:150
+#: static/src/js/app/controllers/reports-ctrl.js:100
+#: static/src/js/app/controllers/reports-ctrl.js:160
 #: static/src/js/app/modules/charts.js:57
 #: static/src/js/app/modules/charts.js:296
 msgid "Renevues"
 msgstr "Receitas"
 
-#: static/src/js/app/controllers/reports-ctrl.js:93
-#: static/src/js/app/controllers/reports-ctrl.js:154
+#: static/src/js/app/controllers/reports-ctrl.js:101
+#: static/src/js/app/controllers/reports-ctrl.js:164
 #: static/src/js/app/modules/charts.js:58
 #: static/src/js/app/modules/charts.js:295
 msgid "Expenses"
 msgstr "Despesas"
 
-#: static/src/js/app/controllers/reports-ctrl.js:151
-#: static/src/js/app/controllers/reports-ctrl.js:155
+#: static/src/js/app/controllers/reports-ctrl.js:161
+#: static/src/js/app/controllers/reports-ctrl.js:165
 msgid "Balance data"
 msgstr "Balanço"
 
-#: static/src/js/app/controllers/transaction-form-ctrl.js:18
+#: static/src/js/app/controllers/transaction-form-ctrl.js:25
 msgid "Select a category"
 msgstr "Selecione uma categoria"
+
+#: static/src/js/app/controllers/transaction-form-ctrl.js:111
+msgid "Please fill in the fields correctly."
+msgstr "Por favor, preencha os campos corretamente."
 
 #: static/src/js/app/modules/charts.js:59
 msgid "Total"
@@ -114,6 +145,89 @@ msgstr "Total"
 msgid "Average"
 msgstr "Média"
 
-#: static/src/js/app/modules/models.js:40
-msgid "Transaction"
-msgstr "Transação"
+#: static/src/js/app/modules/models.js:47
+#: static/src/js/app/modules/models.js:57
+#: static/src/js/app/modules/models.js:66
+msgid "Limite de gastos"
+msgstr ""
+
+#: static/src/js/app/modules/models.js:93
+msgid "Movimentação parcelada"
+msgstr ""
+
+#: static/src/js/app/modules/models.js:147
+#: static/src/js/app/modules/models.js:153
+#: static/src/js/app/modules/models.js:159
+msgid "Movimentação"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:34
+msgid "Anterior"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:53
+msgid "Sair"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:55
+msgid "Iniciar"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:58
+msgid "Próximo"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:64
+msgid "Finalizar"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:96
+msgid "Bem vindo!"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:98
+msgid ""
+"Seja bem vindo ao Niqels! Vamos lhe mostrar um breve tutorial sobre como "
+"utilizar o site. Clique em \"Próximo\" para começar."
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:102
+msgid "Nova movimentação"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:103
+msgid "Utilize este formulário para criar novas movimentaçoes."
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:125
+msgid "Lista de movimentações"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:126
+msgid ""
+"Aqui você verá suas movimentações. Utilize os controles para customizar a "
+"listagem."
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:139
+msgid "Balanço"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:140
+msgid ""
+"Este painel mostrará seu balanço do mes atual. Para saber mais detalhes, use "
+"o link \"Ver relatório completo...\""
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:154
+msgid "Criar nova movimentação"
+msgstr ""
+
+#: static/src/js/app/modules/tutorial.js:155
+msgid ""
+"Você está pronto para usar o site! Experimente criar sua primeira "
+"movimentação."
+msgstr ""
+
+#~ msgid "Transaction"
+#~ msgstr "Transação"
