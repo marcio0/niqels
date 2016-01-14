@@ -29,5 +29,5 @@ docker-compose run --rm app ./manage.py createsuperuser
 ## Admin access
 
 The url to access the admin is _http://localhost:8080/admin panel/_
-docker-compose run --rm app ./manage.py migrate
+
 
