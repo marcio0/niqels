@@ -7,8 +7,9 @@ grunt:
         npm install
         bower install
         grunt patch-settings --file dev
-        chown -R ${E_UID}:${E_UID} ."
+        chown -R ${UID}:${UID} ."
     environment:
         E_UID: 1000
+        CI: 'true'
     volumes:
         - .:/data
