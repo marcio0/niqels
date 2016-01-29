@@ -5,19 +5,13 @@ TEMPLATE_DEBUG = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/vagrant/expenses.db',
-        # The following settings are not used with sqlite3:
-        'USER': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': 'db',
+        'PORT': '5432',
     }
-}
-
-import dj_database_url
-DATABASES = {
-    'default': dj_database_url.config()
 }
 
 INSTALLED_APPS += (

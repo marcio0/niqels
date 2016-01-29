@@ -6,14 +6,10 @@ app:
     links:
         - db
     environment:
-        - DATABASE_URL=postgres://expenses:1234@db:5432/expenses
+        - DATABASE_URL=postgres://postgres@db:5432/postgres
         - DJANGO_SETTINGS_MODULE=core.dev_settings.dev
     volumes:
         - .:/usr/src/app
 
 db:
     image: postgres
-    environment:
-        - POSTGRES_USER=expenses
-        - POSTGRES_PASSWORD=1234
-        - POSTGRES_DB=expenses

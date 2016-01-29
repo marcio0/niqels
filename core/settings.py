@@ -35,6 +35,18 @@ SITE_ID = 1
 
 SITE_NAME = 'Niqels'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
+}
+
+
 TIME_ZONE = 'America/Sao_Paulo'
 LANGUAGE_CODE = 'pt-br'
 USE_THOUSAND_SEPARATOR = True
@@ -82,7 +94,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = '/usr/src/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -213,13 +225,6 @@ LOGGING = {
 
 SKIP_SOUTH_TESTS = True
 
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-
-DATABASES = {
-    'default': dj_database_url.config()
-}
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -227,11 +232,3 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 TASTYPIE_DEFAULT_FORMATS = ['json']
 
 TASTYPIE_ALLOW_MISSING_SLASH = True
-
-
-"""
-try:
-    from core.local_settings import *
-except ImportError:
-    pass
-"""
