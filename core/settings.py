@@ -28,7 +28,8 @@ ALLOWED_HOSTS = [
     '.herokuapp.com',
     '.niqels.com.br',
     '.niquels.com.br',
-    '.niqels.com'
+    '.niqels.com',
+    '52.91.185.56'
 ]
 
 SITE_ID = 1
